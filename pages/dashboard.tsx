@@ -82,28 +82,26 @@ const DashboardPage = () => {
     const hue = (percentage / 100) * 120;
     return `hsl(${hue}, 100%, 50%)`;
   };
-
-  const skills = [
-    {
-      title: `${skillsToLearn1.split("\n")[0]}`,
-      description: "Why Learn it?",
-      points: [`${skillsToLearn1.split("\n").slice(1).join("\n")}`],
-    },
-    {
-      title: `${skillsToLearn2.split("\n")[0]}`,
-      description: "Why Learn it?",
-      points: [`${skillsToLearn2.split("\n").slice(1).join("\n")}`],
-      outcome: "",
-    },
-    {
-      title: `${skillsToLearn3.split("\n")[0]}`,
-      description: "Why Learn it?",
-      points: [`${skillsToLearn3.split("\n").slice(1).join("\n")}`],
-      outcome: "",
-    },
-    // Add more skills as needed
-  ];
-
+const skills = [
+  {
+    title: skillsToLearn1 ? skillsToLearn1.split("\n")[0] : "",
+    description: "Why Learn it?",
+    points: skillsToLearn1 ? [skillsToLearn1.split("\n").slice(1).join("\n")] : [""],
+  },
+  {
+    title: skillsToLearn2 ? skillsToLearn2.split("\n")[0] : "",
+    description: "Why Learn it?",
+    points: skillsToLearn2 ? [skillsToLearn2.split("\n").slice(1).join("\n")] : [""],
+    outcome: "",
+  },
+  {
+    title: skillsToLearn3 ? skillsToLearn3.split("\n")[0] : "",
+    description: "Why Learn it?",
+    points: skillsToLearn3 ? [skillsToLearn3.split("\n").slice(1).join("\n")] : [""],
+    outcome: "",
+  },
+  // Add more skills as needed
+];
   const handleUploadResume = () => {
     // Logic to handle resume upload will go here
     // For now, we'll just set the state to true
@@ -263,7 +261,7 @@ const DashboardPage = () => {
   const ResumeCard = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // Handle files selected via input element
+    // Handle files se  lected via input element
     const onFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
       const files = event.target.files;
       if (files && files.length > 0 && files[0].type === "application/pdf") {
@@ -275,16 +273,7 @@ const DashboardPage = () => {
       }
     };
 
-    // Handle files dropped onto the drop zone
-    const onFileDrop = (event: React.DragEvent<HTMLDivElement>) => {
-      event.preventDefault();
-      const files = event.dataTransfer.files;
-      if (files.length > 0 && files[0].type === "application/pdf") {
-        setUploadedFile(files[0]);
-        setResumeUploaded(true);
-        console.log("Dropped:", files[0].name);
-      }
-    };
+  
 
     const LabelBox = chakra(Box, {
       shouldForwardProp: (prop) => !["htmlFor"].includes(prop),
@@ -417,11 +406,11 @@ const DashboardPage = () => {
                   handleSelectCertification(e.target.value, setCertification1)
                 }
               >
-                {certifications.map((certification, index) => (
+                {/* {certifications.map((certification, index) => (
                   <option key={index} value={certification.certificate_title}>
                     {certification.certificate_title}
                   </option>
-                ))}
+                ))} */}
               </Select>
               <Select
                 placeholder="Select certification 2"
@@ -430,11 +419,11 @@ const DashboardPage = () => {
                   handleSelectCertification(e.target.value, setCertification2)
                 }
               >
-                {certifications.map((certification, index) => (
+                {/* {certifications.map((certification, index) => (
                   <option key={index} value={certification.certificate_title}>
                     {certification.certificate_title}
                   </option>
-                ))}
+                ))} */}
               </Select>
               <Button
                 backgroundColor={buttonColor}
@@ -606,14 +595,14 @@ const DashboardPage = () => {
                   handleSelectCertification(e.target.value, setCertification1)
                 }
               >
-                {certifications.map((cert) => (
+                {/* {certifications.map((cert) => (
                   <option
                     key={cert.certificate_title}
                     value={cert.certificate_title}
                   >
                     {cert.certificate_title}
                   </option>
-                ))}
+                ))} */}
               </Select>
               <Select
                 value={certification2?.certificate_title || ""}
@@ -622,14 +611,14 @@ const DashboardPage = () => {
                   handleSelectCertification(e.target.value, setCertification2)
                 }
               >
-                {certifications.map((cert) => (
+                {/* {certifications.map((cert) => (
                   <option
                     key={cert.certificate_title}
                     value={cert.certificate_title}
                   >
                     {cert.certificate_title}
                   </option>
-                ))}
+                ))} */}
               </Select>
             </Grid>
             <Text
