@@ -1,26 +1,41 @@
-// pages/api/skills-to-learn.js
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import {
+  BedrockRuntimeClient,
+  ConverseCommand,
+} from "@aws-sdk/client-bedrock-runtime";
 
-const genAI = new GoogleGenerativeAI(`AIzaSyDBrsK6EHTWwg5fC16cbIVCF5S0SJ2Tz3c`); // Make sure API key is set properly
+const client = new BedrockRuntimeClient({ region: 'us-west-2' });
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     const { resumeText, previousResponse } = req.body;
-    try {
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-      const prompt = `You are helping a friend upskill himself so that he can get a job in the tech industry. Based on his resume/information below, give 1 skill you would recommend him to learn? 
-: ${resumeText} Please return the title of the skill AND give why he should learn it in 100 words.Do NOT recommend the same langauge in ${previousResponse} please use a DIFFRENT RECOMMENDATION ALL THE TIME`;
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const text = await response.text();
+    const prompt = `You are helping a friend upskill himself so that he can get a job in the tech industry. Identify 1 skill you would recommend him to learn that he doesnt already know to better his skillset: ${resumeText}. Please return the title of the skill Do NOT recommend the same language in ${previousResponse};. Please return the title of the skill ONLY and no other unecessary words. AFTER the title(put a ---------------------) i would like you to return reasonings for why he should learn the skill you have identified.`;
 
-      return res.status(200).send(text); // Send the response as plain text
+    const modelId = 'anthropic.claude-3-haiku-20240307-v1:0';
+    const conversation = [
+      {
+        role: "user",
+        content: [{ text: prompt }],
+      },
+    ];
+
+    const command = new ConverseCommand({
+      modelId,
+      messages: conversation,
+      inferenceConfig: { maxTokens: 512, temperature: 0.5, topP: 0.9 },
+    });
+
+    try {
+      const response = await client.send(command);
+
+      // Extract and print the response text.
+      const responseText = response.output.message.content[0].text;
+      res.status(200).json(responseText);
     } catch (error) {
-      console.error("Error generating content:", error);
-      res.status(500).json({ error: "Failed to generate content" });
+      console.error(`ERROR: Can't invoke '${modelId}'. Reason: ${error}`);
+      res.status(500).json({ error: 'Failed to invoke model' });
     }
   } else {
-    res.setHeader("Allow", ["POST"]);
+    res.setHeader('Allow', ['POST']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
