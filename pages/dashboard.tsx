@@ -83,11 +83,12 @@ const DashboardPage = () => {
     return `hsl(${hue}, 100%, 50%)`;
   };
 
+  var skillsToLearn5 = `"Recommendation: Tableau\n\nReasons:\n- Tableau is a powerful data visualization tool that is widely used in the tech industry. It allows users to create interactive and visually appealing dashboards and reports, which can be valuable for data analysis and decision-making.\n- Manoj's background in data cleaning, manipulation, and visualization suggests that he has the necessary skills to quickly pick up Tableau and leverage it to create impactful visualizations.\n- Proficiency in Tableau can make Manoj a more attractive candidate for data-driven roles in the tech industry, as it demonstrates his ability to effectively communicate complex data insights.\n- Learning Tableau can also complement Manoj's existing skills in programming languages like Python, enabling him to combine his technical expertise with data visualization capabilities."`
   const skills = [
     {
-      title: skillsToLearn1 ? skillsToLearn1.split("\n")[0] : "",
+      title: skillsToLearn1 ? skillsToLearn1.split("\n\nReasons:\n")[0] : "",
       description: "Why Learn it?",
-      points: skillsToLearn1 ? [skillsToLearn1.split("\n").slice(1).join("\n")] : [""],
+      points: skillsToLearn1 ? [skillsToLearn1.split("\n\nReasons:\n").slice(1).join("\n")] : [""],
     },
     {
       title: skillsToLearn2 ? skillsToLearn2.split("\n")[0] : "",

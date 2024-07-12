@@ -7,7 +7,8 @@ const client = new BedrockRuntimeClient({ region: 'us-west-2' });
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { prompt = "describe manoj a tall indian man." } = req.body;
+    const { resumeText, previousResponse } = req.body;
+    const prompt = `You are helping a friend upskill himself so that he can get a job in the tech industry. Identify 1 skill you would recommend him to learn that he doesnt already know to better his skillset: ${resumeText}. Please return the title of the skill Do NOT recommend the same language in ${previousResponse}; please use a DIFFERENT RECOMMENDATION ALL THE TIME. Please return the title of the skill ONLY and no other unecessary words. Below the title(GO TO THE NEXT LINE) i would like you to return reasonings for why he should learn the skill you have identified.`;
 
     const modelId = 'anthropic.claude-3-haiku-20240307-v1:0';
     const conversation = [
