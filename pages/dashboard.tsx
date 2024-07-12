@@ -85,20 +85,20 @@ const DashboardPage = () => {
 
   const skills = [
     {
-      title: `${skillsToLearn1.split("\n")[0]}`,
+      title: skillsToLearn1 ? skillsToLearn1.split("\n")[0] : "",
       description: "Why Learn it?",
-      points: [`${skillsToLearn1.split("\n").slice(1).join("\n")}`],
+      points: skillsToLearn1 ? [skillsToLearn1.split("\n").slice(1).join("\n")] : [""],
     },
     {
-      title: `${skillsToLearn2.split("\n")[0]}`,
+      title: skillsToLearn2 ? skillsToLearn2.split("\n")[0] : "",
       description: "Why Learn it?",
-      points: [`${skillsToLearn2.split("\n").slice(1).join("\n")}`],
+      points: skillsToLearn2 ? [skillsToLearn2.split("\n").slice(1).join("\n")] : [""],
       outcome: "",
     },
     {
-      title: `${skillsToLearn3.split("\n")[0]}`,
+      title: skillsToLearn3 ? skillsToLearn3.split("\n")[0] : "",
       description: "Why Learn it?",
-      points: [`${skillsToLearn3.split("\n").slice(1).join("\n")}`],
+      points: skillsToLearn3 ? [skillsToLearn3.split("\n").slice(1).join("\n")] : [""],
       outcome: "",
     },
     // Add more skills as needed
