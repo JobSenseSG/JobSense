@@ -36,6 +36,7 @@ import SkillCard from "../components/SkillCard";
 import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import "pdfjs-dist/legacy/build/pdf.worker";
+import { get } from "http";
 
 interface Certification {
   certificate_title: string;
@@ -55,9 +56,9 @@ const DashboardPage = () => {
       fontWeight: "bold",
     },
   });
-  const [skillsToLearn1, setSkillsToLearn1] = useState<any>("");
-  const [skillsToLearn2, setSkillsToLearn2] = useState<any>("");
-  const [skillsToLearn3, setSkillsToLearn3] = useState<any>("");
+  const [skillsToLearn1, setSkillsToLearn1] = useState<string>("");
+  const [skillsToLearn2, setSkillsToLearn2] = useState<string>("");
+  const [skillsToLearn3, setSkillsToLearn3] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingSkills, setLoadingSkills] = useState<boolean>(false);
   const [resumeUploaded, setResumeUploaded] = useState(false);
@@ -82,27 +83,50 @@ const DashboardPage = () => {
     const hue = (percentage / 100) * 120;
     return `hsl(${hue}, 100%, 50%)`;
   };
+// example of a skill string to parse `"Cybersecurity\n\nReasons for learning Cybersecurity:\n1. Gain the ability to protect critical systems, networks, and data from cyber threats, which is essential in the tech industry.\n2. Develop skills in vulnerability assessment, risk management, and incident response, which are highly valued by employers.\n3. Demonstrate your commitment to safeguarding sensitive information and ensuring the integrity of technology systems.\n4. Potentially specialize in areas such as network security, ethical hacking, or digital forensics, further expanding your career opportunities."`
+// OR `"Skill Recommendation: Data Visualization\n\nReasons:\n- Data visualization is a crucial skill in the tech industry, as it allows professionals to effectively communicate complex data and insights to stakeholders.\n- Proficiency in tools like Tableau, Power BI, or D3.js can make a candidate stand out and demonstrate their ability to translate data into meaningful, actionable information.\n- Developing data visualization skills can enhance the candidate's ability to analyze and interpret data, which is a highly sought-after skill in many tech roles.\n- Mastering data visualization can open up opportunities in various tech domains, such as business intelligence, data analytics, and product management."`
+ function getTitle(skillString: string): string {
+    const endIndex = skillString.indexOf('\n\n');
+    console.log("endIndex", endIndex);
+    return endIndex !== -1 ? skillString.substring(0, endIndex) : skillString;
+}
+function getReasons(skillString: string): string {
+    const startIndex = skillString.indexOf('\n\n');
+    return startIndex !== -1 ? skillString.substring(startIndex + 2) : '';
+}
 
-  const skills = [
-    {
-      title: `${skillsToLearn1.split("\n")[0]}`,
-      description: "Why Learn it?",
-      points: [`${skillsToLearn1.split("\n").slice(1).join("\n")}`],
-    },
-    {
-      title: `${skillsToLearn2.split("\n")[0]}`,
-      description: "Why Learn it?",
-      points: [`${skillsToLearn2.split("\n").slice(1).join("\n")}`],
-      outcome: "",
-    },
-    {
-      title: `${skillsToLearn3.split("\n")[0]}`,
-      description: "Why Learn it?",
-      points: [`${skillsToLearn3.split("\n").slice(1).join("\n")}`],
-      outcome: "",
-    },
-    // Add more skills as needed
-  ];
+  //var skillsToLearn5 = `"Skill Recommendation: \n\nData Analysis\n\nReasoning:\n- Data analysis is a crucial skill in the tech industry, as it enables professionals to extract insights from large datasets and make informed decisions.\n- Proficiency in data analysis tools and techniques, such as SQL, Python, and data visualization, can make your friend a valuable asset to any tech company.\n- Understanding data analysis principles and being able to interpret and communicate findings effectively can set your friend apart in the job market."`
+const skillsToLearn4 = `SQL ---------------------\nSQL (Structured Query Language) is a crucial skill for individuals aspiring to work in the tech industry, particularly in roles such as data analysis, database management, and software development. SQL is the standard language used to interact with and manage relational databases, which are the backbone of many modern applications and data-driven systems. By learning SQL, your friend will be able to:\n\n1. Effectively retrieve, manipulate, and analyze data stored in databases, which is a highly sought-after skill in the tech industry.\n2. Develop a deeper understanding of how data is structured and organized, which can enhance their problem-solving and critical thinking abilities.\n3. Automate repetitive data-related tasks, improving efficiency and productivity.\n4. Collaborate more effectively with data scientists, engineers, and other professionals who rely on SQL for their work.\n5. Demonstrate their technical proficiency and adaptability, which can make them a more attractive candidate for tech-related roles.`;
+
+const skillsToLearn5 = `Cloud Computing ---------------------\nCloud computing is a rapidly growing field in the tech industry, with increasing demand for professionals with expertise in cloud platforms like AWS, Azure, or Google Cloud. Developing skills in cloud architecture, deployment, and management can make your friend a valuable asset in organizations undergoing digital transformation. Proficiency in cloud computing can enable your friend to design and implement scalable, secure, and cost-effective cloud-based solutions, which are essential in today's technology landscape. This skill can be applied across various domains, from web development and data analytics to DevOps and cybersecurity, making it a versatile addition to your friend's skillset.`;
+
+const skillsToLearn6 = `Machine Learning ---------------------\nMachine learning is at the forefront of many technological advancements, driving innovations in AI and automation. Proficiency in machine learning algorithms and frameworks can position your friend as a leader in developing intelligent systems. Understanding machine learning principles can enhance your friend's ability to create predictive models and data-driven applications, leading to smarter solutions. This skill can open doors to various industries, including finance, healthcare, and e-commerce, making it a highly versatile and in-demand expertise.`;
+
+const parseSkill = (skillString: string) => {
+  const parts = skillString.split(' ---------------------\n');
+  const title = parts[0]?.trim() || '';
+  const points = parts[1]?.trim() || '';
+  return { title, points };
+};
+
+const skills = [
+  {
+    title: parseSkill(skillsToLearn4).title,
+    description: "Why Learn it?",
+    points: parseSkill(skillsToLearn4).points,
+  },
+  {
+    title: parseSkill(skillsToLearn5).title,
+    description: "Why Learn it?",
+    points: parseSkill(skillsToLearn5).points,
+  },
+  {
+    title: parseSkill(skillsToLearn6).title,
+    description: "Why Learn it?",
+    points: parseSkill(skillsToLearn6).points,
+  },
+];
+
 
   const handleUploadResume = () => {
     // Logic to handle resume upload will go here
