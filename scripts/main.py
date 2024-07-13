@@ -1,174 +1,138 @@
+import time
 from ast import literal_eval
-import google.generativeai as genai
-import psycopg2
+from dotenv import load_dotenv
 import os
 import click
 import pandas as pd
-from dotenv import load_dotenv
-from job import Job
+import boto3
+from botocore.exceptions import NoCredentialsError, PartialCredentialsError, ClientError
+import json
+import requests
 
-# Load env var from .env file
+# Load environment variables from .env file
 load_dotenv()
 
-CONNECTION = os.getenv("CONNECTION")
-API_TOKEN = os.getenv("API_TOKEN")
+# Supabase credentials
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_REGION = 'us-west-2'
+MODEL_ID = 'anthropic.claude-3-haiku-20240307-v1:0'
+
+# Check for AWS credentials
+if not AWS_ACCESS_KEY_ID or not AWS_SECRET_ACCESS_KEY:
+    raise Exception("AWS credentials (AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY) not found in environment variables.")
+
+# Initialize AWS Bedrock client
+client = boto3.client(
+    'bedrock-runtime',
+    region_name=AWS_REGION,
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+)
 
 def query(payload):
-    genai.configure(api_key=API_TOKEN, transport="rest")
+    prompt = f"""
+    Extract the required information from the job opening as a Python variable without special characters. If the extracted values contain multiple items, store values separated by comma. If no value is found, respond with the word, None.
+    Job description: {payload}
+    """
 
-    safety_settings = [
+    conversation = [
         {
-            "category": "HARM_CATEGORY_DANGEROUS",
-            "threshold": "BLOCK_NONE",
-        },
-        {
-            "category": "HARM_CATEGORY_HARASSMENT",
-            "threshold": "BLOCK_NONE",
-        },
-        {
-            "category": "HARM_CATEGORY_HATE_SPEECH",
-            "threshold": "BLOCK_NONE",
-        },
-        {
-            "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-            "threshold": "BLOCK_NONE",
-        },
-        {
-            "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
-            "threshold": "BLOCK_NONE",
-        },
+            "role": "user",
+            "content": [{"text": prompt}],
+        }
     ]
 
-    model = genai.GenerativeModel("gemini-pro", safety_settings=safety_settings)
-
-    tokens = model.count_tokens(payload).total_tokens
-
-    if tokens > 20000:
-        print("Tokens in prompt is " + str(tokens) + ", which is more than allowed.")
-        return
-
-    response = model.generate_content(payload)
-
-    return response.text
-
-
-def save_database(row: Job):
-    if CONNECTION is None:
-        raise Exception("Env file not found")
-
-    with psycopg2.connect(CONNECTION) as conn:
-        cursor = conn.cursor()
-
-        # use the cursor to interact with your database
-        # cursor.execute("SELECT * FROM table")
-        cursor.execute(
-            """
-            INSERT INTO bigdata_job (site, job_url, title, company, location, 
-            job_type, date_posted, interval, min_amount, max_amount, currency, 
-            is_remote, emails, description, years_of_experience, 
-            skills_required) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
-            %s, %s, %s, %s, %s, %s);
-            """,
-            (
-                row.site,
-                row.job_url,
-                row.title,
-                row.company,
-                row.location,
-                row.job_type,
-                row.date_posted,
-                row.interval,
-                row.min_amount,
-                row.max_amount,
-                row.currency,
-                row.is_remote,
-                row.emails,
-                row.description,
-                row.years_of_experience,
-                row.skills_required,
-            ),
+    try:
+        response = client.converse(
+            modelId=MODEL_ID,
+            messages=conversation,
+            inferenceConfig={"maxTokens": 512, "temperature": 0.5, "topP": 0.9},
         )
-        conn.commit()
+        response_text = response["output"]["message"]["content"][0]["text"]
+        return response_text
+    except (NoCredentialsError, PartialCredentialsError) as e:
+        print(f"Credentials error: {e}")
+        return None
+    except ClientError as e:
+        print(f"ERROR: Can't invoke '{MODEL_ID}'. Reason: {e}")
+        return None
+    except Exception as e:
+        print(f"ERROR: Can't invoke '{MODEL_ID}'. Reason: {e}")
+        return None
 
+def insert_into_supabase(data):
+    url = f"{SUPABASE_URL}/rest/v1/your_table_name"
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Content-Type": "application/json"
+    }
+    response = requests.post(url, headers=headers, data=json.dumps(data))
+    if response.status_code != 201:
+        print(f"Error inserting data into Supabase: {response.text}")
 
 def parse(file):
     df = pd.read_csv(file)
 
+    # Ensure required columns are present
+    required_columns = ["site", "job_url", "title", "company", "location", "job_type", "date_posted", "interval", "min_amount", "max_amount", "currency", "is_remote", "emails", "description"]
+    if not all(column in df.columns for column in required_columns):
+        print(f"ERROR: The CSV file must contain the following columns: {', '.join(required_columns)}")
+        return
+
+    extracted_data = []
+
     for _, row in df.iterrows():
-        job = Job(
-            row["site"],
-            row["job_url"],
-            row["title"],
-            row["company"],
-            row["location"],
-            row["job_type"],
-            row["date_posted"],
-            row["interval"],
-            row["min_amount"],
-            row["max_amount"],
-            row["currency"],
-            row["is_remote"],
-            [row["emails"]],
-            row["description"],
-            0,
-            "",
-        )
+        job_description = row["description"]
 
-        keywords = [
-            "years_of_experience",
-            "skills_required",
-        ]
+        # Extracting required information using AWS Bedrock Gen AI
+        extracted_info = query(job_description)
+        while extracted_info is None:
+            print("Waiting for AI response...")
+            time.sleep(5)  # Wait before trying again
+            extracted_info = query(job_description)
 
-        for keyword in keywords:
-            # prompt = """
-            # You are a program that processes and extracts required information from a
-            # job posting based on a keyword which could be academic_qualifications,
-            # professional_qualifications, years_of_experience, and skills_required.
-            # When provided with the years_of_experience keyword, you are to only output
-            # an integer, if nothing is found, you are to output 0.
-            # For other keywords, you are to only provide the exact phrasing from the
-            # job posting if found, otherwise, output the word "None".
-            # Hence, find the {} from the following job posting: {}
-            # """.format(
-            #     keyword, job.description
-            # )
+        print(f"Extracted Info: {extracted_info}")
 
-            prompt = """
-            Extract the {} from the job opening as a Python variable called {} without
-            special characters. If the extracted values contain multiple items, store
-            values seperated by comma. If no value is found, respond with the word,
-            None.
-            """.format(
-                keyword, job.description
-            )
+        try:
+            extracted_info_json = json.loads(extracted_info)
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            continue
 
-            output = query(prompt)
+        data = {
+            "site": row["site"],
+            "job_url": row["job_url"],
+            "title": row["title"],
+            "company": row["company"],
+            "location": row["location"],
+            "job_type": row["job_type"],
+            "date_posted": row["date_posted"],
+            "interval": row["interval"],
+            "min_amount": row["min_amount"],
+            "max_amount": row["max_amount"],
+            "currency": row["currency"],
+            "is_remote": row["is_remote"],
+            "emails": row["emails"],
+            "description": job_description,
+            "extracted_info": extracted_info_json
+        }
 
-            print(output)
+        extracted_data.append(data)
+        insert_into_supabase(data)
 
-            if output is not None and output != "None":
-                if keyword == "skills_required":
-                    job[keyword] = output.split(",")
-                else:
-                    output = "".join(e for e in output if e.isalnum())
-                    job[keyword] = "".join(filter(str.isdigit, output))
-            else:
-                job[keyword] = None
-            # print(json.dumps(job.__dict__, indent=4))
-
-        save_database(job)
-
+        # Add a delay between requests to avoid overwhelming the service
+        time.sleep(1)
 
 @click.command()
 @click.argument("file", type=click.Path(exists=True))
 def main(file):
-    if not CONNECTION or not API_TOKEN:
-        raise Exception("Required variables not found.")
     parse(file)
-
     exit(0)
-
 
 if __name__ == "__main__":
     main()

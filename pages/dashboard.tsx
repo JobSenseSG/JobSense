@@ -83,28 +83,6 @@ const DashboardPage = () => {
     const hue = (percentage / 100) * 120;
     return `hsl(${hue}, 100%, 50%)`;
   };
-<<<<<<< HEAD
-const skills = [
-  {
-    title: skillsToLearn1 ? skillsToLearn1.split("\n")[0] : "",
-    description: "Why Learn it?",
-    points: skillsToLearn1 ? [skillsToLearn1.split("\n").slice(1).join("\n")] : [""],
-  },
-  {
-    title: skillsToLearn2 ? skillsToLearn2.split("\n")[0] : "",
-    description: "Why Learn it?",
-    points: skillsToLearn2 ? [skillsToLearn2.split("\n").slice(1).join("\n")] : [""],
-    outcome: "",
-  },
-  {
-    title: skillsToLearn3 ? skillsToLearn3.split("\n")[0] : "",
-    description: "Why Learn it?",
-    points: skillsToLearn3 ? [skillsToLearn3.split("\n").slice(1).join("\n")] : [""],
-    outcome: "",
-  },
-  // Add more skills as needed
-];
-=======
 // example of a skill string to parse `"Cybersecurity\n\nReasons for learning Cybersecurity:\n1. Gain the ability to protect critical systems, networks, and data from cyber threats, which is essential in the tech industry.\n2. Develop skills in vulnerability assessment, risk management, and incident response, which are highly valued by employers.\n3. Demonstrate your commitment to safeguarding sensitive information and ensuring the integrity of technology systems.\n4. Potentially specialize in areas such as network security, ethical hacking, or digital forensics, further expanding your career opportunities."`
 // OR `"Skill Recommendation: Data Visualization\n\nReasons:\n- Data visualization is a crucial skill in the tech industry, as it allows professionals to effectively communicate complex data and insights to stakeholders.\n- Proficiency in tools like Tableau, Power BI, or D3.js can make a candidate stand out and demonstrate their ability to translate data into meaningful, actionable information.\n- Developing data visualization skills can enhance the candidate's ability to analyze and interpret data, which is a highly sought-after skill in many tech roles.\n- Mastering data visualization can open up opportunities in various tech domains, such as business intelligence, data analytics, and product management."`
  function getTitle(skillString: string): string {
@@ -150,7 +128,6 @@ const skills = [
 ];
 
 
->>>>>>> main
   const handleUploadResume = () => {
     // Logic to handle resume upload will go here
     // For now, we'll just set the state to true

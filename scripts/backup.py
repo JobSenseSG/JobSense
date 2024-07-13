@@ -1,165 +1,109 @@
-import json
-import psycopg2
+from ast import literal_eval
+from dotenv import load_dotenv
 import os
 import click
-import requests
 import pandas as pd
-from dotenv import load_dotenv
-from job import Job
+import boto3
+from botocore.exceptions import NoCredentialsError, PartialCredentialsError, ClientError
+import json
 
-# Load env var from .env file
+# Load environment variables from .env file
 load_dotenv()
 
-CONNECTION = os.getenv("CONNECTION")
-API_URL = os.getenv("API_URL")
-API_TOKEN = os.getenv("API_TOKEN")
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_REGION = 'us-west-2'
+MODEL_ID = 'anthropic.claude-3-haiku-20240307-v1:0'
 
+# Check for AWS credentials
+if not AWS_ACCESS_KEY_ID or not AWS_SECRET_ACCESS_KEY:
+    raise Exception("AWS credentials (AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY) not found in environment variables.")
+
+# Initialize AWS Bedrock client
+client = boto3.client(
+    'bedrock-runtime',
+    region_name=AWS_REGION,
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+)
 
 def query(payload):
-    if API_URL is None:
-        raise Exception("Env file not found")
+    prompt = f"""
+    Extract the required information from the job opening as a Python variable without special characters. If the extracted values contain multiple items, store values separated by comma. If no value is found, respond with the word, None.
+    Job description: {payload}
+    """
 
-    headers = {"Authorization": "Bearer {}".format(API_TOKEN)}
+    conversation = [
+        {
+            "role": "user",
+            "content": [{"text": prompt}],
+        }
+    ]
 
-    response = requests.post(API_URL, headers=headers, json=payload)
-    return response.json()
-
-
-def save_database(rows: list[Job]):
-    if CONNECTION is None:
-        raise Exception("Env file not found")
-
-    with psycopg2.connect(CONNECTION) as conn:
-        cursor = conn.cursor()
-
-        # use the cursor to interact with your database
-        # cursor.execute("SELECT * FROM table")
-        for row in rows:
-            try:
-                cursor.execute(
-                    """
-                    INSERT INTO bigdata_job (site, job_url, title, company, location, 
-                    job_type, date_posted, interval, min_amount, max_amount, currency, 
-                    is_remote, emails, description, academic_qualification, 
-                    professional_qualification, years_of_experience, skills_required) 
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
-                    %s, %s, %s, %s);
-                    """,
-                    (
-                        row.site,
-                        row.job_url,
-                        row.title,
-                        row.company,
-                        row.location,
-                        row.job_type,
-                        row.job_type,
-                        row.date_posted,
-                        row.interval,
-                        row.min_amount,
-                        row.max_amount,
-                        row.currency,
-                        row.is_remote,
-                        row.emails,
-                        row.description,
-                        row.academic_qualification,
-                        row.professional_qualification,
-                        row.years_of_experience,
-                        row.skills_required,
-                    ),
-                )
-            except (Exception, psycopg2.Error) as error:
-                print(error)
-        conn.commit()
-        conn.close()
-    exit()
-
+    try:
+        response = client.converse(
+            modelId=MODEL_ID,
+            messages=conversation,
+            inferenceConfig={"maxTokens": 512, "temperature": 0.5, "topP": 0.9},
+        )
+        response_text = response["output"]["message"]["content"][0]["text"]
+        return response_text
+    except (NoCredentialsError, PartialCredentialsError) as e:
+        print(f"Credentials error: {e}")
+        return None
+    except ClientError as e:
+        print(f"ERROR: Can't invoke '{MODEL_ID}'. Reason: {e}")
+        return None
+    except Exception as e:
+        print(f"ERROR: Can't invoke '{MODEL_ID}'. Reason: {e}")
+        return None
 
 def parse(file):
     df = pd.read_csv(file)
 
-    count = 0
+    # Ensure required columns are present
+    required_columns = ["site", "job_url", "title", "company", "location", "job_type", "date_posted", "interval", "min_amount", "max_amount", "currency", "is_remote", "emails", "description"]
+    if not all(column in df.columns for column in required_columns):
+        print(f"ERROR: The CSV file must contain the following columns: {', '.join(required_columns)}")
+        return
+
+    extracted_data = []
+
     for _, row in df.iterrows():
-        if count == 2:
-            break
-        job = Job(
-            row["site"],
-            row["job_url"],
-            row["title"],
-            row["company"],
-            row["location"],
-            row["job_type"],
-            row["date_posted"],
-            row["interval"],
-            row["min_amount"],
-            row["max_amount"],
-            row["currency"],
-            row["is_remote"],
-            row["emails"],
-            row["description"],
-            "",
-            "",
-            0,
-            "",
-        )
+        job_description = row["description"]
 
-        keywords = [
-            "academic_qualification",
-            "professional_qualification",
-            "years_of_experience",
-            "skills_required",
-        ]
+        # Extracting required information using AWS Bedrock Gen AI
+        extracted_info = query(job_description)
+        if extracted_info is None:
+            extracted_info = "None"
 
-        jobs = []
-        for keyword in keywords:
-            # prompt = """
-            # You are a program that processes and extracts required information from a
-            # job posting based on a keyword which could be academic_qualifications,
-            # professional_qualifications, years_of_experience, and skills_required.
-            # When provided with the years_of_experience keyword, you are to only output
-            # an integer, if nothing is found, you are to output 0.
-            # For other keywords, you are to only provide the exact phrasing from the
-            # job posting if found, otherwise, output the word "None".
-            # Hence, find the {} from the following job posting: {}
-            # """.format(
-            #     keyword, job.description
-            # )
+        extracted_data.append({
+            "site": row["site"],
+            "job_url": row["job_url"],
+            "title": row["title"],
+            "company": row["company"],
+            "location": row["location"],
+            "job_type": row["job_type"],
+            "date_posted": row["date_posted"],
+            "interval": row["interval"],
+            "min_amount": row["min_amount"],
+            "max_amount": row["max_amount"],
+            "currency": row["currency"],
+            "is_remote": row["is_remote"],
+            "emails": row["emails"],
+            "description": job_description,
+            "extracted_info": extracted_info
+        })
 
-            prompt = """
-            Extract the {} from the job opening as a 
-            Python variable called {} without special characters and code.
-            """.format(
-                keyword, job.description
-            )
-
-            output = query(
-                {
-                    "inputs": prompt,
-                    "parameters": {
-                        "temperature": 0.5,
-                        "max_new_tokens": 128,
-                        "top_p": 0.95,
-                        "top_k": 50,
-                        "repetition_penalty": 1.1,
-                        "return_full_text": False,
-                    },
-                }
-            )
-
-            job[keyword] = output[0]["generated_text"]
-
-            print(json.dumps(output, indent=4))
-        jobs.append(job)
-        count += 1
-    # save_database(jobs)
-
+    # Print extracted data instead of saving to a file
+    for data in extracted_data:
+        print(json.dumps(data, indent=2))
 
 @click.command()
 @click.argument("file", type=click.Path(exists=True))
 def main(file):
     parse(file)
-
     exit(0)
-
 
 if __name__ == "__main__":
     main()
