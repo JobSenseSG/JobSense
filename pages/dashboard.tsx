@@ -95,13 +95,6 @@ function getReasons(skillString: string): string {
     return startIndex !== -1 ? skillString.substring(startIndex + 2) : '';
 }
 
-  //var skillsToLearn5 = `"Skill Recommendation: \n\nData Analysis\n\nReasoning:\n- Data analysis is a crucial skill in the tech industry, as it enables professionals to extract insights from large datasets and make informed decisions.\n- Proficiency in data analysis tools and techniques, such as SQL, Python, and data visualization, can make your friend a valuable asset to any tech company.\n- Understanding data analysis principles and being able to interpret and communicate findings effectively can set your friend apart in the job market."`
-const skillsToLearn4 = `SQL ---------------------\nSQL (Structured Query Language) is a crucial skill for individuals aspiring to work in the tech industry, particularly in roles such as data analysis, database management, and software development. SQL is the standard language used to interact with and manage relational databases, which are the backbone of many modern applications and data-driven systems. By learning SQL, your friend will be able to:\n\n1. Effectively retrieve, manipulate, and analyze data stored in databases, which is a highly sought-after skill in the tech industry.\n2. Develop a deeper understanding of how data is structured and organized, which can enhance their problem-solving and critical thinking abilities.\n3. Automate repetitive data-related tasks, improving efficiency and productivity.\n4. Collaborate more effectively with data scientists, engineers, and other professionals who rely on SQL for their work.\n5. Demonstrate their technical proficiency and adaptability, which can make them a more attractive candidate for tech-related roles.`;
-
-const skillsToLearn5 = `Cloud Computing ---------------------\nCloud computing is a rapidly growing field in the tech industry, with increasing demand for professionals with expertise in cloud platforms like AWS, Azure, or Google Cloud. Developing skills in cloud architecture, deployment, and management can make your friend a valuable asset in organizations undergoing digital transformation. Proficiency in cloud computing can enable your friend to design and implement scalable, secure, and cost-effective cloud-based solutions, which are essential in today's technology landscape. This skill can be applied across various domains, from web development and data analytics to DevOps and cybersecurity, making it a versatile addition to your friend's skillset.`;
-
-const skillsToLearn6 = `Machine Learning ---------------------\nMachine learning is at the forefront of many technological advancements, driving innovations in AI and automation. Proficiency in machine learning algorithms and frameworks can position your friend as a leader in developing intelligent systems. Understanding machine learning principles can enhance your friend's ability to create predictive models and data-driven applications, leading to smarter solutions. This skill can open doors to various industries, including finance, healthcare, and e-commerce, making it a highly versatile and in-demand expertise.`;
-
 const parseSkill = (skillString: string) => {
   const parts = skillString.split(' ---------------------\n');
   const title = parts[0]?.trim() || '';
@@ -139,19 +132,19 @@ const certifications12 = [
 
 const skills = [
   {
-    title: parseSkill(skillsToLearn4).title,
+    title: parseSkill(skillsToLearn1).title,
     description: "Why Learn it?",
-    points: parseSkill(skillsToLearn4).points,
+    points: parseSkill(skillsToLearn1).points,
   },
   {
-    title: parseSkill(skillsToLearn5).title,
+    title: parseSkill(skillsToLearn1).title,
     description: "Why Learn it?",
-    points: parseSkill(skillsToLearn5).points,
+    points: parseSkill(skillsToLearn1).points,
   },
   {
-    title: parseSkill(skillsToLearn6).title,
+    title: parseSkill(skillsToLearn1).title,
     description: "Why Learn it?",
-    points: parseSkill(skillsToLearn6).points,
+    points: parseSkill(skillsToLearn1).points,
   },
 ];
 
@@ -199,9 +192,9 @@ const skills = [
           const skillsData = await skillsToLearn(extractedText, "");
           const skillsData1 = await skillsToLearn(extractedText, skillsData);
           const skillsData2 = await skillsToLearn(extractedText, skillsData1);
-          // setSkillsToLearn1(skillsData);
-          // setSkillsToLearn2(skillsData1);
-          // setSkillsToLearn3(skillsData2);
+          setSkillsToLearn1(skillsData);
+          setSkillsToLearn2(skillsData1);
+          setSkillsToLearn3(skillsData2);
           setLoadingSkills(false);
         } catch (error) {
           console.error("Error while extracting text from PDF:", error);

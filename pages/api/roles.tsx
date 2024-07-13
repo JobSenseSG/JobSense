@@ -1,9 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = `https://vajvudbmcgzbyivvtlvy.supabase.co`
-const supabaseKey = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhanZ1ZGJtY2d6YnlpdnZ0bHZ5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMDc1MzE5MCwiZXhwIjoyMDM2MzI5MTkwfQ.sc52sU-m0JUnP9EtnHTPb2tnQ-Gl9us0VTHmRHgnvlw`
-
+const supabaseUrl = ``
+const supabaseKey = ``
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 type ResponseData = {
