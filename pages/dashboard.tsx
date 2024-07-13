@@ -253,7 +253,7 @@ const skills = [
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title: latestRole.latestRole }),
+      body: JSON.stringify({ title: "Software Engineer"}),
     }).then((res) => {
       return res.json();
     });
@@ -384,17 +384,17 @@ const skills = [
       });
   }, []);
 
-  useEffect(() => {
-    fetch("/api/data")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched data:", data); // Check the structure here
-        // setJobs(data); // Assuming data is directly an array of Job objects
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api/data")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log("Fetched data:", data); // Check the structure here
+  //       // setJobs(data); // Assuming data is directly an array of Job objects
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data: ", error);
+  //     });
+  // }, []);
 
   return (
     <Box p={5}>
@@ -503,32 +503,30 @@ const skills = [
                       <Th textAlign="left">Skills Required</Th>
                     </Tr>
                   </Thead>
-                  <Tbody>
-                    {jobs.map((job, index) => (
-                      <Tr key={index}>
-                        <Td whiteSpace="normal" wordBreak="break-word">
-                          <Text textAlign="left" noOfLines={[1, 2, 3]}>
-                            {job.role.company} - {job.role.title}
-                          </Text>
-                        </Td>
-                        <Td textAlign="left">
-                          <Text
-                            color={compatibilityColor(job.compatibility)}
-                            fontWeight="bold"
-                          >
-                            {job.compatibility
-                              ? `${job.compatibility}%`
-                              : "N/A"}
-                          </Text>
-                        </Td>
-                        <Td whiteSpace="normal" wordBreak="break-word">
-                          <Text textAlign="left" noOfLines={[1, 2, 4]}>
-                            {job.role.skills_required.join(", ") || "N/A"}
-                          </Text>
-                        </Td>
-                      </Tr>
-                    ))}
-                  </Tbody>
+                 <Tbody>
+  {jobs.map((job, index) => (
+    <Tr key={index}>
+      <Td whiteSpace="normal" wordBreak="break-word">
+        <Text textAlign="left" noOfLines={[1, 2, 3]}>
+          {job.role.company} - {job.role.title}
+        </Text>
+      </Td>
+      <Td textAlign="left">
+        <Text
+          color={compatibilityColor(job.compatibility)}
+          fontWeight="bold"
+        >
+          {job.compatibility ? `${job.compatibility}%` : "10%"}
+        </Text>
+      </Td>
+      <Td whiteSpace="normal" wordBreak="break-word">
+        <Text textAlign="left" noOfLines={[1, 2, 4]}>
+          {job.role.skills_required?.join(", ") || "N/A"}
+        </Text>
+      </Td>
+    </Tr>
+  ))}
+</Tbody>
                 </Table>
               </TableContainer>
             )}
