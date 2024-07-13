@@ -199,9 +199,9 @@ const skills = [
           const skillsData = await skillsToLearn(extractedText, "");
           const skillsData1 = await skillsToLearn(extractedText, skillsData);
           const skillsData2 = await skillsToLearn(extractedText, skillsData1);
-          setSkillsToLearn1(skillsData);
-          setSkillsToLearn2(skillsData1);
-          setSkillsToLearn3(skillsData2);
+          // setSkillsToLearn1(skillsData);
+          // setSkillsToLearn2(skillsData1);
+          // setSkillsToLearn3(skillsData2);
           setLoadingSkills(false);
         } catch (error) {
           console.error("Error while extracting text from PDF:", error);
