@@ -109,6 +109,34 @@ const parseSkill = (skillString: string) => {
   return { title, points };
 };
 
+const certifications12 = [
+  {
+    certificate_title: "AWS Certified Solutions Architect",
+    certification_demand: "High",
+    pay_range: "$130,000 - $150,000",
+    top_3_job_titles: ["Solutions Architect", "Cloud Architect", "Cloud Engineer"]
+  },
+  {
+    certificate_title: "Certified Kubernetes Administrator (CKA)",
+    certification_demand: "High",
+    pay_range: "$120,000 - $140,000",
+    top_3_job_titles: ["DevOps Engineer", "Kubernetes Administrator", "Site Reliability Engineer"]
+  },
+  {
+    certificate_title: "Certified ScrumMaster (CSM)",
+    certification_demand: "Moderate",
+    pay_range: "$90,000 - $110,000",
+    top_3_job_titles: ["Scrum Master", "Agile Coach", "Project Manager"]
+  },
+  {
+    certificate_title: "Microsoft Certified: Azure Developer Associate",
+    certification_demand: "High",
+    pay_range: "$110,000 - $130,000",
+    top_3_job_titles: ["Azure Developer", "Cloud Developer", "Software Engineer"]
+  }
+];
+
+
 const skills = [
   {
     title: parseSkill(skillsToLearn4).title,
@@ -186,7 +214,7 @@ const skills = [
 
   const handleSelectCertification = (value: any, setCertification: any) => {
     // Find the certification object based on the title selected
-    const selectedCert = certifications.find(
+    const selectedCert = certifications12.find(
       (cert) => cert.certificate_title === value
     );
     // Set the state with the selected certification object
@@ -194,22 +222,30 @@ const skills = [
   };
 
   // This function is triggered when the "Compare" button is clicked
-  const handleCompare = () => {
-    // Check that both certifications have been selected
-    if (certification1 && certification2) {
-      console.log(
-        "Comparing",
-        certification1.certificate_title,
-        "vs",
-        certification2.certificate_title
-      );
-      onOpen(); // This should open the modal
-    } else {
-      console.log("Please select two certifications to compare");
-      // Handle the case where one or both certifications haven't been selected
-      // You might want to show an error message or alert to the user
-    }
-  };
+  const handleCompare = async () => {
+  const certification1 = certifications12[0]; // AWS Certified Solutions Architect
+  const certification2 = certifications12[1]; // Certified Kubernetes Administrator (CKA)
+
+  try {
+    const response = await fetch("/api/compareCertifications", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        certification1: certification1.certificate_title,
+        certification2: certification2.certificate_title,
+      }),
+    });
+    
+    const data = await response.json();
+    console.log("Comparison Result:", data);
+    onOpen();
+  } catch (error) {
+    console.error("Error comparing certifications:", error);
+  }
+};
+
 
   const skillsToLearn = async (resumeText: string, previousResponse: any) => {
     try {
@@ -425,32 +461,29 @@ const skills = [
               Compare your certifications against market demands
             </Text>
             <VStack spacing={3}>
-              <Select
-                placeholder="Select certification 1"
-                width="full"
-                onChange={(e) =>
-                  handleSelectCertification(e.target.value, setCertification1)
-                }
-              >
-                {/* {certifications.map((certification, index) => (
-                  <option key={index} value={certification.certificate_title}>
-                    {certification.certificate_title}
-                  </option>
-                ))} */}
-              </Select>
-              <Select
-                placeholder="Select certification 2"
-                width="full"
-                onChange={(e) =>
-                  handleSelectCertification(e.target.value, setCertification2)
-                }
-              >
-                {/* {certifications.map((certification, index) => (
-                  <option key={index} value={certification.certificate_title}>
-                    {certification.certificate_title}
-                  </option>
-                ))} */}
-              </Select>
+             <Select
+  placeholder="Select certification 1"
+  width="full"
+  onChange={(e) => handleSelectCertification(e.target.value, setCertification1)}
+>
+  {certifications12.map((certifications12, index) => (
+    <option key={index} value={certifications12.certificate_title}>
+      {certifications12.certificate_title}
+    </option>
+  ))}
+</Select>
+<Select
+  placeholder="Select certification 2"
+  width="full"
+  onChange={(e) => handleSelectCertification(e.target.value, setCertification2)}
+>
+  {certifications12.map((certifications12, index) => (
+    <option key={index} value={certifications12.certificate_title}>
+      {certifications12.certificate_title}
+    </option>
+  ))}
+</Select>
+
               <Button
                 backgroundColor={buttonColor}
                 color="white"
@@ -612,13 +645,7 @@ const skills = [
           <ModalBody>
             <Grid templateColumns="repeat(2, 1fr)" gap={6} mb={4}>
               {/* Dropdowns */}
-              <Select
-                value={certification1?.certificate_title || ""}
-                placeholder="Select certification 1"
-                onChange={(e) =>
-                  handleSelectCertification(e.target.value, setCertification1)
-                }
-              >
+             
                 {/* {certifications.map((cert) => (
                   <option
                     key={cert.certificate_title}
@@ -627,23 +654,8 @@ const skills = [
                     {cert.certificate_title}
                   </option>
                 ))} */}
-              </Select>
-              <Select
-                value={certification2?.certificate_title || ""}
-                placeholder="Select certification 2"
-                onChange={(e) =>
-                  handleSelectCertification(e.target.value, setCertification2)
-                }
-              >
-                {/* {certifications.map((cert) => (
-                  <option
-                    key={cert.certificate_title}
-                    value={cert.certificate_title}
-                  >
-                    {cert.certificate_title}
-                  </option>
-                ))} */}
-              </Select>
+           
+            
             </Grid>
             <Text
               fontSize="xl"

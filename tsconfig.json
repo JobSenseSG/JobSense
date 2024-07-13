@@ -39,7 +39,8 @@
     "./types/**/*.d.ts" // Ensure custom types are included
     ,
     "pages/api/latestRole.js",
-    "pages/api/useGemini.js"
+    "pages/api/useGemini.js",
+    "pages/api/compareCertifications.js"
   ],
   "exclude": [
     "node_modules"
