@@ -83,71 +83,81 @@ const DashboardPage = () => {
     const hue = (percentage / 100) * 120;
     return `hsl(${hue}, 100%, 50%)`;
   };
-// example of a skill string to parse `"Cybersecurity\n\nReasons for learning Cybersecurity:\n1. Gain the ability to protect critical systems, networks, and data from cyber threats, which is essential in the tech industry.\n2. Develop skills in vulnerability assessment, risk management, and incident response, which are highly valued by employers.\n3. Demonstrate your commitment to safeguarding sensitive information and ensuring the integrity of technology systems.\n4. Potentially specialize in areas such as network security, ethical hacking, or digital forensics, further expanding your career opportunities."`
-// OR `"Skill Recommendation: Data Visualization\n\nReasons:\n- Data visualization is a crucial skill in the tech industry, as it allows professionals to effectively communicate complex data and insights to stakeholders.\n- Proficiency in tools like Tableau, Power BI, or D3.js can make a candidate stand out and demonstrate their ability to translate data into meaningful, actionable information.\n- Developing data visualization skills can enhance the candidate's ability to analyze and interpret data, which is a highly sought-after skill in many tech roles.\n- Mastering data visualization can open up opportunities in various tech domains, such as business intelligence, data analytics, and product management."`
- function getTitle(skillString: string): string {
-    const endIndex = skillString.indexOf('\n\n');
+  // example of a skill string to parse `"Cybersecurity\n\nReasons for learning Cybersecurity:\n1. Gain the ability to protect critical systems, networks, and data from cyber threats, which is essential in the tech industry.\n2. Develop skills in vulnerability assessment, risk management, and incident response, which are highly valued by employers.\n3. Demonstrate your commitment to safeguarding sensitive information and ensuring the integrity of technology systems.\n4. Potentially specialize in areas such as network security, ethical hacking, or digital forensics, further expanding your career opportunities."`
+  // OR `"Skill Recommendation: Data Visualization\n\nReasons:\n- Data visualization is a crucial skill in the tech industry, as it allows professionals to effectively communicate complex data and insights to stakeholders.\n- Proficiency in tools like Tableau, Power BI, or D3.js can make a candidate stand out and demonstrate their ability to translate data into meaningful, actionable information.\n- Developing data visualization skills can enhance the candidate's ability to analyze and interpret data, which is a highly sought-after skill in many tech roles.\n- Mastering data visualization can open up opportunities in various tech domains, such as business intelligence, data analytics, and product management."`
+  function getTitle(skillString: string): string {
+    const endIndex = skillString.indexOf("\n\n");
     console.log("endIndex", endIndex);
     return endIndex !== -1 ? skillString.substring(0, endIndex) : skillString;
-}
-function getReasons(skillString: string): string {
-    const startIndex = skillString.indexOf('\n\n');
-    return startIndex !== -1 ? skillString.substring(startIndex + 2) : '';
-}
-
-const parseSkill = (skillString: string) => {
-  const parts = skillString.split(' ---------------------\n');
-  const title = parts[0]?.trim() || '';
-  const points = parts[1]?.trim() || '';
-  return { title, points };
-};
-
-const certifications12 = [
-  {
-    certificate_title: "AWS Certified Solutions Architect",
-    certification_demand: "High",
-    pay_range: "$130,000 - $150,000",
-    top_3_job_titles: ["Solutions Architect", "Cloud Architect", "Cloud Engineer"]
-  },
-  {
-    certificate_title: "Certified Kubernetes Administrator (CKA)",
-    certification_demand: "High",
-    pay_range: "$120,000 - $140,000",
-    top_3_job_titles: ["DevOps Engineer", "Kubernetes Administrator", "Site Reliability Engineer"]
-  },
-  {
-    certificate_title: "Certified ScrumMaster (CSM)",
-    certification_demand: "Moderate",
-    pay_range: "$90,000 - $110,000",
-    top_3_job_titles: ["Scrum Master", "Agile Coach", "Project Manager"]
-  },
-  {
-    certificate_title: "Microsoft Certified: Azure Developer Associate",
-    certification_demand: "High",
-    pay_range: "$110,000 - $130,000",
-    top_3_job_titles: ["Azure Developer", "Cloud Developer", "Software Engineer"]
   }
-];
+  function getReasons(skillString: string): string {
+    const startIndex = skillString.indexOf("\n\n");
+    return startIndex !== -1 ? skillString.substring(startIndex + 2) : "";
+  }
 
+  const parseSkill = (skillString: string) => {
+    const parts = skillString.split(" ---------------------\n");
+    const title = parts[0]?.trim() || "";
+    const points = parts[1]?.trim() || "";
+    return { title, points };
+  };
 
-const skills = [
-  {
-    title: parseSkill(skillsToLearn1).title,
-    description: "Why Learn it?",
-    points: parseSkill(skillsToLearn1).points,
-  },
-  {
-    title: parseSkill(skillsToLearn1).title,
-    description: "Why Learn it?",
-    points: parseSkill(skillsToLearn1).points,
-  },
-  {
-    title: parseSkill(skillsToLearn1).title,
-    description: "Why Learn it?",
-    points: parseSkill(skillsToLearn1).points,
-  },
-];
+  const certifications12 = [
+    {
+      certificate_title: "AWS Certified Solutions Architect",
+      certification_demand: "High",
+      pay_range: "$130,000 - $150,000",
+      top_3_job_titles: [
+        "Solutions Architect",
+        "Cloud Architect",
+        "Cloud Engineer",
+      ],
+    },
+    {
+      certificate_title: "Certified Kubernetes Administrator (CKA)",
+      certification_demand: "High",
+      pay_range: "$120,000 - $140,000",
+      top_3_job_titles: [
+        "DevOps Engineer",
+        "Kubernetes Administrator",
+        "Site Reliability Engineer",
+      ],
+    },
+    {
+      certificate_title: "Certified ScrumMaster (CSM)",
+      certification_demand: "Moderate",
+      pay_range: "$90,000 - $110,000",
+      top_3_job_titles: ["Scrum Master", "Agile Coach", "Project Manager"],
+    },
+    {
+      certificate_title: "Microsoft Certified: Azure Developer Associate",
+      certification_demand: "High",
+      pay_range: "$110,000 - $130,000",
+      top_3_job_titles: [
+        "Azure Developer",
+        "Cloud Developer",
+        "Software Engineer",
+      ],
+    },
+  ];
 
+  const skills = [
+    {
+      title: parseSkill(skillsToLearn1).title,
+      description: "Why Learn it?",
+      points: parseSkill(skillsToLearn1).points,
+    },
+    {
+      title: parseSkill(skillsToLearn1).title,
+      description: "Why Learn it?",
+      points: parseSkill(skillsToLearn1).points,
+    },
+    {
+      title: parseSkill(skillsToLearn1).title,
+      description: "Why Learn it?",
+      points: parseSkill(skillsToLearn1).points,
+    },
+  ];
 
   const handleUploadResume = () => {
     // Logic to handle resume upload will go here
@@ -192,9 +202,9 @@ const skills = [
           const skillsData = await skillsToLearn(extractedText, "");
           const skillsData1 = await skillsToLearn(extractedText, skillsData);
           const skillsData2 = await skillsToLearn(extractedText, skillsData1);
-          setSkillsToLearn1(skillsData);
-          setSkillsToLearn2(skillsData1);
-          setSkillsToLearn3(skillsData2);
+          setSkillsToLearn1(skillsData ?? "");
+          setSkillsToLearn2(skillsData1 ?? "");
+          setSkillsToLearn3(skillsData2 ?? "");
           setLoadingSkills(false);
         } catch (error) {
           console.error("Error while extracting text from PDF:", error);
@@ -216,29 +226,28 @@ const skills = [
 
   // This function is triggered when the "Compare" button is clicked
   const handleCompare = async () => {
-  const certification1 = certifications12[0]; // AWS Certified Solutions Architect
-  const certification2 = certifications12[1]; // Certified Kubernetes Administrator (CKA)
+    const certification1 = certifications12[0]; // AWS Certified Solutions Architect
+    const certification2 = certifications12[1]; // Certified Kubernetes Administrator (CKA)
 
-  try {
-    const response = await fetch("/api/compareCertifications", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        certification1: certification1.certificate_title,
-        certification2: certification2.certificate_title,
-      }),
-    });
-    
-    const data = await response.json();
-    console.log("Comparison Result:", data);
-    onOpen();
-  } catch (error) {
-    console.error("Error comparing certifications:", error);
-  }
-};
+    try {
+      const response = await fetch("/api/compareCertifications", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          certification1: certification1.certificate_title,
+          certification2: certification2.certificate_title,
+        }),
+      });
 
+      const data = await response.json();
+      console.log("Comparison Result:", data);
+      onOpen();
+    } catch (error) {
+      console.error("Error comparing certifications:", error);
+    }
+  };
 
   const skillsToLearn = async (resumeText: string, previousResponse: any) => {
     try {
@@ -282,7 +291,7 @@ const skills = [
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title: "Software Engineer"}),
+      body: JSON.stringify({ title: "Software Engineer" }),
     }).then((res) => {
       return res.json();
     });
@@ -327,8 +336,6 @@ const skills = [
         console.log("Uploaded:", files[0].name);
       }
     };
-
-  
 
     const LabelBox = chakra(Box, {
       shouldForwardProp: (prop) => !["htmlFor"].includes(prop),
@@ -454,28 +461,38 @@ const skills = [
               Compare your certifications against market demands
             </Text>
             <VStack spacing={3}>
-             <Select
-  placeholder="Select certification 1"
-  width="full"
-  onChange={(e) => handleSelectCertification(e.target.value, setCertification1)}
->
-  {certifications12.map((certifications12, index) => (
-    <option key={index} value={certifications12.certificate_title}>
-      {certifications12.certificate_title}
-    </option>
-  ))}
-</Select>
-<Select
-  placeholder="Select certification 2"
-  width="full"
-  onChange={(e) => handleSelectCertification(e.target.value, setCertification2)}
->
-  {certifications12.map((certifications12, index) => (
-    <option key={index} value={certifications12.certificate_title}>
-      {certifications12.certificate_title}
-    </option>
-  ))}
-</Select>
+              <Select
+                placeholder="Select certification 1"
+                width="full"
+                onChange={(e) =>
+                  handleSelectCertification(e.target.value, setCertification1)
+                }
+              >
+                {certifications12.map((certifications12, index) => (
+                  <option
+                    key={index}
+                    value={certifications12.certificate_title}
+                  >
+                    {certifications12.certificate_title}
+                  </option>
+                ))}
+              </Select>
+              <Select
+                placeholder="Select certification 2"
+                width="full"
+                onChange={(e) =>
+                  handleSelectCertification(e.target.value, setCertification2)
+                }
+              >
+                {certifications12.map((certifications12, index) => (
+                  <option
+                    key={index}
+                    value={certifications12.certificate_title}
+                  >
+                    {certifications12.certificate_title}
+                  </option>
+                ))}
+              </Select>
 
               <Button
                 backgroundColor={buttonColor}
@@ -529,30 +546,32 @@ const skills = [
                       <Th textAlign="left">Skills Required</Th>
                     </Tr>
                   </Thead>
-                 <Tbody>
-  {jobs.map((job, index) => (
-    <Tr key={index}>
-      <Td whiteSpace="normal" wordBreak="break-word">
-        <Text textAlign="left" noOfLines={[1, 2, 3]}>
-          {job.role.company} - {job.role.title}
-        </Text>
-      </Td>
-      <Td textAlign="left">
-        <Text
-          color={compatibilityColor(job.compatibility)}
-          fontWeight="bold"
-        >
-          {job.compatibility ? `${job.compatibility}%` : "10%"}
-        </Text>
-      </Td>
-      <Td whiteSpace="normal" wordBreak="break-word">
-        <Text textAlign="left" noOfLines={[1, 2, 4]}>
-          {job.role.skills_required?.join(", ") || "N/A"}
-        </Text>
-      </Td>
-    </Tr>
-  ))}
-</Tbody>
+                  <Tbody>
+                    {jobs.map((job, index) => (
+                      <Tr key={index}>
+                        <Td whiteSpace="normal" wordBreak="break-word">
+                          <Text textAlign="left" noOfLines={[1, 2, 3]}>
+                            {job.role.company} - {job.role.title}
+                          </Text>
+                        </Td>
+                        <Td textAlign="left">
+                          <Text
+                            color={compatibilityColor(job.compatibility)}
+                            fontWeight="bold"
+                          >
+                            {job.compatibility
+                              ? `${job.compatibility}%`
+                              : "10%"}
+                          </Text>
+                        </Td>
+                        <Td whiteSpace="normal" wordBreak="break-word">
+                          <Text textAlign="left" noOfLines={[1, 2, 4]}>
+                            {job.role.skills_required?.join(", ") || "N/A"}
+                          </Text>
+                        </Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
                 </Table>
               </TableContainer>
             )}
@@ -638,8 +657,8 @@ const skills = [
           <ModalBody>
             <Grid templateColumns="repeat(2, 1fr)" gap={6} mb={4}>
               {/* Dropdowns */}
-             
-                {/* {certifications.map((cert) => (
+
+              {/* {certifications.map((cert) => (
                   <option
                     key={cert.certificate_title}
                     value={cert.certificate_title}
@@ -647,8 +666,6 @@ const skills = [
                     {cert.certificate_title}
                   </option>
                 ))} */}
-           
-            
             </Grid>
             <Text
               fontSize="xl"
