@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "npm install --legacy-peer-deps"
+    "lint": "next lint"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock": "^3.614.0",
@@ -32,8 +31,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
-    "react-pdf": "^7.7.1",
-    "react-scripts": "^5.0.1"
+    "react-pdf": "^7.7.1"
   },
   "devDependencies": {
     "@types/node": "^20",
