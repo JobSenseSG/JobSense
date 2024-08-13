@@ -16,8 +16,9 @@ import Link from "next/link";
 const GradientText = chakra(Text, {
   baseStyle: {
     bgClip: "text",
-    bgGradient: "linear(to-r, #8E2DE2, #4A00E0)",
+    bgGradient: "linear(to-r, #6A00F4, #BF00FF, #FF006E)",
     fontWeight: "bold",
+    display: "inline",
   },
 });
 
@@ -42,15 +43,44 @@ const fadeIn = keyframes`
   }
 `;
 
+const gradientBorderStyle = {
+  border: "2px solid",
+  borderImageSlice: 1,
+  borderImageSource: "linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)",
+  borderRadius: "12px", // Explicitly set the border-radius
+  backgroundColor: "transparent",
+  color: "white",
+  padding: "0.5rem 1rem",
+  fontWeight: "bold",
+  transition: "all 0.3s ease-in-out", // Add transition for smooth hover effect
+  _hover: {
+    backgroundColor: "linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)",
+    color: "white",
+    borderRadius: "12px", // Ensure border-radius is maintained on hover
+    boxShadow: "0px 0px 15px rgba(106, 0, 244, 0.7)", // Add shadow for hover effect
+  },
+};
+
 const Card = ({ title, description, icon }) => (
   <Box
+    position="relative"
     bg="#1A1A1A"
     borderRadius="lg"
     p={6}
     boxShadow="lg"
     _hover={{ boxShadow: "xl", transform: "translateY(-5px)" }}
     transition="all 0.3s ease"
+    overflow="hidden"
   >
+    <Box
+      position="absolute"
+      top="0"
+      left="0"
+      right="0"
+      height="4px"
+      bgGradient="linear(to-r, #8E2DE2, #4A00E0)"
+      borderTopRadius="lg"
+    />
     <HStack spacing={4} mb={4}>
       <Box
         as="span"
@@ -68,12 +98,15 @@ const Card = ({ title, description, icon }) => (
 );
 
 const IndexPage = () => {
-  const [animate, setAnimate] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Trigger animation when the component mounts
-    setAnimate(true);
+    setIsClient(true);
   }, []);
+
+  if (!isClient) {
+    return null; // Render nothing on the server to prevent mismatch
+  }
 
   return (
     <Box bg="#121212" color="white" overflow="hidden">
@@ -81,105 +114,41 @@ const IndexPage = () => {
       <Box
         p={5}
         display="flex"
-        justifyContent="space-between"
+        justifyContent="center"
         alignItems="center"
-        flexDirection={{ base: "column", md: "row" }}
+        flexDirection="column"
         minHeight="100vh"
         position="relative"
+        textAlign="center"
+        bgGradient="radial(circle, rgba(144, 0, 255, 0.6), transparent 25%)"
       >
-        <Flex
-          justifyContent="flex-start"
-          alignItems="center"
-          position="absolute"
-          top="20px"
-          left="20px"
-          zIndex="10"
-        >
-          <GradientText mr={2} fontSize="2xl">
-            JobSense
-          </GradientText>
-        </Flex>
-
-        <VStack
-          spacing={8}
-          align="flex-start"
-          flex="1"
-          p={5}
-          zIndex="1"
-          mt="80px"
-        >
-          <GradientText as="h1" fontSize="6xl" textAlign="left">
-            Empower Your Career with AI-Driven Insights
-          </GradientText>
-          <Text fontSize="xl" color="gray.300" textAlign="left">
-            JobSense provides personalized job recommendations, real-time market
-            insights, and certification guidance to help you stay competitive in
-            the tech industry.
-          </Text>
-          <HStack spacing={4}>
-            <Link href="/dashboard" passHref>
-              <Button
-                backgroundColor="transparent"
-                color="white"
-                size="lg"
-                border="2px solid"
-                borderColor="white"
-                _hover={{ backgroundColor: "#8E2DE2", color: "white" }}
-              >
-                Go to Dashboard
-              </Button>
-            </Link>
-            <Link
-              href="https://drive.google.com/file/d/1wyJb7LlQA4zeD-Oll264UXnw7tyabbT3/view"
-              passHref
-            >
-              <Button
-                backgroundColor="transparent"
-                color="white"
-                size="lg"
-                border="2px solid"
-                borderColor="white"
-                _hover={{ backgroundColor: "#8E2DE2", color: "white" }}
-              >
-                Watch Video
-              </Button>
-            </Link>
-          </HStack>
-        </VStack>
-
-        <Box
-          flex="1"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          position="relative"
-          zIndex="1"
-          animation={animate ? `${fadeIn} 1s ease-in-out forwards` : "none"}
-        >
-          <Image
-            src="/preview.png"
-            alt="AI-Driven Insights"
-            borderRadius="lg"
-            shadow="lg"
-            maxWidth="90%"
-          />
-        </Box>
-
-        <Box
-          position="absolute"
-          top="0"
-          right="0"
-          bottom="0"
-          width="50%"
-          bgGradient="linear(to-l, #8E2DE2, #4A00E0)"
-          borderTopLeftRadius="50%"
-          borderBottomLeftRadius="50%"
-          zIndex="0"
-          animation={
-            animate ? `${slideInBounce} 0.9s ease-out forwards` : "none"
-          }
-        />
+        <GradientText fontSize="2xl" mb={4}>
+          JobSense
+        </GradientText>
+        <Text fontSize="6xl" fontWeight="bold" mb={4}>
+          Empower Your Career with{" "}
+          <GradientText fontSize="6xl">AI-Driven Insights</GradientText>
+        </Text>
+        <Text fontSize="xl" color="gray.300" mb={8}>
+          JobSense provides personalized job recommendations, real-time market
+          insights, and certification guidance to help you stay competitive in
+          the tech industry.
+        </Text>
+        <HStack spacing={4}>
+          <Link href="/dashboard" passHref>
+            <Button sx={gradientBorderStyle}>Go to Dashboard</Button>
+          </Link>
+          <Link
+            href="https://drive.google.com/file/d/1wyJb7LlQA4zeD-Oll264UXnw7tyabbT3/view"
+            passHref
+          >
+            <Button sx={gradientBorderStyle}>Watch Video</Button>
+          </Link>
+        </HStack>
       </Box>
+
+      {/* Divider Line */}
+      <Box bg="gray.600" height="1px" width="80%" mx="auto" my={20} />
 
       {/* Cards Section */}
       <Box mt={20} p={10} width="100%" zIndex="2">
@@ -208,7 +177,86 @@ const IndexPage = () => {
             description="Identify certifications that will boost your career. Based on your current skill set and industry trends, JobSense recommends certifications that can enhance your expertise and open up new career opportunities."
             icon="🎓"
           />
+          <Card
+            title="AI-Trained Recommendations"
+            description="Our AI is constantly updated with the latest job listings, providing you with accurate and relevant job suggestions that align with your career goals."
+            icon="🤖"
+          />
+          <Card
+            title="Match Score for Job Listings"
+            description="Get a personalized match score for each job listing, helping you identify the opportunities that best fit your profile and increase your chances of success."
+            icon="✅"
+          />
+          <Card
+            title="Comprehensive Data Collection"
+            description="We gather data from multiple sources to ensure that our AI provides you with the most current and relevant job market information."
+            icon="📚"
+          />
         </SimpleGrid>
+      </Box>
+
+      {/* Divider Line */}
+      <Box bg="gray.600" height="1px" width="80%" mx="auto" my={20} />
+
+      {/* Dashboard Preview Section */}
+      <Box mt={20} p={10} width="100%" zIndex="2">
+        <Text
+          fontSize="3xl"
+          fontWeight="bold"
+          textAlign="center"
+          mb={10}
+          color="white"
+        >
+          See JobSense in Action
+        </Text>
+
+        <Flex
+          flexDirection={{ base: "column", md: "row" }}
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          {/* Text Section */}
+          <VStack
+            align="flex-start"
+            spacing={4}
+            flex="1"
+            pr={{ md: 16 }} // Increased padding-right to create more space
+            textAlign={{ base: "center", md: "left" }}
+          >
+            <GradientText fontSize="2xl" fontWeight="bold">
+              Experience AI-Powered Career Insights in Real-Time
+            </GradientText>
+            <Text color="gray.300" fontSize="xl">
+              <span style={{ color: "#A020F0", fontWeight: "bold" }}>• </span>
+              Upload your resume and instantly receive personalized job
+              recommendations based on your unique skills and experience.
+            </Text>
+            <Text color="gray.300" fontSize="xl">
+              <span style={{ color: "#A020F0", fontWeight: "bold" }}>• </span>
+              Compare your certifications with current market demands and
+              identify areas for improvement.
+            </Text>
+            <Text color="gray.300" fontSize="xl">
+              <span style={{ color: "#A020F0", fontWeight: "bold" }}>• </span>
+              Track your job qualification scale to discover how well you meet
+              the requirements of your target jobs.
+            </Text>
+          </VStack>
+
+          {/* Image Section */}
+          <Box flex="1" mt={{ base: 16, md: 0 }}>
+            {" "}
+            {/* Increased margin-top on mobile for more space */}
+            <Image
+              src="/preview.png" // replace with your actual image path
+              alt="Dashboard Preview"
+              borderRadius="lg"
+              shadow="0px 4px 20px rgba(144, 0, 255, 0.6)" // Updated shadow effect
+              maxWidth="100%"
+              mx="auto"
+            />
+          </Box>
+        </Flex>
       </Box>
     </Box>
   );
