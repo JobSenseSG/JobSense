@@ -22,6 +22,13 @@ const GradientText = chakra(Text, {
   },
 });
 
+interface CardProps {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+}
+
+
 const slideInBounce = keyframes`
   0% {
     transform: translateX(100%);
@@ -61,7 +68,7 @@ const gradientBorderStyle = {
   },
 };
 
-const Card = ({ title, description, icon }) => (
+const Card: React.FC<CardProps> = ({ title, description, icon }) => (
   <Box
     position="relative"
     bg="#1A1A1A"
