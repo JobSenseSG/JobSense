@@ -129,12 +129,12 @@ const IndexPage = () => {
         textAlign="center"
         bgGradient="radial(circle, rgba(144, 0, 255, 0.6), transparent 25%)"
       >
-        <GradientText fontSize="2xl" mb={4}>
+        <GradientText fontSize="7xl" mb={4}>
           JobSense
         </GradientText>
         <Text fontSize="6xl" fontWeight="bold" mb={4}>
-          Empower Your Career with{" "}
-          <GradientText fontSize="6xl">AI-Driven Insights</GradientText>
+          <GradientText>Empower Your Career{" "}</GradientText>
+          with AI-Driven Insights
         </Text>
         <Text fontSize="xl" color="gray.300" mb={8}>
           JobSense provides personalized job recommendations, real-time market
