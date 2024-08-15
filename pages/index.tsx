@@ -3,13 +3,13 @@ import {
   Box,
   Button,
   Text,
-  Image,
-  VStack,
   HStack,
+  VStack,
   Flex,
   chakra,
+  Link as ChakraLink,
   SimpleGrid,
-  keyframes,
+  Image, // Ensure correct import
 } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -22,51 +22,66 @@ const GradientText = chakra(Text, {
   },
 });
 
+const gradientBorderStyle = {
+  border: "2px solid",
+  borderImageSlice: 1,
+  borderImageSource: "linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)",
+  borderRadius: "12px",
+  backgroundColor: "transparent",
+  color: "white",
+  padding: "0.5rem 1rem",
+  fontWeight: "bold",
+  transition: "all 0.3s ease-in-out",
+  _hover: {
+    backgroundColor: "linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)",
+    color: "white",
+    borderRadius: "12px",
+    boxShadow: "0px 0px 15px rgba(106, 0, 244, 0.7)",
+  },
+};
+
+const Navbar = () => (
+  <Flex
+    as="nav"
+    bg="#1A1A1A"
+    color="white"
+    padding="1rem 2rem"
+    justifyContent="space-between"
+    alignItems="center"
+    position="fixed"
+    top="0"
+    left="0"
+    width="100%"
+    zIndex="10"
+  >
+    <GradientText fontSize="4xl">JobSense</GradientText>
+    <HStack spacing={6} display={{ base: "none", md: "flex" }}>
+      <Link href="/dashboard" passHref>
+        <ChakraLink _hover={{ color: "#FF006E" }}>Dashboard</ChakraLink>
+      </Link>
+      <Link href="/features" passHref>
+        <ChakraLink _hover={{ color: "#FF006E" }}>Enterprise Solution</ChakraLink>
+      </Link>
+      <Link href="#about" passHref>
+        <ChakraLink _hover={{ color: "#FF006E" }}>About</ChakraLink>
+      </Link>
+    </HStack>
+    <HStack spacing={4}>
+      <Link href="/login" passHref>
+        <Button sx={gradientBorderStyle}>Login</Button>
+      </Link>
+      <Link href="/signup" passHref>
+        <Button sx={gradientBorderStyle}>Sign Up</Button>
+      </Link>
+    </HStack>
+  </Flex>
+);
+
 interface CardProps {
   title: string;
   description: string;
   icon: React.ReactNode;
 }
-
-
-const slideInBounce = keyframes`
-  0% {
-    transform: translateX(100%);
-  }
-  70% {
-    transform: translateX(-5%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-`;
-
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
-const gradientBorderStyle = {
-  border: "2px solid",
-  borderImageSlice: 1,
-  borderImageSource: "linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)",
-  borderRadius: "12px", // Explicitly set the border-radius
-  backgroundColor: "transparent",
-  color: "white",
-  padding: "0.5rem 1rem",
-  fontWeight: "bold",
-  transition: "all 0.3s ease-in-out", // Add transition for smooth hover effect
-  _hover: {
-    backgroundColor: "linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)",
-    color: "white",
-    borderRadius: "12px", // Ensure border-radius is maintained on hover
-    boxShadow: "0px 0px 15px rgba(106, 0, 244, 0.7)", // Add shadow for hover effect
-  },
-};
 
 const Card: React.FC<CardProps> = ({ title, description, icon }) => (
   <Box
@@ -117,6 +132,7 @@ const IndexPage = () => {
 
   return (
     <Box bg="#121212" color="white" overflow="hidden">
+      <Navbar />
       {/* Top Section */}
       <Box
         p={5}
@@ -128,15 +144,13 @@ const IndexPage = () => {
         position="relative"
         textAlign="center"
         bgGradient="radial(circle, rgba(144, 0, 255, 0.6), transparent 25%)"
+        mt="80px" // Adjusted margin-top to accommodate the fixed navbar
       >
-        <GradientText fontSize="7xl" mb={4}>
-          JobSense
-        </GradientText>
-        <Text fontSize="6xl" fontWeight="bold" mb={4}>
+        <Text fontSize={{ base: "4xl", md: "6xl" }} fontWeight="bold" mb={4}>
           <GradientText>Empower Your Career{" "}</GradientText>
           with AI-Driven Insights
         </Text>
-        <Text fontSize="xl" color="gray.300" mb={8}>
+        <Text fontSize={{ base: "lg", md: "xl" }} color="gray.300" mb={8}>
           JobSense provides personalized job recommendations, real-time market
           insights, and certification guidance to help you stay competitive in
           the tech industry.
@@ -158,10 +172,10 @@ const IndexPage = () => {
       <Box bg="gray.600" height="1px" width="80%" mx="auto" my={20} />
 
       {/* Cards Section */}
-      <Box mt={20} p={10} width="100%" zIndex="2">
+      <Box  id="about" mt={20} p={10} width="100%" zIndex="2">
         <Text
           textAlign="center"
-          fontSize="3xl"
+          fontSize={{ base: "2xl", md: "3xl" }}
           fontWeight="bold"
           mb={10}
           color="white"
@@ -208,7 +222,7 @@ const IndexPage = () => {
       {/* Dashboard Preview Section */}
       <Box mt={20} p={10} width="100%" zIndex="2">
         <Text
-          fontSize="3xl"
+          fontSize={{ base: "2xl", md: "3xl" }}
           fontWeight="bold"
           textAlign="center"
           mb={10}
@@ -227,7 +241,7 @@ const IndexPage = () => {
             align="flex-start"
             spacing={4}
             flex="1"
-            pr={{ md: 16 }} // Increased padding-right to create more space
+            pr={{ md: 16 }}
             textAlign={{ base: "center", md: "left" }}
           >
             <GradientText fontSize="2xl" fontWeight="bold">
@@ -252,13 +266,11 @@ const IndexPage = () => {
 
           {/* Image Section */}
           <Box flex="1" mt={{ base: 16, md: 0 }}>
-            {" "}
-            {/* Increased margin-top on mobile for more space */}
             <Image
               src="/preview.png" // replace with your actual image path
               alt="Dashboard Preview"
               borderRadius="lg"
-              shadow="0px 4px 20px rgba(144, 0, 255, 0.6)" // Updated shadow effect
+              shadow="0px 4px 20px rgba(144, 0, 255, 0.6)"
               maxWidth="100%"
               mx="auto"
             />
