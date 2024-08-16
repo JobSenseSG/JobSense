@@ -312,6 +312,7 @@ const DashboardPage = () => {
     setJobs(analysis);
     setLoading(false);
   };
+
   const ResumeCard = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -516,7 +517,9 @@ const DashboardPage = () => {
                       <Tr key={index}>
                         <Td whiteSpace="normal" wordBreak="break-word">
                           <Text textAlign="left" noOfLines={[1, 2, 3]}>
-                            {job.role.company} - {job.role.title}
+                            {job?.role?.company
+                              ? `${job.role.company} - ${job.role.title}`
+                              : "N/A"}
                           </Text>
                         </Td>
                         <Td textAlign="left">
@@ -531,7 +534,7 @@ const DashboardPage = () => {
                         </Td>
                         <Td whiteSpace="normal" wordBreak="break-word">
                           <Text textAlign="left" noOfLines={[1, 2, 4]}>
-                            {job.role.skills_required?.join(", ") || "N/A"}
+                            {job?.role?.skills_required?.join(", ") || "N/A"}
                           </Text>
                         </Td>
                       </Tr>

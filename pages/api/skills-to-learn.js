@@ -9,7 +9,7 @@ const openai = new OpenAI({
 export default async function handler(req, res) {
   if (req.method === "POST") {
     const { resumeText } = req.body;
-    const prompt = `You are helping a friend upskill himself so that he can get a job in the tech industry. Identify 3 distinct skills you would recommend him to learn that he doesn't already know to better his skillset. Please return the title of each skill, followed by a separator (---------------------), and then the reason for learning the skill. Separate each skill with two newline characters.`;
+    const prompt = `You are helping a friend upskill himself so that he can get a job in the tech industry. Identify 3 distinct skills you would recommend him to learn that he doesn't already know to better his skillset. Please return the title of each skill, followed by a separator (---------------------), and then the reason for learning the skill roughly 3 sentences long. Separate each skill with two newline characters. For the title just use the name of the skill. Here is his current skillset:\n\n${resumeText}`;
 
     try {
       const chatCompletion = await openai.chat.completions.create({
