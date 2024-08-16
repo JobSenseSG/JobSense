@@ -2,11 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import {
   Box,
   VStack,
-  Heading,
   Text,
   Button,
   Select,
-  Progress,
   Grid,
   useColorModeValue,
   Flex,
@@ -36,7 +34,6 @@ import SkillCard from "../components/SkillCard";
 import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import "pdfjs-dist/legacy/build/pdf.worker";
-import { get } from "http";
 
 interface Certification {
   certificate_title: string;
@@ -56,9 +53,16 @@ const DashboardPage = () => {
       fontWeight: "bold",
     },
   });
-  const [skillsToLearn1, setSkillsToLearn1] = useState<string>("");
-  const [skillsToLearn2, setSkillsToLearn2] = useState<string>("");
-  const [skillsToLearn3, setSkillsToLearn3] = useState<string>("");
+
+  const [skillsToLearn1Title, setSkillsToLearn1Title] = useState<string>("");
+  const [skillsToLearn1Points, setSkillsToLearn1Points] = useState<string>("");
+
+  const [skillsToLearn2Title, setSkillsToLearn2Title] = useState<string>("");
+  const [skillsToLearn2Points, setSkillsToLearn2Points] = useState<string>("");
+
+  const [skillsToLearn3Title, setSkillsToLearn3Title] = useState<string>("");
+  const [skillsToLearn3Points, setSkillsToLearn3Points] = useState<string>("");
+
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingSkills, setLoadingSkills] = useState<boolean>(false);
   const [resumeUploaded, setResumeUploaded] = useState(false);
@@ -83,24 +87,29 @@ const DashboardPage = () => {
     const hue = (percentage / 100) * 120;
     return `hsl(${hue}, 100%, 50%)`;
   };
-  // example of a skill string to parse `"Cybersecurity\n\nReasons for learning Cybersecurity:\n1. Gain the ability to protect critical systems, networks, and data from cyber threats, which is essential in the tech industry.\n2. Develop skills in vulnerability assessment, risk management, and incident response, which are highly valued by employers.\n3. Demonstrate your commitment to safeguarding sensitive information and ensuring the integrity of technology systems.\n4. Potentially specialize in areas such as network security, ethical hacking, or digital forensics, further expanding your career opportunities."`
-  // OR `"Skill Recommendation: Data Visualization\n\nReasons:\n- Data visualization is a crucial skill in the tech industry, as it allows professionals to effectively communicate complex data and insights to stakeholders.\n- Proficiency in tools like Tableau, Power BI, or D3.js can make a candidate stand out and demonstrate their ability to translate data into meaningful, actionable information.\n- Developing data visualization skills can enhance the candidate's ability to analyze and interpret data, which is a highly sought-after skill in many tech roles.\n- Mastering data visualization can open up opportunities in various tech domains, such as business intelligence, data analytics, and product management."`
-  function getTitle(skillString: string): string {
-    const endIndex = skillString.indexOf("\n\n");
-    console.log("endIndex", endIndex);
-    return endIndex !== -1 ? skillString.substring(0, endIndex) : skillString;
-  }
-  function getReasons(skillString: string): string {
-    const startIndex = skillString.indexOf("\n\n");
-    return startIndex !== -1 ? skillString.substring(startIndex + 2) : "";
-  }
 
-  const parseSkill = (skillString: string) => {
-    const parts = skillString.split(" ---------------------\n");
-    const title = parts[0]?.trim() || "";
-    const points = parts[1]?.trim() || "";
-    return { title, points };
-  };
+  // const parseSkill = (skillString: string) => {
+  //   const match = skillString.match(/"(.*)".*?---------------------\s*(.*)/s);
+
+  //   let title = "";
+  //   let points = "";
+
+  //   if (match) {
+  //     title = match[1].trim();
+  //     points = match[2].trim();
+  //   } else {
+  //     // In case the parsing fails, just use the string directly
+  //     title = skillString.trim();
+  //     points = "No additional information provided.";
+  //   }
+
+  //   // Remove the "Title: " prefix if present
+  //   if (title.toLowerCase().startsWith("title:")) {
+  //     title = title.substring(6).trim(); // Remove the first 6 characters ("Title:")
+  //   }
+
+  //   return { title, points };
+  // };
 
   const certifications12 = [
     {
@@ -141,38 +150,17 @@ const DashboardPage = () => {
     },
   ];
 
-  const skills = [
-    {
-      title: parseSkill(skillsToLearn1).title,
-      description: "Why Learn it?",
-      points: parseSkill(skillsToLearn1).points,
-    },
-    {
-      title: parseSkill(skillsToLearn1).title,
-      description: "Why Learn it?",
-      points: parseSkill(skillsToLearn1).points,
-    },
-    {
-      title: parseSkill(skillsToLearn1).title,
-      description: "Why Learn it?",
-      points: parseSkill(skillsToLearn1).points,
-    },
-  ];
-
   const handleUploadResume = () => {
-    // Logic to handle resume upload will go here
-    // For now, we'll just set the state to true
     setResumeUploaded(true);
   };
 
-  const PDFExtractor = ({ file }: { file: File | null }) => {
+  const PDFExtractor = async ({ file }: { file: File | null }) => {
     setLoadingSkills(true);
     if (!file) {
       console.error("No file provided.");
       return;
     }
 
-    // Set the path to the PDF worker script
     GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 
     const reader = new FileReader();
@@ -194,18 +182,10 @@ const DashboardPage = () => {
               .join(" ");
             extractedText += pageText + " ";
           }
-          console.log("Extracted Text:" + extractedText);
-          // Assuming `setText` and `analyzeResume` are provided elsewhere
-          // setText(extractedText);
+
+          setText(extractedText); // Save extracted text to state
           analyzeResume(extractedText);
-          skillsToLearn(extractedText, "");
-          const skillsData = await skillsToLearn(extractedText, "");
-          const skillsData1 = await skillsToLearn(extractedText, skillsData);
-          const skillsData2 = await skillsToLearn(extractedText, skillsData1);
-          // setSkillsToLearn1(skillsData);
-          // setSkillsToLearn2(skillsData1);
-          // setSkillsToLearn3(skillsData2);
-          setLoadingSkills(false);
+          fetchSkillsToLearn(extractedText);
         } catch (error) {
           console.error("Error while extracting text from PDF:", error);
         }
@@ -249,26 +229,37 @@ const DashboardPage = () => {
     }
   };
 
-  const skillsToLearn = async (resumeText: string, previousResponse: any) => {
+  const fetchSkillsToLearn = async (resumeText: string) => {
     try {
       const response = await fetch("/api/skills-to-learn", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ resumeText, previousResponse }), // Updated field name to match backend
+        body: JSON.stringify({ resumeText }), // Passing resumeText to the API
       });
 
       if (!response.ok) {
         throw new Error("Failed to fetch skills to learn");
       }
 
-      const data = await response.text();
-      console.log("Skills to learn:", data);
-      return data; // Return the data if needed for further processing
+      const skills = await response.json();
+
+      // Assuming the API returns an array of skills as { title: string; points: string; }
+      if (skills.length >= 3) {
+        setSkillsToLearn1Title(skills[0].title);
+        setSkillsToLearn1Points(skills[0].points);
+
+        setSkillsToLearn2Title(skills[1].title);
+        setSkillsToLearn2Points(skills[1].points);
+
+        setSkillsToLearn3Title(skills[2].title);
+        setSkillsToLearn3Points(skills[2].points);
+      }
+      setLoadingSkills(false);
     } catch (error) {
       console.error("Error fetching skills to learn:", error);
-      // Handle the error gracefully, e.g., display an error message to the user
+      setLoadingSkills(false);
     }
   };
 
@@ -321,19 +312,15 @@ const DashboardPage = () => {
     setJobs(analysis);
     setLoading(false);
   };
-
   const ResumeCard = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // Handle files se  lected via input element
     const onFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
       const files = event.target.files;
       if (files && files.length > 0 && files[0].type === "application/pdf") {
         setUploadedFile(files[0]);
         PDFExtractor({ file: files[0] });
-        console.log(text);
         setResumeUploaded(true);
-        console.log("Uploaded:", files[0].name);
       }
     };
 
@@ -356,7 +343,6 @@ const DashboardPage = () => {
         <GradientText mb={2} fontSize="xl">
           Resume
         </GradientText>
-        {/* <PDFReader file={uploadedFile} />  */}
         <Text mb={3}>Upload your resume</Text>
         {!resumeUploaded ? (
           <>
@@ -410,27 +396,12 @@ const DashboardPage = () => {
     fetch("/api/certification")
       .then((response) => response.json())
       .then((data) => {
-        // Do something with the data
-        console.log(data);
         setCertifications(data);
       })
       .catch((error) => {
-        // Handle any errors here
         console.error("Error fetching data: ", error);
       });
   }, []);
-
-  // useEffect(() => {
-  //   fetch("/api/data")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log("Fetched data:", data); // Check the structure here
-  //       // setJobs(data); // Assuming data is directly an array of Job objects
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data: ", error);
-  //     });
-  // }, []);
 
   return (
     <Box p={5}>
@@ -438,13 +409,9 @@ const DashboardPage = () => {
         <Image src="/logo.png" alt="Logo" boxSize="50px" mr={2} />
         <GradientText fontSize="2xl">JobSense</GradientText>
       </Flex>
-      {/* Updated Grid layout */}
       <Grid templateColumns={{ md: "1fr 2fr" }} gap={6}>
-        {/* Left column (1/3 width) */}
         <VStack spacing={4} align="stretch" width="full">
           <ResumeCard />
-
-          {/* Certification Insight Card */}
           <Box
             p={5}
             bg={bgColor}
@@ -505,9 +472,7 @@ const DashboardPage = () => {
             </VStack>
           </Box>
         </VStack>
-        {/* Right column (2/3 width) */}
         <VStack spacing={4} align="stretch" width="full">
-          {/* Job Qualification Scale Card */}
           <Box
             p={5}
             bg={bgColor}
@@ -576,7 +541,6 @@ const DashboardPage = () => {
               </TableContainer>
             )}
           </Box>
-          {/* Skills Development Card */}
           <VStack spacing={4} align="stretch" width="full">
             <Box
               p={5}
@@ -597,8 +561,6 @@ const DashboardPage = () => {
               {resumeUploaded ? (
                 loadingSkills ? (
                   <Center height="100px">
-                    {" "}
-                    {/* Adjust height as needed */}
                     <Spinner size="lg" />
                   </Center>
                 ) : (
@@ -607,19 +569,24 @@ const DashboardPage = () => {
                       Suggested Skills to Learn:
                     </Text>
                     <Flex overflowX="auto" py={2}>
-                      {skills.map((skill, index) => (
-                        <Box
-                          key={index}
-                          minWidth="220px"
-                          flex="0 0 auto"
-                          mx={2}
-                        >
-                          <SkillCard
-                            title={skill.title}
-                            points={skill.points}
-                          />
-                        </Box>
-                      ))}
+                      <Box minWidth="220px" flex="0 0 auto" mx={2}>
+                        <SkillCard
+                          title={skillsToLearn1Title}
+                          points={skillsToLearn1Points}
+                        />
+                      </Box>
+                      <Box minWidth="220px" flex="0 0 auto" mx={2}>
+                        <SkillCard
+                          title={skillsToLearn2Title}
+                          points={skillsToLearn2Points}
+                        />
+                      </Box>
+                      <Box minWidth="220px" flex="0 0 auto" mx={2}>
+                        <SkillCard
+                          title={skillsToLearn3Title}
+                          points={skillsToLearn3Points}
+                        />
+                      </Box>
                     </Flex>
                   </>
                 )
@@ -646,7 +613,6 @@ const DashboardPage = () => {
           </VStack>
         </VStack>
       </Grid>
-      {/* Modal for showing comparison */}
       <Modal isOpen={isOpen} onClose={onClose} size="4xl">
         <ModalOverlay />
         <ModalContent>
@@ -655,18 +621,7 @@ const DashboardPage = () => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Grid templateColumns="repeat(2, 1fr)" gap={6} mb={4}>
-              {/* Dropdowns */}
-
-              {/* {certifications.map((cert) => (
-                  <option
-                    key={cert.certificate_title}
-                    value={cert.certificate_title}
-                  >
-                    {cert.certificate_title}
-                  </option>
-                ))} */}
-            </Grid>
+            <Grid templateColumns="repeat(2, 1fr)" gap={6} mb={4}></Grid>
             <Text
               fontSize="xl"
               fontWeight="bold"

@@ -6,10 +6,7 @@ interface SkillCardProps {
   points: string;
 }
 
-const SkillCard: React.FC<SkillCardProps> = ({
-  title,
-  points,
-}) => {
+const SkillCard: React.FC<SkillCardProps> = ({ title, points }) => {
   return (
     <Box
       bg="white"
@@ -27,7 +24,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         <Text fontSize="sm" mb={2}>
           Why Learn It?
         </Text>
-        <Text>{points}</Text>
+        <Text>{points || "No additional information provided."}</Text>
         <Button backgroundColor="#7E00FB" color="white" width="full">
           Learn More
         </Button>

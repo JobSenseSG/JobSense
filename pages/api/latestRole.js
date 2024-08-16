@@ -1,43 +1,43 @@
-import { BedrockRuntimeClient, ConverseCommand, ConversationRole } from "@aws-sdk/client-bedrock-runtime";
+import OpenAI from "openai";
 
-// Initialize the BedrockRuntimeClient
-const client = new BedrockRuntimeClient({ region: 'us-west-2' });
+// Initialize the OpenAI client for Upstage AI
+const apiKey = "up_nwDMy4WRdzgWukb97wN2yAGcwo33H";
+const openai = new OpenAI({
+  apiKey: apiKey,
+  baseURL: "https://api.upstage.ai/v1/solar", // Base URL for Upstage AI
+});
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     const { resume } = req.body;
 
     if (!resume) {
-      return res.status(400).json({ message: 'Resume must not be null' });
+      return res.status(400).json({ message: "Resume must not be null" });
     }
 
     const prompt = `Parse and output the candidate's latest role based on their resume and do not justify your answers and do not display the company name. The resume is shown below: ${resume}`;
 
-    const modelId = 'anthropic.claude-3-haiku-20240307-v1:0';
-    const conversation = [
-      {
-        role: ConversationRole.USER,
-        content: [{ text: prompt }],
-      },
-    ];
-
-    const command = new ConverseCommand({
-      modelId,
-      messages: conversation,
-      inferenceConfig: { maxTokens: 512, temperature: 0.5, topP: 0.9 },
-    });
-
     try {
-      const response = await client.send(command);
-      const responseText = response.output.messages[0].content[0].text.trim();
+      const chatCompletion = await openai.chat.completions.create({
+        model: "solar-1-mini-chat", // Specify the model
+        messages: [
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+        stream: false,
+      });
+
+      const responseText = chatCompletion.choices[0].message.content.trim();
 
       return res.status(200).json({ latestRole: responseText });
     } catch (error) {
-      console.error(`ERROR: Can't invoke '${modelId}'. Reason: ${error}`);
-      return res.status(500).json({ message: 'Failed to invoke model' });
+      console.error(`ERROR: Can't invoke Upstage AI. Reason: ${error}`);
+      return res.status(500).json({ message: "Failed to invoke model" });
     }
   } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).json({ message: 'Method Not Allowed' });
+    res.setHeader("Allow", ["POST"]);
+    res.status(405).json({ message: "Method Not Allowed" });
   }
 }
