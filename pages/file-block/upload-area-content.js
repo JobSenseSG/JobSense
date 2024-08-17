@@ -152,11 +152,6 @@ const UploadAreaContent = ({ attributes, blockId, files, multiple }) => {
             ) : (
                 <>
                     {Object.entries(files).map(([fileKey, fileData]) => {
-                        // let colors = {
-                        // 	pending: 'black',
-                        // 	success: 'green',
-                        // 	failed: 'red',
-                        // };
                         return (
                             <div
                                 className={classnames(
@@ -174,46 +169,7 @@ const UploadAreaContent = ({ attributes, blockId, files, multiple }) => {
                                 )}
                                 key={fileKey}
                             >
-                                {fileData.type === "image/jpg" ||
-                                    fileData.type === "image/png" ||
-                                    fileData.type === "image/jpeg" ? (
-                                    <div
-                                        className={css`
-                      border-radius: 5px;
-                      overflow: hidden;
-                      border: 1px solid ${answersColor.setAlpha(1).toString()};
-                    `}
-                                    >
-                                        <img
-                                            className={css`
-                        max-width: 100%;
-                        height: 190px;
-                        width: auto;
-                        display: block;
-                        object-fit: cover;
-                      `}
-                                            src={fileData.previewUrlSrc}
-                                        />
-                                        <SingleFileInfo
-                                            fileData={fileData}
-                                            borderColor={answersColor.setAlpha(1).toString()}
-                                            color={theme.questionsColor}
-                                            fileKey={fileKey}
-                                            blockId={blockId}
-                                            onDelete={(id, key) => {
-                                                document
-                                                    .querySelector(
-                                                        `.blocklib-file-block-${blockId}-display__uploaded-file`
-                                                    )
-                                                    ?.classList?.remove("active");
-
-                                                setTimeout(() => {
-                                                    deleteFile(id, key);
-                                                }, 200);
-                                            }}
-                                        />
-                                    </div>
-                                ) : (
+                                {fileData.type === "application/pdf" ? (
                                     <div
                                         className={css`
                       width: 200px;
@@ -245,11 +201,7 @@ const UploadAreaContent = ({ attributes, blockId, files, multiple }) => {
                                             onDelete={(id, key) => deleteFile(id, key)}
                                         />
                                     </div>
-                                )}
-
-                                {/* { fileData.status === 'failed' && (
-										<div>Error: { fileData.error }</div>
-									) } */}
+                                ) : null}
                             </div>
                         );
                     })}

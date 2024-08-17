@@ -23,7 +23,7 @@ const EnterpriseSolution = () => {
                 description: "Empowering Your Workforce, Driving Your Success.",
                 attachment: {
                   type: "image",
-                  url: "https://quillforms.com/wp-content/uploads/2022/01/4207-ai-1.jpeg",
+                  url: "https://vajvudbmcgzbyivvtlvy.supabase.co/storage/v1/object/public/aaa/4207-ai-1-removebg-preview%20(1).jpg",
                 },
               },
             },
