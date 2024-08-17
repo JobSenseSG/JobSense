@@ -35,5 +35,5 @@ export default async function handler(
     }
   } else {
     return res.status(400).json({ message: 'Method not supported' })
-  }
+  } 
 }

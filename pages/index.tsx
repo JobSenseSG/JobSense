@@ -59,7 +59,7 @@ const Navbar = () => (
       <Link href="/dashboard" passHref>
         <ChakraLink _hover={{ color: "#FF006E" }}>Dashboard</ChakraLink>
       </Link>
-      <Link href="/features" passHref>
+      <Link href="/enterpriseSolution" passHref>
         <ChakraLink _hover={{ color: "#FF006E" }}>Enterprise Solution</ChakraLink>
       </Link>
       <Link href="#about" passHref>
