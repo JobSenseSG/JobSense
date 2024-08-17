@@ -1,9 +1,9 @@
 from predibase import Predibase, FinetuningConfig, DeploymentConfig
 
-pb = Predibase(api_token="pb_OazV7b2NXX2rsTowwTPEYQ")
+pb = Predibase(api_token="pb_8eSVQevjVj-S6GofXAAdJg")
 
 # Load the dataset
-dataset = pb.datasets.from_file("C:/Users/Javier/Downloads/JBMX/JBMX/scripts/fine-tuning-data.csv", name="skills_dataset_v2")
+dataset = pb.datasets.from_file("fine-tuning-data.csv", name="skills_dataset_v2")
 
 # Create a repository
 repo = pb.repos.create(name="skills-repo", description="Repository for fine-tuning skills identification model", exists_ok=True)
