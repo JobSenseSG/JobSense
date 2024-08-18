@@ -117,7 +117,7 @@ const EnterpriseSolution = () => {
               name: "file-upload",
               id: "ud73bsw",
               attributes: {
-                required: true,
+                required: false,
                 label: "Please upload the resumes of your development team.",
                 description: "You can upload multiple files.",
                 multiple: true,
@@ -128,6 +128,7 @@ const EnterpriseSolution = () => {
         applyLogic={true}
         onSubmit={(data, { completeForm, setIsSubmitting, goToBlock, setSubmissionErr }) => {
           setTimeout(() => {
+            completeForm();
             setIsSubmitting(false);
         
           }, 500);
