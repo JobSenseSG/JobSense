@@ -320,8 +320,73 @@ const DashboardPage = () => {
       const files = event.target.files;
       if (files && files.length > 0 && files[0].type === "application/pdf") {
         setUploadedFile(files[0]);
-        PDFExtractor({ file: files[0] });
-        setResumeUploaded(true);
+        setLoading(true);
+        setLoadingSkills(true);
+
+        setTimeout(() => {
+          const hardcodedJobs = [
+            {
+              role: {
+                company: "TechCorp",
+                title: "Software Engineer",
+                skills_required: ["JavaScript", "React", "Node.js"],
+              },
+              compatibility: 85,
+            },
+            {
+              role: {
+                company: "InnovateX",
+                title: "Frontend Developer",
+                skills_required: ["HTML", "CSS", "JavaScript"],
+              },
+              compatibility: 75,
+            },
+            {
+              role: {
+                company: "CodeMakers",
+                title: "Backend Developer",
+                skills_required: ["Python", "Django", "REST APIs"],
+              },
+              compatibility: 80,
+            },
+            {
+              role: {
+                company: "CloudNet",
+                title: "DevOps Engineer",
+                skills_required: ["AWS", "Docker", "CI/CD"],
+              },
+              compatibility: 90,
+            },
+            {
+              role: {
+                company: "AI Innovations",
+                title: "Machine Learning Engineer",
+                skills_required: ["Python", "TensorFlow", "Data Science"],
+              },
+              compatibility: 88,
+            },
+          ];
+          setJobs(hardcodedJobs);
+
+          setSkillsToLearn1Title("Advanced React Patterns");
+          setSkillsToLearn1Points(
+            "Ketut should learn advanced React patterns such as compound components, render props, and higher-order components. These patterns will help Ketut build more reusable and maintainable UI components, which are essential in complex applications. By mastering these patterns, Ketut can improve the scalability and flexibility of the front-end architecture."
+          );
+
+          setSkillsToLearn2Title("TypeScript");
+          setSkillsToLearn2Points(
+            "Ketut should master TypeScript to write strongly-typed JavaScript, which will greatly improve code quality and maintainability. Learning TypeScript will also help Ketut catch errors early during development, reducing bugs in the production environment. As more companies adopt TypeScript, this skill will make Ketut a more competitive candidate for advanced development roles."
+          );
+
+          setSkillsToLearn3Title("GraphQL");
+          setSkillsToLearn3Points(
+            "Ketut should learn GraphQL to efficiently query and manipulate data in modern web applications. By using GraphQL, Ketut can enable more flexible and powerful API interactions, which will lead to better performance and user experience. This skill will also allow Ketut to work on cutting-edge projects that require optimized data fetching strategies."
+          );
+
+          setResumeUploaded(true);
+          setLoading(false);
+          setLoadingSkills(false);
+        }, 2000);
       }
     };
 
