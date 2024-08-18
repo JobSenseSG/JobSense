@@ -16,6 +16,8 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@google/generative-ai": "^0.5.0",
+    "@quillforms/react-renderer-utils": "^5.11.0",
+    "@quillforms/renderer-core": "^5.9.0",
     "@react-pdf-viewer/core": "^3.12.0",
     "@react-pdf/renderer": "^3.4.2",
     "@supabase/supabase-js": "^2.44.3",
@@ -31,7 +33,9 @@
     "pg": "^8.11.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-dropzone": "^14.2.3",
     "react-icons": "^5.0.1",
+    "react-loader-spinner": "^6.1.6",
     "react-pdf": "^7.7.1"
   },
   "devDependencies": {
