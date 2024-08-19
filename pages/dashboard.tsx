@@ -88,29 +88,6 @@ const DashboardPage = () => {
     return `hsl(${hue}, 100%, 50%)`;
   };
 
-  // const parseSkill = (skillString: string) => {
-  //   const match = skillString.match(/"(.*)".*?---------------------\s*(.*)/s);
-
-  //   let title = "";
-  //   let points = "";
-
-  //   if (match) {
-  //     title = match[1].trim();
-  //     points = match[2].trim();
-  //   } else {
-  //     // In case the parsing fails, just use the string directly
-  //     title = skillString.trim();
-  //     points = "No additional information provided.";
-  //   }
-
-  //   // Remove the "Title: " prefix if present
-  //   if (title.toLowerCase().startsWith("title:")) {
-  //     title = title.substring(6).trim(); // Remove the first 6 characters ("Title:")
-  //   }
-
-  //   return { title, points };
-  // };
-
   const certifications12 = [
     {
       certificate_title: "AWS Certified Solutions Architect",
@@ -183,7 +160,7 @@ const DashboardPage = () => {
             extractedText += pageText + " ";
           }
 
-          setText(extractedText); // Save extracted text to state
+          setText(extractedText);
           analyzeResume(extractedText);
           fetchSkillsToLearn(extractedText);
         } catch (error) {
@@ -196,18 +173,15 @@ const DashboardPage = () => {
   };
 
   const handleSelectCertification = (value: any, setCertification: any) => {
-    // Find the certification object based on the title selected
     const selectedCert = certifications12.find(
       (cert) => cert.certificate_title === value
     );
-    // Set the state with the selected certification object
     setCertification(selectedCert);
   };
 
-  // This function is triggered when the "Compare" button is clicked
   const handleCompare = async () => {
-    const certification1 = certifications12[0]; // AWS Certified Solutions Architect
-    const certification2 = certifications12[1]; // Certified Kubernetes Administrator (CKA)
+    const certification1 = certifications12[0];
+    const certification2 = certifications12[1];
 
     try {
       const response = await fetch("/api/compareCertifications", {
@@ -236,7 +210,7 @@ const DashboardPage = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ resumeText }), // Passing resumeText to the API
+        body: JSON.stringify({ resumeText }),
       });
 
       if (!response.ok) {
@@ -245,7 +219,6 @@ const DashboardPage = () => {
 
       const skills = await response.json();
 
-      // Assuming the API returns an array of skills as { title: string; points: string; }
       if (skills.length >= 3) {
         setSkillsToLearn1Title(skills[0].title);
         setSkillsToLearn1Points(skills[0].points);
@@ -265,7 +238,6 @@ const DashboardPage = () => {
 
   const analyzeResume = async (resumeText: string) => {
     setLoading(true);
-    // Get latest job from resume
     const latestRole = await fetch("/api/latestRole", {
       method: "POST",
       headers: {
@@ -276,7 +248,6 @@ const DashboardPage = () => {
       return res.json();
     });
 
-    // Get all rows with title similar to user's current role
     const relatedRoles = await fetch("/api/roles", {
       method: "POST",
       headers: {
@@ -290,7 +261,6 @@ const DashboardPage = () => {
     const analysis = [];
 
     for (let index = 0; index < relatedRoles.length; index++) {
-      // Assume you have a backend endpoint /api/analyze-resume
       try {
         const response = await fetch("/api/useGemini", {
           method: "POST",

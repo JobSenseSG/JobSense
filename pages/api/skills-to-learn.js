@@ -23,11 +23,9 @@ export default async function handler(req, res) {
         stream: false,
       });
 
-      // Extract and return the response text.
       const responseText = chatCompletion.choices[0].message.content.trim();
       console.log("AI Response:", responseText);
 
-      // Split the response into individual skills
       const skills = responseText.split("\n\n").map((skill) => {
         const [title, points] = skill
           .split("---------------------")

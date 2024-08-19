@@ -1,14 +1,17 @@
+import os
+from dotenv import load_dotenv
 from predibase import Predibase, FinetuningConfig, DeploymentConfig
 
-pb = Predibase(api_token="pb_8eSVQevjVj-S6GofXAAdJg")
+load_dotenv()
 
-# Load the dataset
+api_key = os.getenv("PREDIBASE_API_KEY")
+
+pb = Predibase(api_token=api_key)
+
 dataset = pb.datasets.from_file("fine-tuning-data.csv", name="skills_dataset_v2")
 
-# Create a repository
 repo = pb.repos.create(name="skills-repo", description="Repository for fine-tuning skills identification model", exists_ok=True)
 
-# Fine-tuning configuration
 adapter = pb.adapters.create(
     config=FinetuningConfig(
         base_model="solar-1-mini-chat-240612",
@@ -21,19 +24,16 @@ adapter = pb.adapters.create(
     description="Fine-tuning model to identify skills from resume"
 )
 
-# Deployment configuration with a different accelerator type
 pb.deployments.create(
     name="skills-ai-deployment",
     config=DeploymentConfig(
         base_model="solar-1-mini-chat-240612",
-        adapter_id=f"{repo.name}/1",  # Use the correct adapter version number
+        adapter_id=f"{repo.name}/1",
         min_replicas=0,
         max_replicas=1,
-        accelerator="t4"  # Try using 't4' instead of 'v100'
     )
 )
 
-# Test the fine-tuned model
 input_prompt = "[INST] Identify 3 skills to learn from this resume: ... [/INST]"
 lorax_client = pb.deployments.client("skills-ai-deployment")
 response = lorax_client.generate(input_prompt, max_new_tokens=100)

@@ -135,7 +135,7 @@ const EnterpriseSolution = () => {
           setTimeout(() => {
             completeForm();
             setIsSubmitting(false);
-            router.push("/teamAnalysisReport"); // Redirect to the analysis page
+            router.push("/teamAnalysisReport");
           }, 500);
         }}
       />

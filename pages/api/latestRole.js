@@ -1,10 +1,9 @@
 import OpenAI from "openai";
 
-// Initialize the OpenAI client for Upstage AI
 const apiKey = "up_nwDMy4WRdzgWukb97wN2yAGcwo33H";
 const openai = new OpenAI({
   apiKey: apiKey,
-  baseURL: "https://api.upstage.ai/v1/solar", // Base URL for Upstage AI
+  baseURL: "https://api.upstage.ai/v1/solar",
 });
 
 export default async function handler(req, res) {
@@ -19,7 +18,7 @@ export default async function handler(req, res) {
 
     try {
       const chatCompletion = await openai.chat.completions.create({
-        model: "solar-1-mini-chat", // Specify the model
+        model: "solar-1-mini-chat",
         messages: [
           {
             role: "user",

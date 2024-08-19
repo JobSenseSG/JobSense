@@ -9,7 +9,7 @@ import {
   chakra,
   Link as ChakraLink,
   SimpleGrid,
-  Image, // Ensure correct import
+  Image,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -127,7 +127,7 @@ const IndexPage = () => {
   }, []);
 
   if (!isClient) {
-    return null; // Render nothing on the server to prevent mismatch
+    return null;
   }
 
   return (
@@ -144,7 +144,7 @@ const IndexPage = () => {
         position="relative"
         textAlign="center"
         bgGradient="radial(circle, rgba(144, 0, 255, 0.6), transparent 25%)"
-        mt="80px" // Adjusted margin-top to accommodate the fixed navbar
+        mt="80px"
       >
         <Text fontSize={{ base: "4xl", md: "6xl" }} fontWeight="bold" mb={4}>
           <GradientText>Empower Your Career{" "}</GradientText>
@@ -267,7 +267,7 @@ const IndexPage = () => {
           {/* Image Section */}
           <Box flex="1" mt={{ base: 16, md: 0 }}>
             <Image
-              src="/preview.png" // replace with your actual image path
+              src="/preview.png"
               alt="Dashboard Preview"
               borderRadius="lg"
               shadow="0px 4px 20px rgba(144, 0, 255, 0.6)"

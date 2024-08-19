@@ -1,10 +1,9 @@
 import OpenAI from "openai";
 
-// Configure Upstage AI
-const apiKey = "up_nwDMy4WRdzgWukb97wN2yAGcwo33H"; // Replace with your actual Upstage AI key
+const apiKey = "up_nwDMy4WRdzgWukb97wN2yAGcwo33H";
 const openai = new OpenAI({
   apiKey: apiKey,
-  baseURL: "https://api.upstage.ai/v1/solar", // Use the appropriate base URL for Upstage AI
+  baseURL: "https://api.upstage.ai/v1/solar",
 });
 
 export default async function generateContent(req, res) {
@@ -26,7 +25,7 @@ export default async function generateContent(req, res) {
 
   try {
     const chatCompletion = await openai.chat.completions.create({
-      model: "solar-1-mini-chat", // Use the appropriate model ID
+      model: "solar-1-mini-chat",
       messages: [
         {
           role: "user",
@@ -36,7 +35,6 @@ export default async function generateContent(req, res) {
       stream: false,
     });
 
-    // Extract and return the response text, which should be the compatibility score.
     const responseText = chatCompletion.choices[0].message.content.trim();
     const compatibility = parseInt(responseText, 10);
 
