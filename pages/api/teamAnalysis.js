@@ -8,13 +8,24 @@ const openai = new OpenAI({
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    const { resume } = req.body;
+    const {
+      companyName,
+      teamSize,
+      fundingStage,
+      industryFocus,
+      objectives,
+      resumes,
+    } = req.body;
 
-    if (!resume) {
-      return res.status(400).json({ message: "Resume must not be null" });
-    }
-
-    const prompt = `Parse and output the candidate's latest role based on their resume and do not justify your answers and do not display the company name. The resume is shown below: ${resume}`;
+    const prompt = `
+      Analyze the following company data and provide a team analysis report.
+      Company Name: ${companyName}
+      Team Size: ${teamSize}
+      Funding Stage: ${fundingStage}
+      Industry Focus: ${industryFocus}
+      Objectives: ${objectives}
+      Resumes: ${resumes.join("\n\n")}
+    `;
 
     try {
       const chatCompletion = await openai.chat.completions.create({
@@ -29,14 +40,12 @@ export default async function handler(req, res) {
       });
 
       const responseText = chatCompletion.choices[0].message.content.trim();
-
-      return res.status(200).json({ latestRole: responseText });
+      res.status(200).json({ analysis: responseText });
     } catch (error) {
       console.error(`ERROR: Can't invoke Upstage AI. Reason: ${error}`);
-      return res.status(500).json({ message: "Failed to invoke model" });
+      res.status(500).json({ message: "Failed to invoke model" });
     }
   } else {
-    res.setHeader("Allow", ["POST"]);
     res.status(405).json({ message: "Method Not Allowed" });
   }
 }

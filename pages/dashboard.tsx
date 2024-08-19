@@ -88,45 +88,6 @@ const DashboardPage = () => {
     return `hsl(${hue}, 100%, 50%)`;
   };
 
-  const certifications12 = [
-    {
-      certificate_title: "AWS Certified Solutions Architect",
-      certification_demand: "High",
-      pay_range: "$130,000 - $150,000",
-      top_3_job_titles: [
-        "Solutions Architect",
-        "Cloud Architect",
-        "Cloud Engineer",
-      ],
-    },
-    {
-      certificate_title: "Certified Kubernetes Administrator (CKA)",
-      certification_demand: "High",
-      pay_range: "$120,000 - $140,000",
-      top_3_job_titles: [
-        "DevOps Engineer",
-        "Kubernetes Administrator",
-        "Site Reliability Engineer",
-      ],
-    },
-    {
-      certificate_title: "Certified ScrumMaster (CSM)",
-      certification_demand: "Moderate",
-      pay_range: "$90,000 - $110,000",
-      top_3_job_titles: ["Scrum Master", "Agile Coach", "Project Manager"],
-    },
-    {
-      certificate_title: "Microsoft Certified: Azure Developer Associate",
-      certification_demand: "High",
-      pay_range: "$110,000 - $130,000",
-      top_3_job_titles: [
-        "Azure Developer",
-        "Cloud Developer",
-        "Software Engineer",
-      ],
-    },
-  ];
-
   const handleUploadResume = () => {
     setResumeUploaded(true);
   };
@@ -173,15 +134,17 @@ const DashboardPage = () => {
   };
 
   const handleSelectCertification = (value: any, setCertification: any) => {
-    const selectedCert = certifications12.find(
+    const selectedCert = certifications.find(
       (cert) => cert.certificate_title === value
     );
     setCertification(selectedCert);
   };
 
   const handleCompare = async () => {
-    const certification1 = certifications12[0];
-    const certification2 = certifications12[1];
+    if (!certification1 || !certification2) {
+      console.error("Both certifications must be selected before comparing.");
+      return;
+    }
 
     try {
       const response = await fetch("/api/compareCertifications", {
@@ -364,14 +327,17 @@ const DashboardPage = () => {
   };
 
   useEffect(() => {
-    fetch("/api/certification")
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchCertifications = async () => {
+      try {
+        const response = await fetch("/api/certifications");
+        const data = await response.json();
         setCertifications(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-      });
+      } catch (error) {
+        console.error("Error fetching certification data:", error);
+      }
+    };
+
+    fetchCertifications();
   }, []);
 
   return (
@@ -406,12 +372,9 @@ const DashboardPage = () => {
                   handleSelectCertification(e.target.value, setCertification1)
                 }
               >
-                {certifications12.map((certifications12, index) => (
-                  <option
-                    key={index}
-                    value={certifications12.certificate_title}
-                  >
-                    {certifications12.certificate_title}
+                {certifications.map((certification, index) => (
+                  <option key={index} value={certification.certificate_title}>
+                    {certification.certificate_title}
                   </option>
                 ))}
               </Select>
@@ -422,12 +385,9 @@ const DashboardPage = () => {
                   handleSelectCertification(e.target.value, setCertification2)
                 }
               >
-                {certifications12.map((certifications12, index) => (
-                  <option
-                    key={index}
-                    value={certifications12.certificate_title}
-                  >
-                    {certifications12.certificate_title}
+                {certifications.map((certification, index) => (
+                  <option key={index} value={certification.certificate_title}>
+                    {certification.certificate_title}
                   </option>
                 ))}
               </Select>

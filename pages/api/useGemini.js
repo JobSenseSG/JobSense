@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-const apiKey = "up_nwDMy4WRdzgWukb97wN2yAGcwo33H";
+const apiKey = process.env.UPSTAGE_API_KEY;
 const openai = new OpenAI({
   apiKey: apiKey,
   baseURL: "https://api.upstage.ai/v1/solar",
