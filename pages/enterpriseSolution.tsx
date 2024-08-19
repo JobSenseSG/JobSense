@@ -2,18 +2,18 @@ import { Form } from "@quillforms/renderer-core";
 import "@quillforms/renderer-core/build-style/style.css";
 import { registerCoreBlocks } from "@quillforms/react-renderer-utils";
 import "./file-block";
+import { useRouter } from "next/router";
 
 registerCoreBlocks();
 
 const EnterpriseSolution = () => {
+  const router = useRouter();
+
   return (
-    <div style={{ width: "100%", height: "100vh" }}> 
+    <div style={{ width: "100%", height: "100vh" }}>
       <Form
-      // make background color purple
-      
         formId={1}
         formObj={{
-        
           blocks: [
             {
               name: "welcome-screen",
@@ -109,8 +109,10 @@ const EnterpriseSolution = () => {
               id: "eb239dk",
               attributes: {
                 required: false,
-                label: "What are your enterprise's objectives for the next 2-3 years?",
-                placeholder: "Please describe your company's growth targets, expansion plans, or any other major objectives.",
+                label:
+                  "What are your enterprise's objectives for the next 2-3 years?",
+                placeholder:
+                  "Please describe your company's growth targets, expansion plans, or any other major objectives.",
               },
             },
             {
@@ -122,15 +124,18 @@ const EnterpriseSolution = () => {
                 description: "You can upload multiple files.",
                 multiple: true,
               },
-            }
+            },
           ],
         }}
         applyLogic={true}
-        onSubmit={(data, { completeForm, setIsSubmitting, goToBlock, setSubmissionErr }) => {
+        onSubmit={(
+          data,
+          { completeForm, setIsSubmitting, goToBlock, setSubmissionErr }
+        ) => {
           setTimeout(() => {
             completeForm();
             setIsSubmitting(false);
-        
+            router.push("/teamAnalysisReport"); // Redirect to the analysis page
           }, 500);
         }}
       />
