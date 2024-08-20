@@ -1,5 +1,5 @@
 # Demo video
-https://drive.google.com/file/d/1wyJb7LlQA4zeD-Oll264UXnw7tyabbT3/view?usp=drive_link
+https://drive.google.com/file/d/1m8RpzSpwp1y6N-RWU8Nt4-Z4zgzyVlab/view
 
 # JobSense
 JobSense is a platform that utilizes big data technologies and artificial intelligence to tackle the problem of rising unemployment due to job market trends.
