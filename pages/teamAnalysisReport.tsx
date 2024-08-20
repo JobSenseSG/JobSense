@@ -9,62 +9,35 @@ import {
   Spinner,
   Center,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 const TeamAnalysisReport = () => {
   const [loading, setLoading] = useState(true);
-
-  const teamAnalysisData = {
-    companyName: "JobSense",
-    teamSize: "1-5",
-    fundingStage: "Pre-seed",
-    industryFocus: "AI/ML",
-    objectives:
-      "Expand market reach, enhance product features, support enterprise solutions, and achieve financial growth.",
-    skillsRecommendation: [
-      {
-        skill: "Cloud Computing",
-        reason:
-          "The team lacks expertise in cloud computing, which is essential for scaling AI/ML applications and managing data storage and processing in the cloud.",
-        improvementAreas:
-          "Upskill in cloud platforms such as AWS, Azure, or Google Cloud, with a focus on AI/ML services.",
-      },
-      {
-        skill: "Advanced Data Analysis",
-        reason:
-          "With the focus on AI/ML, having advanced data analysis skills is crucial for making sense of large datasets and improving model accuracy.",
-        improvementAreas:
-          "Consider training in advanced statistics, machine learning algorithms, and tools like TensorFlow or PyTorch.",
-      },
-      {
-        skill: "DevOps for AI/ML",
-        reason:
-          "Adopting DevOps practices tailored for AI/ML can streamline the development and deployment of machine learning models, ensuring consistency and scalability.",
-        improvementAreas:
-          "Focus on CI/CD pipelines for AI/ML, containerization using Docker, and orchestration with Kubernetes.",
-      },
-    ],
-    weaknesses: [
-      "Limited experience with cloud-based AI/ML services.",
-      "Lack of expertise in advanced data analysis techniques.",
-      "Inconsistent use of DevOps practices for AI/ML model deployment.",
-    ],
-    improvementSuggestions: [
-      "Organize training sessions on cloud platforms and AI/ML services.",
-      "Encourage team members to participate in advanced data analysis workshops.",
-      "Implement a standardized DevOps process for AI/ML model deployment.",
-    ],
-    overallAnalysis:
-      "The JobSense team shows promise in AI/ML but needs to address key skill gaps in cloud computing, advanced data analysis, and DevOps for AI/ML. Strengthening these areas will help the team better achieve its growth objectives and enhance its product offerings.",
-  };
+  const [teamAnalysisData, setTeamAnalysisData] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
-    // Simulate loading time for AI analysis
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000); // Adjust time to simulate loading
+    const fetchAnalysis = async () => {
+      try {
+        const response = await fetch("/api/teamAnalysis", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(router.query),
+        });
 
-    return () => clearTimeout(timer);
-  }, []);
+        const data = await response.json();
+        setTeamAnalysisData(data.analysis);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch team analysis data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchAnalysis();
+  }, [router.query]);
 
   if (loading) {
     return (
@@ -76,6 +49,22 @@ const TeamAnalysisReport = () => {
       </Center>
     );
   }
+
+  if (!teamAnalysisData) {
+    return <Text>No data available</Text>;
+  }
+
+  const {
+    companyName,
+    teamSize,
+    fundingStage,
+    industryFocus,
+    objectives,
+    skillsRecommendation,
+    weaknesses,
+    improvementSuggestions,
+    overallAnalysis,
+  } = JSON.parse(teamAnalysisData);
 
   return (
     <Box
@@ -91,26 +80,26 @@ const TeamAnalysisReport = () => {
           Team Analysis Report
         </Heading>
         <Text fontSize="lg" color="gray.800">
-          <strong>Company:</strong> {teamAnalysisData.companyName}
+          <strong>Company:</strong> {companyName}
         </Text>
         <Text fontSize="lg" color="gray.800">
-          <strong>Team Size:</strong> {teamAnalysisData.teamSize}
+          <strong>Team Size:</strong> {teamSize}
         </Text>
         <Text fontSize="lg" color="gray.800">
-          <strong>Funding Stage:</strong> {teamAnalysisData.fundingStage}
+          <strong>Funding Stage:</strong> {fundingStage}
         </Text>
         <Text fontSize="lg" color="gray.800">
-          <strong>Industry Focus:</strong> {teamAnalysisData.industryFocus}
+          <strong>Industry Focus:</strong> {industryFocus}
         </Text>
         <Text fontSize="lg" color="gray.800">
-          <strong>Objectives:</strong> {teamAnalysisData.objectives}
+          <strong>Objectives:</strong> {objectives}
         </Text>
 
         <Heading as="h3" size="lg" color="teal.600" pt={6}>
           Recommended Skills
         </Heading>
         <UnorderedList pl={4}>
-          {teamAnalysisData.skillsRecommendation.map((rec, index) => (
+          {skillsRecommendation.map((rec: any, index: any) => (
             <ListItem key={index} mb={4}>
               <Text as="strong">{rec.skill}</Text>: {rec.reason}
               <br />
@@ -123,7 +112,7 @@ const TeamAnalysisReport = () => {
           Weaknesses
         </Heading>
         <UnorderedList pl={4}>
-          {teamAnalysisData.weaknesses.map((weakness, index) => (
+          {weaknesses.map((weakness: any, index: any) => (
             <ListItem key={index}>{weakness}</ListItem>
           ))}
         </UnorderedList>
@@ -132,7 +121,7 @@ const TeamAnalysisReport = () => {
           Improvement Suggestions
         </Heading>
         <UnorderedList pl={4}>
-          {teamAnalysisData.improvementSuggestions.map((suggestion, index) => (
+          {improvementSuggestions.map((suggestion: any, index: any) => (
             <ListItem key={index}>{suggestion}</ListItem>
           ))}
         </UnorderedList>
@@ -141,7 +130,7 @@ const TeamAnalysisReport = () => {
           Overall Analysis
         </Heading>
         <Text fontSize="lg" color="gray.800">
-          {teamAnalysisData.overallAnalysis}
+          {overallAnalysis}
         </Text>
       </VStack>
     </Box>
