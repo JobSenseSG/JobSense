@@ -1,31 +1,12 @@
-/**
- * WordPress Dependencies
- */
 import { useEffect, useRef, useState } from "@wordpress/element";
 import { useSelect, useDispatch } from "@wordpress/data";
-
-/**
- * External Dependencies
- */
 import { useDropzone } from "react-dropzone";
 import tinyColor from "tinycolor2";
-import { css } from "emotion";
-import { size } from "lodash";
-
-/**
- * QuillForms Dependencies
- */
-import {
-    useFormContext,
-    useTheme,
-    useMessages
-} from "@quillforms/renderer-core";
-
-/**
- * Internal Dependencies
- */
+import { GlobalWorkerOptions, getDocument } from "pdfjs-dist";
 import UploadAreaContent from "./upload-area-content";
-const YOUR_SERVER_URL = "localhost";
+import { useTheme, useMessages } from "@quillforms/renderer-core";
+import { css } from "emotion";
+
 const FileBlockDisplay = ({
     id,
     attributes,
@@ -42,7 +23,6 @@ const FileBlockDisplay = ({
     setVal,
     isTouchScreen
 }) => {
-    const { formId } = useFormContext();
     const theme = useTheme();
     const messages = useMessages();
     const answersColor = tinyColor(theme.answersColor);
@@ -74,104 +54,61 @@ const FileBlockDisplay = ({
 
     const onDropAccepted = (files) => {
         for (let file of files) {
-            isPreview ? preview(file) : upload(file);
+            handleFileUpload(file);
         }
     };
 
-    const preview = (file) => {
-        let fileKey = Math.random().toString(36).substr(2, 10);
-        let fileData = {
-            status: "success",
-            progress: 100,
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            previewUrlSrc: URL.createObjectURL(file)
-        };
-
-        addFile(id, fileKey, fileData);
-
-        updateValue();
-        showErrMsg(false);
-        setIsAnswered(true);
-        showNextBtn(true);
-    };
-
-    const upload = (file) => {
-        let request = new XMLHttpRequest();
-
-        let formData = new FormData();
-        formData.append("action", "fileblock_upload");
-        formData.append("form_id", formId);
-        formData.append("field_id", id);
-        formData.append("file", file);
-
-        let fileKey = Math.random().toString(36).substr(2, 10);
-        let fileData = {
-            status: "pending",
-            progress: 0,
-            request,
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            previewUrlSrc: URL.createObjectURL(file)
-        };
-        addFile(id, fileKey, fileData);
-
-        request.open("POST", YOUR_SERVER_URL);
-
-        request.upload.addEventListener("progress", function (e) {
-            if (!mounted.current) return;
-            let percent_complete = (e.loaded / e.total) * 100;
-            updateFile(id, fileKey, {
-                progress: percent_complete
-            });
-        });
-
-        request.addEventListener("load", function (e) {
-            if (!mounted.current) return;
-            let response = request.response ?? {};
-            let fileData;
-            if (request.status === 201) {
-                fileData = {
-                    status: "success",
-                    id: response.id,
-                    hash: response.hash
-                };
-            } else {
-                fileData = {
-                    status: "failed",
-                    error: response.message ?? "Cannot upload file."
-                };
-            }
-            updateFile(id, fileKey, fileData);
-            let isPending = updatePendingStatus();
-            if (!isPending) {
-                updateValue();
-            }
-        });
-        request.send(formData);
-
-        updatePendingStatus(true);
-        showErrMsg(false);
-        setIsAnswered(true);
-        showNextBtn(true);
-    };
-
-    const updatePendingStatus = (status) => {
-        if (status === undefined) {
-            status =
-                Object.values(filesRef.current).find(
-                    (fileData) => fileData.status === "pending"
-                ) !== undefined;
+    const handleFileUpload = (file) => {
+        if (!file) {
+            console.error("No file provided.");
+            return;
         }
-        setIsPending(status);
-        setPendingMsg(status ? "Uploading files..." : null);
-        return status;
+
+        // Set the path to the PDF worker script
+        GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+
+        const reader = new FileReader();
+
+        reader.onload = async (event) => {
+            if (event.target && event.target.result instanceof ArrayBuffer) {
+                const arrayBuffer = event.target.result;
+                const loadingTask = getDocument(new Uint8Array(arrayBuffer));
+
+                try {
+                    const pdfDocument = await loadingTask.promise;
+                    let extractedText = "";
+
+                    for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
+                        const page = await pdfDocument.getPage(pageNum);
+                        const textContent = await page.getTextContent();
+                        const pageText = textContent.items
+                            .map((item) => ("str" in item ? item.str : ""))
+                            .join(" ");
+                        extractedText += pageText + " ";
+                    }
+                    console.log("Extracted Text:", extractedText);
+
+                    // After successful file handling
+                    addFile(id, file.name, {
+                        status: "success",
+                        progress: 100,
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        previewUrlSrc: URL.createObjectURL(file)
+                    });
+
+                } catch (error) {
+                    console.error("Error while extracting text from PDF:", error);
+                }
+            }
+        };
+
+        reader.readAsArrayBuffer(file);
     };
 
     const onDropRejected = (files) => {
-        // We just need to show the first error only
+        // Show the first error only
         blockWithError(files[0].errors[0].message);
     };
 
@@ -184,50 +121,24 @@ const FileBlockDisplay = ({
         disabled: multiple ? false : Object.values(filesRef.current).length >= 1
     });
 
+    useEffect(() => {
+        checkFieldValidation();
+    }, [val, attributes]);
+
     const checkFieldValidation = () => {
         if (required === true && (!val || size(val) === 0)) {
             setIsValid(false);
             setValidationErr(messages["label.errorAlert.required"]);
-        }
-        // else if ( size( val ) !== size( filesArr ) ) {
-        // 	setIsValid( false );
-        // 	setValidationErr( 'Some files cannot be uploaded!' );
-        // }
-        else {
+        } else {
             setIsValid(true);
             setValidationErr(null);
         }
     };
 
     useEffect(() => {
-        checkFieldValidation();
-    }, [val, attributes]);
-
-    const updateValue = () => {
-        let filesArr = Object.values(filesRef.current);
-
-        let val = filesArr
-            .filter((fileData) => fileData.status === "success")
-            .map((fileData) => {
-                if (isPreview) {
-                    return {
-                        id: 0,
-                        hash: "preview"
-                    };
-                } else {
-                    return {
-                        id: fileData.id,
-                        hash: fileData.hash
-                    };
-                }
-            });
-        setVal(val);
-    };
-
-    useEffect(() => {
         mounted.current = true;
         return () => {
-            // delete pending files
+            // Clean up pending files
             Object.entries(filesRef.current).forEach(([fileKey, fileData]) => {
                 if (fileData.status === "pending") {
                     deleteFile(fileKey);
@@ -268,4 +179,5 @@ const FileBlockDisplay = ({
         </div>
     );
 };
+
 export default FileBlockDisplay;
