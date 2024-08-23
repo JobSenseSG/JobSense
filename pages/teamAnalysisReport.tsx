@@ -61,7 +61,7 @@ const TeamAnalysisReport = () => {
     // Simulate loading time for AI analysis
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 5000); // Adjust time to simulate loading
+    }, 10000); // Adjust time to simulate loading
 
     return () => clearTimeout(timer);
   }, []);
