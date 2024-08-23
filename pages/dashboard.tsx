@@ -386,7 +386,7 @@ const DashboardPage = () => {
           setResumeUploaded(true);
           setLoading(false);
           setLoadingSkills(false);
-        }, 2000);
+        }, 8000);
       }
     };
 
