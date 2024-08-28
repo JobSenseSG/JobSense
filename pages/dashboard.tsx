@@ -88,68 +88,6 @@ const DashboardPage = () => {
     return `hsl(${hue}, 100%, 50%)`;
   };
 
-  // const parseSkill = (skillString: string) => {
-  //   const match = skillString.match(/"(.*)".*?---------------------\s*(.*)/s);
-
-  //   let title = "";
-  //   let points = "";
-
-  //   if (match) {
-  //     title = match[1].trim();
-  //     points = match[2].trim();
-  //   } else {
-  //     // In case the parsing fails, just use the string directly
-  //     title = skillString.trim();
-  //     points = "No additional information provided.";
-  //   }
-
-  //   // Remove the "Title: " prefix if present
-  //   if (title.toLowerCase().startsWith("title:")) {
-  //     title = title.substring(6).trim(); // Remove the first 6 characters ("Title:")
-  //   }
-
-  //   return { title, points };
-  // };
-
-  const certifications12 = [
-    {
-      certificate_title: "AWS Certified Solutions Architect",
-      certification_demand: "High",
-      pay_range: "$130,000 - $150,000",
-      top_3_job_titles: [
-        "Solutions Architect",
-        "Cloud Architect",
-        "Cloud Engineer",
-      ],
-    },
-    {
-      certificate_title: "Certified Kubernetes Administrator (CKA)",
-      certification_demand: "High",
-      pay_range: "$120,000 - $140,000",
-      top_3_job_titles: [
-        "DevOps Engineer",
-        "Kubernetes Administrator",
-        "Site Reliability Engineer",
-      ],
-    },
-    {
-      certificate_title: "Certified ScrumMaster (CSM)",
-      certification_demand: "Moderate",
-      pay_range: "$90,000 - $110,000",
-      top_3_job_titles: ["Scrum Master", "Agile Coach", "Project Manager"],
-    },
-    {
-      certificate_title: "Microsoft Certified: Azure Developer Associate",
-      certification_demand: "High",
-      pay_range: "$110,000 - $130,000",
-      top_3_job_titles: [
-        "Azure Developer",
-        "Cloud Developer",
-        "Software Engineer",
-      ],
-    },
-  ];
-
   const handleUploadResume = () => {
     setResumeUploaded(true);
   };
@@ -183,7 +121,7 @@ const DashboardPage = () => {
             extractedText += pageText + " ";
           }
 
-          setText(extractedText); // Save extracted text to state
+          setText(extractedText);
           analyzeResume(extractedText);
           fetchSkillsToLearn(extractedText);
         } catch (error) {
@@ -196,18 +134,17 @@ const DashboardPage = () => {
   };
 
   const handleSelectCertification = (value: any, setCertification: any) => {
-    // Find the certification object based on the title selected
-    const selectedCert = certifications12.find(
+    const selectedCert = certifications.find(
       (cert) => cert.certificate_title === value
     );
-    // Set the state with the selected certification object
     setCertification(selectedCert);
   };
 
-  // This function is triggered when the "Compare" button is clicked
   const handleCompare = async () => {
-    const certification1 = certifications12[0]; // AWS Certified Solutions Architect
-    const certification2 = certifications12[1]; // Certified Kubernetes Administrator (CKA)
+    if (!certification1 || !certification2) {
+      console.error("Both certifications must be selected before comparing.");
+      return;
+    }
 
     try {
       const response = await fetch("/api/compareCertifications", {
@@ -236,7 +173,7 @@ const DashboardPage = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ resumeText }), // Passing resumeText to the API
+        body: JSON.stringify({ resumeText }),
       });
 
       if (!response.ok) {
@@ -245,7 +182,6 @@ const DashboardPage = () => {
 
       const skills = await response.json();
 
-      // Assuming the API returns an array of skills as { title: string; points: string; }
       if (skills.length >= 3) {
         setSkillsToLearn1Title(skills[0].title);
         setSkillsToLearn1Points(skills[0].points);
@@ -265,7 +201,6 @@ const DashboardPage = () => {
 
   const analyzeResume = async (resumeText: string) => {
     setLoading(true);
-    // Get latest job from resume
     const latestRole = await fetch("/api/latestRole", {
       method: "POST",
       headers: {
@@ -276,7 +211,6 @@ const DashboardPage = () => {
       return res.json();
     });
 
-    // Get all rows with title similar to user's current role
     const relatedRoles = await fetch("/api/roles", {
       method: "POST",
       headers: {
@@ -290,7 +224,6 @@ const DashboardPage = () => {
     const analysis = [];
 
     for (let index = 0; index < relatedRoles.length; index++) {
-      // Assume you have a backend endpoint /api/analyze-resume
       try {
         const response = await fetch("/api/useGemini", {
           method: "POST",
@@ -320,73 +253,8 @@ const DashboardPage = () => {
       const files = event.target.files;
       if (files && files.length > 0 && files[0].type === "application/pdf") {
         setUploadedFile(files[0]);
-        setLoading(true);
-        setLoadingSkills(true);
-
-        setTimeout(() => {
-          const hardcodedJobs = [
-            {
-              role: {
-                company: "TechCorp",
-                title: "Software Engineer",
-                skills_required: ["JavaScript", "React", "Node.js"],
-              },
-              compatibility: 85,
-            },
-            {
-              role: {
-                company: "InnovateX",
-                title: "Frontend Developer",
-                skills_required: ["HTML", "CSS", "JavaScript"],
-              },
-              compatibility: 75,
-            },
-            {
-              role: {
-                company: "CodeMakers",
-                title: "Backend Developer",
-                skills_required: ["Python", "Django", "REST APIs"],
-              },
-              compatibility: 80,
-            },
-            {
-              role: {
-                company: "CloudNet",
-                title: "DevOps Engineer",
-                skills_required: ["AWS", "Docker", "CI/CD"],
-              },
-              compatibility: 90,
-            },
-            {
-              role: {
-                company: "AI Innovations",
-                title: "Machine Learning Engineer",
-                skills_required: ["Python", "TensorFlow", "Data Science"],
-              },
-              compatibility: 88,
-            },
-          ];
-          setJobs(hardcodedJobs);
-
-          setSkillsToLearn1Title("Advanced React Patterns");
-          setSkillsToLearn1Points(
-            "Ketut should learn advanced React patterns such as compound components, render props, and higher-order components. These patterns will help Ketut build more reusable and maintainable UI components, which are essential in complex applications. By mastering these patterns, Ketut can improve the scalability and flexibility of the front-end architecture."
-          );
-
-          setSkillsToLearn2Title("TypeScript");
-          setSkillsToLearn2Points(
-            "Ketut should master TypeScript to write strongly-typed JavaScript, which will greatly improve code quality and maintainability. Learning TypeScript will also help Ketut catch errors early during development, reducing bugs in the production environment. As more companies adopt TypeScript, this skill will make Ketut a more competitive candidate for advanced development roles."
-          );
-
-          setSkillsToLearn3Title("GraphQL");
-          setSkillsToLearn3Points(
-            "Ketut should learn GraphQL to efficiently query and manipulate data in modern web applications. By using GraphQL, Ketut can enable more flexible and powerful API interactions, which will lead to better performance and user experience. This skill will also allow Ketut to work on cutting-edge projects that require optimized data fetching strategies."
-          );
-
-          setResumeUploaded(true);
-          setLoading(false);
-          setLoadingSkills(false);
-        }, 8000);
+        PDFExtractor({ file: files[0] });
+        setResumeUploaded(true);
       }
     };
 
@@ -459,14 +327,17 @@ const DashboardPage = () => {
   };
 
   useEffect(() => {
-    fetch("/api/certification")
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchCertifications = async () => {
+      try {
+        const response = await fetch("/api/certifications");
+        const data = await response.json();
         setCertifications(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-      });
+      } catch (error) {
+        console.error("Error fetching certification data:", error);
+      }
+    };
+
+    fetchCertifications();
   }, []);
 
   return (
@@ -501,12 +372,9 @@ const DashboardPage = () => {
                   handleSelectCertification(e.target.value, setCertification1)
                 }
               >
-                {certifications12.map((certifications12, index) => (
-                  <option
-                    key={index}
-                    value={certifications12.certificate_title}
-                  >
-                    {certifications12.certificate_title}
+                {certifications.map((certification, index) => (
+                  <option key={index} value={certification.certificate_title}>
+                    {certification.certificate_title}
                   </option>
                 ))}
               </Select>
@@ -517,12 +385,9 @@ const DashboardPage = () => {
                   handleSelectCertification(e.target.value, setCertification2)
                 }
               >
-                {certifications12.map((certifications12, index) => (
-                  <option
-                    key={index}
-                    value={certifications12.certificate_title}
-                  >
-                    {certifications12.certificate_title}
+                {certifications.map((certification, index) => (
+                  <option key={index} value={certification.certificate_title}>
+                    {certification.certificate_title}
                   </option>
                 ))}
               </Select>
