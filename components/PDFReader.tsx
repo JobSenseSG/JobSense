@@ -1,10 +1,12 @@
+// Ensure your imports are correctly pointing to where the modules are.
 import React, { useEffect, useState } from "react";
 import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
 import "pdfjs-dist/legacy/build/pdf.worker";
 
-GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+// Set the worker URL
+GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
 
-const PDFReader = ({ file }: { file: File | null }) => {
+const PDFReader = ({ file }: { file: File | null}) => {
   const [text, setText] = useState("");
 
   const extractTextFromPdf = async (file: File) => {

@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.SUPABASE_URL || "";
-const supabaseKey = process.env.SUPABASE_KEY || "";
+const supabaseUrl = ``;
+const supabaseKey = ``;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 type ResponseData =
@@ -36,6 +36,6 @@ export default async function handler(
       return res.status(500).json({ message: error.message });
     }
   } else {
-    return res.status(400).json({ message: "Method not supported" });
+    return res.status(400).json({ message: 'Method not supported' });
   }
 }

@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-const apiKey = process.env.UPSTAGE_API_KEY;
+const apiKey = "up_nwDMy4WRdzgWukb97wN2yAGcwo33H";
 const openai = new OpenAI({
   apiKey: apiKey,
   baseURL: "https://api.upstage.ai/v1/solar",
@@ -23,9 +23,11 @@ export default async function handler(req, res) {
         stream: false,
       });
 
+      // Extract and return the response text.
       const responseText = chatCompletion.choices[0].message.content.trim();
       console.log("AI Response:", responseText);
 
+      // Split the response into individual skills
       const skills = responseText.split("\n\n").map((skill) => {
         const [title, points] = skill
           .split("---------------------")
