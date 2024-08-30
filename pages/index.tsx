@@ -12,6 +12,19 @@ import {
   Image, // Ensure correct import
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { User, createClient } from "@supabase/supabase-js";
+// import
+
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+
+
+
+
 
 const GradientText = chakra(Text, {
   baseStyle: {
@@ -40,42 +53,69 @@ const gradientBorderStyle = {
   },
 };
 
-const Navbar = () => (
-  <Flex
-    as="nav"
-    bg="#1A1A1A"
-    color="white"
-    padding="1rem 2rem"
-    justifyContent="space-between"
-    alignItems="center"
-    position="fixed"
-    top="0"
-    left="0"
-    width="100%"
-    zIndex="10"
-  >
-    <GradientText fontSize="4xl">JobSense</GradientText>
-    <HStack spacing={6} display={{ base: "none", md: "flex" }}>
-      <Link href="/dashboard" passHref>
-        <ChakraLink _hover={{ color: "#FF006E" }}>Dashboard</ChakraLink>
-      </Link>
-      <Link href="/enterpriseSolution" passHref>
-        <ChakraLink _hover={{ color: "#FF006E" }}>Enterprise Solution</ChakraLink>
-      </Link>
-      <Link href="#about" passHref>
-        <ChakraLink _hover={{ color: "#FF006E" }}>About</ChakraLink>
-      </Link>
-    </HStack>
-    <HStack spacing={4}>
-      <Link href="/login" passHref>
-        <Button sx={gradientBorderStyle}>Login</Button>
-      </Link>
-      <Link href="/signup" passHref>
-        <Button sx={gradientBorderStyle}>Sign Up</Button>
-      </Link>
-    </HStack>
-  </Flex>
-);
+const Navbar = () => {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
+    };
+
+    fetchUser();
+  }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    setUser(null); // Reset user state after signing out
+  };
+
+  return (
+    <Flex
+      as="nav"
+      bg="#1A1A1A"
+      color="white"
+      padding="1rem 2rem"
+      justifyContent="space-between"
+      alignItems="center"
+      position="fixed"
+      top="0"
+      left="0"
+      width="100%"
+      zIndex="10"
+    >
+      <GradientText fontSize="4xl">JobSense</GradientText>
+      <HStack spacing={6} display={{ base: "none", md: "flex" }}>
+        <Link href="/dashboard" passHref>
+          <ChakraLink _hover={{ color: "#FF006E" }}>Dashboard</ChakraLink>
+        </Link>
+        <Link href="/enterpriseSolution" passHref>
+          <ChakraLink _hover={{ color: "#FF006E" }}>Enterprise Solution</ChakraLink>
+        </Link>
+        <Link href="#about" passHref>
+          <ChakraLink _hover={{ color: "#FF006E" }}>About</ChakraLink>
+        </Link>
+      </HStack>
+      <HStack spacing={4}>
+        {user ? (
+          <>
+            <Text>Welcome, {user.email}</Text>
+            <Button sx={gradientBorderStyle} onClick={handleSignOut}>
+              Sign Out
+            </Button>
+          </>
+        ) : (
+          <Link href="/auth/signin" passHref>
+            <Button sx={gradientBorderStyle}>Login</Button>
+          </Link>
+        )}
+      </HStack>
+    </Flex>
+  );
+};
+
+
+
 
 interface CardProps {
   title: string;
