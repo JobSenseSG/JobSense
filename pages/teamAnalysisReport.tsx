@@ -8,7 +8,9 @@ import {
   VStack,
   Spinner,
   Center,
+  Flex,
 } from "@chakra-ui/react";
+import Sidebar from "../components/Sidebar";
 
 const TeamAnalysisReport = () => {
   const [loading, setLoading] = useState(true);
@@ -78,73 +80,88 @@ const TeamAnalysisReport = () => {
   }
 
   return (
-    <Box
-      p={8}
-      maxW="800px"
-      mx="auto"
-      bg="gray.50"
-      borderRadius="lg"
-      boxShadow="lg"
-    >
-      <VStack spacing={4} align="start">
-        <Heading as="h1" size="xl" textAlign="center" color="gray.700" w="full">
-          Team Analysis Report
-        </Heading>
-        <Text fontSize="lg" color="gray.800">
-          <strong>Company:</strong> {teamAnalysisData.companyName}
-        </Text>
-        <Text fontSize="lg" color="gray.800">
-          <strong>Team Size:</strong> {teamAnalysisData.teamSize}
-        </Text>
-        <Text fontSize="lg" color="gray.800">
-          <strong>Funding Stage:</strong> {teamAnalysisData.fundingStage}
-        </Text>
-        <Text fontSize="lg" color="gray.800">
-          <strong>Industry Focus:</strong> {teamAnalysisData.industryFocus}
-        </Text>
-        <Text fontSize="lg" color="gray.800">
-          <strong>Objectives:</strong> {teamAnalysisData.objectives}
-        </Text>
+    <Flex height="100vh">
+      {/* Sidebar */}
+      <Sidebar />
 
-        <Heading as="h3" size="lg" color="teal.600" pt={6}>
-          Recommended Skills
-        </Heading>
-        <UnorderedList pl={4}>
-          {teamAnalysisData.skillsRecommendation.map((rec, index) => (
-            <ListItem key={index} mb={4}>
-              <Text as="strong">{rec.skill}</Text>: {rec.reason}
-              <br />
-              <Text as="em">Areas to improve:</Text> {rec.improvementAreas}
-            </ListItem>
-          ))}
-        </UnorderedList>
+      {/* Main Content */}
+      <Box
+        p={8}
+        bg="gray.50"
+        borderRadius="lg"
+        boxShadow="lg"
+        ml={4} // Adjust margin to leave space for the sidebar
+        flex="1"
+        overflowY="auto" // Allow content to scroll
+      >
+        <VStack spacing={4} align="start">
+          <Heading
+            as="h1"
+            size="xl"
+            textAlign="center"
+            color="gray.700"
+            w="full"
+          >
+            Team Analysis Report
+          </Heading>
+          <Text fontSize="lg" color="gray.800">
+            <strong>Company:</strong> {teamAnalysisData.companyName}
+          </Text>
+          <Text fontSize="lg" color="gray.800">
+            <strong>Team Size:</strong> {teamAnalysisData.teamSize}
+          </Text>
+          <Text fontSize="lg" color="gray.800">
+            <strong>Funding Stage:</strong> {teamAnalysisData.fundingStage}
+          </Text>
+          <Text fontSize="lg" color="gray.800">
+            <strong>Industry Focus:</strong> {teamAnalysisData.industryFocus}
+          </Text>
+          <Text fontSize="lg" color="gray.800">
+            <strong>Objectives:</strong> {teamAnalysisData.objectives}
+          </Text>
 
-        <Heading as="h3" size="lg" color="red.600" pt={6}>
-          Weaknesses
-        </Heading>
-        <UnorderedList pl={4}>
-          {teamAnalysisData.weaknesses.map((weakness, index) => (
-            <ListItem key={index}>{weakness}</ListItem>
-          ))}
-        </UnorderedList>
+          <Heading as="h3" size="lg" color="teal.600" pt={6}>
+            Recommended Skills
+          </Heading>
+          <UnorderedList pl={4}>
+            {teamAnalysisData.skillsRecommendation.map((rec, index) => (
+              <ListItem key={index} mb={4}>
+                <Text as="strong">{rec.skill}</Text>: {rec.reason}
+                <br />
+                <Text as="em">Areas to improve:</Text> {rec.improvementAreas}
+              </ListItem>
+            ))}
+          </UnorderedList>
 
-        <Heading as="h3" size="lg" color="orange.600" pt={6}>
-          Improvement Suggestions
-        </Heading>
-        <UnorderedList pl={4}>
-          {teamAnalysisData.improvementSuggestions.map((suggestion, index) => (
-            <ListItem key={index}>{suggestion}</ListItem>
-          ))}
-        </UnorderedList>
+          <Heading as="h3" size="lg" color="red.600" pt={6}>
+            Weaknesses
+          </Heading>
+          <UnorderedList pl={4}>
+            {teamAnalysisData.weaknesses.map((weakness, index) => (
+              <ListItem key={index}>{weakness}</ListItem>
+            ))}
+          </UnorderedList>
 
-        <Heading as="h3" size="lg" color="blue.600" pt={6}>
-          Overall Analysis
-        </Heading>
-        <Text fontSize="lg" color="gray.800">
-          {teamAnalysisData.overallAnalysis}
-        </Text>
-      </VStack>
-    </Box>
+          <Heading as="h3" size="lg" color="orange.600" pt={6}>
+            Improvement Suggestions
+          </Heading>
+          <UnorderedList pl={4}>
+            {teamAnalysisData.improvementSuggestions.map(
+              (suggestion, index) => (
+                <ListItem key={index}>{suggestion}</ListItem>
+              )
+            )}
+          </UnorderedList>
+
+          <Heading as="h3" size="lg" color="blue.600" pt={6}>
+            Overall Analysis
+          </Heading>
+          <Text fontSize="lg" color="gray.800">
+            {teamAnalysisData.overallAnalysis}
+          </Text>
+        </VStack>
+      </Box>
+    </Flex>
   );
 };
 
