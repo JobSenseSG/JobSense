@@ -6,10 +6,9 @@ import {
   VStack,
   chakra,
   Flex,
-  Input,
   Divider,
 } from "@chakra-ui/react";
-import { FaGoogle } from "react-icons/fa"; // Correct icon for Google
+import { FaGoogle, FaLinkedin } from "react-icons/fa"; // Import LinkedIn icon
 
 // Initialize the Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -35,7 +34,19 @@ const SignIn: React.FC = () => {
     if (error) {
       console.error("Error signing in:", error.message);
     } else {
-      console.log("Redirecting to:", data.url); // Supabase should handle the redirect
+      console.log("Redirecting to:", data.url);
+    }
+  };
+
+  const signInWithLinkedIn = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "linkedin",
+    });
+
+    if (error) {
+      console.error("Error signing in:", error.message);
+    } else {
+      console.log("Redirecting to:", data.url);
     }
   };
 
@@ -72,7 +83,7 @@ const SignIn: React.FC = () => {
             <Button
               leftIcon={<FaGoogle />}
               onClick={signInWithGoogle}
-              width="100%" // Ensuring button width matches input width
+              width="100%" 
               sx={{
                 border: "2px solid",
                 borderImageSlice: 1,
@@ -96,7 +107,7 @@ const SignIn: React.FC = () => {
               Sign in with Google
             </Button>
 
-            <Flex align="center" width="100%">
+             <Flex align="center" width="100%">
               <Divider color="gray.600" />
               <Text mx={2} color="gray.500">
                 OR
@@ -104,27 +115,36 @@ const SignIn: React.FC = () => {
               <Divider color="gray.600" />
             </Flex>
 
-            <Input placeholder="Password" type="password" />
             <Button
-              width="100%" // Ensuring button width matches input width
+              leftIcon={<FaLinkedin />}
+              onClick={signInWithLinkedIn}
+              width="100%"
               sx={{
+                border: "2px solid",
+                borderImageSlice: 1,
+                borderImageSource:
+                  "linear-gradient(to right, #0A66C2, #0077B5)",
                 borderRadius: "12px",
-                backgroundColor: "#7E00FB",
+                backgroundColor: "transparent",
                 color: "white",
                 padding: "0.5rem 1rem",
                 fontWeight: "bold",
                 transition: "all 0.3s ease-in-out",
                 _hover: {
                   backgroundColor:
-                    "linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)",
+                    "linear-gradient(to right, #0A66C2, #0077B5)",
                   color: "white",
                   borderRadius: "12px",
-                  boxShadow: "0px 0px 15px rgba(106, 0, 244, 0.7)",
+                  boxShadow: "0px 0px 15px rgba(10, 102, 194, 0.7)",
                 },
               }}
             >
-              Sign in with Credentials
+              Sign in with LinkedIn
             </Button>
+
+           
+
+            {/* You can add other authentication methods or remove this block if not needed */}
           </VStack>
         </Box>
       </Flex>

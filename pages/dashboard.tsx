@@ -68,14 +68,11 @@ const DashboardPage = () => {
   const [resumeUploaded, setResumeUploaded] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [jobs, setJobs] = useState<any[]>([]);
-  const [certifications, setCertifications] = useState<Certification[]>([]);
+ const [certifications, setCertifications] = useState<string[]>([]);
   const [text, setText] = useState("");
-  const [certification1, setCertification1] = useState<Certification | null>(
-    null
-  );
-  const [certification2, setCertification2] = useState<Certification | null>(
-    null
-  );
+const [certification1, setCertification1] = useState<string | null>(null);
+const [certification2, setCertification2] = useState<string | null>(null);
+
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const {
     isOpen: isResumeModalOpen,
@@ -132,38 +129,35 @@ const DashboardPage = () => {
 
     reader.readAsArrayBuffer(file);
   };
+const handleSelectCertification = (value: string, setCertification: React.Dispatch<React.SetStateAction<string | null>>) => {
+  setCertification(value);
+};
 
-  const handleSelectCertification = (value: any, setCertification: any) => {
-    const selectedCert = certifications.find(
-      (cert) => cert.certificate_title === value
-    );
-    setCertification(selectedCert);
-  };
 
   const handleCompare = async () => {
-    if (!certification1 || !certification2) {
-      console.error("Both certifications must be selected before comparing.");
-      return;
-    }
+    // if (!certification1 || !certification2) {
+    //   console.error("Both certifications must be selected before comparing.");
+    //   return;
+    // }
 
-    try {
-      const response = await fetch("/api/compareCertifications", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          certification1: certification1.certificate_title,
-          certification2: certification2.certificate_title,
-        }),
-      });
+    // try {
+    //   const response = await fetch("/api/compareCertifications", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       certification1: certification1.certificate_title,
+    //       certification2: certification2.certificate_title,
+    //     }),
+    //   });
 
-      const data = await response.json();
-      console.log("Comparison Result:", data);
-      onOpen();
-    } catch (error) {
-      console.error("Error comparing certifications:", error);
-    }
+    //   const data = await response.json();
+    //   console.log("Comparison Result:", data);
+    //   onOpen();
+    // } catch (error) {
+    //   console.error("Error comparing certifications:", error);
+    // }
   };
 
   const fetchSkillsToLearn = async (resumeText: string) => {
@@ -326,19 +320,25 @@ const DashboardPage = () => {
     );
   };
 
-  useEffect(() => {
-    const fetchCertifications = async () => {
-      try {
-        const response = await fetch("/api/certifications");
-        const data = await response.json();
-        setCertifications(data);
-      } catch (error) {
-        console.error("Error fetching certification data:", error);
-      }
-    };
+ useEffect(() => {
+  const fetchCertifications = async () => {
+    try {
+      const response = await fetch("/api/certification");
+      const result = await response.json();
 
-    fetchCertifications();
-  }, []);
+      // Extract certification names
+      const certNames = result.certifications.map((cert: any) => cert.name);
+      setCertifications(certNames);
+
+      console.log("Certification Names:", certNames);
+    } catch (error) {
+      console.error("Error fetching certification data:", error);
+    }
+  };
+
+  fetchCertifications();
+}, []);
+
 
   return (
     <Box p={5}>
@@ -365,32 +365,30 @@ const DashboardPage = () => {
               Compare your certifications against market demands
             </Text>
             <VStack spacing={3}>
-              <Select
-                placeholder="Select certification 1"
-                width="full"
-                onChange={(e) =>
-                  handleSelectCertification(e.target.value, setCertification1)
-                }
-              >
-                {certifications.map((certification, index) => (
-                  <option key={index} value={certification.certificate_title}>
-                    {certification.certificate_title}
-                  </option>
-                ))}
-              </Select>
-              <Select
-                placeholder="Select certification 2"
-                width="full"
-                onChange={(e) =>
-                  handleSelectCertification(e.target.value, setCertification2)
-                }
-              >
-                {certifications.map((certification, index) => (
-                  <option key={index} value={certification.certificate_title}>
-                    {certification.certificate_title}
-                  </option>
-                ))}
-              </Select>
+            <Select
+  placeholder="Select certification 1"
+  width="full"
+  onChange={(e) => handleSelectCertification(e.target.value, setCertification1)}
+>
+  {certifications.map((certification, index) => (
+    <option key={index} value={certification}>
+      {certification}
+    </option>
+  ))}
+</Select>
+
+<Select
+  placeholder="Select certification 2"
+  width="full"
+  onChange={(e) => handleSelectCertification(e.target.value, setCertification2)}
+>
+  {certifications.map((certification, index) => (
+    <option key={index} value={certification}>
+      {certification}
+    </option>
+  ))}
+</Select>
+
 
               <Button
                 backgroundColor={buttonColor}
@@ -546,7 +544,7 @@ const DashboardPage = () => {
           </VStack>
         </VStack>
       </Grid>
-      <Modal isOpen={isOpen} onClose={onClose} size="4xl">
+      {/* <Modal isOpen={isOpen} onClose={onClose} size="4xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
@@ -635,7 +633,7 @@ const DashboardPage = () => {
             </TableContainer>
           </ModalBody>
         </ModalContent>
-      </Modal>
+      </Modal> */}
     </Box>
   );
 };

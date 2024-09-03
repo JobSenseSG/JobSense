@@ -6,6 +6,7 @@ const supabaseKey = ``;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 type ResponseData =
+//aa
   | {
       message: string;
     }
