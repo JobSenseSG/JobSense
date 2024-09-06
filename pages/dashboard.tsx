@@ -62,6 +62,7 @@ const DashboardPage = () => {
 
   const [skillsToLearn3Title, setSkillsToLearn3Title] = useState<string>("");
   const [skillsToLearn3Points, setSkillsToLearn3Points] = useState<string>("");
+  
 
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingSkills, setLoadingSkills] = useState<boolean>(false);

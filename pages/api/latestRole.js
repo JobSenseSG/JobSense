@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: "Resume must not be null" });
     }
 
-    const prompt = `Parse and output the candidate's latest role based on their resume and do not justify your answers and do not display the company name. The resume is shown below: ${resume}`;
+    const prompt = `Extract and return only the candidate's latest role title from the following resume, using a maximum of two words. Do not include any additional text, explanations, or formatting. Only return the role title. Resume: ${resume}`;
 
     try {
       const chatCompletion = await openai.chat.completions.create({
