@@ -20,9 +20,15 @@ export default async function compareCertifications(req, res) {
       .json({ error: "Both certifications must be provided" });
   }
 
-  const prompt = `NO MORE THAN 200 WORDS Compare the following two certifications based on industry demand, salary range, and top job titles. Provide a detailed comparison and an overall rating. 
-    Certification 1: ${certification1}
-    Certification 2: ${certification2}`;
+  const prompt = `Compare the following two certifications in a table format. Include the following details for each certification: 
+- Certification Demand (Low, Medium, High)
+- Pay Range
+- Top 3 Job Titles
+
+Provide the comparison in a table with headers for each certification.
+
+Certification 1: ${certification1}
+Certification 2: ${certification2}`;
 
   try {
     const chatCompletion = await openai.chat.completions.create({
@@ -33,10 +39,9 @@ export default async function compareCertifications(req, res) {
           content: prompt,
         },
       ],
+      // Removed topP and maxTokens since they might not be recognized by the Upstage API
       stream: false,
-      maxTokens: 512,
       temperature: 0.5,
-      topP: 0.9,
     });
 
     const responseText = chatCompletion.choices[0].message.content.trim();

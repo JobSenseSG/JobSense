@@ -35,11 +35,13 @@ import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import "pdfjs-dist/legacy/build/pdf.worker";
 
-interface Certification {
-  certificate_title: string;
-  certification_demand: string;
-  pay_range: string;
-  top_3_job_titles: string[];
+interface CertificationComparisonResult {
+  certification1_demand: string;
+  certification2_demand: string;
+  certification1_pay_range: string;
+  certification2_pay_range: string;
+  certification1_top_jobs: string[];
+  certification2_top_jobs: string[];
 }
 
 const DashboardPage = () => {
@@ -69,11 +71,12 @@ const DashboardPage = () => {
   const [resumeUploaded, setResumeUploaded] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [jobs, setJobs] = useState<any[]>([]);
- const [certifications, setCertifications] = useState<string[]>([]);
+  const [certifications, setCertifications] = useState<string[]>([]);
   const [text, setText] = useState("");
-const [certification1, setCertification1] = useState<string | null>(null);
-const [certification2, setCertification2] = useState<string | null>(null);
-
+  const [certification1, setCertification1] = useState<string | null>(null);
+  const [certification2, setCertification2] = useState<string | null>(null);
+  const [comparisonResult, setComparisonResult] =
+    useState<CertificationComparisonResult | null>(null);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const {
     isOpen: isResumeModalOpen,
@@ -130,35 +133,67 @@ const [certification2, setCertification2] = useState<string | null>(null);
 
     reader.readAsArrayBuffer(file);
   };
-const handleSelectCertification = (value: string, setCertification: React.Dispatch<React.SetStateAction<string | null>>) => {
-  setCertification(value);
-};
-
+  const handleSelectCertification = (
+    value: string,
+    setCertification: React.Dispatch<React.SetStateAction<string | null>>
+  ) => {
+    setCertification(value);
+  };
 
   const handleCompare = async () => {
-    // if (!certification1 || !certification2) {
-    //   console.error("Both certifications must be selected before comparing.");
-    //   return;
-    // }
+    if (!certification1 || !certification2) {
+      console.error("Both certifications must be selected before comparing.");
+      return;
+    }
 
-    // try {
-    //   const response = await fetch("/api/compareCertifications", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       certification1: certification1.certificate_title,
-    //       certification2: certification2.certificate_title,
-    //     }),
-    //   });
+    try {
+      const response = await fetch("/api/compareCertifications", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          certification1,
+          certification2,
+        }),
+      });
 
-    //   const data = await response.json();
-    //   console.log("Comparison Result:", data);
-    //   onOpen();
-    // } catch (error) {
-    //   console.error("Error comparing certifications:", error);
-    // }
+      const data = await response.json();
+
+      console.log("API Response Data:", data);
+
+      if (data.comparison) {
+        const rows = data.comparison.match(/\|.*\|/g);
+
+        const parsedTable =
+          rows
+            ?.map((row: any) => row.split("|").map((cell: any) => cell.trim()))
+            .filter((row: any) => row.length > 1) || [];
+
+        if (parsedTable.length >= 3) {
+          const [header, separator, ...details] = parsedTable;
+
+          setComparisonResult({
+            certification1_demand: details[0][2], // Certification Demand
+            certification2_demand: details[1][2],
+            certification1_pay_range: details[0][3], // Pay Range
+            certification2_pay_range: details[1][3],
+            certification1_top_jobs: details[0][4]
+              .split(",")
+              .map((job: any) => job.trim()), // Top 3 Job Titles
+            certification2_top_jobs: details[1][4]
+              .split(",")
+              .map((job: any) => job.trim()), // Top 3 Job Titles
+          });
+        }
+      } else {
+        console.error("Missing certification details in the API response.");
+      }
+
+      onOpen();
+    } catch (error) {
+      console.error("Error comparing certifications:", error);
+    }
   };
 
   const fetchSkillsToLearn = async (resumeText: string) => {
@@ -321,25 +356,24 @@ const handleSelectCertification = (value: string, setCertification: React.Dispat
     );
   };
 
- useEffect(() => {
-  const fetchCertifications = async () => {
-    try {
-      const response = await fetch("/api/certification");
-      const result = await response.json();
+  useEffect(() => {
+    const fetchCertifications = async () => {
+      try {
+        const response = await fetch("/api/certification");
+        const result = await response.json();
 
-      // Extract certification names
-      const certNames = result.certifications.map((cert: any) => cert.name);
-      setCertifications(certNames);
+        // Extract certification names
+        const certNames = result.certifications.map((cert: any) => cert.name);
+        setCertifications(certNames);
 
-      console.log("Certification Names:", certNames);
-    } catch (error) {
-      console.error("Error fetching certification data:", error);
-    }
-  };
+        console.log("Certification Names:", certNames);
+      } catch (error) {
+        console.error("Error fetching certification data:", error);
+      }
+    };
 
-  fetchCertifications();
-}, []);
-
+    fetchCertifications();
+  }, []);
 
   return (
     <Box p={5}>
@@ -366,30 +400,33 @@ const handleSelectCertification = (value: string, setCertification: React.Dispat
               Compare your certifications against market demands
             </Text>
             <VStack spacing={3}>
-            <Select
-  placeholder="Select certification 1"
-  width="full"
-  onChange={(e) => handleSelectCertification(e.target.value, setCertification1)}
->
-  {certifications.map((certification, index) => (
-    <option key={index} value={certification}>
-      {certification}
-    </option>
-  ))}
-</Select>
+              <Select
+                placeholder="Select certification 1"
+                width="full"
+                onChange={(e) =>
+                  handleSelectCertification(e.target.value, setCertification1)
+                }
+              >
+                {certifications.map((certification, index) => (
+                  <option key={index} value={certification}>
+                    {certification}
+                  </option>
+                ))}
+              </Select>
 
-<Select
-  placeholder="Select certification 2"
-  width="full"
-  onChange={(e) => handleSelectCertification(e.target.value, setCertification2)}
->
-  {certifications.map((certification, index) => (
-    <option key={index} value={certification}>
-      {certification}
-    </option>
-  ))}
-</Select>
-
+              <Select
+                placeholder="Select certification 2"
+                width="full"
+                onChange={(e) =>
+                  handleSelectCertification(e.target.value, setCertification2)
+                }
+              >
+                {certifications.map((certification, index) => (
+                  <option key={index} value={certification}>
+                    {certification}
+                  </option>
+                ))}
+              </Select>
 
               <Button
                 backgroundColor={buttonColor}
@@ -545,7 +582,7 @@ const handleSelectCertification = (value: string, setCertification: React.Dispat
           </VStack>
         </VStack>
       </Grid>
-      {/* <Modal isOpen={isOpen} onClose={onClose} size="4xl">
+      <Modal isOpen={isOpen} onClose={onClose} size="4xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
@@ -553,88 +590,64 @@ const handleSelectCertification = (value: string, setCertification: React.Dispat
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Grid templateColumns="repeat(2, 1fr)" gap={6} mb={4}></Grid>
             <Text
               fontSize="xl"
               fontWeight="bold"
               mt={6}
-              mb={2}
+              mb={4}
               textAlign="left"
             >
               Summary
             </Text>
-            <TableContainer>
-              <Table
-                variant="simple"
-                size="sm"
-                style={{ tableLayout: "fixed" }}
-                marginBottom={4}
-              >
-                <Thead>
-                  <Tr>
-                    <Th
-                      textAlign="center"
-                      whiteSpace="normal"
-                      wordBreak="break-word"
-                    >
-                      {certification1?.certificate_title || "Certification 1"}
-                    </Th>
-                    <Th
-                      textAlign="center"
-                      whiteSpace="normal"
-                      wordBreak="break-word"
-                    >
-                      {certification2?.certificate_title || "Certification 2"}
-                    </Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td whiteSpace="normal" wordBreak="break-word">
-                      <Text textAlign="center" noOfLines={[1, 2, 3]}>
+            {comparisonResult && (
+              <TableContainer>
+                <Table variant="simple" size="sm" width="full">
+                  <Thead>
+                    <Tr>
+                      <Th textAlign="center" whiteSpace="normal" width="50%">
+                        {certification1}
+                      </Th>
+                      <Th textAlign="center" whiteSpace="normal" width="50%">
+                        {certification2}
+                      </Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr>
+                      <Td textAlign="center" whiteSpace="normal">
                         Certification Demand:{" "}
-                        {certification1?.certification_demand || "N/A"}
-                      </Text>
-                    </Td>
-                    <Td whiteSpace="normal" wordBreak="break-word">
-                      <Text textAlign="center" noOfLines={[1, 2, 3]}>
+                        {comparisonResult.certification1_demand}
+                      </Td>
+                      <Td textAlign="center" whiteSpace="normal">
                         Certification Demand:{" "}
-                        {certification2?.certification_demand || "N/A"}
-                      </Text>
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td whiteSpace="normal" wordBreak="break-word">
-                      <Text textAlign="center" noOfLines={[1, 2, 3]}>
-                        Pay Range: {certification1?.pay_range || "N/A"}
-                      </Text>
-                    </Td>
-                    <Td whiteSpace="normal" wordBreak="break-word">
-                      <Text textAlign="center" noOfLines={[1, 2, 3]}>
-                        Pay Range: {certification2?.pay_range || "N/A"}
-                      </Text>
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td whiteSpace="normal" wordBreak="break-word">
-                      <Text textAlign="center" noOfLines={[2, 3, 4]}>
+                        {comparisonResult.certification2_demand}
+                      </Td>
+                    </Tr>
+                    <Tr>
+                      <Td textAlign="center" whiteSpace="normal">
+                        Pay Range: {comparisonResult.certification1_pay_range}
+                      </Td>
+                      <Td textAlign="center" whiteSpace="normal">
+                        Pay Range: {comparisonResult.certification2_pay_range}
+                      </Td>
+                    </Tr>
+                    <Tr>
+                      <Td textAlign="center" whiteSpace="normal">
                         Top 3 Job Titles:{" "}
-                        {certification1?.top_3_job_titles.join(", ") || "N/A"}
-                      </Text>
-                    </Td>
-                    <Td whiteSpace="normal" wordBreak="break-word">
-                      <Text textAlign="center" noOfLines={[2, 3, 4]}>
+                        {comparisonResult.certification1_top_jobs.join(", ")}
+                      </Td>
+                      <Td textAlign="center" whiteSpace="normal">
                         Top 3 Job Titles:{" "}
-                        {certification2?.top_3_job_titles.join(", ") || "N/A"}
-                      </Text>
-                    </Td>
-                  </Tr>
-                </Tbody>
-              </Table>
-            </TableContainer>
+                        {comparisonResult.certification2_top_jobs.join(", ")}
+                      </Td>
+                    </Tr>
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            )}
           </ModalBody>
         </ModalContent>
-      </Modal> */}
+      </Modal>
     </Box>
   );
 };
