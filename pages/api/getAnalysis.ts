@@ -59,15 +59,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { answers } = req.body;
 
         // Extract the necessary values from the answers object
-        const companyName = answers.kd12edg?.value || "Unknown Company";
-        const teamSize = answers.gqr1294c?.value[0] || "Unknown Team Size";
-        const fundingStage = answers.fd1c89f?.value[0] || "Unknown Funding Stage";
-        const industryFocus = answers.gq0r94d?.value || "Unknown Industry Focus";
-        const objectives = answers.eb239dk?.value || "No Objectives Provided";
-        const extractedText = answers.ud73bsw?.value || "No Text Provided";
+        const companyName = answers.companyName?.value || "Unknown Company";
+        const teamSize = answers.teamSize?.value[0] || "Unknown Team Size";
+        const fundingStage = answers.fundingStage?.value[0] || "Unknown Funding Stage";
+        const industryFocus = answers.industryFocus?.value || "Unknown Industry Focus";
+        const objectives = answers.objectives?.value || "No Objectives Provided";
+        const extractedText = answers.extractedText?.value || "No Text Provided";
+        console.log("Extracted Text from PDF:", extractedText);
 
         // Use template literals to dynamically create the prompt string
-        const prompt = `Based on Company Name: ${companyName}\nTeam Size: ${teamSize}\nFunding Stage: ${fundingStage}\nIndustry Focus: ${industryFocus}\nObjectives: ${objectives}, recommend me recommended skills, weaknesses, improvement suggestion, and overall analysis of the company`;
+        const prompt = `Based on Company Name: ${companyName}\nTeam Size: ${teamSize}\nFunding Stage: ${fundingStage}\nIndustry Focus: ${industryFocus}\nObjectives: ${objectives}\nTeam Resume: ${extractedText}, recommend me recommended skills, weaknesses, improvement suggestion, and overall analysis of the company`;
 
         const chatCompletion = await openai.chat.completions.create({
             model: "solar-1-mini-chat",

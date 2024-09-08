@@ -139,7 +139,7 @@ const EnterpriseSolution = () => {
                         },
                         {
                             name: 'short-text',
-                            id: 'kd12edg',
+                            id: 'companyName',
                             attributes: {
                                 required: true,
                                 label: 'What is the name of your company?',
@@ -147,7 +147,7 @@ const EnterpriseSolution = () => {
                         },
                         {
                             name: 'multiple-choice',
-                            id: 'gqr1294c',
+                            id: 'teamSize',
                             attributes: {
                                 required: true,
                                 multiple: false,
@@ -162,7 +162,7 @@ const EnterpriseSolution = () => {
                         },
                         {
                             name: 'multiple-choice',
-                            id: 'fd1c89f',
+                            id: 'fundingStage',
                             attributes: {
                                 required: true,
                                 multiple: false,
@@ -181,7 +181,7 @@ const EnterpriseSolution = () => {
                         },
                         {
                             name: 'short-text',
-                            id: 'gq0r94d',
+                            id: 'industryFocus',
                             attributes: {
                                 required: true,
                                 label: "What is your company's industry focus?",
@@ -189,7 +189,7 @@ const EnterpriseSolution = () => {
                         },
                         {
                             name: 'long-text',
-                            id: 'eb239dk',
+                            id: 'objectives',
                             attributes: {
                                 required: true,
                                 label: "What are your enterprise's objectives for the next 2-3 years?",
@@ -199,7 +199,7 @@ const EnterpriseSolution = () => {
                         },
                         {
                             name: 'file-upload',
-                            id: 'ud73bsw',
+                            id: 'extractedText',
                             attributes: {
                                 required: true,
                                 label: 'Please upload the resumes of your development team.',

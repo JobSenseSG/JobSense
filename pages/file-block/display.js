@@ -88,11 +88,16 @@ const FileBlockDisplay = ({
             extractedText += pageText + " ";
           }
 
-          console.log("Extracted Text:", extractedText);
+          console.log("Extracted Text from PDF:", extractedText);
 
-          // Store the extracted text into localStorage
-          localStorage.setItem('extractedText', extractedText);
-          console.log("Extracted text saved in localStorage.");
+          // Get the current stored text and append the new extracted text with separator
+          const currentExtractedText = localStorage.getItem('extractedText') || '';
+          const separator = currentExtractedText ? '\n----------------------------------------------------------------\n' : '';
+          const updatedExtractedText = currentExtractedText + separator + extractedText;
+
+          // Store the updated extracted text into localStorage
+          localStorage.setItem('extractedText', updatedExtractedText);
+          console.log("Updated extracted text saved in localStorage.");
 
           // After successful file handling
           addFile(id, file.name, {
@@ -118,6 +123,9 @@ const FileBlockDisplay = ({
 
     reader.readAsArrayBuffer(file);
   };
+
+
+
 
   const onDropRejected = (files) => {
     // Show the first error only
