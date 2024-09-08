@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "@wordpress/element";
+import { useEffect, useRef } from "@wordpress/element";
 import { useSelect, useDispatch } from "@wordpress/data";
 import { useDropzone } from "react-dropzone";
 import tinyColor from "tinycolor2";
@@ -31,11 +31,11 @@ const FileBlockDisplay = ({
 
   const accept = allowedFileExtensions.trim()
     ? allowedFileExtensions
-        .trim()
-        .split(",")
-        .filter((ext) => ext.trim())
-        .map((ext) => `.${ext.trim()}`)
-        .join(",")
+      .trim()
+      .split(",")
+      .filter((ext) => ext.trim())
+      .map((ext) => `.${ext.trim()}`)
+      .join(",")
     : "";
 
   const mounted = useRef(false);
@@ -63,6 +63,7 @@ const FileBlockDisplay = ({
       console.error("No file provided.");
       return;
     }
+    console.log("Uploading file:", file);
 
     // Set the path to the PDF worker script
     GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -86,7 +87,12 @@ const FileBlockDisplay = ({
               .join(" ");
             extractedText += pageText + " ";
           }
+
           console.log("Extracted Text:", extractedText);
+
+          // Store the extracted text into localStorage
+          localStorage.setItem('extractedText', extractedText);
+          console.log("Extracted text saved in localStorage.");
 
           // After successful file handling
           addFile(id, file.name, {
@@ -96,6 +102,13 @@ const FileBlockDisplay = ({
             size: file.size,
             type: file.type,
             previewUrlSrc: URL.createObjectURL(file),
+          });
+
+          // Update val to include the uploaded file
+          setVal((prevVal) => {
+            const updatedVal = [...(prevVal || []), file];
+            console.log("Updated val after file upload:", updatedVal);
+            return updatedVal;
           });
         } catch (error) {
           console.error("Error while extracting text from PDF:", error);
@@ -125,7 +138,9 @@ const FileBlockDisplay = ({
   }, [val, attributes]);
 
   const checkFieldValidation = () => {
-    if (required === true && (!val || size(val) === 0)) {
+    console.log("Checking field validation...");
+    console.log("Val:", val);
+    if (required === true && (!val || val.length === 0)) {
       setIsValid(false);
       setValidationErr(messages["label.errorAlert.required"]);
     } else {

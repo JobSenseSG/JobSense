@@ -27,13 +27,18 @@ import {
   useDisclosure,
   Spinner,
   Center,
+  Link,
+  keyframes,
 } from "@chakra-ui/react";
 import { FiUpload } from "react-icons/fi";
-import { MdLock } from "react-icons/md";
+import { MdBuild, MdLock } from "react-icons/md";
 import SkillCard from "../components/SkillCard";
 import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
-import { CheckCircleIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon, CheckCircleIcon } from "@chakra-ui/icons";
 import "pdfjs-dist/legacy/build/pdf.worker";
+import { supabase } from "../utils/supabaseClient";
+import { useRouter } from "next/router";
+import { User } from "@supabase/supabase-js";
 
 interface CertificationComparisonResult {
   certification1_demand: string;
@@ -44,7 +49,17 @@ interface CertificationComparisonResult {
   certification2_top_jobs: string[];
 }
 
+  const bounce = keyframes`
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+`;
+
 const DashboardPage = () => {
+    const bounceAnimation = `${bounce} 2s ease-in-out infinite`;
   const bgColor = useColorModeValue("gray.50", "gray.700");
   const borderColor = useColorModeValue("gray.200", "gray.600");
   const buttonColor = "#7E00FB";
@@ -55,7 +70,7 @@ const DashboardPage = () => {
       fontWeight: "bold",
     },
   });
-
+   const [latestRole, setLatestRole] = useState('');
   const [skillsToLearn1Title, setSkillsToLearn1Title] = useState<string>("");
   const [skillsToLearn1Points, setSkillsToLearn1Points] = useState<string>("");
 
@@ -64,6 +79,8 @@ const DashboardPage = () => {
 
   const [skillsToLearn3Title, setSkillsToLearn3Title] = useState<string>("");
   const [skillsToLearn3Points, setSkillsToLearn3Points] = useState<string>("");
+    const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
   
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -85,9 +102,10 @@ const DashboardPage = () => {
   } = useDisclosure();
 
   const compatibilityColor = (percentage: number): string => {
-    const hue = (percentage / 100) * 120;
-    return `hsl(${hue}, 100%, 50%)`;
-  };
+  const hue = (percentage / 100) * 120;
+  const lightness = 40; // Reduced lightness to make colors darker
+  return `hsl(${hue}, 100%, ${lightness}%)`;
+}
 
   const handleUploadResume = () => {
     setResumeUploaded(true);
@@ -231,22 +249,22 @@ const DashboardPage = () => {
 
   const analyzeResume = async (resumeText: string) => {
     setLoading(true);
-    const latestRole = await fetch("/api/latestRole", {
+    const latestRoleResponse = await fetch("/api/latestRole", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ resume: resumeText }),
-    }).then((res) => {
-      return res.json();
-    });
+    }).then((res) => res.json());
+
+    setLatestRole(latestRoleResponse.latestRole);
 
     const relatedRoles = await fetch("/api/roles", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title: "Software Engineer" }),
+      body: JSON.stringify({ title: latestRoleResponse.latestRole }),
     }).then((res) => {
       return res.json();
     });
@@ -356,6 +374,26 @@ const DashboardPage = () => {
     );
   };
 
+   useEffect(() => {
+    const checkUser = async () => {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error) {
+        console.error("Error getting session:", error);
+      }
+
+      if (!data.session) {
+        // If no session, redirect to the sign-in page
+        router.push("/auth/signin");
+      } else {
+        // If session exists, set the user
+        setUser(data.session.user);
+      }
+    };
+
+    checkUser();
+  }, [router]);
+
   useEffect(() => {
     const fetchCertifications = async () => {
       try {
@@ -375,11 +413,39 @@ const DashboardPage = () => {
     fetchCertifications();
   }, []);
 
+   if (!user) {
+    return <Spinner
+  thickness='4px'
+  speed='0.65s'
+  emptyColor='gray.200'
+  color='blue.500'
+  size='xl'
+/>;
+  }
+
+
+
+
   return (
     <Box p={5}>
-      <Flex justifyContent="flex-start" alignItems="center" mb={4}>
-        <Image src="/logo.png" alt="Logo" boxSize="50px" mr={2} />
-        <GradientText fontSize="2xl">JobSense</GradientText>
+        <Flex justifyContent="space-between" alignItems="center" mb={4}>
+        <Flex justifyContent="flex-start" alignItems="center">
+          <Image src="/logo.png" alt="Logo" boxSize="50px" mr={2} />
+          <Link href="/">
+            <GradientText fontSize="2xl">JobSense</GradientText>
+          </Link>
+        </Flex>
+        {/* Settings Button with Bounce Animation */}
+        <Link href="/enterpriseSolution">
+        <Button
+          rightIcon={<ArrowForwardIcon  />}
+          colorScheme="pink"
+          variant="solid"
+          animation={bounceAnimation} // Add the bounce animation
+        >
+          Try our B2B feature now!
+        </Button>
+        </Link>
       </Flex>
       <Grid templateColumns={{ md: "1fr 2fr" }} gap={6}>
         <VStack spacing={4} align="stretch" width="full">

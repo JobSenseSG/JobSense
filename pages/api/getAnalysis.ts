@@ -54,17 +54,17 @@ const parseAIResponse = (responseText: string) => {
         overallAnalysis: overallAnalysis.trim()
     };
 };
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const { companyName, teamSize, fundingStage, industryFocus, objectives } = req.body;
+        const { answers } = req.body;
 
-        // // Hardcoded values for testing
-        // const companyName = "Example Corp";
-        // const teamSize = "11-20";
-        // const fundingStage = "Series A";
-        // const industryFocus = "Software Development";
-        // const objectives = "Expand product offerings and enter new markets.";
+        // Extract the necessary values from the answers object
+        const companyName = answers.kd12edg?.value || "Unknown Company";
+        const teamSize = answers.gqr1294c?.value[0] || "Unknown Team Size";
+        const fundingStage = answers.fd1c89f?.value[0] || "Unknown Funding Stage";
+        const industryFocus = answers.gq0r94d?.value || "Unknown Industry Focus";
+        const objectives = answers.eb239dk?.value || "No Objectives Provided";
+        const extractedText = answers.ud73bsw?.value || "No Text Provided";
 
         // Use template literals to dynamically create the prompt string
         const prompt = `Based on Company Name: ${companyName}\nTeam Size: ${teamSize}\nFunding Stage: ${fundingStage}\nIndustry Focus: ${industryFocus}\nObjectives: ${objectives}, recommend me recommended skills, weaknesses, improvement suggestion, and overall analysis of the company`;
@@ -86,6 +86,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         res.status(200).json(analysisData);
     } catch (error) {
+        console.error("Error in getAnalysis handler:", error);
         res.status(500).json({ error: 'Error fetching data from OpenAI' });
     }
 }
+
