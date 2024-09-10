@@ -1,6 +1,6 @@
 import { registerBlockType } from "@quillforms/blocks";
 import display from "./display";
-import "../lib/store";
+import "../../lib/store";
 registerBlockType("file-upload", {
     attributes: {
         maxFileSize: {
