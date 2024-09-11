@@ -6,7 +6,6 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 type ResponseData =
-//aa
   | {
       message: string;
     }
@@ -37,6 +36,6 @@ export default async function handler(
       return res.status(500).json({ message: error.message });
     }
   } else {
-    return res.status(400).json({ message: 'Method not supported' });
+    return res.status(400).json({ message: "Method not supported" });
   }
 }

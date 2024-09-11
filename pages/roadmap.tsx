@@ -37,8 +37,8 @@ const Roadmap = () => {
             </Heading>
             <Text fontSize="md" color="gray.700">
               During the development phase, the team will start coding the core
-              functionalities and building the product's backend and frontend
-              systems.
+              functionalities and building the product&apos;s backend and
+              frontend systems.
             </Text>
           </Box>
 

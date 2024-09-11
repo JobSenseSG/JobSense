@@ -4,7 +4,7 @@ import {registerCoreBlocks} from '@quillforms/react-renderer-utils';
 import {useRouter} from 'next/router';
 import {GlobalWorkerOptions, getDocument} from 'pdfjs-dist';
 import {useState} from 'react';
-import './file-block';
+import '../components/file-block';
 
 registerCoreBlocks();
 
