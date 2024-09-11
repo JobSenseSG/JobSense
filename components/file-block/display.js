@@ -1,11 +1,11 @@
-import { useEffect, useRef } from "@wordpress/element";
-import { useSelect, useDispatch } from "@wordpress/data";
-import { useDropzone } from "react-dropzone";
-import tinyColor from "tinycolor2";
-import { GlobalWorkerOptions, getDocument } from "pdfjs-dist";
-import UploadAreaContent from "./upload-area-content";
-import { useTheme, useMessages } from "@quillforms/renderer-core";
-import { css } from "emotion";
+import { useEffect, useRef } from '@wordpress/element';
+import { useSelect, useDispatch } from '@wordpress/data';
+import { useDropzone } from 'react-dropzone';
+import tinyColor from 'tinycolor2';
+import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
+import UploadAreaContent from './upload-area-content';
+import { useTheme, useMessages } from '@quillforms/renderer-core';
+import { css } from 'emotion';
 
 const FileBlockDisplay = ({
   id,
@@ -31,25 +31,25 @@ const FileBlockDisplay = ({
 
   const accept = allowedFileExtensions.trim()
     ? allowedFileExtensions
-      .trim()
-      .split(",")
-      .filter((ext) => ext.trim())
-      .map((ext) => `.${ext.trim()}`)
-      .join(",")
-    : "";
+        .trim()
+        .split(',')
+        .filter((ext) => ext.trim())
+        .map((ext) => `.${ext.trim()}`)
+        .join(',')
+    : '';
 
   const mounted = useRef(false);
   const wrapperRef = useRef();
   const { files } = useSelect((select) => {
     return {
-      files: select("quillForms-fileblock").getFiles(id) ?? {},
+      files: select('quillForms-fileblock').getFiles(id) ?? {},
     };
   });
   const filesRef = useRef();
   filesRef.current = files;
 
   const { addFile, updateFile, deleteFile, reset } = useDispatch(
-    "quillForms-fileblock"
+    'quillForms-fileblock'
   );
 
   const onDropAccepted = (acceptedFiles) => {
@@ -60,13 +60,13 @@ const FileBlockDisplay = ({
 
   const handleFileUpload = (file) => {
     if (!file) {
-      console.error("No file provided.");
+      console.error('No file provided.');
       return;
     }
-    console.log("Uploading file:", file);
+    console.log('Uploading file:', file);
 
     // Set the path to the PDF worker script
-    GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+    GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
 
     const reader = new FileReader();
 
@@ -77,31 +77,35 @@ const FileBlockDisplay = ({
 
         try {
           const pdfDocument = await loadingTask.promise;
-          let extractedText = "";
+          let extractedText = '';
 
           for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
             const page = await pdfDocument.getPage(pageNum);
             const textContent = await page.getTextContent();
             const pageText = textContent.items
-              .map((item) => ("str" in item ? item.str : ""))
-              .join(" ");
-            extractedText += pageText + " ";
+              .map((item) => ('str' in item ? item.str : ''))
+              .join(' ');
+            extractedText += pageText + ' ';
           }
 
-          console.log("Extracted Text from PDF:", extractedText);
+          console.log('Extracted Text from PDF:', extractedText);
 
           // Get the current stored text and append the new extracted text with separator
-          const currentExtractedText = localStorage.getItem('extractedText') || '';
-          const separator = currentExtractedText ? '\n----------------------------------------------------------------\n' : '';
-          const updatedExtractedText = currentExtractedText + separator + extractedText;
+          const currentExtractedText =
+            localStorage.getItem('extractedText') || '';
+          const separator = currentExtractedText
+            ? '\n----------------------------------------------------------------\n'
+            : '';
+          const updatedExtractedText =
+            currentExtractedText + separator + extractedText;
 
           // Store the updated extracted text into localStorage
           localStorage.setItem('extractedText', updatedExtractedText);
-          console.log("Updated extracted text saved in localStorage.");
+          console.log('Updated extracted text saved in localStorage.');
 
           // After successful file handling
           addFile(id, file.name, {
-            status: "success",
+            status: 'success',
             progress: 100,
             name: file.name,
             size: file.size,
@@ -112,20 +116,17 @@ const FileBlockDisplay = ({
           // Update val to include the uploaded file
           setVal((prevVal) => {
             const updatedVal = [...(prevVal || []), file];
-            console.log("Updated val after file upload:", updatedVal);
+            console.log('Updated val after file upload:', updatedVal);
             return updatedVal;
           });
         } catch (error) {
-          console.error("Error while extracting text from PDF:", error);
+          console.error('Error while extracting text from PDF:', error);
         }
       }
     };
 
     reader.readAsArrayBuffer(file);
   };
-
-
-
 
   const onDropRejected = (files) => {
     // Show the first error only
@@ -146,11 +147,11 @@ const FileBlockDisplay = ({
   }, [val, attributes]);
 
   const checkFieldValidation = () => {
-    console.log("Checking field validation...");
-    console.log("Val:", val);
+    console.log('Checking field validation...');
+    console.log('Val:', val);
     if (required === true && (!val || val.length === 0)) {
       setIsValid(false);
-      setValidationErr(messages["label.errorAlert.required"]);
+      setValidationErr(messages['label.errorAlert.required']);
     } else {
       setIsValid(true);
       setValidationErr(null);
@@ -162,7 +163,7 @@ const FileBlockDisplay = ({
     return () => {
       // Clean up pending files
       Object.entries(filesRef.current).forEach(([fileKey, fileData]) => {
-        if (fileData.status === "pending") {
+        if (fileData.status === 'pending') {
           deleteFile(fileKey);
         }
       });
@@ -173,7 +174,7 @@ const FileBlockDisplay = ({
   return (
     <div className="question__wrapper">
       <div
-        {...getRootProps({ className: "dropzone" })}
+        {...getRootProps({ className: 'dropzone' })}
         className={css`
           & {
             display: flex;

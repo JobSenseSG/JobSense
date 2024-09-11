@@ -1,7 +1,7 @@
-import React from "react";
-import { Box, VStack, Text, Flex, Icon, Divider } from "@chakra-ui/react";
-import { FaFileAlt, FaMapSigns } from "react-icons/fa"; // Icons for the options
-import { useRouter } from "next/router"; // Import Next.js router
+import React from 'react';
+import { Box, VStack, Text, Flex, Icon, Divider } from '@chakra-ui/react';
+import { FaFileAlt, FaMapSigns } from 'react-icons/fa'; // Icons for the options
+import { useRouter } from 'next/router'; // Import Next.js router
 
 const Sidebar: React.FC = () => {
   const router = useRouter();
@@ -26,8 +26,8 @@ const Sidebar: React.FC = () => {
           align="center"
           padding="4"
           width="100%"
-          _hover={{ bg: "#7E00FB", cursor: "pointer" }}
-          onClick={() => router.push("/teamAnalysisReport")} // Navigate to the Team Analysis Report page
+          _hover={{ bg: '#7E00FB', cursor: 'pointer' }}
+          onClick={() => router.push('/teamAnalysisReport')} // Navigate to the Team Analysis Report page
         >
           <Icon as={FaFileAlt} marginRight="4" />
           <Text>Team Analysis</Text> {/* Shortened text */}
@@ -39,8 +39,8 @@ const Sidebar: React.FC = () => {
           align="center"
           padding="4"
           width="100%"
-          _hover={{ bg: "#7E00FB", cursor: "pointer" }}
-          onClick={() => router.push("/roadmap")} // Navigate to the Roadmap page
+          _hover={{ bg: '#7E00FB', cursor: 'pointer' }}
+          onClick={() => router.push('/roadmap')} // Navigate to the Roadmap page
         >
           <Icon as={FaMapSigns} marginRight="4" />
           <Text>Roadmap</Text>

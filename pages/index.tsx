@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,46 +10,40 @@ import {
   Link as ChakraLink,
   SimpleGrid,
   Image, // Ensure correct import
-} from "@chakra-ui/react";
-import Link from "next/link";
-import { signIn } from "next-auth/react";
-import { User, createClient } from "@supabase/supabase-js";
+} from '@chakra-ui/react';
+import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+import { User, createClient } from '@supabase/supabase-js';
 // import
-
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-
-
-
-
-
 const GradientText = chakra(Text, {
   baseStyle: {
-    bgClip: "text",
-    bgGradient: "linear(to-r, #6A00F4, #BF00FF, #FF006E)",
-    fontWeight: "bold",
-    display: "inline",
+    bgClip: 'text',
+    bgGradient: 'linear(to-r, #6A00F4, #BF00FF, #FF006E)',
+    fontWeight: 'bold',
+    display: 'inline',
   },
 });
 
 const gradientBorderStyle = {
-  border: "2px solid",
+  border: '2px solid',
   borderImageSlice: 1,
-  borderImageSource: "linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)",
-  borderRadius: "12px",
-  backgroundColor: "transparent",
-  color: "white",
-  padding: "0.5rem 1rem",
-  fontWeight: "bold",
-  transition: "all 0.3s ease-in-out",
+  borderImageSource: 'linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)',
+  borderRadius: '12px',
+  backgroundColor: 'transparent',
+  color: 'white',
+  padding: '0.5rem 1rem',
+  fontWeight: 'bold',
+  transition: 'all 0.3s ease-in-out',
   _hover: {
-    backgroundColor: "linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)",
-    color: "white",
-    borderRadius: "12px",
-    boxShadow: "0px 0px 15px rgba(106, 0, 244, 0.7)",
+    backgroundColor: 'linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)',
+    color: 'white',
+    borderRadius: '12px',
+    boxShadow: '0px 0px 15px rgba(106, 0, 244, 0.7)',
   },
 };
 
@@ -58,7 +52,9 @@ const Navbar = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       setUser(session?.user ?? null);
     };
 
@@ -85,15 +81,17 @@ const Navbar = () => {
       zIndex="10"
     >
       <GradientText fontSize="4xl">JobSense</GradientText>
-      <HStack spacing={6} display={{ base: "none", md: "flex" }}>
+      <HStack spacing={6} display={{ base: 'none', md: 'flex' }}>
         <Link href="/dashboard" passHref>
-          <ChakraLink _hover={{ color: "#FF006E" }}>Dashboard</ChakraLink>
+          <ChakraLink _hover={{ color: '#FF006E' }}>Dashboard</ChakraLink>
         </Link>
         <Link href="/enterpriseSolution" passHref>
-          <ChakraLink _hover={{ color: "#FF006E" }}>Enterprise Solution</ChakraLink>
+          <ChakraLink _hover={{ color: '#FF006E' }}>
+            Enterprise Solution
+          </ChakraLink>
         </Link>
         <Link href="#about" passHref>
-          <ChakraLink _hover={{ color: "#FF006E" }}>About</ChakraLink>
+          <ChakraLink _hover={{ color: '#FF006E' }}>About</ChakraLink>
         </Link>
       </HStack>
       <HStack spacing={4}>
@@ -114,9 +112,6 @@ const Navbar = () => {
   );
 };
 
-
-
-
 interface CardProps {
   title: string;
   description: string;
@@ -130,7 +125,7 @@ const Card: React.FC<CardProps> = ({ title, description, icon }) => (
     borderRadius="lg"
     p={6}
     boxShadow="lg"
-    _hover={{ boxShadow: "xl", transform: "translateY(-5px)" }}
+    _hover={{ boxShadow: 'xl', transform: 'translateY(-5px)' }}
     transition="all 0.3s ease"
     overflow="hidden"
   >
@@ -186,11 +181,11 @@ const IndexPage = () => {
         bgGradient="radial(circle, rgba(144, 0, 255, 0.6), transparent 25%)"
         mt="80px" // Adjusted margin-top to accommodate the fixed navbar
       >
-        <Text fontSize={{ base: "4xl", md: "6xl" }} fontWeight="bold" mb={4}>
-          <GradientText>Empower Your Career{" "}</GradientText>
+        <Text fontSize={{ base: '4xl', md: '6xl' }} fontWeight="bold" mb={4}>
+          <GradientText>Empower Your Career </GradientText>
           with AI-Driven Insights
         </Text>
-        <Text fontSize={{ base: "lg", md: "xl" }} color="gray.300" mb={8}>
+        <Text fontSize={{ base: 'lg', md: 'xl' }} color="gray.300" mb={8}>
           JobSense provides personalized job recommendations, real-time market
           insights, and certification guidance to help you stay competitive in
           the tech industry.
@@ -212,10 +207,10 @@ const IndexPage = () => {
       <Box bg="gray.600" height="1px" width="80%" mx="auto" my={20} />
 
       {/* Cards Section */}
-      <Box  id="about" mt={20} p={10} width="100%" zIndex="2">
+      <Box id="about" mt={20} p={10} width="100%" zIndex="2">
         <Text
           textAlign="center"
-          fontSize={{ base: "2xl", md: "3xl" }}
+          fontSize={{ base: '2xl', md: '3xl' }}
           fontWeight="bold"
           mb={10}
           color="white"
@@ -262,7 +257,7 @@ const IndexPage = () => {
       {/* Dashboard Preview Section */}
       <Box mt={20} p={10} width="100%" zIndex="2">
         <Text
-          fontSize={{ base: "2xl", md: "3xl" }}
+          fontSize={{ base: '2xl', md: '3xl' }}
           fontWeight="bold"
           textAlign="center"
           mb={10}
@@ -272,7 +267,7 @@ const IndexPage = () => {
         </Text>
 
         <Flex
-          flexDirection={{ base: "column", md: "row" }}
+          flexDirection={{ base: 'column', md: 'row' }}
           alignItems="center"
           justifyContent="space-between"
         >
@@ -282,23 +277,23 @@ const IndexPage = () => {
             spacing={4}
             flex="1"
             pr={{ md: 16 }}
-            textAlign={{ base: "center", md: "left" }}
+            textAlign={{ base: 'center', md: 'left' }}
           >
             <GradientText fontSize="2xl" fontWeight="bold">
               Experience AI-Powered Career Insights in Real-Time
             </GradientText>
             <Text color="gray.300" fontSize="xl">
-              <span style={{ color: "#A020F0", fontWeight: "bold" }}>• </span>
+              <span style={{ color: '#A020F0', fontWeight: 'bold' }}>• </span>
               Upload your resume and instantly receive personalized job
               recommendations based on your unique skills and experience.
             </Text>
             <Text color="gray.300" fontSize="xl">
-              <span style={{ color: "#A020F0", fontWeight: "bold" }}>• </span>
+              <span style={{ color: '#A020F0', fontWeight: 'bold' }}>• </span>
               Compare your certifications with current market demands and
               identify areas for improvement.
             </Text>
             <Text color="gray.300" fontSize="xl">
-              <span style={{ color: "#A020F0", fontWeight: "bold" }}>• </span>
+              <span style={{ color: '#A020F0', fontWeight: 'bold' }}>• </span>
               Track your job qualification scale to discover how well you meet
               the requirements of your target jobs.
             </Text>

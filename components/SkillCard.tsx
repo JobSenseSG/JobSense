@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Heading, Text, Button, VStack } from "@chakra-ui/react";
+import React from 'react';
+import { Box, Heading, Text, Button, VStack } from '@chakra-ui/react';
 
 interface SkillCardProps {
   title: string;
@@ -24,7 +24,7 @@ const SkillCard: React.FC<SkillCardProps> = ({ title, points }) => {
         <Text fontSize="sm" mb={2}>
           Why Learn It?
         </Text>
-        <Text>{points || "No additional information provided."}</Text>
+        <Text>{points || 'No additional information provided.'}</Text>
         <Button backgroundColor="#7E00FB" color="white" width="full">
           Learn More
         </Button>

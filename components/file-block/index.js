@@ -1,16 +1,16 @@
-import { registerBlockType } from "@quillforms/blocks";
-import display from "./display";
-import "../../lib/store";
+import { registerBlockType } from '@quillforms/blocks';
+import display from './display';
+import '../../lib/store';
 
-registerBlockType("file-upload", {
+registerBlockType('file-upload', {
   attributes: {
     maxFileSize: {
-      type: "number",
+      type: 'number',
       default: 2, // Default file size limit
     },
     allowedFileExtensions: {
-      type: "string",
-      default: "", // Allow all extensions by default
+      type: 'string',
+      default: '', // Allow all extensions by default
     },
   },
   supports: {

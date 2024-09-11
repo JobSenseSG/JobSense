@@ -1,21 +1,27 @@
 # Demo video
+
 https://drive.google.com/file/d/1m8RpzSpwp1y6N-RWU8Nt4-Z4zgzyVlab/view
 
 # JobSense
+
 JobSense is a platform that utilizes big data technologies and artificial intelligence to tackle the problem of rising unemployment due to job market trends.
 The platform provides tailored recommendations to help users to enhance their portfolio and increase their chances of securing employment opportunities.
 
 ## Getting Started
-This section describes a quick way to deploy the project locally for development purposes. 
+
+This section describes a quick way to deploy the project locally for development purposes.
 
 ### Prerequisites
+
 The project leverages on the following technologies which must be configured beforehand:
+
 - [Node.js](https://nodejs.org)
 - [Python](https://www.python.org)
 - [TimescaleDB](https://docs.timescale.com)
 - [Gemini](https://ai.google.dev)
 
 ### JobSense Web Application
+
 First, run the development server:
 
 ```bash
@@ -35,9 +41,11 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ### Web Scraping and Data Processing
+
 The Python scripts to scrape and process the data using Gemini are stored in the `scripts/` directory.
 
 First, install the required Python dependencies:
+
 ```bash
 
 # Initialize a Python virtual environment
@@ -51,6 +59,7 @@ pip install -r requirements.txt
 ```
 
 Secondly, run the appropriate script to scrape or process data:
+
 ```bash
 # Run the web scraper to scrape various job sites into job.csv
 python scraper.py

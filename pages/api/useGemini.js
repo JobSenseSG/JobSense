@@ -1,14 +1,14 @@
-import OpenAI from "openai";
+import OpenAI from 'openai';
 
-const apiKey = "up_nwDMy4WRdzgWukb97wN2yAGcwo33H";
+const apiKey = 'up_nwDMy4WRdzgWukb97wN2yAGcwo33H';
 const openai = new OpenAI({
   apiKey: apiKey,
-  baseURL: "https://api.upstage.ai/v1/solar",
+  baseURL: 'https://api.upstage.ai/v1/solar',
 });
 
 export default async function generateContent(req, res) {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", ["POST"]);
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', ['POST']);
     return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 
@@ -40,10 +40,10 @@ export default async function generateContent(req, res) {
 
   try {
     const chatCompletion = await openai.chat.completions.create({
-      model: "solar-1-mini-chat",
+      model: 'solar-1-mini-chat',
       messages: [
         {
-          role: "user",
+          role: 'user',
           content: prompt,
         },
       ],
@@ -61,6 +61,6 @@ export default async function generateContent(req, res) {
     console.error(
       `ERROR: Can't invoke Upstage AI model. Reason: ${error.message}`
     );
-    return res.status(500).json({ error: "Failed to invoke model" });
+    return res.status(500).json({ error: 'Failed to invoke model' });
   }
 }

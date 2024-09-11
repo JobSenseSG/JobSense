@@ -150,11 +150,7 @@
 
 // export default TeamAnalysisReport;
 
-
-
-
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Heading,
@@ -164,8 +160,8 @@ import {
   VStack,
   Spinner,
   Center,
-} from "@chakra-ui/react";
-import { useRouter } from "next/router";
+} from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 
 // Define TypeScript types for analysis data
 interface AnalysisData {
@@ -179,7 +175,9 @@ const TeamAnalysisReport: React.FC = () => {
   const router = useRouter();
   const { analysisData } = router.query;
   const [loading, setLoading] = useState<boolean>(true);
-  const [teamAnalysisData, setTeamAnalysisData] = useState<AnalysisData | null>(null);
+  const [teamAnalysisData, setTeamAnalysisData] = useState<AnalysisData | null>(
+    null
+  );
 
   useEffect(() => {
     if (analysisData) {
@@ -188,7 +186,7 @@ const TeamAnalysisReport: React.FC = () => {
         setTeamAnalysisData(parsedData);
         setLoading(false);
       } catch (error) {
-        console.error("Error parsing analysis data:", error);
+        console.error('Error parsing analysis data:', error);
         setLoading(false);
       }
     }
@@ -210,7 +208,14 @@ const TeamAnalysisReport: React.FC = () => {
   }
 
   return (
-    <Box p={8} maxW="800px" mx="auto" bg="gray.50" borderRadius="lg" boxShadow="lg">
+    <Box
+      p={8}
+      maxW="800px"
+      mx="auto"
+      bg="gray.50"
+      borderRadius="lg"
+      boxShadow="lg"
+    >
       <VStack spacing={4} align="start">
         <Heading as="h1" size="xl" textAlign="center" color="gray.700" w="full">
           Team Analysis Report

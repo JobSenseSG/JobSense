@@ -1,6 +1,6 @@
-import React from "react";
-import { Box, Heading, Text, VStack, Flex } from "@chakra-ui/react";
-import Sidebar from "../components/Sidebar";
+import React from 'react';
+import { Box, Heading, Text, VStack, Flex } from '@chakra-ui/react';
+import Sidebar from '../components/Sidebar';
 
 const Roadmap = () => {
   return (

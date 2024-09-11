@@ -1,44 +1,44 @@
 /**
  * QuillForms Dependencies
  */
-import { useTheme, useMessages, HTMLParser } from "@quillforms/renderer-core";
+import { useTheme, useMessages, HTMLParser } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
  */
-import { useSelect, useDispatch } from "@wordpress/data";
-import { useEffect } from "@wordpress/element";
+import { useSelect, useDispatch } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
 
 /**
  * External Dependencies
  */
-import tinyColor from "tinycolor2";
-import { css } from "emotion";
-import { size } from "lodash";
-import classnames from "classnames";
+import tinyColor from 'tinycolor2';
+import { css } from 'emotion';
+import { size } from 'lodash';
+import classnames from 'classnames';
 
 /**
  * Internal Dependencies
  */
-import FileIcon from "./file-icon";
-import ProgressBar from "./progress-bar";
-import SingleFileInfo from "./single-file-info";
+import FileIcon from './file-icon';
+import ProgressBar from './progress-bar';
+import SingleFileInfo from './single-file-info';
 
 const UploadAreaContent = ({ attributes, blockId, files, multiple }) => {
   const humanFileSize = (bytes) => {
     let i = Math.floor(Math.log(bytes) / Math.log(1000));
     return (
       (bytes / Math.pow(1000, i)).toFixed(2) * 1 +
-      " " +
-      ["B", "kB", "MB", "GB", "TB"][i]
+      ' ' +
+      ['B', 'kB', 'MB', 'GB', 'TB'][i]
     );
   };
 
-  const { deleteFile } = useDispatch("quillForms-fileblock");
+  const { deleteFile } = useDispatch('quillForms-fileblock');
 
   const { isPending } = useSelect((select) => {
     return {
-      isPending: select("quillForms/renderer-core").isFieldPending(blockId),
+      isPending: select('quillForms/renderer-core').isFieldPending(blockId),
     };
   });
   const theme = useTheme();
@@ -52,7 +52,7 @@ const UploadAreaContent = ({ attributes, blockId, files, multiple }) => {
           .querySelectorAll(
             `.blocklib-file-block-${blockId}-display__uploaded-file`
           )
-          .forEach((fileElement) => fileElement?.classList?.add("active"));
+          .forEach((fileElement) => fileElement?.classList?.add('active'));
       }, 50);
     }
   }, [files, isPending]);
@@ -170,7 +170,8 @@ const UploadAreaContent = ({ attributes, blockId, files, multiple }) => {
                     border-radius: 5px;
                     overflow: hidden;
                     border: 1px solid ${answersColor.setAlpha(1).toString()};
-                    transition: transform 0.2s ease-in-out,
+                    transition:
+                      transform 0.2s ease-in-out,
                       opacity 0.2s ease-in-out;
 
                     &.active {
@@ -186,7 +187,7 @@ const UploadAreaContent = ({ attributes, blockId, files, multiple }) => {
                 )}
                 key={fileKey}
               >
-                {fileData.type === "application/pdf" ? (
+                {fileData.type === 'application/pdf' ? (
                   <div
                     className={css`
                       width: 200px;

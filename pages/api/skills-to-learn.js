@@ -46,19 +46,16 @@
 //   }
 // }
 
+import OpenAI from 'openai';
 
-
-
-import OpenAI from "openai";
-
-const apiKey = "up_nwDMy4WRdzgWukb97wN2yAGcwo33H";
+const apiKey = 'up_nwDMy4WRdzgWukb97wN2yAGcwo33H';
 const openai = new OpenAI({
   apiKey: apiKey,
-  baseURL: "https://api.upstage.ai/v1/solar",
+  baseURL: 'https://api.upstage.ai/v1/solar',
 });
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     const { resumeText } = req.body;
     const prompt = `I want to upskill to get a job in the tech industry. Identify 3 distinct skills that he does not already know and would benefit from learning. Return each skill in the following format:
 
@@ -78,10 +75,10 @@ Ensure that there is a clear separation between the title and the reason with a 
 
     try {
       const chatCompletion = await openai.chat.completions.create({
-        model: "solar-1-mini-chat",
+        model: 'solar-1-mini-chat',
         messages: [
           {
-            role: "user",
+            role: 'user',
             content: prompt,
           },
         ],
@@ -90,29 +87,30 @@ Ensure that there is a clear separation between the title and the reason with a 
 
       // Extract and return the response text.
       const responseText = chatCompletion.choices[0].message.content.trim();
-      console.log("AI Response:", responseText);
+      console.log('AI Response:', responseText);
 
       // Process the response to handle varying lengths of separators
-      const skills = responseText.split(/\n\s*\n/).map((skill) => {
-        // Use a regex to match the separator and split accordingly
-        const parts = skill.split(/\n-{2,}\n/);
-        if (parts.length === 2) {
-          const title = parts[0].trim();
-          const points = parts[1].trim();
-          return { title, points };
-        }
-        return null;
-      }).filter(skill => skill !== null);
+      const skills = responseText
+        .split(/\n\s*\n/)
+        .map((skill) => {
+          // Use a regex to match the separator and split accordingly
+          const parts = skill.split(/\n-{2,}\n/);
+          if (parts.length === 2) {
+            const title = parts[0].trim();
+            const points = parts[1].trim();
+            return { title, points };
+          }
+          return null;
+        })
+        .filter((skill) => skill !== null);
 
       res.status(200).json(skills);
     } catch (error) {
       console.error(`ERROR: Can't invoke Upstage AI. Reason: ${error}`);
-      res.status(500).json({ error: "Failed to invoke model" });
+      res.status(500).json({ error: 'Failed to invoke model' });
     }
   } else {
-    res.setHeader("Allow", ["POST"]);
+    res.setHeader('Allow', ['POST']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
-
-

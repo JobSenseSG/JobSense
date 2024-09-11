@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Box,
   VStack,
@@ -29,16 +29,16 @@ import {
   Center,
   Link,
   keyframes,
-} from "@chakra-ui/react";
-import { FiUpload } from "react-icons/fi";
-import { MdBuild, MdLock } from "react-icons/md";
-import SkillCard from "../components/SkillCard";
-import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
-import { ArrowForwardIcon, CheckCircleIcon } from "@chakra-ui/icons";
-import "pdfjs-dist/legacy/build/pdf.worker";
-import { supabase } from "../utils/supabaseClient";
-import { useRouter } from "next/router";
-import { User } from "@supabase/supabase-js";
+} from '@chakra-ui/react';
+import { FiUpload } from 'react-icons/fi';
+import { MdBuild, MdLock } from 'react-icons/md';
+import SkillCard from '../components/SkillCard';
+import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf';
+import { ArrowForwardIcon, CheckCircleIcon } from '@chakra-ui/icons';
+import 'pdfjs-dist/legacy/build/pdf.worker';
+import { supabase } from '../utils/supabaseClient';
+import { useRouter } from 'next/router';
+import { User } from '@supabase/supabase-js';
 
 interface CertificationComparisonResult {
   certification1_demand: string;
@@ -49,7 +49,7 @@ interface CertificationComparisonResult {
   certification2_top_jobs: string[];
 }
 
-  const bounce = keyframes`
+const bounce = keyframes`
   0%, 100% {
     transform: translateY(0);
   }
@@ -59,29 +59,28 @@ interface CertificationComparisonResult {
 `;
 
 const DashboardPage = () => {
-    const bounceAnimation = `${bounce} 2s ease-in-out infinite`;
-  const bgColor = useColorModeValue("gray.50", "gray.700");
-  const borderColor = useColorModeValue("gray.200", "gray.600");
-  const buttonColor = "#7E00FB";
+  const bounceAnimation = `${bounce} 2s ease-in-out infinite`;
+  const bgColor = useColorModeValue('gray.50', 'gray.700');
+  const borderColor = useColorModeValue('gray.200', 'gray.600');
+  const buttonColor = '#7E00FB';
   const GradientText = chakra(Text, {
     baseStyle: {
-      bgClip: "text",
-      bgGradient: "linear(to-r, #7E00FB, #4B0095)",
-      fontWeight: "bold",
+      bgClip: 'text',
+      bgGradient: 'linear(to-r, #7E00FB, #4B0095)',
+      fontWeight: 'bold',
     },
   });
-   const [latestRole, setLatestRole] = useState('');
-  const [skillsToLearn1Title, setSkillsToLearn1Title] = useState<string>("");
-  const [skillsToLearn1Points, setSkillsToLearn1Points] = useState<string>("");
+  const [latestRole, setLatestRole] = useState('');
+  const [skillsToLearn1Title, setSkillsToLearn1Title] = useState<string>('');
+  const [skillsToLearn1Points, setSkillsToLearn1Points] = useState<string>('');
 
-  const [skillsToLearn2Title, setSkillsToLearn2Title] = useState<string>("");
-  const [skillsToLearn2Points, setSkillsToLearn2Points] = useState<string>("");
+  const [skillsToLearn2Title, setSkillsToLearn2Title] = useState<string>('');
+  const [skillsToLearn2Points, setSkillsToLearn2Points] = useState<string>('');
 
-  const [skillsToLearn3Title, setSkillsToLearn3Title] = useState<string>("");
-  const [skillsToLearn3Points, setSkillsToLearn3Points] = useState<string>("");
-    const router = useRouter();
+  const [skillsToLearn3Title, setSkillsToLearn3Title] = useState<string>('');
+  const [skillsToLearn3Points, setSkillsToLearn3Points] = useState<string>('');
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  
 
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingSkills, setLoadingSkills] = useState<boolean>(false);
@@ -89,7 +88,7 @@ const DashboardPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [jobs, setJobs] = useState<any[]>([]);
   const [certifications, setCertifications] = useState<string[]>([]);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [certification1, setCertification1] = useState<string | null>(null);
   const [certification2, setCertification2] = useState<string | null>(null);
   const [comparisonResult, setComparisonResult] =
@@ -102,10 +101,10 @@ const DashboardPage = () => {
   } = useDisclosure();
 
   const compatibilityColor = (percentage: number): string => {
-  const hue = (percentage / 100) * 120;
-  const lightness = 40; // Reduced lightness to make colors darker
-  return `hsl(${hue}, 100%, ${lightness}%)`;
-}
+    const hue = (percentage / 100) * 120;
+    const lightness = 40; // Reduced lightness to make colors darker
+    return `hsl(${hue}, 100%, ${lightness}%)`;
+  };
 
   const handleUploadResume = () => {
     setResumeUploaded(true);
@@ -114,11 +113,11 @@ const DashboardPage = () => {
   const PDFExtractor = async ({ file }: { file: File | null }) => {
     setLoadingSkills(true);
     if (!file) {
-      console.error("No file provided.");
+      console.error('No file provided.');
       return;
     }
 
-    GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+    GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
 
     const reader = new FileReader();
 
@@ -129,22 +128,22 @@ const DashboardPage = () => {
 
         try {
           const pdfDocument = await loadingTask.promise;
-          let extractedText = "";
+          let extractedText = '';
 
           for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
             const page = await pdfDocument.getPage(pageNum);
             const textContent = await page.getTextContent();
             const pageText = textContent.items
-              .map((item) => ("str" in item ? item.str : ""))
-              .join(" ");
-            extractedText += pageText + " ";
+              .map((item) => ('str' in item ? item.str : ''))
+              .join(' ');
+            extractedText += pageText + ' ';
           }
 
           setText(extractedText);
           analyzeResume(extractedText);
           fetchSkillsToLearn(extractedText);
         } catch (error) {
-          console.error("Error while extracting text from PDF:", error);
+          console.error('Error while extracting text from PDF:', error);
         }
       }
     };
@@ -160,15 +159,15 @@ const DashboardPage = () => {
 
   const handleCompare = async () => {
     if (!certification1 || !certification2) {
-      console.error("Both certifications must be selected before comparing.");
+      console.error('Both certifications must be selected before comparing.');
       return;
     }
 
     try {
-      const response = await fetch("/api/compareCertifications", {
-        method: "POST",
+      const response = await fetch('/api/compareCertifications', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           certification1,
@@ -178,14 +177,14 @@ const DashboardPage = () => {
 
       const data = await response.json();
 
-      console.log("API Response Data:", data);
+      console.log('API Response Data:', data);
 
       if (data.comparison) {
         const rows = data.comparison.match(/\|.*\|/g);
 
         const parsedTable =
           rows
-            ?.map((row: any) => row.split("|").map((cell: any) => cell.trim()))
+            ?.map((row: any) => row.split('|').map((cell: any) => cell.trim()))
             .filter((row: any) => row.length > 1) || [];
 
         if (parsedTable.length >= 3) {
@@ -197,35 +196,35 @@ const DashboardPage = () => {
             certification1_pay_range: details[0][3], // Pay Range
             certification2_pay_range: details[1][3],
             certification1_top_jobs: details[0][4]
-              .split(",")
+              .split(',')
               .map((job: any) => job.trim()), // Top 3 Job Titles
             certification2_top_jobs: details[1][4]
-              .split(",")
+              .split(',')
               .map((job: any) => job.trim()), // Top 3 Job Titles
           });
         }
       } else {
-        console.error("Missing certification details in the API response.");
+        console.error('Missing certification details in the API response.');
       }
 
       onOpen();
     } catch (error) {
-      console.error("Error comparing certifications:", error);
+      console.error('Error comparing certifications:', error);
     }
   };
 
   const fetchSkillsToLearn = async (resumeText: string) => {
     try {
-      const response = await fetch("/api/skills-to-learn", {
-        method: "POST",
+      const response = await fetch('/api/skills-to-learn', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ resumeText }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to fetch skills to learn");
+        throw new Error('Failed to fetch skills to learn');
       }
 
       const skills = await response.json();
@@ -242,27 +241,27 @@ const DashboardPage = () => {
       }
       setLoadingSkills(false);
     } catch (error) {
-      console.error("Error fetching skills to learn:", error);
+      console.error('Error fetching skills to learn:', error);
       setLoadingSkills(false);
     }
   };
 
   const analyzeResume = async (resumeText: string) => {
     setLoading(true);
-    const latestRoleResponse = await fetch("/api/latestRole", {
-      method: "POST",
+    const latestRoleResponse = await fetch('/api/latestRole', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ resume: resumeText }),
     }).then((res) => res.json());
 
     setLatestRole(latestRoleResponse.latestRole);
 
-    const relatedRoles = await fetch("/api/roles", {
-      method: "POST",
+    const relatedRoles = await fetch('/api/roles', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ title: latestRoleResponse.latestRole }),
     }).then((res) => {
@@ -273,10 +272,10 @@ const DashboardPage = () => {
 
     for (let index = 0; index < relatedRoles.length; index++) {
       try {
-        const response = await fetch("/api/useGemini", {
-          method: "POST",
+        const response = await fetch('/api/useGemini', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             resume: resumeText,
@@ -285,9 +284,9 @@ const DashboardPage = () => {
         });
         const data = await response.json();
         analysis.push(data);
-        console.log("Analysis Result:", data);
+        console.log('Analysis Result:', data);
       } catch (error) {
-        console.error("Error analyzing resume:", error);
+        console.error('Error analyzing resume:', error);
       }
     }
     setJobs(analysis);
@@ -299,7 +298,7 @@ const DashboardPage = () => {
 
     const onFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
       const files = event.target.files;
-      if (files && files.length > 0 && files[0].type === "application/pdf") {
+      if (files && files.length > 0 && files[0].type === 'application/pdf') {
         setUploadedFile(files[0]);
         PDFExtractor({ file: files[0] });
         setResumeUploaded(true);
@@ -307,7 +306,7 @@ const DashboardPage = () => {
     };
 
     const LabelBox = chakra(Box, {
-      shouldForwardProp: (prop) => !["htmlFor"].includes(prop),
+      shouldForwardProp: (prop) => !['htmlFor'].includes(prop),
     });
 
     return (
@@ -338,8 +337,8 @@ const DashboardPage = () => {
               p={10}
               transition="all 0.24s ease-in-out"
               _hover={{
-                bg: useColorModeValue("gray.100", "gray.600"),
-                borderColor: useColorModeValue("gray.300", "gray.500"),
+                bg: useColorModeValue('gray.100', 'gray.600'),
+                borderColor: useColorModeValue('gray.300', 'gray.500'),
               }}
               cursor="pointer"
               textAlign="center"
@@ -353,7 +352,7 @@ const DashboardPage = () => {
                 id="file-upload"
                 type="file"
                 multiple
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
                 ref={fileInputRef}
                 onChange={onFileSelect}
                 accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -362,7 +361,7 @@ const DashboardPage = () => {
           </>
         ) : (
           <Flex
-            direction={{ base: "column", md: "row" }}
+            direction={{ base: 'column', md: 'row' }}
             alignItems="center"
             justifyContent="flex-start"
           >
@@ -374,17 +373,17 @@ const DashboardPage = () => {
     );
   };
 
-   useEffect(() => {
+  useEffect(() => {
     const checkUser = async () => {
       const { data, error } = await supabase.auth.getSession();
 
       if (error) {
-        console.error("Error getting session:", error);
+        console.error('Error getting session:', error);
       }
 
       if (!data.session) {
         // If no session, redirect to the sign-in page
-        router.push("/auth/signin");
+        router.push('/auth/signin');
       } else {
         // If session exists, set the user
         setUser(data.session.user);
@@ -397,38 +396,37 @@ const DashboardPage = () => {
   useEffect(() => {
     const fetchCertifications = async () => {
       try {
-        const response = await fetch("/api/certification");
+        const response = await fetch('/api/certification');
         const result = await response.json();
 
         // Extract certification names
         const certNames = result.certifications.map((cert: any) => cert.name);
         setCertifications(certNames);
 
-        console.log("Certification Names:", certNames);
+        console.log('Certification Names:', certNames);
       } catch (error) {
-        console.error("Error fetching certification data:", error);
+        console.error('Error fetching certification data:', error);
       }
     };
 
     fetchCertifications();
   }, []);
 
-   if (!user) {
-    return <Spinner
-  thickness='4px'
-  speed='0.65s'
-  emptyColor='gray.200'
-  color='blue.500'
-  size='xl'
-/>;
+  if (!user) {
+    return (
+      <Spinner
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
+      />
+    );
   }
-
-
-
 
   return (
     <Box p={5}>
-        <Flex justifyContent="space-between" alignItems="center" mb={4}>
+      <Flex justifyContent="space-between" alignItems="center" mb={4}>
         <Flex justifyContent="flex-start" alignItems="center">
           <Image src="/logo.png" alt="Logo" boxSize="50px" mr={2} />
           <Link href="/">
@@ -437,17 +435,17 @@ const DashboardPage = () => {
         </Flex>
         {/* Settings Button with Bounce Animation */}
         <Link href="/enterpriseSolution">
-        <Button
-          rightIcon={<ArrowForwardIcon  />}
-          colorScheme="pink"
-          variant="solid"
-          animation={bounceAnimation} // Add the bounce animation
-        >
-          Try our B2B feature now!
-        </Button>
+          <Button
+            rightIcon={<ArrowForwardIcon />}
+            colorScheme="pink"
+            variant="solid"
+            animation={bounceAnimation} // Add the bounce animation
+          >
+            Try our B2B feature now!
+          </Button>
         </Link>
       </Flex>
-      <Grid templateColumns={{ md: "1fr 2fr" }} gap={6}>
+      <Grid templateColumns={{ md: '1fr 2fr' }} gap={6}>
         <VStack spacing={4} align="stretch" width="full">
           <ResumeCard />
           <Box
@@ -522,8 +520,8 @@ const DashboardPage = () => {
             </Flex>
             <Text mb={3}>
               {resumeUploaded
-                ? "Discover how your qualifications measure up to specific job requirements"
-                : "Upload your resume to see how your qualifications measure up to specific job requirements"}
+                ? 'Discover how your qualifications measure up to specific job requirements'
+                : 'Upload your resume to see how your qualifications measure up to specific job requirements'}
             </Text>
             {loading ? (
               <Center>
@@ -535,7 +533,7 @@ const DashboardPage = () => {
                   variant="simple"
                   size="sm"
                   width="full"
-                  sx={{ "th, td": { width: "1/3" } }}
+                  sx={{ 'th, td': { width: '1/3' } }}
                 >
                   <Thead position="sticky" top="0" bg="white" zIndex="sticky">
                     <Tr>
@@ -551,7 +549,7 @@ const DashboardPage = () => {
                           <Text textAlign="left" noOfLines={[1, 2, 3]}>
                             {job?.role?.company
                               ? `${job.role.company} - ${job.role.title}`
-                              : "N/A"}
+                              : 'N/A'}
                           </Text>
                         </Td>
                         <Td textAlign="left">
@@ -561,12 +559,12 @@ const DashboardPage = () => {
                           >
                             {job.compatibility
                               ? `${job.compatibility}%`
-                              : "10%"}
+                              : '10%'}
                           </Text>
                         </Td>
                         <Td whiteSpace="normal" wordBreak="break-word">
                           <Text textAlign="left" noOfLines={[1, 2, 4]}>
-                            {job?.role?.skills_required?.join(", ") || "N/A"}
+                            {job?.role?.skills_required?.join(', ') || 'N/A'}
                           </Text>
                         </Td>
                       </Tr>
@@ -681,11 +679,11 @@ const DashboardPage = () => {
                   <Tbody>
                     <Tr>
                       <Td textAlign="center" whiteSpace="normal">
-                        Certification Demand:{" "}
+                        Certification Demand:{' '}
                         {comparisonResult.certification1_demand}
                       </Td>
                       <Td textAlign="center" whiteSpace="normal">
-                        Certification Demand:{" "}
+                        Certification Demand:{' '}
                         {comparisonResult.certification2_demand}
                       </Td>
                     </Tr>
@@ -699,12 +697,12 @@ const DashboardPage = () => {
                     </Tr>
                     <Tr>
                       <Td textAlign="center" whiteSpace="normal">
-                        Top 3 Job Titles:{" "}
-                        {comparisonResult.certification1_top_jobs.join(", ")}
+                        Top 3 Job Titles:{' '}
+                        {comparisonResult.certification1_top_jobs.join(', ')}
                       </Td>
                       <Td textAlign="center" whiteSpace="normal">
-                        Top 3 Job Titles:{" "}
-                        {comparisonResult.certification2_top_jobs.join(", ")}
+                        Top 3 Job Titles:{' '}
+                        {comparisonResult.certification2_top_jobs.join(', ')}
                       </Td>
                     </Tr>
                   </Tbody>

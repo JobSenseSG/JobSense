@@ -1,13 +1,13 @@
 // Ensure your imports are correctly pointing to where the modules are.
-import React, { useEffect, useState } from "react";
-import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
-import "pdfjs-dist/legacy/build/pdf.worker";
+import React, { useEffect, useState } from 'react';
+import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf';
+import 'pdfjs-dist/legacy/build/pdf.worker';
 
 // Set the worker URL
 GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
 
-const PDFReader = ({ file }: { file: File | null}) => {
-  const [text, setText] = useState("");
+const PDFReader = ({ file }: { file: File | null }) => {
+  const [text, setText] = useState('');
 
   const extractTextFromPdf = async (file: File) => {
     const reader = new FileReader();
@@ -19,20 +19,20 @@ const PDFReader = ({ file }: { file: File | null}) => {
 
         try {
           const pdfDocument = await loadingTask.promise;
-          let extractedText = "";
+          let extractedText = '';
 
           for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
             const page = await pdfDocument.getPage(pageNum);
             const textContent = await page.getTextContent();
             const pageText = textContent.items
-              .map((item) => ("str" in item ? item.str : ""))
-              .join(" ");
-            extractedText += pageText + " ";
+              .map((item) => ('str' in item ? item.str : ''))
+              .join(' ');
+            extractedText += pageText + ' ';
           }
-          console.log("Extracted Text:" + extractedText);
+          console.log('Extracted Text:' + extractedText);
           setText(extractedText);
         } catch (error) {
-          console.error("Error while extracting text from PDF:", error);
+          console.error('Error while extracting text from PDF:', error);
         }
       }
     };
@@ -50,7 +50,7 @@ const PDFReader = ({ file }: { file: File | null}) => {
     <textarea
       value={text}
       readOnly
-      style={{ width: "100%", height: "200px" }}
+      style={{ width: '100%', height: '200px' }}
     />
   );
 };

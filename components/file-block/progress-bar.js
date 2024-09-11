@@ -1,19 +1,19 @@
 /**
  * QuillForms Dependencies
  */
-import { useTheme } from "@quillforms/renderer-core";
+import { useTheme } from '@quillforms/renderer-core';
 /**
  * External Dependencies
  */
-import { css } from "emotion";
-import tinycolor from "tinycolor2";
+import { css } from 'emotion';
+import tinycolor from 'tinycolor2';
 
 const ProgressBar = ({ progress }) => {
-    const theme = useTheme();
-    const answersColor = tinycolor(theme.answersColor);
-    return (
-        <div
-            className={css`
+  const theme = useTheme();
+  const answersColor = tinycolor(theme.answersColor);
+  return (
+    <div
+      className={css`
         position: relative;
         height: 7px;
         border-radius: 3px;
@@ -23,9 +23,9 @@ const ProgressBar = ({ progress }) => {
         border-radius: 2px;
         background: ${answersColor.setAlpha(0.4).toString()};
       `}
-        >
-            <div
-                className={css`
+    >
+      <div
+        className={css`
           position: absolute;
           top: 0;
           left: 0;
@@ -38,9 +38,9 @@ const ProgressBar = ({ progress }) => {
           width: ${progress}%;
           background: ${answersColor.setAlpha(1).toString()};
         `}
-            />
-        </div>
-    );
+      />
+    </div>
+  );
 };
 
 export default ProgressBar;
