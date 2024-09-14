@@ -71,6 +71,8 @@ const DashboardPage = () => {
     },
   });
   const [latestRole, setLatestRole] = useState('');
+  const linkColor = useColorModeValue('black', 'white');
+
   const [skillsToLearn1Title, setSkillsToLearn1Title] = useState<string>('');
   const [skillsToLearn1Points, setSkillsToLearn1Points] = useState<string>('');
 
@@ -437,7 +439,7 @@ const DashboardPage = () => {
         <Link href="/enterpriseSolution">
           <Button
             rightIcon={<ArrowForwardIcon />}
-            colorScheme="pink"
+            colorScheme="green"
             variant="solid"
             animation={bounceAnimation} // Add the bounce animation
           >
@@ -545,13 +547,23 @@ const DashboardPage = () => {
                   <Tbody>
                     {jobs.map((job, index) => (
                       <Tr key={index}>
-                        <Td whiteSpace="normal" wordBreak="break-word">
-                          <Text textAlign="left" noOfLines={[1, 2, 3]}>
-                            {job?.role?.company
-                              ? `${job.role.company} - ${job.role.title}`
-                              : 'N/A'}
-                          </Text>
-                        </Td>
+                       <Td whiteSpace="normal" wordBreak="break-word">
+  {job?.role?.company ? (
+    <Text textAlign="left" noOfLines={[1, 2, 3]}>
+      {job.role.job_url ? (
+        <Link href={job.role.job_url} isExternal color={linkColor}>
+          {`${job.role.company} - ${job.role.title}`}
+        </Link>
+      ) : (
+        `${job.role.company} - ${job.role.title}`
+      )}
+    </Text>
+  ) : (
+    'N/A'
+  )}
+</Td>
+
+
                         <Td textAlign="left">
                           <Text
                             color={compatibilityColor(job.compatibility)}

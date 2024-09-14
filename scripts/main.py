@@ -5,6 +5,11 @@ from supabase import create_client, Client
 import nltk
 import math
 import json
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from the .env file
+load_dotenv()
 
 # NLTK setup
 nltk.download('punkt')
@@ -66,10 +71,14 @@ df_supabase['date_posted'] = pd.to_datetime(df_supabase['date_posted'], errors='
 # Replace NaN with None
 df_supabase = df_supabase.replace({np.nan: None})
 
-# Supabase connection
-url: str = 'https://vajvudbmcgzbyivvtlvy.supabase.co'
-key: str = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhanZ1ZGJtY2d6YnlpdnZ0bHZ5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMDc1MzE5MCwiZXhwIjoyMDM2MzI5MTkwfQ.sc52sU-m0JUnP9EtnHTPb2tnQ-Gl9us0VTHmRHgnvlw'  # Replace with your actual Supabase API key
-supabase: Client = create_client(url, key)
+# Supabase connection using environment variables
+supabase_url = os.getenv('SUPABASE_URL')
+supabase_key = os.getenv('SUPABASE_KEY')
+
+if not supabase_url or not supabase_key:
+    raise ValueError("Supabase URL or Key is missing. Make sure they are defined in the .env file.")
+
+supabase: Client = create_client(supabase_url, supabase_key)
 
 # Function to convert data types
 def convert_types(row):
@@ -99,10 +108,9 @@ def convert_types(row):
             pass
     return row
 
-
 # Insert data
 # Get the current highest id from the table
-max_id_response = supabase.table('jobsv2').select('id').order('id', desc=True).limit(1).execute()
+max_id_response = supabase.table('jobs').select('id').order('id', desc=True).limit(1).execute()
 max_id = max_id_response.data[0]['id'] if max_id_response.data else 0
 
 # Start inserting from the next available id
@@ -117,7 +125,7 @@ for index, row in df_supabase.iterrows():
     next_id += 1
     
     # Insert data into Supabase
-    response = supabase.table('jobsv2').insert(data).execute()
+    response = supabase.table('jobs').insert(data).execute()
 
     # Check for errors in the response
     if response.data:  # Check if data is present

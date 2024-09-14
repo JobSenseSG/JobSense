@@ -1,4 +1,164 @@
 "site","job_url","job_url_direct","title","company","location","job_type","date_posted","interval","min_amount","max_amount","currency","is_remote","emails","description","company_url","company_url_direct","company_addresses","company_industry","company_num_employees","company_revenue","company_description","logo_photo_url","banner_photo_url","ceo_name","ceo_photo_url"
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009446542136","","Software Engineer","STAFFKING PTE. LTD.","Singapore","","2024-09-14","monthly",6000.0,7000.0,"SGD",False,"","**Summary:**
+
+* 5 days
+* Basic up to $7000
+* Good career progression
+
+**Responsibilities:**
+
+* Design, develop, and maintain software, focusing on equipment PC-based programming.
+* Implement systems, conduct testing, debug issues, and create documentation.
+* Analyse current software to find areas that need updates or enhancements.
+* Provide on-site troubleshooting at the customer's location
+
+**Requirements:**
+
+* A degree in a relevant field with over 5 years of experience in software development for the automation industry.
+* Proficiency in PC-based equipment programming.
+* Background in motion and process control systems.
+* Experience with vision system software development is preferred.
+* Familiarity with SECS/GEM standards and implementation is an advantage.
+
+Please submit your updated resume in MS word format by using the **APPLY NOW BUTTON** .
+
+
+We regret that only shortlisted candidates will be notified.
+
+
+**Staffking Pte Ltd (20C0358) | Andy Chia (R24123787)**","https://www.glassdoor.sg/Overview/W-EI_IE7014423.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009446542211","","Software Engineer","SUMMIT TALENT PTE. LIMITED","Singapore","","2024-09-14","monthly",4500.0,10000.0,"SGD",False,"","Our client is a global leader in electric vehicle (EV) charging infrastructure and microgrid solutions. They are expanding rapidly and seeking for Software Engineer to join the team.
+
+
+The role of the Software Engineer is to develop, enhance and maintain software solutions for electric vehicle (EV) chargers.  
+
+
+
+  
+
+**Key Responsibilities:**
+
+* **Software Development:** Design, develop, test and deploy software for EV charger solutions, including firmware, backend systems and user interfaces.
+* **Integration:** Work on integrating software with hardware components, ensuring seamless communication between EV chargers and associated systems such as payment gateways, grid management systems and user apps.
+* **Optimization:** Optimize software performance and reliability for EV chargers, ensuring efficient operation and adherence to industry standards.
+* **Troubleshooting:** Diagnose and resolve software-related issues in EV chargers, including bugs, performance issues and connectivity problems.
+* **Documentation:** Create and maintain technical documentation for software design, development processes and user manuals. Ensure clear and comprehensive documentation for both internal teams and end-users.
+* **Collaboration:** Collaborate with cross-functional teams, including hardware engineers, product managers and UX/UI designers, to deliver cohesive and high-quality EV charging solutions.
+* **Compliance:** Ensure that software solutions comply with relevant industry standards, regulations, and security protocols. Stay informed about evolving regulations and best practices in the EV charging sector.
+* **Innovation:** Research and implement new technologies and methodologies to enhance the functionality and user experience of EV charging solutions. Contribute to the development of cutting-edge features and improvements.
+* **Customer Feedback:** Gather and analyze feedback from users and stakeholders to drive software enhancements and ensure that solutions meet customer needs and expectations.
+* **Support:** Provide technical support and guidance to other team members and stakeholders on software-related matters.
+
+**Qualifications:**
+
+* Bachelor’s degree in Computer Science, Software Engineering, Electrical Engineering, or a related field.
+* Minimum 2 years of experience in software development, with a focus on embedded systems, firmware or application development. Experience in the EV or energy sector is highly desirable.
+* Strong analytical and problem-solving skills, with the ability to tackle complex technical challenges effectively.
+* Excellent verbal and written communication skills, with the ability to convey technical information clearly to both technical and non-technical audiences.
+* Ability to work collaboratively within a team environment, including remote teams, and to manage multiple priorities effectively.
+* Willingness to learn and adapt to new technologies and changing industry trends.
+* Familiarity with cybersecurity practices relevant to IoT and software solutions.
+* Contributions to open-source projects or industry forums related to EV technology.
+
+**Technical Skills:**
+
+* Proficiency in programming languages such as C/C++, Python, Java, or JavaScript.
+* Experience with embedded systems and real-time operating systems (RTOS).
+* Familiarity with communication protocols such as OCPP (Open Charge Point Protocol), MQTT or RESTful APIs.
+* Knowledge of cloud computing platforms and services (e.g., AWS, Azure) is advantageous.
+* Experience with version control systems (e.g., Git) and software development methodologies (e.g., Agile/Scrum).
+
+**What We Offer:**
+
+* Competitive salary and comprehensive benefits package.
+* Opportunities for professional development and career advancement.
+* A dynamic and innovative work environment.
+* Support for work-life balance and flexibility.","https://www.glassdoor.sg/Overview/W-EI_IE1361972.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009445442298","","Software Engineer - PC Programming - MY/Chinese/Indian/Local","Aurora Asia Pacific Pte Ltd","Geylang Serai","","2024-09-14","","","","",False,"","A Semiconductor and Automation company.
+
+
+* Working days: 5 days work
+* Location: AMK
+
+
+**Job Scope:**
+
+
+* Design, develop, and maintain PC-based software for equipment.
+* Implement systems, conduct testing, debugging, and prepare documentation.
+* Analyze existing software to identify opportunities for modifications and improvements.
+
+
+**Requirements:**
+
+
+* Bachelor's degree in a relevant field, with 5+ years of experience in software development within the automation industry preferred.
+* Proficient in PC-based programming for equipment.
+* Experience in motion control and process control.
+* Familiarity with Vision System software development is a plus.
+* Knowledge of SECS/GEM standards and implementation is an advantage.
+* Strong skills in troubleshooting and analysis.
+
+
+
+Aurora Asia Pacific (21C0671)|Ying Kee (R21103783)","https://www.glassdoor.sg/Overview/W-EI_IE2925775.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009444383933","","Software Quality Assurance Engineer","MOOVITA PTE. LTD.","Singapore","","2024-09-13","monthly",3500.0,5000.0,"SGD",False,"","**Responsibilities**
+
+* Perform white box testing, grey box and black box testing
+* Perform static code analysis and facilitate code review among developers to identify inconsistencies in coding practices.
+* Write Unit tests in C++ using Google Test
+* Collaborate with developers and stakeholders for the timely resolution of issues
+* Improve efficiency and effectiveness of testing process and management
+* Enforce coding best practices and communicate recommendations to non-compliance developers.
+* Follow through on implementation of QA processes and plans.
+
+**Requirements**
+
+* Bachelor's degree in Computer Science, Engineering, or a related field.
+* Minimum 2 years experience in Software quality assurance or software testing.
+* Strong working knowledge of C/C++ programming language.
+* Prior experience with writing and executing unit tests will be an advantage.
+* Familiar with static code analysis tools like SonarQube/SonarCloud.
+* Hands-on experience with white box, grey box and black box testing techniques
+* Familiarity with testing frameworks and tools like Google Test, code coverage tools like Gcov/Gcovr.
+* Experience with issue tracking tools, i.e. JIRA and test management tools.
+* Familiar with Ubuntu and Windows
+* Experience in working with BitBucket, Visual Studio Code
+* Knowledge of Git commands will be an added advantage.","https://www.glassdoor.sg/Overview/W-EI_IE1938367.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009445184336","","Software Engineer","AVN DIGITAL PTE. LTD.","Singapore","","2024-09-13","monthly",2800.0,5500.0,"SGD",False,"","**JOB SCOPE:**
+
+Design, develop and deliver working software applications to delight customers
+  
+
+Improve software quality using XP practices such as code review and unit testing
+  
+
+Adheres to the Software Craftsmanship Manifesto
+  
+
+Prepare architectural and other technical documents
+  
+
+Assist on: user stories elaboration, test automation and bug fixes, build and release automation
+
+
+**Requirements**  
+
+  
+
+Solid experience in any of technologies: Java, NodeJS, Ruby on Rails, .Net , Agile, ReactJs
+  
+
+Experience with version control systems such as Git, Continuous Integration (Bamboo/TeamCity)
+  
+
+Experience developing in Mac/Linux environment
+  
+
+Experience working in agile teams – TDD, Pair programming, Scrum, XP
+  
+
+Familiar with both Windows and UNIX/Linux servers, Design Patterns, Unit Testing","https://www.glassdoor.sg/Overview/W-EI_IE6543295.htm","","","","","","","","","",""
 "glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009444540731","","Software Engineer, Google Pay, Core","Google","Singapore","","2024-09-13","","","","",False,"","Google will be prioritizing applicants who have a current right to work in Singapore, and do not require Google's sponsorship of a visa.
 
 ### **Minimum qualifications:**
@@ -51,63 +211,7 @@ Google is proud to be an equal opportunity workplace and is an affirmative actio
 Job Type: Full-time
 
 Work Location: In person","https://www.glassdoor.sg/Overview/W-EI_IE5316156.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009445442298","","Software Engineer - PC Programming - MY/Chinese/Indian/Local","Aurora Asia Pacific Pte Ltd","Geylang Serai","","2024-09-13","","","","",False,"","A Semiconductor and Automation company.
-
-
-* Working days: 5 days work
-* Location: AMK
-
-
-**Job Scope:**
-
-
-* Design, develop, and maintain PC-based software for equipment.
-* Implement systems, conduct testing, debugging, and prepare documentation.
-* Analyze existing software to identify opportunities for modifications and improvements.
-
-
-**Requirements:**
-
-
-* Bachelor's degree in a relevant field, with 5+ years of experience in software development within the automation industry preferred.
-* Proficient in PC-based programming for equipment.
-* Experience in motion control and process control.
-* Familiarity with Vision System software development is a plus.
-* Knowledge of SECS/GEM standards and implementation is an advantage.
-* Strong skills in troubleshooting and analysis.
-
-
-
-Aurora Asia Pacific (21C0671)|Ying Kee (R21103783)","https://www.glassdoor.sg/Overview/W-EI_IE2925775.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009445699985","","Software Engineer","A2000 Solutions Pte Ltd","Serangoon","","2024-09-13","","","","",False,"","Our Software Engineer will develop and maintain new or improved software products, procedures, and techniques under Microsoft .NET platform. Responsibilities include providing innovative and cost-effective engineering solutions to meet technical objectives and timing. An analytical thinker, you are expected to function well independently and in a team, exercise creativity and innovation, and possess excellent communications skills. **Job Description:**
-
-* Design, develop and deploy business software applications (ASP.NET/C#)
-* Systems analysis and integration of multi-solutions with our ERP suite
-* Developing systems; complying with specifications and quality
-* Develop, optimize and enhance in-house ERP system
-
-
-**Min. Experience Required:*** Degree in Computer-related field and/or 4 years equivalent work experience
-* Experience in software application design and development
-* Good knowledge in ERP/Business applications will be advantageous
-* Good knowledge in architecture and system designs
-* Good object-oriented system design skills; knowledge in UML tool
-* Good presentation/communication skills in English
-* Strong customer service orientation with attention to details
-
-  
-**Working at A2000 Solutions**
-------------------------------
-
-
-With a track record of 26 years and counting, A2000 Solutions Pte Ltd is a trusted brand of software development that provides ERP solutions in CRM, Accounting, E-Commerce, Mobile sales, Point of Sale System, Warehouse Management, Fixed Asset Management, Peppol E- Invoicing, Helpdesk & Ticketing System, Project and Contract System, Time Attendance Management and Visitor Management.
-
-
-With more than 3000 companies currently using our system, we are confident in providing the right expertise to continue empowering businesses, and to create a dynamic response to market changes for small and medium-sized industries.
-
-
-A2000 Solutions is a NICF-Supporting Company.","https://www.glassdoor.sg/Overview/W-EI_IE386775.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009442767379","","Junior/Senior Software Engineer (Permanent Roles)","TALENTSIS PTE. LTD.","Singapore","","2024-09-12","monthly",4500.0,5500.0,"SGD",False,"abegail@talentsis.com.sg","**Job Responsibilities:**
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009444384822","","Software Engineers- Entry level candidates welcome","TALENTSIS PTE. LTD.","Singapore","","2024-09-13","monthly",4500.0,6200.0,"SGD",False,"chally@talentsis.com.sg","**Job Responsibilities:**
 
 * Participate in designing solutions that meet functional requirements
 * Implement end-to-end specifications for solution components
@@ -118,137 +222,107 @@ A2000 Solutions is a NICF-Supporting Company.","https://www.glassdoor.sg/Overvie
 
 **Job Requirements:**
 
-* Min Diploma/Degree in Computer Science or any IT-related field
-* Familiarity in any of the programming languages: Java, JavaScript, Python, C++, C# etc
+* Min diploma/degree in Computer Science or any IT related field
+* Familiarity in any of the programming languages: Java, Javascript, Python, C++, C# etc
 * Proficient in Web Technologies like HTML, CSS
 * Excellent working attitude and a strong team player
 
 (EA Reg No: 20C0312)
 
 
-Only shortlisted candidates will be notified.
+Only shortlisted candidates will be notified.  
 
-
-Please email a copy of your detailed resume to abegail@talentsis.com.sg for immediate processing.","https://www.glassdoor.sg/Overview/W-EI_IE4991839.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009443466470","","Software Engineer (FrontEnd)","GENIUS BRIO PTE. LTD.","Singapore","","2024-09-12","monthly",7500.0,14900.0,"SGD",False,"","* To build large-scale and high-performance products.
-* Ensure the products can work consistently across Desktop, Tablet, and Mobile platforms.
-* Define professional development workflow within the frontend development area on different model.
-* Support and enforce best practices for content layout, navigation, and site architecture for a simple to complex web applications or websites
-* Hands-on skills in code architecture design and landing, object-oriented design, event driven micro-service design and work in Cloud environment.
-* Work closely with backend developers and help integrate the design in the overall project.
-* Set up interaction and knowledge sharing processes among frontend engineering members in different Teams.
-
-  
-
-Minimum qualifications
-
-
-* Bachelor’s degree in computer science, engineering, or equivalent industry experience.
-* 10+ years developing production JavaScript code and strong knowledge of React.js.
-* Knowledge of jQuery and backend API
-* Strong working knowledge of CSS3 and Docker
-* Understanding of state-management patterns such as Redux, Flux or similar.
-* Proven track record of delivering projects with high quality UI.
-* Experience in developing responsive websites for diverse clients from high powered desktop computers to small footprint mobile devices.
-* Experience with modern front-end technologies, eg React (preferred) / Vue / Angular, styled system, Webpack, etc.","","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009442695036","","Software Engineering New Associate (Fresh Diploma Graduate Program)","Accenture","Singapore","","2024-09-12","","","","",False,"","**About Accenture**  
-
-Accenture is a leading global professional services company that helps the world’s leading businesses, governments and other organizations build their digital core, optimize their operations, accelerate revenue growth and enhance citizen services—creating tangible value at speed and scale. We are a talent and innovation led company with 738,000 people serving clients in more than 120 countries. Technology is at the core of change today, and we are one of the world’s leaders in helping drive that change, with strong ecosystem relationships. We combine our strength in technology with unmatched industry experience, functional expertise and global delivery capability. We are uniquely able to deliver tangible outcomes because of our broad range of services, solutions and assets across Strategy & Consulting, Technology, Operations, Industry X and Accenture Song. These capabilities, together with our culture of shared success and commitment to creating 360° value, enable us to help our clients succeed and build trusted, lasting relationships. We measure our success by the 360° value we create for our clients, each other, our shareholders, partners and communities. Visit us at www.accenture.com.
-
-
-Come work at the heart of change.
-
-
-Take the first step to a fulfilling tech career at Accenture. You will be exposed to the exciting work within the Public Sector, helping Singapore achieve its Smart Nation vision as you develop your career. Enhance your skills through continuous learning and development opportunities to build and strengthen your expertise in the ever-growing technology space.
-
-
-You can also expect to receive professional training, mentorship and career coaching to help empower, drive, and guide you in your career aspirations and decisions.
-
-**As a software engineering associate, you will:**
-
-* Be involved in the development, coding, testing, deployment, and software maintenance of the applications and products.
-* Team up with others, like yourself, to develop and deliver solutions with continuous innovation and bring new ideas to our clients, improving the way operations is run.
-* Operate IT production services according to management protocols and Service Level Agreements (SLAs).
-* Together with your team, support various phases of the Software Development Lifecycle, ensuring client satisfaction and delivery excellence.
-* Provide operational support, ensuring production systems and devices are online and available.
-* Opportunity to use some of the most advanced technology around such as cloud engineering and operations, automation, RPA and SRE, intelligent call centre technologies.
-
-
-Your role assignment will be based on business needs and your personal strengths.
 
 
   
 
-**We would love to speak with you if you have:**
-
-* A Diploma in Information Technology
-* A willingness to learn and an interest in technology
-* Good communication and interpersonal skills
-* Flexibility and willingness to work on different projects, if required
-
-**It would be advantageous if you are versed in the following tech stacks:**
-
-* Java / J2EE / .Net / Fullstack development
-* DevSecOps
-* Data engineering / R / Python
-* Low code development platforms
+Please email a copy of your detailed resume to chally@talentsis.com.sg for immediate processing.","https://www.glassdoor.sg/Overview/W-EI_IE4991839.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009444383163","","Software Engineer","FRESH CARS PTE. LTD.","Singapore","","2024-09-13","monthly",5000.0,7000.0,"SGD",False,"","As a tech professional joining our team, you'll be part of a vibrant and enthusiastic working environment, collaborating closely with the Director and a group of highly motivated individuals to work on improving our in-house ERP system and Fresh Cars App.
 
 
-All of our consulting professionals receive comprehensive training covering business acumen, technical and professional skills development. You’ll also have opportunities to hone your functional skills and expertise in an area of specialization. We offer a variety of formal and informal training programs at every level to help you acquire and build specialized skills faster. Learning takes place both on the job and through formal training conducted online, in the classroom, or in collaboration with teammates. The sheer variety of work we do, and the experience it offers, provide an unbeatable platform from which to build a career.
+Our company fosters an open culture, where creativity and passion are celebrated and we are on a mission to make a significant impact and bring our brand to the forefront of the rental industry using technology.
 
 
-Accenture is an equal opportunities employer and welcomes applications from all sections of society and does not discriminate on grounds of race, religion or belief, ethnic or national origin, disability, age, citizenship, marital, domestic or civil partnership status, sexual orientation, gender identity, or any other basis as protected by applicable law.","https://www.glassdoor.sg/Overview/W-EI_IE4138.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009443624761","","Lead Software Engineer","Kerry Consulting Pte Ltd","Singapore","","2024-09-12","","","","",False,"sr@kerryconsulting.com, sr@kerryconsulting.com","**Lead Software Engineer (AI)**
+To achieve this, we seek self-motivated individuals who are full of energy and have a drive for innovation. Your contributions will play a key role in elevating our brand's presence and shaping the future of our young industry. If you're excited about cutting-edge technologies and are eager to be part of an enthusiastic team, we encourage you to apply and embark on this exciting journey with us!  
 
 
-Job posting done by Sheralynn Tjioe, Head of Interim and Contracting Solutions (Technology) Recruitment at Kerry Consulting
 
   
 
-  
+**Job Description**
 
-Email: sr@kerryconsulting.com  
+* Develop and maintain the backend of an ASP.NET web application
+* Maintain and update Java REST APIs
+* Work with the Director and other teams to implement new requirements and troubleshoot existing issues as necessary
+* Maintain the backend supporting our company’s Mobile App, including regularly reviewing crashes, troubleshooting, fixing, and updating the database
+* Maintain the backend server supporting our company’s Enterprise Resource Planning (ERP) system
+* Develop, secure, test, deploy and maintain REST APIs
+* Ensure the security of our systems
+* Ability to work independently and think about situations critically
 
-  
+**Requirements**
 
-Our Client is a leading leading stable firm.
+* Bachelor’s degree in computer science, engineering or equivalent industry experience
+* At least 2 years’ experience with ASP.NET framework (VB) server-side logic and web applications
+* Knowledge in server-side scripting including JavaScript, Node.js, Java
+* Familiar with implementing basic authentication and authorization, including the use of JSON Web Tokens
+* Experience with SQL Server, RESTful APIs, IIS, GitHub
+* Experience with Google Cloud Platform Firebase products (Cloud Functions, Cloud Firestore, Crashlytics)
+* GitHub for source control
+* Willing to learn, well-organised, meticulous","https://www.glassdoor.sg/Overview/W-EI_IE2459265.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009444384228","","Software Test Engineer","MOOVITA PTE. LTD.","Singapore","","2024-09-13","monthly",4000.0,6500.0,"SGD",False,"","**Responsibilities:**
+
+* Design and develop comprehensive test plans to cover all aspects of the software functionality.
+* Write and execute test cases using appropriate testing methodologies (unit, integration, functional, regression).
+* Utilize automated testing tools to streamline the testing process.
+* Analyze test results, identify and report defects.
+* Collaborate with developers and other engineers to resolve identified issues.
+* Assist in creating clear and concise test documentation.
+* Stay up-to-date on the latest testing practices and technologies.
+
+**Requirements:**
+
+* Bachelor's degree in Computer Science, Engineering, or a related field (or equivalent experience).
+* Experience in software testing methodologies (unit, integration, functional, regression).
+* Strong analytical and problem-solving skills.
+* Excellent communication and collaboration skills.
+* Ability to work independently and as part of a team.
+* Experience in testing robotics and automation software is a plus.
+* Familiarity with OpenCV, PCL libraries is a plus.
+* Good to have knowledge of ROS2 / DDS.","https://www.glassdoor.sg/Overview/W-EI_IE1938367.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009444384310","","Embedded Software Engineer","DOODLE LABS (SG) PTE. LTD.","Singapore","","2024-09-13","monthly",4500.0,6000.0,"SGD",False,"","**Core skills** :
 
 
-We are seeking an experienced and dynamic Lead Software Engineer to enhance the technical quality of our open-source codebase for the AI systems.
+Experience with Linux wireless stack/kernel/driver/git
 
 
-**Responsibilities:**
+C/Linux programming and debugging
 
 
-* Drive technical excellence within the Foundation by ensuring that our codebase is well-architected and that features and fixes are delivered in a timely manner.
-* Lead and mentor a team of software engineers, prioritizing tasks and requests based on their impact, urgency, and alignment with the Foundation's goals.
-* Facilitate technical discussions about the product, including sharing knowledge, gathering feature requests, and explaining technical decisions.
-* Manage our open-source repositories by maintaining proper structure, tagging, and rigorous testing of releases before deployment.
-* Develop and implement robust DevOps processes, including establishing CI/CD pipelines, creating test suites, and following engineering best practices.
-* Work with the community to uphold high standards for pull requests and code contributions, ensuring the ongoing quality of the codebase.
-* Address queries and discussions, including feature requests and support tickets, while fostering an active and engaged developer community.
-
-**Qualifications:**
+Experience in trouble-shooting embedded systems
 
 
-* At least 8 years of experience in enterprise software development, with a minimum of 3 years in a leadership role managing engineering teams.
-* Strong understanding of software architecture best practices and the ability to communicate architectural trade-offs effectively.
-* Proficiency in Python and experience with frameworks such as Flask and StreamLit.
-* Knowledge of frontend technologies, including CSS/JavaScript, and experience with frontend frameworks like Node and React is a plus.
-* Skilled in using development tools and documentation platforms such as GitHub, UML Diagrams, Confluence, Slack, and Jira.
-* Familiar with CI/CD tools and practices, including Lint, PyTest, and automated build and test processes. Experience with security IAST and SCA tools is advantageous.
-* Excellent communication skills, with the ability to engage effectively with both technical and business stakeholders.
+Experience in common interfaces, networking protocols, and hardware subsystems
 
-**To Apply:**  
 
-  
+**Additional skills:**
 
-For a confidential discussion regarding your next Technology role, please submit your resume (in MS Word format) to Sheralynn Tjioe at sr@kerryconsulting.com, quoting the job title. We regret that only shortlisted candidates will be contacted.  
+Experience with wireless drivers such as ath11k
 
-  
 
-**Registration No.: R1878306** **License No.: 16S8060**","https://www.glassdoor.sg/Overview/W-EI_IE2187149.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009444247825","","Software Engineer II, Backend Services","JPMorgan Chase & Co","Singapore","","2024-09-12","yearly",83200.0,106750.0,"SGD",False,"","**JOB DESCRIPTION**  
+Web GUI development for embedded systems
+
+
+Scripting with Bash shell, Python
+
+
+**Requirements**
+
+* Candidate must possess at least a bachelor’s degree, Post Graduate Diploma or Professional Degree in Electrical Engineering or Computer Science or equivalent.
+* Experience with Linux, C
+* Strong communication skills and ability to engage with a cross-functional team.
+* Hardworking, committed, and fast learner in tight deadline environment","https://www.glassdoor.sg/Overview/W-EI_IE2473739.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009444247825","","Software Engineer II, Backend Services","JPMorgan Chase & Co","Singapore","","2024-09-13","yearly",83200.0,106750.0,"SGD",False,"","**JOB DESCRIPTION**  
 
 We have an exciting and rewarding opportunity for you to take your software engineering career to the next level.
 
@@ -310,478 +384,216 @@ We recognize that our people are our strength and the diverse talents they bring
   
 
 The Corporate & Investment Bank is a global leader across investment banking, wholesale payments, markets and securities services. The world’s most important corporations, governments and institutions entrust us with their business in more than 100 countries. We provide strategic advice, raise capital, manage risk and extend liquidity in markets around the world.","https://www.glassdoor.sg/Overview/W-EI_IE5224839.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009443465618","","Software Engineer","GRAVITON RESEARCH CAPITAL (SINGAPORE) PTE. LTD.","Singapore","","2024-09-12","monthly",10000.0,13000.0,"SGD",False,"","As a Software Engineer with Graviton your responsibilities will include:
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009444383609","","Software engineer","SCALEUP CENTRE PRIVATE LIMITED","Singapore","","2024-09-13","monthly",9500.0,11000.0,"SGD",False,"","IT professional with 10+ years of experience in the areas of Telecommunication, Banking and Insurance Domains.
 
 
-* Contribute to all layers of backend systems including databases, APIs and applications
-* Design, build and maintain applications for business requirements
-* Architect scalable and reliable applications
-* Write clean and modular code, following good coding standards and practices
-* Troubleshoot and debug applications
-* Be involved in the entire application lifecycle
-* Collaborate with multidisciplinary team of front-end developers, engineers and system administrators
-* Devise innovative solutions to address new and complicated challenges
-* Build reusable code and libraries for future use
-* Take lead on projects, as needed
-* Work in a high paced competitive environment.
-
-### **Qualifications**
-
-The ideal candidate will have:
+Need expertise in developing applications with Struts, Spring, Spring Boot, Hibernate, JMS, SOAP,
 
 
-* Engineering degree in Computer Science (preferred) or any other discipline from a Tier 1 college.
-* 3 to 4 years of relevant experience in designing and improving information systems
-* Proficiency in Python programming
-* Extensive experience working with relational databases and handling large datasets
-* Good Understanding of object oriented and asynchronous programming
-* Familiarity with front-end languages such as HTML, JavaScript and CSS
-* Knowledge of Linux systems and bash scripting
+Micro Services, Restful services, LDAP, Apache Kafka, ETL and Middleware layer development.
+
+
+Should have extencive knoweldge in developing Web-based GUIs and Client-side validations using JSP, HTML, jQuery, Java Script, Node JS, Bootstrap, Backbone, AJAX, CSS.
+
+
+Hands-on Experience in Java/J2ee, Spring Boot, OOAD, Mysql/ PostgreSQL, redis/Hazelcast cache, Micro services, Kafka.
+
+
+Experience working in Agile methodology.
+
+
+Knowledge of application development using Spring, and Hibernate.
+
+
+Knowledge of Design Patterns, REST, SOAP, Junit, and Develop Self-contained Restful services.
+
+
+Demonstrated knowledge and experience with Microservices architectures and object-oriented analysis and design.
+
+
+Demonstrated hands-on experience in developing, documenting, and deploying Microservices solutions on cloud infra.
+
+
+Demonstrated hands-on experience using technologies Spring / Redis / MySQL / PostgreSQL.
+
+
+Good communication Skills, flexibility, and a good attitude.","https://www.glassdoor.sg/Overview/W-EI_IE4212151.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009442458960","","Software Engineer (Vision) #67590","Anradus Pte Ltd","Old Kallang Airport Estate","","2024-09-12","monthly",5000.0,6000.0,"SGD",False,"","**Job Description**
+
+* Industry/ Organization Type: Manufacturing/Semiconductor Technology
+* Position Title: **Software Engineer (Vision)**
+* Working Location: Kallang
+* Working Hours: Monday – Friday, 9 am – 6 pm
+* Salary Package: **Up to $6,000 + VB**
+* Duration: Permanent
+
+**Key Responsibilities**
+
+* Design and develop software solutions for Computer Vision Equipment.
+* Engage in software development activities including GUI design, big data management, and multi-threaded programming.
+* Design and develop Image Processing and Computer Vision algorithms.
+* Participate in Software Development Life Cycle.
+
+**APPLY NOW!!!**
+
+* Minimum Degree in engineering discipline with at least 2 years of relevant experience.
+* Proficiency in programming within the Visual Studio Development Environment.
+* Strong command of C++ programming.
+* Extensive knowledge in vision inspection, computer vision, and image processing.
+* Familiarity with C# programming is beneficial.
+* Experience with Deep Learning (AI) for defect classification is highly advantageous.
+
+Kindly apply through **ANY** of the following methods:
+
+* Submit your application by clicking the **APPLY** button;
+* Email your resume to Job(at)anradus.com.sg. Kindly indicate **#67590** on the email subject.
+
+**Anradus Application Policy:** We value each application and ensure every resume is reviewed. Our process is efficient, typically concluding within **3 working days.** If you do not receive communication from us within this timeframe, it's likely that your application has not been shortlisted by our client. In such cases, we recommend continuing your job search to maximize your opportunities.
+
+Anradus Pte Ltd | EA License No. 20C0161 | Norman Wee | EA Reg No.: R23115114
+
+Job Types: Full-time, Permanent
+
+Pay: $5,000.00 - $6,000.00 per month
+
+License/Certification:
+
+* identity to work without a sponsor(if no,we need apply pass) (Preferred)
+
+Work Location: In person","https://www.glassdoor.sg/Overview/W-EI_IE3963456.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009442695036","","Software Engineering New Associate (Fresh Diploma Graduate Program)","Accenture","Singapore","","2024-09-12","","","","",False,"","**About Accenture**  
+
+Accenture is a leading global professional services company that helps the world’s leading businesses, governments and other organizations build their digital core, optimize their operations, accelerate revenue growth and enhance citizen services—creating tangible value at speed and scale. We are a talent and innovation led company with 738,000 people serving clients in more than 120 countries. Technology is at the core of change today, and we are one of the world’s leaders in helping drive that change, with strong ecosystem relationships. We combine our strength in technology with unmatched industry experience, functional expertise and global delivery capability. We are uniquely able to deliver tangible outcomes because of our broad range of services, solutions and assets across Strategy & Consulting, Technology, Operations, Industry X and Accenture Song. These capabilities, together with our culture of shared success and commitment to creating 360° value, enable us to help our clients succeed and build trusted, lasting relationships. We measure our success by the 360° value we create for our clients, each other, our shareholders, partners and communities. Visit us at www.accenture.com.
+
+
+Come work at the heart of change.
+
+
+Take the first step to a fulfilling tech career at Accenture. You will be exposed to the exciting work within the Public Sector, helping Singapore achieve its Smart Nation vision as you develop your career. Enhance your skills through continuous learning and development opportunities to build and strengthen your expertise in the ever-growing technology space.
+
+
+You can also expect to receive professional training, mentorship and career coaching to help empower, drive, and guide you in your career aspirations and decisions.
+
+**As a software engineering associate, you will:**
+
+* Be involved in the development, coding, testing, deployment, and software maintenance of the applications and products.
+* Team up with others, like yourself, to develop and deliver solutions with continuous innovation and bring new ideas to our clients, improving the way operations is run.
+* Operate IT production services according to management protocols and Service Level Agreements (SLAs).
+* Together with your team, support various phases of the Software Development Lifecycle, ensuring client satisfaction and delivery excellence.
+* Provide operational support, ensuring production systems and devices are online and available.
+* Opportunity to use some of the most advanced technology around such as cloud engineering and operations, automation, RPA and SRE, intelligent call centre technologies.
+
+
+Your role assignment will be based on business needs and your personal strengths.
+
+
+  
+
+**We would love to speak with you if you have:**
+
+* A Diploma in Information Technology
+* A willingness to learn and an interest in technology
 * Good communication and interpersonal skills
-* Willingness to continuously learn and improve
-* Ability to work in fast paced environment under pressure and manage multiple high priority projectsAny of the following is a plus:
-* A good understanding of TCP/IP and Ethernet
-* Knowledge of any other programming language e.g. Java, Scala, Python, bash, Lisp, etc.
-* Familiarity with parallel programming models and parallel algorithms
-* Experience with big data environments e.g. Hadoop, Spark etc.
+* Flexibility and willingness to work on different projects, if required
 
-**Good to have:**
+**It would be advantageous if you are versed in the following tech stacks:**
 
-* Experience in Financial services space/domain
-* Experience in and understanding of system design decisions
-* Experience in leading small teams or projects","https://www.glassdoor.sg/Overview/W-EI_IE7547643.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009441923586","","Software Engineer (Open for Fresh Grad)","TALENTSIS PTE. LTD.","Singapore","","2024-09-11","monthly",4200.0,5200.0,"SGD",False,"bianca@talentsis.com.sg","Job Description:
+* Java / J2EE / .Net / Fullstack development
+* DevSecOps
+* Data engineering / R / Python
+* Low code development platforms
 
 
-* Collaborate with other developers and engineers to design, build, and maintain applications.
-* Develop end-to-end specifications for solution components.
-* Perform testing and implementation of the solution.
-* Troubleshoot software issues and participate in impact analysis of encountered issues.
-* Generate relevant documentations, reports etc.
-* Contribute to continuous improvement of software development best practices.
-* Keeping up-to-date with industry trends and technology developments.
-
-Requirements:
+All of our consulting professionals receive comprehensive training covering business acumen, technical and professional skills development. You’ll also have opportunities to hone your functional skills and expertise in an area of specialization. We offer a variety of formal and informal training programs at every level to help you acquire and build specialized skills faster. Learning takes place both on the job and through formal training conducted online, in the classroom, or in collaboration with teammates. The sheer variety of work we do, and the experience it offers, provide an unbeatable platform from which to build a career.
 
 
-* Degree in Computing/ Computer Science/ Computer Engineering/ Info Systems / EEE or equivalent
-* Entry level candidates with good learning attitude and relevant experience can be considered.
-* Familiar to full-stack development and understand concepts of software engineering.
-* Knowledge of Agile Development methodology.
-* Knowledge of basic coding languages such as C++, Javascript, HTML5 and Java
-* Basic programming experience.
-* Knowledge of databases (SQL / NoSQL).
-* Comfortable using AngularJS, NodeJS, ReactJS and other common frameworks to develop software for various platform.
-* Ability to learn new software and technologies quickly.
-* Ability to follow instructions and work in a team environment.
-* Good team player with critical thinking, analytical and creative problem-solving skills.
-* Detail-oriented.
-* Candidates with more professional/complexity of experience can be considered for the senior role
+Accenture is an equal opportunities employer and welcomes applications from all sections of society and does not discriminate on grounds of race, religion or belief, ethnic or national origin, disability, age, citizenship, marital, domestic or civil partnership status, sexual orientation, gender identity, or any other basis as protected by applicable law.","https://www.glassdoor.sg/Overview/W-EI_IE4138.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009442328597","","Project Engineer (IT Software) #66287","Anradus Pte Ltd","Toa Payoh New Town","","2024-09-12","monthly",3000.0,3500.0,"SGD",False,"","**Job Description**
 
-Only shortlisted candidates will be notified.
-
-
-Please email a copy of your detailed resume to bianca@talentsis.com.sg for immediate processing.
-
-
-(EA Reg No: 20C0312)","https://www.glassdoor.sg/Overview/W-EI_IE4991839.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009441574868","","Full Stack Engineer, 2 Hour Learning (Remote) - $100,000/year USD","Crossover","","","2024-09-11","","","","",True,"","Are you a skilled full-stack developer with a passion for AI and a drive to transform K-12 education? At 2 Hour Learning, we're leading a revolution in digital learning backed by data and innovation.
-
-
-
-At 2 Hour Learning, we don't just aim to improve education—we're redefining it. Our cutting-edge learning ecosystem, powered by advanced AI, learning science, and psychometrics, is twice as effective as traditional schooling. Students at every level, from kindergarten to high school, are achieving remarkable academic milestones, far surpassing standard expectations.
-
-
-
-Your Role in the Revolution:
-
-
-
-In this role, you’ll be at the forefront of our AI-powered educational transformation. With full autonomy and creative freedom, you’ll envision, develop, and deploy sophisticated full-stack applications and interactive AI tools that not only engage students but also enhance learning efficiency in unprecedented ways.
-
-
-
-This is not a position for those who prefer to specialize in a single aspect of development. We're looking for innovative thinkers who can seamlessly integrate AI across both front-end and back-end systems, taking ownership of the entire product. Your work will directly impact thousands of students, ensuring that our tools meet their needs and set new standards for educational technology.
-
-
-
-Who We're Looking For:
-
-
-
-We need bold innovators who thrive on leveraging the latest in generative AI to create real-world educational impact. If you’re excited about pushing the boundaries of what’s possible in AI-driven education and are ready to bring your expertise in full-stack development and AI, this is your chance to make a difference.
-
-
-
-For more information on 2 Hour Learning, visit our website [https://2hourlearning.com/] and the Future of Education Instagram page [https://www.instagram.com/futureof\\_education/]. To see a school built around 2 Hour Learning, check out Alpha [https://alpha.school/].
-
- **What you will be doing**
-
-
-* Develop AI-Powered Web Applications: Architect and code sophisticated web applications that integrate both front-end and back-end components, with a focus on enhancing user experience through AI.
-* Experiment and Innovate with AI: Work with cutting-edge AI technologies, specifically large language models (LLMs) like GPT-4 or Claude, to create autonomous tools and interactive features that redefine how students learn.
-* Drive Technical Projects: Take ownership of the entire development process, from gathering requirements to launching and iterating on products. You’ll work closely with stakeholders to ensure that our solutions meet learner needs and push the boundaries of what’s possible.
-* Collaborate and Communicate: Partner with a global team of developers, designers, and educational experts. Your ability to communicate complex ideas simply and effectively will be key to your success.
-* Continuous Improvement: Stay ahead of the curve by continually learning and applying the latest advancements in AI and web development to our platform.
-
-  
-
-
-**What you will NOT be doing**
-
-
-* Narrow AI Development: You won’t be working on isolated AI features that don’t integrate with the overall product strategy. Your work will have a direct impact on thousands of students.
-* Surface-Level Coding: This is not a role for those who focus only on either front-end or back-end development. You will be expected to integrate both, creating comprehensive and scalable solutions.
-* Routine Maintenance: This role is not about maintaining legacy systems or making minor updates. You will be driving innovation and building new, cutting-edge applications.
-* Waiting for Detailed Specifications: You won't be handed fully fleshed-out requirements. Instead, you will take high-level ideas and translate them into fully developed products, leveraging your expertise in AI and full-stack development.
-* Working in Isolation: You won't be coding in a vacuum. Collaboration with other developers, product managers, and educational experts is key to ensuring that the solutions you build are impactful and user-centered.
-
-  
-
+* Industry/ Organization Type: Security System Service Provider
+* Position Title: **Project Engineer (IT)**
+* Working Location: East (Nearest MRT: Tai Seng)
+* Working Hours: 5 days (Monday-Friday, 9 am to 6 pm)
+* Salary Package: **Up to SGD 3500 + Variable Bonus**
+* Duration: Permanent
 
 **Key Responsibilities**
 
+* Set up equipment for various systems and conduct testing and commissioning.
+* Install electronic systems, including cabling and storage devices.
+* Perform troubleshooting, repairs, and preventative maintenance on electronic systems.
+* Manage projects and follow up with clients.
+* Provide onsite support to diagnose and resolve technical issues.
 
+**APPLY NOW!!!**
 
-Develop and deliver engaging, human-centered AI applications that demonstrably accelerate learning outcomes and efficiency for thousands of K-12 students.
+* Min. Diploma in IT or Engineering field
+* Min. 1 year of working experience in Project Management or related field
+* Familiar with Windows, Word, PowerPoint, Excel, and Access
 
- **Candidate Requirements**
+Kindly apply through **ANY** of the following methods:
 
+* Submit your application by clicking the **APPLY** button;
+* Email your resume to Job(at)anradus.com.sg. Please indicate **#66287** on the email subject.
 
-* At least 3 years of experience in full-stack development, with proficiency in front-end frameworks such as React, Angular, Vue.js, or Svelte, and back-end technologies like Node.js, Django, Ruby on Rails, Flask, or Spring Boot.
-* Hands-on experience integrating large language models (LLMs) like GPT-4, Claude, or similar into web applications.
-* Proven ability to independently manage and execute technical projects from start to finish, including gathering requirements, development, deployment, and iteration.
-* Excellent verbal and written communication skills, with the ability to collaborate effectively with stakeholders, team members, and users across a global, remote team.
-* A demonstrated passion for staying at the forefront of technology, particularly in AI and web development, with a commitment to continuous learning and applying new advancements to your work.","https://www.glassdoor.sg/Overview/W-EI_IE1041838.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009441576978","","Senior Software Engineer, 2 Hour Learning (Remote) - $100,000/year USD","Crossover","","","2024-09-11","","","","",True,"","Are you a skilled full-stack developer with a passion for AI and a drive to transform K-12 education? At 2 Hour Learning, we're leading a revolution in digital learning backed by data and innovation.
+**Anradus Application Policy:** We value each application and ensure every resume is reviewed. Our process is efficient, typically concluding within **3 working days**. If you do not receive communication from us within this timeframe, it's likely that your application has not been shortlisted by our client. In such cases, we recommend continuing your job search to maximize your opportunities.
 
+Anradus Pte Ltd | EA License No. 20C0161 | Celine Tan | EA Reg No.: R1873694
 
+Job Types: Full-time, Permanent
 
-At 2 Hour Learning, we don't just aim to improve education—we're redefining it. Our cutting-edge learning ecosystem, powered by advanced AI, learning science, and psychometrics, is twice as effective as traditional schooling. Students at every level, from kindergarten to high school, are achieving remarkable academic milestones, far surpassing standard expectations.
+Pay: $3,000.00 - $3,500.00 per month
 
+License/Certification:
 
+* identity to work without a sponsor(if no,we need apply pass) (Preferred)
 
-Your Role in the Revolution:
-
-
-
-In this role, you’ll be at the forefront of our AI-powered educational transformation. With full autonomy and creative freedom, you’ll envision, develop, and deploy sophisticated full-stack applications and interactive AI tools that not only engage students but also enhance learning efficiency in unprecedented ways.
-
-
-
-This is not a position for those who prefer to specialize in a single aspect of development. We're looking for innovative thinkers who can seamlessly integrate AI across both front-end and back-end systems, taking ownership of the entire product. Your work will directly impact thousands of students, ensuring that our tools meet their needs and set new standards for educational technology.
-
-
-
-Who We're Looking For:
-
-
-
-We need bold innovators who thrive on leveraging the latest in generative AI to create real-world educational impact. If you’re excited about pushing the boundaries of what’s possible in AI-driven education and are ready to bring your expertise in full-stack development and AI, this is your chance to make a difference.
-
-
-
-For more information on 2 Hour Learning, visit our website [https://2hourlearning.com/] and the Future of Education Instagram page [https://www.instagram.com/futureof\\_education/]. To see a school built around 2 Hour Learning, check out Alpha [https://alpha.school/].
-
- **What you will be doing**
-
-
-* Develop AI-Powered Web Applications: Architect and code sophisticated web applications that integrate both front-end and back-end components, with a focus on enhancing user experience through AI.
-* Experiment and Innovate with AI: Work with cutting-edge AI technologies, specifically large language models (LLMs) like GPT-4 or Claude, to create autonomous tools and interactive features that redefine how students learn.
-* Drive Technical Projects: Take ownership of the entire development process, from gathering requirements to launching and iterating on products. You’ll work closely with stakeholders to ensure that our solutions meet learner needs and push the boundaries of what’s possible.
-* Collaborate and Communicate: Partner with a global team of developers, designers, and educational experts. Your ability to communicate complex ideas simply and effectively will be key to your success.
-* Continuous Improvement: Stay ahead of the curve by continually learning and applying the latest advancements in AI and web development to our platform.
+Work Location: In person","https://www.glassdoor.sg/Overview/W-EI_IE3963456.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009443466470","","Software Engineer (FrontEnd)","GENIUS BRIO PTE. LTD.","Singapore","","2024-09-12","monthly",7500.0,14900.0,"SGD",False,"","* To build large-scale and high-performance products.
+* Ensure the products can work consistently across Desktop, Tablet, and Mobile platforms.
+* Define professional development workflow within the frontend development area on different model.
+* Support and enforce best practices for content layout, navigation, and site architecture for a simple to complex web applications or websites
+* Hands-on skills in code architecture design and landing, object-oriented design, event driven micro-service design and work in Cloud environment.
+* Work closely with backend developers and help integrate the design in the overall project.
+* Set up interaction and knowledge sharing processes among frontend engineering members in different Teams.
 
   
 
-
-**What you will NOT be doing**
-
-
-* Narrow AI Development: You won’t be working on isolated AI features that don’t integrate with the overall product strategy. Your work will have a direct impact on thousands of students.
-* Surface-Level Coding: This is not a role for those who focus only on either front-end or back-end development. You will be expected to integrate both, creating comprehensive and scalable solutions.
-* Routine Maintenance: This role is not about maintaining legacy systems or making minor updates. You will be driving innovation and building new, cutting-edge applications.
-* Waiting for Detailed Specifications: You won't be handed fully fleshed-out requirements. Instead, you will take high-level ideas and translate them into fully developed products, leveraging your expertise in AI and full-stack development.
-* Working in Isolation: You won't be coding in a vacuum. Collaboration with other developers, product managers, and educational experts is key to ensuring that the solutions you build are impactful and user-centered.
-
-  
+Minimum qualifications
 
 
-**Key Responsibilities**
+* Bachelor’s degree in computer science, engineering, or equivalent industry experience.
+* 10+ years developing production JavaScript code and strong knowledge of React.js.
+* Knowledge of jQuery and backend API
+* Strong working knowledge of CSS3 and Docker
+* Understanding of state-management patterns such as Redux, Flux or similar.
+* Proven track record of delivering projects with high quality UI.
+* Experience in developing responsive websites for diverse clients from high powered desktop computers to small footprint mobile devices.
+* Experience with modern front-end technologies, eg React (preferred) / Vue / Angular, styled system, Webpack, etc.","","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009442767379","","Junior/Senior Software Engineer (Permanent Roles)","TALENTSIS PTE. LTD.","Singapore","","2024-09-12","monthly",4500.0,5500.0,"SGD",False,"abegail@talentsis.com.sg","**Job Responsibilities:**
 
+* Participate in designing solutions that meet functional requirements
+* Implement end-to-end specifications for solution components
+* Generate relevant documents and reports
+* Perform testing and implementation of solutions
+* Participate in UX activities such as creating wireframes/storyboards, conducting user research/interviews and developing user stories, storyboards
+* Contribute to the SDLC in the areas of coding tools, languages, and software designs
 
+**Job Requirements:**
 
-Develop and deliver engaging, human-centered AI applications that demonstrably accelerate learning outcomes and efficiency for thousands of K-12 students.
-
- **Candidate Requirements**
-
-
-* At least 3 years of experience in full-stack development, with proficiency in front-end frameworks such as React, Angular, Vue.js, or Svelte, and back-end technologies like Node.js, Django, Ruby on Rails, Flask, or Spring Boot.
-* Hands-on experience integrating large language models (LLMs) like GPT-4, Claude, or similar into web applications.
-* Proven ability to independently manage and execute technical projects from start to finish, including gathering requirements, development, deployment, and iteration.
-* Excellent verbal and written communication skills, with the ability to collaborate effectively with stakeholders, team members, and users across a global, remote team.
-* A demonstrated passion for staying at the forefront of technology, particularly in AI and web development, with a commitment to continuous learning and applying new advancements to your work.","https://www.glassdoor.sg/Overview/W-EI_IE1041838.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009441594095","","Lead Software Engineer, LearnwithAI (Remote) - $200,000/year USD","Crossover","","","2024-09-11","","","","",True,"","Are you a seasoned software engineer with a deep interest in AI? Trilogy is on the lookout for exceptional engineers to lead the charge in adopting generative AI tools both in our development process and into our products.
-
-
-
-Join us to work on our exciting product portfolio:
-
-
-* TeachTap: Bringing historical figures to life using AI, offering an engaging, TikTok-like learning experience to make learning more relevant and fun.
-* Educational Content Generation: Utilizing the latest in generative AI combined with comprehensive learning materials to create captivating content.
-* TeachTower: A game-based motivation system inspired by popular games like Roblox and Minecraft, designed to make learning irresistibly fun.
-* Coachbot: A learning copilot that integrates with existing apps, guiding learning paths, recommending next steps, and rewarding daily progress.
-
-
-Your role will focus on integrating AI into engineering practices, using AI tools to increase efficiency and solve engineering tasks like coding and testing. Based on the obtained results, you will derive recipes and playbooks to be adopted by the broader engineering team. Maintaining high-quality standards in our codebases while ensuring high leverage of AI tools across our engineering teams will be a key part of your work.
-
-
-
-You will be an integral part of our existing engineering team, working collaboratively on our suite of products to deeply understand our environment and needs. You will have the freedom to propose and experiment with new tools and then will leverage the insights and experiences obtained to evolve our processes, advocate for new tool adoption, or even spearhead the creation of small tools, bots, and frameworks to enhance our technical setup.
-
-
-
-We seek candidates with a strong background in software engineering and a capacity for adapting to new technologies. Moreover, an interest in the latest generative AI developments and a drive for innovation are crucial. While our primary tech stack is AWS Serverless with TypeScript, we're looking for versatile engineers who can excel in a variety of technical environments and challenges.
-
- **What you will be doing**
-
-
-* Developing fully functional features, using AI tools to expedite delivery and enhance quality.
-* Performing experiments with AI to enhance engineering processes, including decomposition, solution design, code generation, and troubleshooting.
-* Documenting best practices and techniques in guides that enable others to harness the power of generative AI effectively.
-
-  
-
-
-**What you will NOT be doing**
-
-
-* Building new AI models from scratch; instead, your focus will be on leveraging and fine-tuning existing models to maximize efficiency.
-* Being confined to outdated technologies; we encourage an environment that thrives on dynamic tech stacks, fostering continuous innovation.
-
-  
-
-
-**Key Responsibilities**
-
-
-* Drive transformative change by establishing a framework that seamlessly integrates generative AI, significantly amplifying engineering productivity.
-
-  
-
-
-**Candidate Requirements**
-
-
-* Minimum 5 years of experience in professional software development.
-* Minimum 3 years either as a lead engineer reviewing the work of other engineers or as an architect making important technical decisions.
-* Excited to use and explore new generative AI tools for software engineering tasks on a day-to-day basis","https://www.glassdoor.sg/Overview/W-EI_IE1041838.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009441195303","","Software Engineer","Commonwealth Bank","Singapore","","2024-09-11","","","","",False,"","If you're already part of the Commonwealth Bank Group (including Bankwest, x15ventures), you'll need to apply through Sidekick to submit a valid application. We’re keen to support you with the next step in your career.
-
-
-We're aware of some accessibility issues on this site, particularly for screen reader users. We want to make finding your dream job as easy as possible, so if you require additional support please contact HR Direct on 1800 989 696.
-
-
-Advertising End Date: 23/09/2024","https://www.glassdoor.sg/Overview/W-EI_IE7922.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009441129216","","Software Engineer (Entry Level)","TALENTSIS PTE. LTD.","Singapore","","2024-09-11","monthly",4200.0,5500.0,"SGD",False,"Luna@talentsis.com.sg","**Job Description:**
-
-* Collaborate with other developers and engineers to design, build, and maintain applications.
-* Develop end-to-end specifications for solution components.
-* Perform testing and implementation of the solution.
-* Troubleshoot software issues and participate in impact analysis of encountered issues.
-* Generate relevant documentations, reports etc.
-* Contribute to continuous improvement of software development best practices.
-* Keeping up-to-date with industry trends and technology developments.
-
-**Requirements:**
-
-* Degree in Computing/ Computer Science/ Computer Engineering/ Info Systems / EEE or equivalent
-* Entry level candidates with good learning attitude and relevant experience can be considered.
-* Familiar to full-stack development and understand concepts of software engineering.
-* Knowledge of Agile Development methodology.
-* Knowledge of basic coding languages such as C++, Javascript, HTML5 and Java
-* Basic programming experience.
-* Knowledge of databases (SQL / NoSQL).
-* Comfortable using AngularJS, NodeJS, ReactJS and other common frameworks to develop software for various platform.
-* Ability to learn new software and technologies quickly.
-* Ability to follow instructions and work in a team environment.
-* Good team player with critical thinking, analytical and creative problem-solving skills.
-* Detail-oriented.
-* Candidates with more professional/complexity of experience can be considered for the senior role
+* Min Diploma/Degree in Computer Science or any IT-related field
+* Familiarity in any of the programming languages: Java, JavaScript, Python, C++, C# etc
+* Proficient in Web Technologies like HTML, CSS
+* Excellent working attitude and a strong team player
 
 (EA Reg No: 20C0312)
 
 
-Please email a copy of your detailed resume to **Luna@talentsis.com.sg** for immediate processing.
+Only shortlisted candidates will be notified.
 
 
-Only shortlisted candidates will be notified.","https://www.glassdoor.sg/Overview/W-EI_IE4991839.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009441571973","","AI Software Engineer, IgniteTech (Remote) - $100,000/year USD","Crossover","","","2024-09-11","","","","",True,"","The software development industry is rapidly evolving, driven by the imperative to enhance development speed, reduce human error, and elevate code quality. These enhancements are crucial as they correlate directly with faster product time-to-market and heightened customer satisfaction. The average time for software deployment has historically lagged due to traditional coding practices, with an estimated 30% of projects exceeding their timeline due to inefficiencies and errors.
-
-
-
-IgniteTech is leading the transformation, integrating advanced GenAI technologies to redefine software architecture and development. Unlike traditional roles that focus on incremental improvements, this position offers the thrilling opportunity to lead pivotal AI-driven initiatives. You will be at the forefront of integrating AI to not just enhance, but revolutionize software development processes and outcomes, significantly boosting efficiency and competitiveness on a strategic level.
-
-
-
-This role is designed for those who are driven to be at the cutting edge of technology and innovation. It is not merely an operational or task-oriented position; it is a strategic role that involves extensive research and development, prototyping, and the application of AI in crafting next-generation software solutions. Ideal candidates are those who are not only proficient in AI and software architecture but are also visionary in their approach to leveraging technology for business innovation.
-
-
-
-In this role, you will lead our team in shaping the architectural frameworks and strategies that integrate AI into our software solutions. This role is integral to our mission, and your work will directly influence the productivity and quality of our deliverables. We invite you to join us if you are passionate about pushing the boundaries of technology and eager to make a tangible impact in the software industry.
-
- **What you will be doing**
-
-
-* Design the overarching architecture for AI-driven systems that automate complex aspects of software development, such as architecture generation, dependency management, and advanced predictive coding.
-* Deep dive into the latest developments in AI and software engineering by participating in R&D initiatives, attending conferences, and engaging with academic and professional communities. When a new AI technology comes out, we need to be among the first to know about it.
-
-  
-
-
-**What you will NOT be doing**
-
-
-* Routine Code Maintenance: Regular updating or debugging of existing software code to fix minor issues or improve functionality.
-* Standard Software Development: Basic coding or software development tasks that involve implementing straightforward features or functionalities without AI integration.
-
-  
-
-
-**Key Responsibilities**
-
-
-* Use your engineering expertise to bring about a significant increase in development speed, reduction in human error, and improvement in code quality, ultimately leading to faster time-to-market for software products and enhanced customer satisfaction.
-
-  
-
-
-**Candidate Requirements**
-
-
-* At least 3 years of professional experience implementing impactful initiatives as a software engineer
-* Familiarity with GenAI code assistants (e.g., Github Copilot, Cursor.sh, v0.dev)
-* Previous experience successfully implementing Generative AI products/projects/solutions/tools
-* Previous experience leveraging different LLMs (e.g., GPT, Claude, Mistral) to solve business problems","https://www.glassdoor.sg/Overview/W-EI_IE1041838.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009441129170","","Software Engineer","INTEROPERA PTE. LTD.","Singapore","","2024-09-11","monthly",5000.0,9000.0,"SGD",False,"","**Company Description**
-
-InterOpera is an operator of digital exchange for green attributes and provides blockchain infrastructure for all types of assets. InterOpera reaches its clients through two main channels: Nexus, a digital infrastructure suite, and OperaX, a next-generation exchange for trading digital green attributes. The Nexus suite comprises three platforms: Digital Asset Issuance, Custody, and Distribution Platforms. These platforms serve as digital infrastructure building blocks and are available as Software-as-a-Service (SaaS) solutions. OperaX positions itself as the most buyer-centric exchange, offering a seamless experience for buying, trading, and holding of green attributes.
-
-
-Our roster of investors includes Korea Investment Partners (one of South Korea's largest VC firms), Kakao Investment (CVC arm of Kakao Corp which is one of the most sophisticated and influential technology companies in South Korea) as well as Vertex (the VC arm of Temasek Holdings), amongst other highly regarded investors.  
-
-
-
-  
-
-**Job Summary**
-
-We are looking for a talented and motivated **Software Engineer** to join our growing team. This is a unique opportunity to work on a variety of projects using a modern tech stack, including Go, React.js, MySQL, and AWS. You will gain experience in both backend and frontend development, playing an integral role in delivering innovative solutions for sustainable climate operations.  
-
-
-
-  
-
-**Role Description**
-
-This is a full-time on-site role for a **Software Engineer** based in Singapore. As part of the InterOpera team, you will be responsible for back-end web development, software development, and object-oriented programming (OOP), creating digital solutions that promote sustainability and green finance.
-
-
-We want a team player who shares our vision of achieving and growing together.  
-
-
-
-  
-
-**Responsibilities**
-
-* Contribute to a positive, collaborative, and growth-oriented work environment.
-* Design, develop, and implement features for our web application using Go for the backend and React.js for the frontend.
-* Write clean, maintainable, and well-documented code.
-* Collaborate with designers, product managers, and other engineers to bring ideas to life.
-* Participate in code reviews and unit testing.
-* Stay up-to-date with the latest technologies in the Go, React.js, and AWS ecosystems.
-
-**Qualifications**
-
-* Bachelor's degree in Computer Science, Software Engineering, or a related field (or equivalent experience).
-* At least 2 years of experience in software development.
-* Strong understanding of fundamental programming concepts (data structures, algorithms, object-oriented programming, multi-threading).
-* Experience with Go, React.js, and MySQL is a plus.
-* Familiarity with AWS cloud services is a plus.
-* Excellent communication and collaboration skills.
-* A passion for learning and a willingness to take on new challenges.
-* A mindset that values teamwork, mutual growth, and shared success.","https://www.glassdoor.sg/Overview/W-EI_IE9850198.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009441590772","","Lead Software Engineer, 2 Hour Learning (Remote) - $100,000/year USD","Crossover","Singapore","","2024-09-11","","","","",False,"","Are you a skilled full-stack developer with a passion for AI and a drive to transform K-12 education? At 2 Hour Learning, we're leading a revolution in digital learning backed by data and innovation.
-
-
-
-At 2 Hour Learning, we don't just aim to improve education—we're redefining it. Our cutting-edge learning ecosystem, powered by advanced AI, learning science, and psychometrics, is twice as effective as traditional schooling. Students at every level, from kindergarten to high school, are achieving remarkable academic milestones, far surpassing standard expectations.
-
-
-
-Your Role in the Revolution:
-
-
-
-In this role, you’ll be at the forefront of our AI-powered educational transformation. With full autonomy and creative freedom, you’ll envision, develop, and deploy sophisticated full-stack applications and interactive AI tools that not only engage students but also enhance learning efficiency in unprecedented ways.
-
-
-
-This is not a position for those who prefer to specialize in a single aspect of development. We're looking for innovative thinkers who can seamlessly integrate AI across both front-end and back-end systems, taking ownership of the entire product. Your work will directly impact thousands of students, ensuring that our tools meet their needs and set new standards for educational technology.
-
-
-
-Who We're Looking For:
-
-
-
-We need bold innovators who thrive on leveraging the latest in generative AI to create real-world educational impact. If you’re excited about pushing the boundaries of what’s possible in AI-driven education and are ready to bring your expertise in full-stack development and AI, this is your chance to make a difference.
-
-
-
-For more information on 2 Hour Learning, visit our website [https://2hourlearning.com/] and the Future of Education Instagram page [https://www.instagram.com/futureof\\_education/]. To see a school built around 2 Hour Learning, check out Alpha [https://alpha.school/].
-
- **What you will be doing**
-
-
-* Develop AI-Powered Web Applications: Architect and code sophisticated web applications that integrate both front-end and back-end components, with a focus on enhancing user experience through AI.
-* Experiment and Innovate with AI: Work with cutting-edge AI technologies, specifically large language models (LLMs) like GPT-4 or Claude, to create autonomous tools and interactive features that redefine how students learn.
-* Drive Technical Projects: Take ownership of the entire development process, from gathering requirements to launching and iterating on products. You’ll work closely with stakeholders to ensure that our solutions meet learner needs and push the boundaries of what’s possible.
-* Collaborate and Communicate: Partner with a global team of developers, designers, and educational experts. Your ability to communicate complex ideas simply and effectively will be key to your success.
-* Continuous Improvement: Stay ahead of the curve by continually learning and applying the latest advancements in AI and web development to our platform.
-
-  
-
-
-**What you will NOT be doing**
-
-
-* Narrow AI Development: You won’t be working on isolated AI features that don’t integrate with the overall product strategy. Your work will have a direct impact on thousands of students.
-* Surface-Level Coding: This is not a role for those who focus only on either front-end or back-end development. You will be expected to integrate both, creating comprehensive and scalable solutions.
-* Routine Maintenance: This role is not about maintaining legacy systems or making minor updates. You will be driving innovation and building new, cutting-edge applications.
-* Waiting for Detailed Specifications: You won't be handed fully fleshed-out requirements. Instead, you will take high-level ideas and translate them into fully developed products, leveraging your expertise in AI and full-stack development.
-* Working in Isolation: You won't be coding in a vacuum. Collaboration with other developers, product managers, and educational experts is key to ensuring that the solutions you build are impactful and user-centered.
-
-  
-
-
-**Key Responsibilities**
-
-
-
-Develop and deliver engaging, human-centered AI applications that demonstrably accelerate learning outcomes and efficiency for thousands of K-12 students.
-
- **Candidate Requirements**
-
-
-* At least 3 years of experience in full-stack development, with proficiency in front-end frameworks such as React, Angular, Vue.js, or Svelte, and back-end technologies like Node.js, Django, Ruby on Rails, Flask, or Spring Boot.
-* Hands-on experience integrating large language models (LLMs) like GPT-4, Claude, or similar into web applications.
-* Proven ability to independently manage and execute technical projects from start to finish, including gathering requirements, development, deployment, and iteration.
-* Excellent verbal and written communication skills, with the ability to collaborate effectively with stakeholders, team members, and users across a global, remote team.
-* A demonstrated passion for staying at the forefront of technology, particularly in AI and web development, with a commitment to continuous learning and applying new advancements to your work.","https://www.glassdoor.sg/Overview/W-EI_IE1041838.htm","","","","","","","","","",""
-"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009442513528","","Software Developer (Frontend/ Backend) #68217","Anradus Pte Ltd","Singapore","","2024-09-11","monthly",5000.0,7500.0,"SGD",False,"","**Job Description**
+Please email a copy of your detailed resume to abegail@talentsis.com.sg for immediate processing.","https://www.glassdoor.sg/Overview/W-EI_IE4991839.htm","","","","","","","","","",""
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009442513528","","Software Developer (Frontend/ Backend) #68217","Anradus Pte Ltd","Singapore","","2024-09-12","monthly",5000.0,7500.0,"SGD",False,"","**Job Description**
 
 * Industry/ Organization Type: IT/ Consultancy Firm
 * Position Title: **Software Developer (Frontend/ Backend)**
@@ -833,7 +645,56 @@ License/Certification:
 * identity to work without a sponsor(if no,we need apply pass) (Preferred)
 
 Work Location: In person","https://www.glassdoor.sg/Overview/W-EI_IE3963456.htm","","","","","","","","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=ddde0663dc3d67ec","https://a2000erp.com/job-opportunities/#%23collapse-a883fbe66e4425e249e4","Software Engineer","A2000 Solutions Pte Ltd","Serangoon, S00, SG","","2024-09-13","","","","",False,"","Our Software Engineer will develop and maintain new or improved software products, procedures, and techniques under Microsoft .NET platform. Responsibilities include providing innovative and cost-effective engineering solutions to meet technical objectives and timing. An analytical thinker, you are expected to function well independently and in a team, exercise creativity and innovation, and possess excellent communications skills. **Job Description:**
+"glassdoor","https://www.glassdoor.sg/job-listing/j?jl=1009442512338","","Software Tester #68215","Anradus Pte Ltd","Singapore","","2024-09-12","monthly",4500.0,6000.0,"SGD",False,"","**Job Description**
+
+* Industry/ Organization Type: **IT/ Consultancy Firm**
+* Position Title: **Software Tester**
+* Working Location: One North
+* Working Hours: Monday to Friday, 9 am – 6 pm
+* Salary Package: **Basic + Bonus**
+* Duration: 2 years contract (Renewable)
+
+**Key Responsibilities**
+
+* Develop and implement comprehensive quality assurance strategies and plans.
+* Create detailed test plans (including test cases and scripts) for functional, performance, and regression testing.
+* Oversee the execution of test plans.
+* Promote and implement test automation strategies to enhance efficiency and coverage.
+* Establish and monitor key quality metrics.
+* Prepare and present reports on test progress, defects, and other relevant quality assurance metrics.
+* Collaborate with development teams and other stakeholders to understand requirements and ensure quality objectives are met.
+* Identify potential quality risks in software products and processes and develop mitigation strategies.
+* Ensure software solutions deliver a positive user experience and comply with industry standards and regulatory requirements.
+
+**APPLY NOW!!!**
+
+* At least 2 years of experience as a Software Tester/ QA Engineer in software development projects.
+* Minimum Diploma in IT, Computer Science, Engineering, or a related field.
+* Experience in QA strategy, test plans, and automation.
+* Proficiency in quantifying and analyzing user requirements.
+* Skilled in exploratory testing and functional testing with automated frameworks.
+* Experience designing test cases with boundary, cross-browser, and load testing techniques.
+* Able to start work immediately or on short notice.
+
+Kindly apply through **ANY** of the following methods:
+
+* Submit your application by clicking the **APPLY** button;
+* Email your resume to Job(at)anradus.com.sg. Please indicate **#68215** on the email subject.
+
+**Anradus Application Policy:** We value each application and ensure every resume is reviewed. Our process is efficient, typically concluding within **3 working days**. If you do not receive communication from us within this timeframe, it's likely that your application has not been shortlisted by our client. In such cases, we recommend continuing your job search to maximize your opportunities.
+
+Anradus Pte Ltd | EA License No. 20C0161 | Adelin Chong | EA Reg No.: R1875641
+
+Job Type: Full-time
+
+Pay: $4,500.00 - $6,000.00 per month
+
+License/Certification:
+
+* identity to work without a sponsor(if no,we need apply pass) (Preferred)
+
+Work Location: In person","https://www.glassdoor.sg/Overview/W-EI_IE3963456.htm","","","","","","","","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=d4bfb390909822a6","https://a2000erp.com/job-opportunities/#%23collapse-a883fbe66e53f7f1814f","Software Engineer","A2000 Solutions Pte Ltd","Serangoon, S00, SG","","2024-09-14","","","","",False,"","Our Software Engineer will develop and maintain new or improved software products, procedures, and techniques under Microsoft .NET platform. Responsibilities include providing innovative and cost-effective engineering solutions to meet technical objectives and timing. An analytical thinker, you are expected to function well independently and in a team, exercise creativity and innovation, and possess excellent communications skills. **Job Description:**
 
 * Design, develop and deploy business software applications (ASP.NET/C#)
 * Systems analysis and integration of multi-solutions with our ERP suite
@@ -861,893 +722,11 @@ With more than 3000 companies currently using our system, we are confident in pr
 
 
 A2000 Solutions is a NICF-Supporting Company.","https://sg.indeed.com/cmp/A2000-Solutions-Pte-Ltd","http://www.a2000.net","Singapore","","11 to 50","","","","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=ede39ee280edc3d7","https://careers.stengg.com/job/Aero-600-West-Camp-Road-Full-Stack-Developer%2C-Contract/1055862666/","Full Stack Developer, Contract","ST Engineering","Singapore, S00, SG","","2024-09-13","","","","",False,"","Job ID: 16073
-Location:
-Aero - 600 West Camp Road, SG
-Description:
-We are seeking a talented and motivated Full Stack Developer with strong communication skills to join our dynamic team.
+"indeed","https://sg.indeed.com/viewjob?jk=d927ab3bb63e40fc","https://www.mycareersfuture.gov.sg/job/information-technology/full-stack-java-engineer-delta-sg-consulting-b11e48e65f063a6ed2fcdaebff097327","Full Stack Java Engineer (Trading Platform)","DELTA SG CONSULTING","Singapore, S00, SG","","2024-09-14","","","","",False,"","We are s **eeking talented full stack engineers in APAC** who are experienced **hands in Java** backend and web frontend development. The successful candidate will more than just contribute to the development and delivery of a **next gen High-Touch trading platform** but will also take **a leading role in shaping the architecture** , the aesthetics, and the design and code quality of the new platform globally. The successful candidate will also collaborate with a global team of engineers, production support professionals, and product staff to ensure global consistency and product quality.
 
-  
 
+Responsibilities:
 
-**Key Responsibilities:**
-
-
-* Develop and maintain high-quality web applications using front-end and back-end technologies.
-* Collaborate with the design team to implement intuitive and usable interfaces.
-* Build and optimize RESTful APIs for seamless integration with front-end components.
-* Write clean, efficient, and reusable code that adheres to best practices, with proper documentations.
-* Troubleshoot and debug complex issues across the stack.
-* Collaborate effectively with team members and stakeholders to translate business requirements into technical solutions.
-* Participate in code reviews and contribute to improving development processes.
-* Stay updated on emerging technologies and industry trends.
-
-  
-
-
-
-
-**Requirements:**
-
-
-* Bachelor’s degree in Computer Science, Engineering, or a related field.
-* Full stack development experience, with strong proficiency in both front-end (e.g., Typescript, React, or Next.js) and back-end (e.g., Node.js, or Python) development.
-* Strong problem-solving skills and attention to detail.
-* Excellent communication skills, both written and verbal.
-* Ability to work both independently and collaboratively in a team environment.
-* Familiarity with DevOps practices, including CI/CD pipelines is a plus.
-* Knowledge of cloud platforms (AWS, Azure, or Google Cloud) is a plus.
-* Experience working in Agile or Scrum development environments is a plus.","https://sg.indeed.com/cmp/St-Engineering-7","https://www.stengg.com",""," Industrial Manufacturing","","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/993913fb87cf27cc9237888f126d8305","https://d2q79iu7y748jz.cloudfront.net/s/_headerimage/1960x400/bce747257268ad3bc1dcd751d01a8242","",""
-"indeed","https://sg.indeed.com/viewjob?jk=8bd037ce85619bae","https://www.virtusa.com/careers/sg/tanjong-pagar/managed-services/infra-engineer-cloud/creq197746?jobid=CREQ197746-1867768687&source=Indeed","Infra Engineer - Cloud","Virtusa","Tanjong Pagar, S00, SG","fulltime","2024-09-13","","","","",False,"","a. Provide technical support and troubleshooting for cloud-based infrastructure and services, including compute, storage, networking, and security components.
-  
-
-b. Collaborate with application, security, and other internal teams to resolve complex issues related to cloud-based services and infrastructure.
-  
-
-c. Monitor and maintain the health, performance, and security of cloud-based services, identifying and addressing potential issues proactively.
-  
-
-d. Drive continuous improvement and optimization of cloud infrastructure and services through automaton where possible, ensuring high availability, performance, and cost efficiency.
-  
-
-e. Implement and manage cloud security controls, compliance requirements, and best practices to protect cloud resources and data.
-  
-
-f. Develop and maintain documentation, best practices, and standard operating procedures for cloud-based infrastructure and services.
-  
-
-g. Participate in the planning, implementation, and optimization of cloud-based solutions, ensuring alignment with business requirements and industry best practices.
-  
-
-h. Stay current with industry trends, emerging technologies, and best practices in cloud architecture, deployment, and operations.  
-
-  
-
-**About Virtusa**
-
-
-
-Teamwork, quality of life, professional and personal development: values that Virtusa is proud to embody. When you join us, you join a team of 30,000 people globally that cares about your growth — one that seeks to provide you with exciting projects, opportunities and work with state of the art technologies throughout your career with us.
-
-
-
-Great minds, great potential: it all comes together at Virtusa. We value collaboration and the team environment of our company, and seek to provide great minds with a dynamic place to nurture new ideas and foster excellence.
-
-
-
-Virtusa was founded on principles of equal opportunity for all, and so does not discriminate on the basis of race, religion, color, sex, gender identity, sexual orientation, age, non-disqualifying physical or mental disability, national origin, veteran status or any other basis covered by appropriate law. All employment is decided on the basis of qualifications, merit, and business need.","https://sg.indeed.com/cmp/Virtusa","https://www.virtusa.com","Westborough, MA","","10,000+","$1B to $5B (USD)","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/e84ecd092bb1b6cc1b1585d0caabae23","https://d2q79iu7y748jz.cloudfront.net/s/_headerimage/1960x400/6c44c602b84065e14498d2423c07327f","Santosh Thomas",""
-"indeed","https://sg.indeed.com/viewjob?jk=d042021aa50c136c","https://jobs.capgemini.com/st-en/job/Singapore-L3-Production-Support-Engineer-%28JavaBanking-Applications%29-02/1060995101/?feedId=338001&utm_source=Indeed&utm_campaign=CapG_Indeed","L3 Production Support Engineer (Java/Banking Applications)","Capgemini","Singapore, S00, SG","contract","2024-09-13","","","","",False,"","Responsible for spearheading the transformation of production operations through proactive product enhancements and the streamlining of operational processes. The ideal candidate will possess a strong drive, thriving in high-pressure environments. Their duties will encompass the management and resolution of system alerts, intricate user support tickets, and production incidents. They will demonstrate proficiency in elucidating both functional and technical facets of production issues, fostering collaboration with Business and Engineering teams to devise efficient solutions or automate processes. Additionally, they will play a pivotal role in aiding Business Users and Engineers by crafting comprehensive documentation and conducting training sessions on applications and workflows.
-
-
-The candidate should exhibit a receptiveness to technology, showcasing versatility in adapting to new programming languages and technologies. They should possess senior-level development expertise in various technologies such as Java, Python, among others, along with a solid foundation in diverse databases. Flexibility is key, as the role will entail rotational support rather than full-time dedication.
-
-  
-
-Key responsibilities include driving the technological uplift of the DB infrastructure, encompassing Sybase, DB2, and various technological enhancements spanning Java, JDK, PERL, TOMCAT, etc. Additionally, the role involves the testing of Java, Perl, Python, Shell, and stored procedures, managing end-to-end short-term development projects, as well as enhancing and debugging existing applications. The candidate will also contribute to support automation, batch user application support, and configuration management.
-
- **Role Description:**
-
-  
-
-* DB infrastructure uplift including Sybase, DB2
-* Technological uplift covering Java, JDK, PERL, TOMCAT, etc.
-* Testing of JAVA, Perl, Python, Shell, and stored procedures
-* End-to-end short-term development projects
-* Enhancement and Bug Fix of existing applications
-* Support Automation and Batch user application support
-
- **Good To Have:**
-
-  
-
-* Proficiency in Unix/Linux environments
-* Shell scripting, Perl scripting
-* Database management
-* Python application support","https://sg.indeed.com/cmp/Capgemini","https://www.capgemini.com","Paris","","10,000+","more than $10B (USD)","Capgemini is a global leader in partnering with companies to transform and manage their business by harnessing the power of technology.","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/8df3e7301fa4f88e3d67e927be1689b2","https://d2q79iu7y748jz.cloudfront.net/s/_headerimage/1960x400/30ed83293615d041cac7249f9ac7a5e9","Aiman Ezzat","https://d2q79iu7y748jz.cloudfront.net/s/_ceophoto/512x512/3ea22fd272586e04be0a256d26409e76"
-"indeed","https://sg.indeed.com/viewjob?jk=e75b587f1cdc1486","https://cba.wd3.myworkdayjobs.com/en-US/commbank_careers/job/Bangalore---Manyata-Tech-Park-Road/Chief-Engineer---Cloud-Modernisation_REQ218990","Chief Engineer - Cloud Modernisation","Commonwealth Bank of Australia","Park Road, S00, SG","fulltime","2024-09-13","","","","",False,"","**Organization:** At CommBank, we never lose sight of the role we play in other people’s financial wellbeing. Our focus is to help people and businesses move forward to progress. To make the right financial decisions and achieve their dreams, targets, and aspirations. Regardless of where you work within our organisation, your initiative, talent, ideas, and energy all contribute to the impact that we can make with our work. Together we can achieve great things.
-
-
-**Job Title:** Chief Engineer - Cloud Modernisation
-
-
-**Location:** Bangalore
-
-
-**Business & Team:**
-
-We are building tomorrow’s bank of today, which means we need world class Engineers to help us modernise and rebuild our legacy environment over the coming years. We want all of our engineers to be an empowered source of ideas, and follow the Full Cycle model, where engineers are involved in Design, Build, Challenge and Run.
-
-
-This is a significant opportunity to do help rebuild the craft of Engineering at Commbank as well as influence our culture and do important, impactful Engineering at scale which will make a material difference to our customers, employees and the community in general.  
-
-  
-
-
-
-**Impact & Contribution:**
-
-We are looking for the very best Chief Engineer to join our Cloud Modernisation Crew. In this role, you will support the crew to deliver an ambitious vision against our customer objectives: to create enduring technology differentiation with unmatched digital experiences built on decoupled, resilient, and reliable technology foundations. The 3 key objectives for our customers are:
-
-
-* Enhance customer value through unlocking dependable digital experiences.
-* Increase delivery velocity & autonomy by unwinding complex legacy architecture.
-* Enable always available channels, powered by simpler and more resilient technology.
-
-As a Chief Engineer, you will be an integral member of our team. You will provide core technology and domain expertise to inform technical strategy and be responsible for the design of solutions for complex challenges for multiple business units. You will have a strong risk mindset and take security from the first line of code approach. You will guide those around you to invest in their own engineering craft and mentor them to upgrade world class applications to cloud native.  
-
-  
-
-
-
-**Reporting lines:**
-
-This role will report into the Executive Manager - Hosting & Cloud
-
-
-**Roles & Responsibilities:**
-
-We are interested in hearing from people who are:
-
-
-* Enjoy and have demonstrable experience building enterprise software
-* Have experience migrating applications to cloud
-* Have a broad technology background with engineering as a core competency
-* Have experience building and leading teams through complex multi year builds ideally gained in a similar role within an enterprise environment or as a CTO in an ASX 200 organisation or scaleup
-* Have real world experience of building and leading teams who operate in the DevSecOps model.
-* Have experience of addressing Tech Debt using a commercially focused and pragmatic approach.
-* Have identified, gained support and ensured execution of technical direction and strategy
-* Can design and implement solutions to complex problems, including onboarding and migrating to new tooling as well as removing obsolete systems and code.
-* Encourages risk-taking and constructively challenges the status quo while influencing stakeholders and building diverse and inclusive teams.
-
-**Essential Skills:**
-
-* 15+ Years of experience in Software Engineering and development with a blend of flued Infrastructure Knowledge, predominantly around AWS & Azure.
-* You have a passion for technology and want to make an impact quickly
-* You use your software engineering skills to lead teams to modernise applications
-* Own software engineering as a craft & uplift your team
-
-We use a broad range of tools, languages, and frameworks. We don’t expect you to know them all but experience or exposure with some of these (or equivalents) will set you up for success in this team:
-
-
-**Must have:**
-
-* Developing 3-tier application both on-premises and on cloud covering:
-* Frontend: React and Redux (preferred) or Angular.
-* Backend: .Net Core (preferred), C#.
-* Database: SQL and NoSQL experience (both admin and usage).
-* Microservices design and implementation of highly scalable APIs.
-* Scripting/programming languages (i.e., C# , JavaScript, TypeScript, Go, Python).
-* CI/CD tools (i.e. GitHub Actions, TeamCity or Octopus).
-* Cloud Solution Architecture / Development / Security / IaaC (AWS + Azure)
-* Infrastructure as Code (Terraform or CloudFormation).
-
-**Good to Have:**
-
-* Automated Quality Engineering and Testing (Unit Testing, Regression Testing).
-* Solution and System Design.
-* Application Security.
-* Observability.
-* Code quality control through peer programming, code review and automated pipeline release management.
-* Mentoring and coaching other Engineers.
-* Configuration Management.
-* Containerisation.
-
-**Education Qualification:**
-
-Bachelor’s degree/Master’s degree in Engineering in Computer Science/Information Technology
-
-
-If you're already part of the Commonwealth Bank Group (including Bankwest, x15ventures), you'll need to apply through Sidekick to submit a valid application. We’re keen to support you with the next step in your career.
-
-
-We're aware of some accessibility issues on this site, particularly for screen reader users. We want to make finding your dream job as easy as possible, so if you require additional support please contact HR Direct on 1800 989 696.
-
-
-Advertising End Date: 29/09/2024","https://sg.indeed.com/cmp/Commonwealth-Bank-of-Australia-9607b3c5","http://www.commbank.com.au","Sydney","","10,000+","$5B to $10B (USD)","At CommBank, we're committed to improving the financial well-being of our customers and communities.","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/c44ff8415d3c9544069ff26b7a17e4cd","https://d2q79iu7y748jz.cloudfront.net/s/_headerimage/1960x400/d370215c9e471b7e7dd5d03f9defcfe3","Matt Comyn","https://d2q79iu7y748jz.cloudfront.net/s/_ceophoto/512x512/10e31b69932b97f0a3f108999b4bb391"
-"indeed","https://sg.indeed.com/viewjob?jk=b96c5fb708c14008","https://razer.wd3.myworkdayjobs.com/Careers/job/Singapore/Software-QA-Engineer--1-year-Fixed-Term-Contract-_JR2024004350","Software QA Engineer (1-year Fixed Term Contract)","Razer","Queenstown, S00, SG","fulltime","2024-09-13","","","","",False,"","Joining Razer will place you on a global mission to revolutionize the way the world games. Razer is **a place to do great work**, offering you the opportunity to make an impact globally while working across a global team located across 5 continents. Razer is also **a great place to work,** providing you the unique, gamer-centric #LifeAtRazer experience that will put you in an accelerated growth, both personally and professionally.
-
-**Job Responsibilities :**
---------------------------
-
-* To support software testing and automation work
-* Engage with project managers in the early stage of project planning phase to understand project scope and requirements
-* Develop test cases including manual and automatic from project specifications
-* Plan and schedule test strategies for each software project
-* Repeatedly test each project release and log in bugs in the bug database
-* Work closely with Software Engineers to resolve software bugs and issues
-* Work with cross-functional teams, including customers, to improve product qualities
-
-**Pre-Requisites :**
---------------------
-
-* Diploma in Computer Science or equivalent
-* 1-2 years of software testing experience preferred
-* Experience in C/C++/C# coding experience
-* Clear communication and documentation skills in both English and Chinese - to liaise with mandarin-speaking associates and handle documents
-* Ability to work independently and be a self-starter
-* High capability on problem identification and problem solving
-* Willing to work with engineers and third parties in different time zones
-* Windows and Mac application automation experience is a plus
-
-**Are you game?**","https://sg.indeed.com/cmp/Razer-3","https://www.razer.com","Irvine, CA","","1,001 to 5,000","Decline to state","For Gamers. By Gamers.","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/3a0d4760ea0a4acd52a87e734612fd1a","https://d2q79iu7y748jz.cloudfront.net/s/_headerimage/1960x400/c77db3309748bdaf81bd5d861c324219","",""
-"indeed","https://sg.indeed.com/viewjob?jk=0faab4ce02b727aa","https://careers.ey.com/ey/job/Cloud-Engineer%2C-Senior-Associate%2C-Technology-Consulting-048583/1109055701/?feedId=338701&utm_source=Indeed&utm_campaign=EY_indeed","Cloud Engineer, Senior Associate, Technology Consulting","EY","Raffles Quay, S00, SG","","2024-09-13","","","","",False,"","At EY, you’ll have the chance to build a career as unique as you are, with the global scale, support, inclusive culture and technology to become the best version of you. And we’re counting on your unique voice and perspective to help EY become even better, too. Join us and build an exceptional experience for yourself, and a better working world for all.  
-
-Whole industries have been disrupted and transformed in recent years by digital technology. As a Technology Consulting professional, you’ll help businesses realize the value they can gain from their IT investments — supporting strategy and being a key growth driver. As part of a high-performing team, you’ll deliver exceptional client service — providing advice on how technology enablement, digital transformation and enterprise intelligence contribute to performance improvement, as well as how IT can act as multiplying effect during major program transformations.
-
-
-As organizations look to leverage the advantage IT offers, we’ll work with you to develop the consultancy and analytical skills that you’ll need in today’s environment. Working on projects that cross borders and sectors, the experiences you gain here will be more valuable than anywhere else. So whenever you join, however long you stay, the exceptional EY experience lasts a lifetime.
-
-  
-
-The opportunity
-
-
-We are seeking a self-driven technical consultant to plan and design the technology solution for client engagements.
-
-  
-
-Your Key Responsibilities:
-
-* Communicates system requirements to software development team, project team and clients.
-* To evaluate and select appropriate software or hardware and propose integration methods for client engagements.
-* Defines the required technical architecture specifications based on solution or client requirements.
-* To define technical standards together with the project manager or lead architect.
-* To implement and to document the agreed architecture and infrastructure environments; to ensure it meets the standards defined.
-* Conduct various architecture operational and resiliency test as part of delivering the architecture.
-* To assist with solving technical issues.
-* To address technical concerns, risk and issues.
-
-  
-
-Skills and Attributes for Success
-
-* Deep understanding of cloud computing and data technologies, business drivers, emerging computing trends, and deployment options (preferably in Microsoft Azure and AWS).
-* Expert in defining, designing and developing distributed and scalable products and services, including reusable domain-specific microservices on multi-platform/hybrid clouds (such as Microsoft Azure, AWS, Google Cloud Rackspace, VMware, or OpenStack).
-* Deep understanding of Application, Infrastructure and security architecture and non-functional aspects like Performance, Scalability, Reliability, Availability etc.
-* Deep experience in IAAS (with good fundamentals in network and security) as well as PAAS. Good understanding of all Azure services and ability to choose the right service for a workload among multiple Azure services preferred.
-* Strategic business acumen and understanding of organizational strategy and ability to design information systems to deliver that strategy.
-* Strong expertise in DevOps, Agile methodologies, containers, CI/CD and tools like VSTS, Jira.
-* Experience with software and product development lifecycle (incl. coding, coding standards and reviews, source control, testing, debugging, build, deployment and operations).
-* Strong understanding of one or more development platform .Net technologies (C#), Java / JavaScript.
-* Familiarity in the following areas, but not limited to:
-* Front end / UI technologies including frameworks such as React/Angular.js
-* REST / Webservices (with high performance, multi-tenancy, global, scalable elements)
-* SQL, XML, JSON, Linux, ELK stack, Splunk, Solr, GIT, Ant/Maven, Jenkins
-* Familiarity with Data Ingestion, Analytics, AI technologies
-
-  
-
-To Qualify for the role, you must have
-
-* At least 3-5 years of deep technology experience at very large enterprises or web scale product companies.
-* At least 3-5 years of architecture, design, implementation, and/or support of highly distributed applications (i.e. having an architectural sense for ensuring availability, reliability, etc.) on cloud.
-* Experience in presenting ideas, papers, patents to varied audiences.
-* Certificates requirements:
-* Microsoft Azure related certifications
-* Other cloud providers like AWS and Google Cloud are accepted
-
-  
-
-What we look for
-
-
-Highly motivated individuals with excellent problem-solving skills and the ability to prioritize shifting workloads in a rapidly changing industry. An effective communicator, you’ll be a confident leader equipped with strong people management skills and a genuine passion to make things happen in a dynamic organization
-
-  
-
-What working at EY offers
-
-
-EY offers a competitive remuneration package where you’ll be rewarded for your individual and team performance. We are committed to being an inclusive employer and are happy to consider flexible working arrangements. Plus, we offer:
-
-  
-
-Continuous learning: You’ll develop the mindset and skills to navigate whatever comes next.
-
-
-Success as defined by you: We’ll provide the tools and flexibility, so you can make a meaningful impact, your way.
-
-
-Transformative leadership: We’ll give you the insights, coaching and confidence to be the leader the world needs.
-
-
-Diverse and inclusive culture: You’ll be embraced for who you are and empowered to use your voice to help others find theirs.
-
-  
-
-**EY | Building a better working world**
-EY exists to build a better working world, helping to create long-term value for clients, people and society and build trust in the capital markets.
-
-Enabled by data and technology, diverse EY teams in over 150 countries provide trust through assurance and help clients grow, transform and operate.
-
-Working across assurance, consulting, law, strategy, tax and transactions, EY teams ask better questions to find new answers for the complex issues facing our world today.","https://sg.indeed.com/cmp/Ey","https://www.ey.com","London, England","","10,000+","more than $10B (USD)","At EY, we are committed to building a better working world.","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/2138292378140570afde98e7103dbb54","https://d2q79iu7y748jz.cloudfront.net/s/_headerimage/1960x400/105005f7dfd7b676644e5fcb2321d14c","Carmine Di Sibio","https://d2q79iu7y748jz.cloudfront.net/s/_ceophoto/512x512/dd89b7fd0c8bce611d18b9eeed72cd55"
-"indeed","https://sg.indeed.com/viewjob?jk=bdc698f6a76127fd","https://careers.elementsolutionsinc.com/job/Singapore-Regional-Automation-Engineer-639138/1202341700/?feedId=354600&utm_source=Indeed&utm_campaign=ElementSol_Indeed","Regional Automation Engineer","Element Solutions Inc","Tuas, S00, SG","","2024-09-13","","","","",False,"","**Challenge Yourself and Impact the Future!**
----------------------------------------------
-
-
-MacDermid Alpha Electronics Solutions, a business of Element Solutions Inc (NYSE:ESI), is renowned worldwide for its commitment to revolutionizing the electronics industry. With a legacy spanning over a century, we have continually set new benchmarks for excellence, reliability, and sustainability in electronic materials.
-
-
-Our Expertise:
-
-* Wafer Level Solutions: Revolutionizing wafer fabrication processes for enhanced efficiency and performance.
-* Semiconductor Assembly Solutions: Driving innovation in semiconductor assembly processes for unparalleled reliability.
-* Circuitry Solutions: Tailored solutions to meet the dynamic demands of modern circuitry.
-* Circuit Board Assembly Solutions: Elevating circuit board assembly processes for optimal performance.
-* Film & Smart Surface Solutions: Transforming electronics with cutting-edge materials and technologies for enhanced functionality and reliability.
-
-
-Across diverse sectors including automotive, consumer electronics, mobile devices, telecom, data storage, and
-
-
-infrastructure, MacDermid Alpha Electronics Solutions has earned the trust of manufacturers worldwide. Our
-
-
-comprehensive range of high-quality solutions and technical services covers the entire electronics supply chain,
-
-
-empowering businesses to thrive in today's competitive landscape.
-
-**Who are we looking for?**
----------------------------
-
-
-The general purpose of this position is to manage the Automation and process controls for all existing and new processes to eliminate labor, reduce cost and ensure quality. The position is also responsible for developing programs and implementing all controls for new processes built in Asia.
-
-**What will you be doing?**
----------------------------
-
-* Prepare budgets for regional automation projects.
-* Prepare timelines for regional automation projects.
-* Install and commission software and hardware for process automation, controls, and data acquisition.
-* Design and manage a data bases to collect QC data and process performance data.
-* Analyze existing processes, procedures and equipment for process automation and improvement.
-* Cooperate in process improvements and design teams.
-* Stay current in process control technology to resolve problems using solutions that involve new techniques, technologies, and concepts.
-**Who are You?**
-----------------
-
-* To successfully accomplish the essential duties of this job the incumbent of this position must possess a minimum of a Bachelor’s degree (B. S.) in a technical discipline and at least 5-year's experience in industrial automation.
-* Display strong ownership to handle and lead automation projects including installations, troubleshooting and maintenance of various systems.
-* Strong knowledge in collaborating with cross-functional supply chain team.
-
-We understand that not all candidates may meet the requirements listed above. If you believe you have the knowledge and experience necessary to excel in this role, we encourage you to apply.
-
-**What competencies will you need?**
-------------------------------------
-
-* Ability to apply advanced mathematical concepts such as exponents, logarithms, quadratic equations, and permutations.
-* Ability to read, analyze, and interpret common scientific and technical journals, financial reports, and legal documents.
-* High ethical standards and ability to maintain confidentiality.
-* Ability to work in a high paced and multi-task environment.
-* Design, engineer, install, test, and maintain automation and process control systems. Build control panels and control systems for manufacturing processes and troubleshooting.
-* The incumbent must possess more than 3 years related experience and/or training; or equivalent combination of education and experience.
-* Take ownership of all related automation project.
-* PLC, Ms. Visual Studio, AutoCAD or SolidWorks, P&ID.
-* Electrical skills, hand tools skills, and troubleshooting logic and experience.
-**We are we Offering...**
--------------------------
-
-
-As part of our team here, as well as receiving a competitive base salary, you will also participate in a generous performance related bonus scheme. In addition, you will also be covered under our corporate medical insurance plan and annual leaves.
-
-
-Teamwork  
-
-At ESI, you will be part of a highly collaborative culture that promotes continuous improvement through cross-functional partnerships to achieve our mission. We do this through a strong and unified culture and transparent management which has empowered us to create high performing global teams that achieve superior solutions for our customers.
-
-**Equal Opportunity Employer**
-------------------------------
-
-
-All qualified applicants will receive consideration for employment without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, disability, or status as a protected veteran.
-
-
-#LI-ZL1","https://sg.indeed.com/cmp/Element-Solutions-Inc","http://www.elementsolutionsinc.com","Fort Lauderdale","","1,001 to 5,000","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/bb2192fc8f83b39ffae6a335c3d40902","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=85bf84597d6b3ffb","https://www.careers-page.com/auroraap/job/L4963V75","Software Engineer - PC Programming - MY/Chinese/Indian/Local","Aurora Asia Pacific Pte Ltd","Geylang, S00, SG","","2024-09-13","","","","",False,"","A Semiconductor and Automation company.
-
-
-* Working days: 5 days work
-* Location: AMK
-
-
-**Job Scope:**
-
-
-* Design, develop, and maintain PC-based software for equipment.
-* Implement systems, conduct testing, debugging, and prepare documentation.
-* Analyze existing software to identify opportunities for modifications and improvements.
-
-
-**Requirements:**
-
-
-* Bachelor's degree in a relevant field, with 5+ years of experience in software development within the automation industry preferred.
-* Proficient in PC-based programming for equipment.
-* Experience in motion control and process control.
-* Familiarity with Vision System software development is a plus.
-* Knowledge of SECS/GEM standards and implementation is an advantage.
-* Strong skills in troubleshooting and analysis.
-
-
-
-Aurora Asia Pacific (21C0671)|Ying Kee (R21103783)","https://sg.indeed.com/cmp/Aurora-Asia-Pacific-Pte-Ltd","","","","","","","","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=43fbcaed40deda87","http://sg.indeed.com/job/web-developer-43fbcaed40deda87","Web Developer","TALENTSIS PTE. LTD.","Hougang, S00, SG","fulltime","2024-09-13","","","","",False,"","Responsibilities
-
-● Design and implement high performance web application and optimizing components for maximum reusability across different projects
-
-● Develop responsive and interactive web applications using modern front-end technologies such as HTML5, CSS3, JavaScript, and frameworks like React, Angular or Vue.js
-
-● Implement back-end functionalities using server-side technologies such as Python and framework like Django, Flask, etc.
-
-● Integrate third-party APIs and services as needed
-
-● Conduct thorough testing and debugging to ensure the quality and reliability of web applications
-
-● Improve performance and robustness of our products & services
-
-● Produce quality code that complies to JSLint, ESLint and PEP8
-
-● Collaborate with other team members to incorporate team innovations
-
-● Stay up-to-date with the latest trends and best practices in web development
-
-● Introduce new technologies into the team based on fit and suitability to deliver a solution
-
-● Be able to deep dive into the technical aspects needed for optimization of web applications and ensure cross-browser compatibility
-
-Requirements
-
-● A degree in Computer Science or equivalent industry experience
-
-● At least 3-years solid experience on professional web development experience using Knockout.js,Lodash.js, ES6 and Python. Past project reference is needed.
-
-● In-depth knowledge of front-end technologies eg. JQuery, HTML, JS, CSS, Bootstrap
-
-● Excellent debugging and problem solving skills
-
-● Attention to detail and a passion for web development.
-
-● Strong team player with excellent communication skills and the ability to thrive in a team-based environment.
-
-● Self-motivated, and can excel in a team-based environment
-
-● Able to start immediately or on short notice is highly advantageous
-
-● Experience in Test-Driven Development (TDD) is a plus
-
-● Experience using Amazon Web Services (AWS) and its various components in production is a plus
-
-Job Types: Full-time, Permanent
-
-Pay: $3,000.00 - $3,800.00 per month
-
-Work Location: In person","https://sg.indeed.com/cmp/Talentsis-Pte.-Ltd.","","","","","","","","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=08057373cb6cd704","https://careers.nus.edu.sg/NUS/job/SSHSPH-Assistant-Manager-%28Web-Developer%29-Kent/28957744/","Assistant Manager (Web Developer)","National University of Singapore","Singapore, S00, SG","fulltime","2024-09-13","","","","",False,"","**Date:** 13 Sep 2024
-
-
-**Location:** SSHSPH, Kent Ridge Campus, SG
-
-
-**Company:** National University of Singapore
-
-
-**Job Description**
--------------------
-
-
-
-The Web Developer will be responsible for the maintenance and management of the School of Public Health website, the school’s respective research centres’ subsites/ microsites, as well as being the technical liaison to the school’s IT team as well as central NUS IT team.
-
-  
-
-
-He / She will be part of the communications team playing a crucial role in designing, developing and maintaining the online presence of the school, and provide support in marketing and communications efforts of the school.
-
-  
-
-
-Duties & Responsibilities  
-
-i. Work closely with the internal communications team on managing content that is under the supervision of the school.  
-
-ii. Update the core WordPress, manage plugin license and update the plug-ins as well as centrally perform UAT before going 'live' across all sites.  
-
-iii. Serve as the technical liaison between the communications and the School's as well as NUS' IT teams in matters of web development, content management, and related IT policies regarding governance, security and compliance matters.  
-
-iv. Building Wordpress templates when necessary in accordance with the school’s branding guidelines.  
-
-v. Build and maintain pages and content where necessary for school and respective research centres.  
-
-vi. Work across multiple teams within the school to manage and build content.  
-
-vii. Apply best SEO practices (primarily technical and on-page) to optimise and ensure performance of the content and the websites under the supervision of the school.  
-
-viii. Where required, scope project requirements, prepare budgets, and develop detailed project plans for design and development of new microsites. Work closely with internal teams and vendors to oversee all stages of the project lifecycle, ensuring timely delivery within budget and quality standards.  
-
-ix. Coordinate rectification of central NUS IT Security scan with independently and/ or with vendors.
-
-
-**Qualifications**
-------------------
-
-
-* Bachelor's degree in Computer Science, Web Development, or a related field preferred.
-* Minimum 3-5 years of experience and strong portfolio in web development for Wordpress websites (including mobile friendly, responsive websites), as well as content management using the Wordpress content management system.
-* Familiarity with WordPress Multisite instances would be advantageous.
-* Solid experience working with popular coding libraries (e.g. React JS, Angular JS, Code Igniter, Laravel).
-* Solid proficiency in HTML, CSS, Javascript, PHP and managing MySQL databases.
-* Strong communication and collaboration skills, with the ability to work effectively across cross-functional teams.
-* Proactive, independent individual who takes ownership of the role to improve skillset or offer best practices.
-
-  
-
-**More Information**
---------------------
-
-
-
-Location: Kent Ridge Campus
-
-
-Organization: National University of Singapore
-
-
-Department: Saw Swee Hock School of Public Health
-
-
-Job requisition ID : 26339","https://sg.indeed.com/cmp/National-University-of-Singapore","https://www.nus.edu.sg/","Singapore","","10,000+","Decline to state","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/de9349d7434945d15bc81274357d1574","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=9cabec8208ec5c06","https://www.mycareersfuture.gov.sg/job/information-technology/cloud-engineer-elliott-moss-consulting-a1853b8110b5c84bcca140d6988c5fdd","Cloud Engineer","ELLIOTT MOSS CONSULTING PTE. LTD.","Singapore, S00, SG","contract","2024-09-13","","","","",False,"","**Job Description**
-
-We are seeking an experienced Cloud Infrastructure Engineer with a strong background in AWS to design, implement, and manage scalable cloud solutions. The ideal candidate will have hands-on experience with core AWS services, infrastructure-as-code tools, and a solid understanding of cloud security and monitoring practices.
-
-
-Key Responsibilities:
-
-
-Cloud Infrastructure & Operations:
-
-
-1. **AWS Solutions Implementation:** Design and implement robust solutions on AWS using services like EC2, Lambda, VPC, S3, RDS, and Document DB.
-
-
-2. **Infrastructure Management:** Manage infrastructure changes via Infrastructure-as-Code (IaC) tools such as Terraform, ensuring scalable environments with EC2, ALB, NLB, EBS, and EFS.
-
-
-3. **Workload Migration:** Migrate workloads to AWS, ensuring seamless transitions and minimal disruption.
-
-
-4. **Automation:** Automate deployments and ensure data resilience using Python, shell scripting, and AWS Systems Manager (SSM).
-
-
-5. **Monitoring & Security:** Implement monitoring, alerting, and security with CloudWatch, SNS, CloudFront, and WAF.
-
-
-6. **System Administration:** Administer Linux and Windows environments, optimizing performance and security
-
-
-7. **Incident Management:** Support incident management and participate in the on-call rotation.
-  
-
-Collaboration & Continuous Improvement:
-
-
-1. **Project & Team Collaboration:** Work with project and internal teams to understand requirements and deliver customized AWS solutions.
-
-
-2. **CI/CD Pipelines:** Collaborate on CI/CD pipelines using tools like GitHub, Terraform, Jenkins, and AWS services.
-
-
-3. **Documentation & Learning:** Maintain comprehensive documentation and stay updated with industry trends and AWS innovations.
-
-
-4. **Agile Environment:** Collaborate in an agile environment to deliver high-quality work.
-
-
-Qualifications & Experience:
-
-
-* **Experience:** Minimum of 5+ years with core AWS services such as IAM, networking, security, and operations.
-* **Databases:** Strong understanding of relational databases (e.g., PostgreSQL, MySQL) and NoSQL databases (e.g., Document DB, MongoDB).
-* **Programming Skills:** Proficiency in at least one programming language (e.g., Bash, Python, Go) and experience in Linux administration, Windows, and shell scripting.
-* **AWS Services:** Solid experience with AWS compute services (e.g., EC2) and serverless platforms (e.g., AWS Lambda).
-* **Infrastructure-as-Code:** Experience with Terraform and understanding of infrastructure pipeline concepts.
-* **AWS Databases:** Experience with AWS database solutions such as RDS, DynamoDB, or Aurora.
-* **Networking:** Familiarity with network protocols and IP networking, with experience in network troubleshooting.
-* **Security Practices:** Strong understanding of security best practices and commitment to integrating them into daily tasks.
-* **Monitoring Tools:** Experience with monitoring tools such as Splunk, Grafana, and logging solutions like the ELK stack.
-* **Problem-Solving:** Excellent problem-solving skills with the ability to troubleshoot and resolve complex issues under pressure.
-* **Communication:** Excellent spoken and written English communication skills for effective collaboration with cross-functional teams.
-
-Preferred Qualifications:
-
-
-* **Cloud Experience:** Proven track record of managing large-scale infrastructure in cloud environments like AWS or Google Cloud.
-* **Certifications:** AWS technical certifications such as AWS Certified Solutions Architect, AWS Certified Developer, or AWS Certified SysOps Administrator.
-* **Agile Methodologies:** Experience working with agile methodologies such as Scrum and collaborating on projects with distributed teams.
-* **Continuous Learning:** Willingness to stay updated on key AWS technologies and innovations with a drive to learn and improve.","https://sg.indeed.com/cmp/Elliott-Moss-Consulting-Pte.-Ltd.","","","","","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/2bfedfdea440b1a240ff24c3467ee65a","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=588c4572529f832a","https://www.mycareersfuture.gov.sg/job/information-technology/java-developer-elliott-moss-consulting-ad768a4902f4c6da63ba8d97bfddfcff","Java Developer","ELLIOTT MOSS CONSULTING PTE. LTD.","Singapore, S00, SG","contract","2024-09-13","","","","",False,"","**Job Description**
-
-As a Java Application Developer, you will be responsible for designing, building, and configuring applications to meet business process and application requirements. This role demands advanced proficiency in Java, with significant experience in Spring Boot and Spring Batch. You will be expected to perform independently and actively contribute to team discussions and problem-solving.
-
-
-Key Responsibilities:
-
-
-* **Application Design & Development:** Design, build, and configure applications to meet business process and application requirements.
-* **Code Review & Quality Assurance:** Conduct code reviews and provide constructive feedback to ensure high-quality code and adherence to best practices.
-* **Collaboration:** Work closely with cross-functional teams to gather and analyse requirements.
-* **Innovation:** Develop innovative solutions to enhance application performance and address work-related challenges.
-* **Technical Expertise:** Stay updated with the latest industry trends and technologies.
-* **Issue Resolution:** Identify and resolve technical issues in a timely manner.
-
-**Required Skillsets:**
-
-1. Java Spring Boot & Spring Batch
-
-
-2. NoSQL & SQL
-
-
-3. AWS Knowledge.
-
-
-4. Build Management
-
-
-5. Configuration & Release Management
-
-
-6. Design & Build Enablement
-
-
-7. Spring Web Service","https://sg.indeed.com/cmp/Elliott-Moss-Consulting-Pte.-Ltd.","","","","","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/2bfedfdea440b1a240ff24c3467ee65a","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=9ea28a798bb4ee28","https://www.mycareersfuture.gov.sg/job/information-technology/software-engineer-web-design-konigle-7f6210ad1e2d44c593872a0ceb76e7c1","Software Engineer - Web Design","Konigle Pte. Ltd.","Singapore, S00, SG","fulltime","2024-09-13","","","","",False,"","Users can design and host websites, improve their performance, and run email campaigns by chatting with Konigle's AI system. Bloggers, e-commerce merchants, and SMEs in 79 countries use our platform. We also publish useful content to assist our readers in earning money on the internet effectively.  
-
-
-
-  
-
-To enable people to build even better websites using Konigle's AI system we are looking for a software engineer, passionate about building useful, well-designed websites.  
-
-
-
-  
-
-**Basic Skills**
-
-* Fundamental understanding of HTML, CSS, and vanilla JavaScript.
-* Strong understanding of browser standards and responsive web design.
-* Attention to detail and understanding of design principles.
-
-  
-
-**Day to Day Responsibilities**
-
-* Enhance our website design engine using HTML, CSS and Javascript.
-* Improve our website design engine for browser compatibility, speed and accessability.
-* Research modern web practices and standards and incorporate them.
-* Work with the infrastructure and backend teams to improve our AI system.
-
-  
-
-**Bonus**
-
-* Experience with VueJS
-* Experience with Python and Django.
-* Experience with design software like Figma.
-* Interest in SEO/ SEM
-
-  
-
-Let's talk !","https://sg.indeed.com/cmp/Konigle-Pte.-Ltd.","","","","","","","","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=8468964f3376e3e4","https://www.mycareersfuture.gov.sg/job/engineering/site-reliability-engineer-landi-international-61bc75a6d64bf18831c3b1083d01dea3","SITE RELIABILITY ENGINEER","","Singapore, S00, SG","fulltime","2024-09-13","","","","",False,"","As Site Reliability Engineer, you will have to operate and maintain LANDI Global infrastructures. Your main responsibilities will be to:
-
-
-* Build, operate, and maintain our platform infrastructures, across various environments
-* Collaborate with R&D team to ensure availability, reliability, and scalability of our platforms
-* Implement and configure monitoring and alerting systems for visibility and resolution procedures to ensure timely remediation of platform failures
-* Implement and maintain Disaster Recovery plans to ensure business continuity
-* Analyse and present performance and cost optimization for the platforms
-* Design and implement automated testing, continuous integration, and continuous delivery frameworks and processes for deployment efficiency
-* Manage change management and incident reporting processes to anticipate and respond to incidents to confirm with platform SLA
-* Provide operational support for platforms and support resolving production issues as an escalation point to the team
-* Participating in 24/7 on-call rotation
-* Support deployment of environments as new clients are onboarded
-
-  
-
-**EXPERIENCES**
-
-* At least 5 years or more experience in similar capacity
-* Excellent oral and written communication in English.
-
-  
-
-**PREFERRED SKILLS**
-
-Candidates should ideally have experience in some of the following technologies:
-
-
-* Experience in various cloud technologies (e.g. AWS, Azure)
-* Experience in distributed Linux/Unix operating systems
-* Experience in high-level programming or scripting languages
-* Experience in monitoring tools (e.g. Prometheus, Grafana, Zabbix)
-* Experience in configuration management tools (e.g. Ansible, Chef, Puppet)
-* Experience in SQL databases (e.g. Postgres, MySQL)
-* Experience in load balancing and reverse proxies (e.g. Nginx)
-* Experience in CI/CD tools (e.g. Jenkins, GitLab)
-* Experience in Containerization (e.g. Dockers, K8s)","","","","","","","","","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=a8f3d4efe15a57c5","https://www.mycareersfuture.gov.sg/job/information-technology/llm-developer-ai-chat-assistant-trading-technology-services-group-8695e03c2bdf178322bdb0694ca13b55","LLM Developer - AI Chat Assistant - Trading","TECHNOLOGY SERVICES GROUP PTE. LTD.","Singapore, S00, SG","","2024-09-13","","","","",False,"","**Job Description:**  
-
-As an LLM Engineer at TSGS, you'll spearhead the development of AI-driven financial agents capable of autonomous decision-making, complex financial analysis, and providing actionable recommendations. Your role will involve crafting sophisticated AI systems that assist users in tasks such as financial data analysis, market insights, portfolio management, and automated trading strategies. You’ll work on integrating these agents into our platform, ensuring seamless automation of financial workflows.  
-
-
-
-  
-
-**Key Responsibilities:**
-
-* AI Financial Agent Development: Build and implement advanced financial agents capable of autonomous workflows, including data analysis, market research, and executing financial strategies based on real-time insights.
-* Autonomous Decision-Making: Enable AI agents to make independent, data-driven recommendations in areas such as portfolio management, market forecasts, and risk assessment.
-* Complex Reasoning and Analysis: Develop agents that perform complex reasoning to understand market trends, analyze historical data, and identify opportunities across diverse financial instruments.
-* Automation of Financial Workflows: Integrate the financial agents into automated workflows that execute trading strategies, analyze investment portfolios, and adjust financial positions based on predefined rules and real-time data.
-* API Integration: Ensure seamless integration of external financial data sources, market feeds, and third-party brokerage services to provide the AI agents with real-time data for analysis, recommendations, and trading execution capabilities.
-* Text-to-Actions: Implement text-to-action capabilities, enabling the financial agent to respond to natural language commands and take appropriate financial actions, from executing trades to generating reports.
-* Data Management: Work with data engineers to provide the AI agent with up-to-date, accurate financial data to support decision-making processes.
-* Model Optimization: Train, fine-tune, and maintain machine learning models that power the financial agent’s ability to analyze data, provide recommendations, and execute tasks efficiently.
-* Performance Monitoring: Regularly evaluate the performance of the financial agents, identifying and resolving issues to ensure high service standards and accuracy.
-* Collaboration: Collaborate with cross-functional teams to ensure that the financial agents align with the overall product strategy and address user needs in real-time.
-* Innovation: Stay up-to-date with the latest in AI, LLM, and financial technologies to continually innovate and enhance the capabilities of the AI financial agent.
-
-Qualifications:
-
-
-* Proven experience in building AI-driven financial agents or systems that automate financial workflows, data analysis, or strategy execution.
-* Strong knowledge of machine learning, deep learning, LLM and NLP principles, with a focus on financial applications.
-* Expertise in integrating financial data APIs and external services to support autonomous financial decision-making.
-* Strong coding skills, primarily in Python (knowledge of JavaScript is a plus), with hands-on experience in developing autonomous agents using frameworks such as Langgraph, Auto-gen, or similar.
-* Analytical and problem-solving skills, with a deep understanding of financial markets and products.
-* Strong communication skills to explain complex technical concepts clearly.
-* Familiarity with cloud services (e.g., AWS), knowledge graphs, and DevOps is an advantage.
-
-  
-
-\\*Salary will be commensurate with the candidate's experience.\\*","https://sg.indeed.com/cmp/Technology-Services-Group-Pte.-Ltd.","","","","","","","","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=3a20ce4e64ed84f6","https://www.mycareersfuture.gov.sg/job/information-technology/software-engineer-consultancy-services-c2b671b026aa5ade8fee03ef9e0ad467","Software Engineer (Tableau/Data Analytic)","IT Consultancy & Services Pte Ltd","Singapore, S00, SG","contract","2024-09-13","","","","",False,"","* Develop and design interactive reports, dashboards, and visualizations using Tableau software.
-* Ensure data accuracy and consistency by working with databases, particularly Redshift & SQL server, to extract and manipulate data.
-* Write SQL queries to retrieve, transform, and aggregate data from databases & demonstrate proficiency in SQL.
-
-**Requirements**
-
-* Experience as a Data Analyst, with a focus on Tableau dashboard development and SQL development.
-* Proven experience as a BI Engineer/Developer or similar role, with a strong portfolio showcasing your BI expertise.
-User access control/row level security (RLS) implementation is must.  
-* 
-
-  
-
-Interested applicants may send in their detailed resumes, with **subject title:** **105 Tableau** **.** Kindly send your CV in MS Word format  
-
-
-
-  
-
-  
-
-(Reg. Nos. R1104128)
-
-
-IT Consultancy & Services Pte Ltd
-
-
-EA License No.: 92C5311
-
-
-For more information about ITC, please visit us @ www.itcspl.com","https://sg.indeed.com/cmp/IT-Consultancy-&-Services-Pte-Ltd","","","","","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/497ba4e0b8ee42ec0a25bdef7afe4a52","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=f429723b955887e4","https://www.mycareersfuture.gov.sg/job/information-technology/junior-software-developer-mlion-corporation-30377d510b8fbfccbf44a5dda8eb5a66","Junior Software Developer","Mlion Corporation Pte. Ltd.","Singapore, S00, SG","fulltime","2024-09-13","","","","",False,"","Mlion Corporation is a Foundation Solutions company focusing on the Waterfront and Underground Construction market in Asia, the market leader in the segment, and provides customized solutions according to the project nature and the use of the infrastructure.
-
-
-Headquartered in Singapore, with offices in China, Indonesia, Malaysia, Philippines, Taiwan, Thailand, and Timor-Leste, we have delivered many high-profile Port and Infrastructure projects over the past 10 years. We are also proud to be an Enterprise 50 company and rated by the Financial Times as an Asia Pacific High Growth company.
-
-
-At Mlion Corporation, we are constantly seeking innovative and passionate individuals to join our team and work on state-of-the-art solutions to address the challenges in the steel industry.
-
-
-We are looking for a full-time Junior Software Developer with 0 - 1 year of software development experience to join the software engineering team at MLion Corp. The candidate will coordinate and participate in all phases of the software development lifecycle to translate business requirements into functional solutions.  
-
-
-
-  
-
-**Responsibilities**
-
-* Design and develop high-performance web applications
-* Collaborate with a team to define, design, and ship new features
-* Troubleshoot development and production problems across multiple environments and operating platforms
-Ensure application performance, quality, and responsiveness  
-* 
-
-  
-
-**Required Experience**
-
-* Bachelor's degree in Computer Science, or equivalent educational experience
-* 0 to 2 year of software development experience
-* Knowledge of JavaScript, Node.js, Express.js, PHP, Laravel, Python
-* Knowledge of front-end technologies, such as Flutter/Vue/React, HTML5, CSS3
-* Knowledge of back-end applications, RESTful APIs, and microservices development for user platforms - Web and Mobile (iOS/Android)
-* Knowledge of AWS cloud services
-* Knowledge of MySQL/MariaDB
-* Knowledge of Git
-* Ability to work independently and in a team environment
-* Should be able to communicate with other team members and users
-* Willing to work from office","https://sg.indeed.com/cmp/Mlion-Corporation-Pte.-Ltd.","","","","","","","","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=f2d35699c102612c","https://www.mycareersfuture.gov.sg/job/information-technology/mobile-app-developer-theratechai-18b8b2724e749a5f2b8f7eddc102b474","Mobile App Developer","THERATECH.AI PTE. LTD.","Singapore, S00, SG","fulltime","2024-09-13","","","","",False,"agnes.ho@s2t.ai","We’re looking for a talented **Mobile App Developer** to join our dynamic team and help us bring our mobile app vision to life. You’ll be part of a mission-driven company that is reshaping healthcare by developing user-friendly tools for both therapists and clients.  
-
-
-
-  
-
-You’ll play a key role in designing and developing a robust, user-friendly mobile application that supports our platform and **marketplace for allied health services** . Your responsibilities will include:
-
-
-* **Mobile App Development:** Design, build, and maintain a seamless mobile app for both iOS and Android platforms using React Native, Flutter, or similar frameworks.
-* **Marketplace Integration:** Develop features that allow clients and therapists to interact through our marketplace, booking sessions, accessing resources, and tracking progress.
-* **User Experience Focus:** Collaborate with UX/UI designers to ensure an intuitive, smooth user experience that meets the needs of both therapists and clients.
-* **API Integration:** Work closely with backend developers to integrate mobile app functionality with APIs and backend services, ensuring smooth performance and data synchronization.
-* **Optimization & Testing:** Optimize app performance, ensure responsive design across different devices, and troubleshoot issues as they arise.
-* **Security & Data Protection:** Implement best practices for mobile app security, ensuring data protection and user privacy.
-* **Continuous Improvement:** Stay up-to-date with the latest mobile app development trends and tools, continuously improving the app’s functionality and features.
-
-**What You’ll Bring:**
-
-* Proven experience in mobile app development for **iOS and Android platforms** using frameworks like React Native, Flutter, or similar.
-* Strong understanding of mobile app **architecture, design principles** , and best practices.
-* Experience in integrating **APIs** and backend services.
-* Familiarity with **marketplace features** such as session booking, real-time progress tracking, and communication tools is a plus.
-* Passion for creating an exceptional user experience and solving complex problems.
-* Excellent communication skills and a collaborative mindset.
-* A drive to make an impact in the healthcare technology space.
-
-Interested parties, please send your resume with current & expected salary & date available to **agnes.ho@s2t.ai** **.**
-
-  
-
-We regret only shortlisted applicants will be notified.","https://sg.indeed.com/cmp/Theratech.ai-Pte.-Ltd.","","","","","","","","","",""
-"indeed","https://sg.indeed.com/viewjob?jk=334b987fb7359812","https://jobs.citi.com/job/-/-/287/69869394416","Sr. Java Full-Stack Developer - AVP - C12 – Singapore","Citi","Singapore, S00, SG","fulltime","2024-09-12","","","","",False,"","**Full Stack Software Engineer**
-
-  
-
-Citi Markets Technology is going through a global technological and organizational transformation of their Equities trading platforms with the objective of replacing their legacy cash trading systems with state-of-the-art micro-frontends and micro-services implemented using the latest low-latency Java backend technologies, the latest web frameworks, and highly resilient real-time messaging infrastructure.
-
-  
-
-
-
-To that end, Citi is looking to recruit talented full stack engineers in APAC who are experienced hands in Java backend and web frontend development. The successful candidate will more than just contribute to the development and delivery of a next gen High-Touch trading platform but will also take a leading role in shaping the architecture, the aesthetics, and the design and code quality of the new platform globally. The successful candidate will also collaborate with a global team of engineers, production support professionals, and product staff to ensure global consistency and product quality.
-
- **Responsibilities:**
 
 * Design and develop low-latency backend micro-services using the latest version of Java, AMPS, and Solace.
 * Design and develop web trading frontends using React, Redux Toolkit, Tailwind, Finsemble, and AMPS.
@@ -1755,9 +734,10 @@ To that end, Citi is looking to recruit talented full stack engineers in APAC wh
 * Partner with key members of the trading desk and the product team to help shape product features and enhance their usability.
 * Contribute towards Agile and Continuous Integration processes.
 
- **Qualifications:**
+Qualifications:
 
-* Minimum 5 years of experience with strong technical expertise in Java.
+
+* Minimum **7 years of experience with strong technical expertise in Java.**
 * Previous experience in the React web framework.
 * Practical understanding of object-oriented design principles.
 * Able to demonstrate an excellent understanding of the latest development and design best practices for both micro-services and micro-frontends.
@@ -1766,67 +746,675 @@ To that end, Citi is looking to recruit talented full stack engineers in APAC wh
 * Able to self-learn new full stack development technologies proactively.
 * Strong communication skills and ability to thrive in a multicultural environment.
 * Proven ability to work independently and as part of a global team.
-* Familiarity with Equity trading products and concepts.
+* Familiarity with **Equity trading products and concepts.**
 * Knowledge of Typescript, Redux, and Tailwind would be beneficial.
+* Previous **experience in Banking and Financial service industry and trading platform** is an added advantage
 
- **Education:**
-
-* University degree in a science, engineering, or computing discipline.
-
-
--
-
-**Job Family Group:**
-
-Technology
--
-
-**Job Family:**
+Education:
 
 
-Applications Development
--
-
-**Time Type:**
+* University degree in a science, engineering, or computing discipline","https://sg.indeed.com/cmp/Delta-Sg-Consulting","","","","","","","","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=a4e79b99db197e00","https://www.mycareersfuture.gov.sg/job/engineering/software-engineer-summit-talent-469cc36f773a0e87e32ffc15981cd341","Software Engineer","Summit Talent","Singapore, S00, SG","fulltime","2024-09-14","","","","",True,"","Our client is a global leader in electric vehicle (EV) charging infrastructure and microgrid solutions. They are expanding rapidly and seeking for Software Engineer to join the team.
 
 
-Full time
--
+The role of the Software Engineer is to develop, enhance and maintain software solutions for electric vehicle (EV) chargers.  
 
 
-Citi is an equal opportunity and affirmative action employer.
+
+  
+
+**Key Responsibilities:**
+
+* **Software Development:** Design, develop, test and deploy software for EV charger solutions, including firmware, backend systems and user interfaces.
+* **Integration:** Work on integrating software with hardware components, ensuring seamless communication between EV chargers and associated systems such as payment gateways, grid management systems and user apps.
+* **Optimization:** Optimize software performance and reliability for EV chargers, ensuring efficient operation and adherence to industry standards.
+* **Troubleshooting:** Diagnose and resolve software-related issues in EV chargers, including bugs, performance issues and connectivity problems.
+* **Documentation:** Create and maintain technical documentation for software design, development processes and user manuals. Ensure clear and comprehensive documentation for both internal teams and end-users.
+* **Collaboration:** Collaborate with cross-functional teams, including hardware engineers, product managers and UX/UI designers, to deliver cohesive and high-quality EV charging solutions.
+* **Compliance:** Ensure that software solutions comply with relevant industry standards, regulations, and security protocols. Stay informed about evolving regulations and best practices in the EV charging sector.
+* **Innovation:** Research and implement new technologies and methodologies to enhance the functionality and user experience of EV charging solutions. Contribute to the development of cutting-edge features and improvements.
+* **Customer Feedback:** Gather and analyze feedback from users and stakeholders to drive software enhancements and ensure that solutions meet customer needs and expectations.
+* **Support:** Provide technical support and guidance to other team members and stakeholders on software-related matters.
+
+**Qualifications:**
+
+* Bachelor’s degree in Computer Science, Software Engineering, Electrical Engineering, or a related field.
+* Minimum 2 years of experience in software development, with a focus on embedded systems, firmware or application development. Experience in the EV or energy sector is highly desirable.
+* Strong analytical and problem-solving skills, with the ability to tackle complex technical challenges effectively.
+* Excellent verbal and written communication skills, with the ability to convey technical information clearly to both technical and non-technical audiences.
+* Ability to work collaboratively within a team environment, including remote teams, and to manage multiple priorities effectively.
+* Willingness to learn and adapt to new technologies and changing industry trends.
+* Familiarity with cybersecurity practices relevant to IoT and software solutions.
+* Contributions to open-source projects or industry forums related to EV technology.
+
+**Technical Skills:**
+
+* Proficiency in programming languages such as C/C++, Python, Java, or JavaScript.
+* Experience with embedded systems and real-time operating systems (RTOS).
+* Familiarity with communication protocols such as OCPP (Open Charge Point Protocol), MQTT or RESTful APIs.
+* Knowledge of cloud computing platforms and services (e.g., AWS, Azure) is advantageous.
+* Experience with version control systems (e.g., Git) and software development methodologies (e.g., Agile/Scrum).
+
+**What We Offer:**
+
+* Competitive salary and comprehensive benefits package.
+* Opportunities for professional development and career advancement.
+* A dynamic and innovative work environment.
+* Support for work-life balance and flexibility.","https://sg.indeed.com/cmp/Summit-Talent","","","","","","","","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=2013dc64ed6c0c3d","https://www.mycareersfuture.gov.sg/job/information-technology/software-engineer-staffking-e228a7f79114b4525ed082ab5fc0f7c8","Software Engineer","STAFFKING PTE. LTD.","Singapore, S00, SG","fulltime","2024-09-14","","","","",False,"","**Summary:**
+
+* 5 days
+* Basic up to $7000
+* Good career progression
+
+**Responsibilities:**
+
+* Design, develop, and maintain software, focusing on equipment PC-based programming.
+* Implement systems, conduct testing, debug issues, and create documentation.
+* Analyse current software to find areas that need updates or enhancements.
+* Provide on-site troubleshooting at the customer's location
+
+**Requirements:**
+
+* A degree in a relevant field with over 5 years of experience in software development for the automation industry.
+* Proficiency in PC-based equipment programming.
+* Background in motion and process control systems.
+* Experience with vision system software development is preferred.
+* Familiarity with SECS/GEM standards and implementation is an advantage.
+
+Please submit your updated resume in MS word format by using the **APPLY NOW BUTTON** .
 
 
-Qualified applicants will receive consideration without regard to their race, color, religion, sex, sexual orientation, gender identity, national origin, disability, or status as a protected veteran.
+We regret that only shortlisted candidates will be notified.
 
 
-Citigroup Inc. and its subsidiaries (""Citi”) invite all qualified interested applicants to apply for career opportunities. If you are a person with a disability and need a reasonable accommodation to use our search tools and/or apply for a career opportunity review **Accessibility at Citi**.
+**Staffking Pte Ltd (20C0358) | Andy Chia (R24123787)**","https://sg.indeed.com/cmp/Staffking-Pte.-Ltd.","","","","","","","","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=8b35d2eec8cdb699","https://apply.workable.com/j/B4E2614CEB","Software Engineer (Payments, Swift AMH, Sql, Java)","Unison Consulting Pte Ltd","Singapore, S00, SG","fulltime","2024-09-14","","","","",False,"","Development, Production and User Support, Configuration and Optimisation of the SWIFT AMH Applications. Assist to generate reports using AMH Database and native sql.
 
 
-View the ""**EEO is the Law**"" poster. View the **EEO is the Law Supplement**.
+Key Responsibilities
 
 
-View the **EEO Policy Statement**.
+Support, coordinate and lead all technical activities regarding solutions delivery for the area – for both business-as-usual and project delivery.
 
 
-View the **Pay Transparency Posting**","https://sg.indeed.com/cmp/Citi","http://www.citigroup.com","New York, NY","","10,000+","more than $10B (USD)","Citi is more than a global financial services company. It’s an engine for progress. Apply today to to get involved.","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/806f22664b45891ba05949fb5ee201d8","https://d2q79iu7y748jz.cloudfront.net/s/_headerimage/1960x400/f000e7845d12188267f39a13574227d4","Jane Fraser ","https://d2q79iu7y748jz.cloudfront.net/s/_ceophoto/512x512/00da38b558ea5d5f18f5c57ee79bd5f1"
+Track and review the performance of the assigned team or developers and business/systems analysts and remediate any issues.
+
+
+Identify system issues and collaborate with technical support and development teams to drive resolution, provide a complete RCA to the client.
+
+
+Monitor and review production stability i.e. manage amount of issues, reoccurrence, processes, change control
+
+
+Facilitate and ensure the upgrade of all software and hardware.
+
+
+Attain client confidence through demonstrable technology experience.
+
+
+Participates in disaster recovery/business continuity activities as needed.
+
+
+Research and evaluate new technologies, products and techniques that could meet future banking needs.
+
+**Requirements**
+
+
+4-6 years as a SWIFT or java Developer
+
+
+Good experience with Swift AMH tool. Good in creating reports using AMH database.
+
+
+Has a Good knowledge and application of the SDLC and agile principles.
+
+
+Has been involved in the development, implementation of at least one major application.
+
+
+Knowledge of Oracle databases, strong sql, Linux OS, IBM MQ / jms, shell scripting, Oracle DB, open source DB’s, Api’s, Cloud technologies, Agile Methodology
+
+
+Knowledge and experience with SWIFT, AMH and/or payments systems in the bank.
+
+
+Good understanding of the system development life cycle
+
+
+Experience with software development methodologies
+
+
+Worked in a multi-project environment.
+
+
+Liaising with vendors","https://sg.indeed.com/cmp/Unison-Consulting-Pte-Ltd","","","","","","","","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=7898413254367b13","https://www.mycareersfuture.gov.sg/job/information-technology/outsystems-developer-recruit-expert-edf458b0c0202f43f83cad8bb59f3a8b","Outsystems Developer (.NET, SQL, JavaScript)","Recruit Expert Pte. Ltd.","Singapore, S00, SG","","2024-09-13","","","","",False,"hr@recruit-expert.com","* Responsible for design, develop, and maintain applications using **Outsystems Platform.**
+* Create **.NET, SQL, and JavaScript** to create robust and scalable solutions.
+* Work closely with business stakeholders to understand requirements and translate them into technical solutions.
+* Perform troubleshoot and resolve application issues, ensuring optimal performance and user experience.
+* Keep abreast of Outsystems updates and emerging technologies to continuously enhance skills and knowledge.
+
+Requirements:
+
+
+* Degree in Computer Science ore equivalent.
+* At least 2 years of software development experience in **Outsystems, .NET, SQL, and JavaScript technologies.**
+* Proficient in **.NET frameworks, SQL databases and JavaScript libraries.**
+
+If you are keen to apply for the position, kindly email your detailed resume in **MS Word** to **hr@recruit-expert.com**
+
+Please note that only shortlisted candidates will be notified.
+
+
+For more job opportunities, please visit our website at **www.recruit-expert.com**
+
+EA Licence: 19C9701
+
+
+Registration: R22111604","https://sg.indeed.com/cmp/Recruit-Expert-Pte.-Ltd.","https://www.recruit-expert.com/",""," Human Resources And Staffing","","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/d7b3d9c506ba18c01874b8750c7ec263","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=407c2438c4e0f0cb","https://www.mycareersfuture.gov.sg/job/engineering/frontend-developer-tomie-technologies-e69760f5542c00565cab59a84941bb5c","Frontend Developer","TOMIE TECHNOLOGIES PTE. LTD.","Singapore, S00, SG","","2024-09-13","","","","",False,"","**Job Description:**
+
+We are seeking a skilled Frontend Developer to join our innovative team. The ideal candidate will be responsible for designing and developing interfaces that are optimized for cloud environments. This role involves creating highly interactive and responsive frontend applications while ensuring seamless integration with cloud services. You will work closely with the Product Owner and backend developers to implement scalable and efficient cloud-based frontend solutions. A strong grasp of frontend technologies, cloud computing concepts, and a focus on delivering high-performance user experiences are essential.  
+
+
+
+  
+
+**Responsibilities:**
+
+* Develop and maintain responsive web interfaces using frontend technologies (HTML5, CSS3, JavaScript) with a focus on cloud integration.
+* Leverage cloud services (like AWS, Azure, or Google Cloud) to enhance frontend functionality and performance.
+* Stay current with trends in both frontend development and cloud computing.
+* Collaborate with backend developers to integrate frontend applications with cloud-based backend services.
+* Implement and manage state management solutions using frontend libraries like Svelte or React in cloud environments.
+* Ensure cross-browser and cross-device compatibility of web applications.
+* Optimize web applications for performance and scalability in the cloud.
+Work with the Product Owner to align frontend designs with user needs and cloud-based infrastructure requirements.  
+* 
+
+  
+
+**Qualifications**
+
+* Proficiency in frontend technologies (HTML, CSS, JavaScript) and cloud services (AWS, Azure, Google Cloud)
+* Proven experience developing web interfaces with a focus on cloud integration.
+* Experience with frontend libraries such as Svelte or React.
+* Understanding of responsive design principles and mobile-first development.
+* Knowledge of cloud services and how they interact with frontend applications.
+* Strong attention to design details and a passion for creating efficient, scalable user interfaces.
+* Excellent communication skills and experience working in cross-functional teams.
+* Familiarity with version control systems and collaborative development workflows.
+* Experience with Agile development or Scrum methodologies is a plus.","https://sg.indeed.com/cmp/Tomie-Technologies-Pte.-Ltd.","","","","","","","","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=0ee8d55765faeeca","https://www.mycareersfuture.gov.sg/job/information-technology/fullstack-developer-recruit-expert-7db8fcfee4683a9070fce269bb2962bc","Fullstack Developer (Python and JavaScript)","Recruit Expert Pte. Ltd.","Singapore, S00, SG","","2024-09-13","","","","",False,"hr@recruit-expert.com","* Lead new projects from conceptualization to delivery.
+* Identify the range of software features and components within a larger product ecosystem.
+* Create and implement scalable web services, applications and APIs.
+* Troubleshoot and optimize software systems on the cloud.
+* Develop and maintain internal software tools and write technical documentation.
+
+Requirements:
+
+
+* Diploma in Computer Science or equivalent.
+* At least 4 years as a Full Stack Engineer experience in **developing large-scale software applications.**
+* Proficient in front-end languages and frameworks such as **JavaScript, NextJS, React, Mantine, React-Query and Playwright.**
+* Hands on experience in **RESTful and websockets APIs with NodeJS and ExpressJS, Python and FastAPI.**
+
+If you are keen to apply for the position, kindly email your detailed resume in **MS Word** to **hr@recruit-expert.com**
+
+Please note that only shortlisted candidates will be notified.
+
+
+For more job opportunities, please visit our website at **www.recruit-expert.com**
+
+EA Licence: 19C9701
+
+
+Registration: R22111604","https://sg.indeed.com/cmp/Recruit-Expert-Pte.-Ltd.","https://www.recruit-expert.com/",""," Human Resources And Staffing","","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/d7b3d9c506ba18c01874b8750c7ec263","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=8f3c5ac35779e864","https://www.mycareersfuture.gov.sg/job/information-technology/senior-azure-cloud-engineer-sc-shipping-singapore-72c02427d2b586b49ab2aa30f0f6a5d8","Senior Azure Cloud Engineer","Newport Tank Containers","Singapore, S00, SG","","2024-09-13","","","","",False,"","**Our Company**
+
+  
+
+Gentco Logistics is a leading international liquid chemical logistics provider, with three core business units: chemical tankers (5th largest fleet globally), chemical tank containers (2nd largest fleet globally), and terminal storage tanks. Our global headquarters are in Shanghai, China, supported by a regional headquarters in Singapore and 40 operational offices across six continents. Gentco Logistics is wholly owned by the Junzheng Group (ticker 601216.SH).  
+
+
+
+  
+
+**The Opportunity**
+
+  
+
+The Senior Azure Cloud Engineer position is a part of the Global IT Department, which is directly overseen by the Group’s CIO. Our team currently comprises over 60 IT, software, and data professionals primarily based in Shanghai and Moerdijk (the Netherlands). With our IT presence rapidly expanding, we are excited to invite you to join our team!  
+
+
+
+  
+
+**Job Responsibilities:**
+
+* Assist the IT Infrastructure team in the planning and implementation of our Azure cloud environment.
+* Configure and manage compute, storage, networking, databasing, and other services in the cloud.
+* Monitor data security and cloud application performance stability through health checks and performance log monitoring/alerting.
+* Lead the transition to an IaC development environment by using scripting languages and tools to automate the deployment, configuration, and management of cloud services.
+* Assist the Data and Application Development teams in deploying, operating, and maintaining the company’s cloud-based business systems and middleware (Nginx, Tomcat, SQL Server, AKS, Apache Airflow).
+* Monitor resource usage holistically, perform capacity planning, and optimize resources regularly to reduce costs and improve performance.
+* Work with our software development team to design and implement DevOps strategies and best practices in the cloud, including CI/CD, code review procedures, and automated testing.
+* Collaborate with the Security and Compliance department to ensure the cloud environment meets security and compliance standards through regular security audits.
+* Contribute to a culture of organizational learning by sharing knowledge and promoting documentation best practices.
+* Stay updated with current industry best practices and trends.
+
+**Requirement:**
+
+* Bachelor’s or Master’s degree in Computer Science or a related engineering field from a technical university.
+* 4+ years of experience in IT infrastructure/networks configuration or software development, preferably in Java.
+* 2+ years of experience in the configuration and management of Azure environments.
+* Expertise in Docker containerization and Kubernetes orchestration.
+* Proficiency in scripting languages and Infrastructure as Code (IaC).
+* Highly motivated, with a proactive approach to taking ownership of projects and responsibility for outcomes and timelines.
+* Committed to personal growth and development within the organization.
+* Fluency in both written and spoken English and Mandarin is highly desirable to effectively liaise with Chinese-speaking clients and counterparts, understanding their technical requirements.
+
+**Desirable skills**
+
+* Experience with development in Java, particularly with common Java CI/CD tools (Jenkins, Maven, GitLab, Nexus, Harbor).
+* Proficiency with monitoring and troubleshooting tools such as Prometheus, Grafana, and the ELK stack.
+* Experience with cloud infrastructure at a global scale.
+* Experience in the shipping/maritime or chemicals industry.","https://sg.indeed.com/cmp/Newport-Tank-Containers","https://www.newporttank.com","Headquarter is located at Middenweg 6 in Moerdijk, the Netherlands
+"," Transport And Freight","201 to 500","$25M to $100M (USD)","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/603a653b69e1ed8128eaf137801b2b91","https://d2q79iu7y748jz.cloudfront.net/s/_headerimage/1960x400/550217f4ca437dec1822df70662285da","",""
+"indeed","https://sg.indeed.com/viewjob?jk=ae80d99adaac22bb","https://www.mycareersfuture.gov.sg/job/information-technology/smart-contract-developer-mobius-one-0606ee16276b60d7b9a9176722125652","Smart Contract Developer","MOBIUS ONE PTE. LTD.","Singapore, S00, SG","fulltime","2024-09-13","","","","",False,"","\\*\\*Position: Smart Contract Developer\\*\\*  
+
+
+
+  
+
+\\*\\*Job Description:\\*\\*
+
+
+We are seeking an experienced Smart Contract Developer responsible for designing, developing, and implementing smart contracts to support blockchain projects. The candidate must be proficient in developing smart contracts on at least one major public blockchain.  
+
+
+
+  
+
+\\*\\*Responsibilities:\\*\\*  
+
+
+
+  
+
+1. Write, test, and deploy smart contracts, ensuring functionality and security.
+
+
+2. Participate in the design and architecture of blockchain applications, proposing innovative solutions.
+
+
+3. Maintain and upgrade existing smart contracts to ensure system stability.
+
+
+4. Conduct code reviews to ensure code quality and adherence to best practices.
+
+
+5. Assist in project management and team collaboration to deliver high-quality smart contracts on time.
+
+
+6. Research and apply the latest blockchain technologies and tools.  
+
+
+
+  
+
+\\*\\*Requirements:\\*\\*  
+
+
+
+  
+
+1. Bachelor's degree in Computer Science, Software Engineering, or related fields, or equivalent work experience.
+
+
+2. Proficient in smart contract development on at least one major public blockchain (e.g., Ethereum Solidity or Solana Rust).
+
+
+3. Familiarity with public blockchain ecosystems, tools, and development frameworks.
+
+
+4. Experience in secure programming, with the ability to identify and prevent vulnerabilities in smart contracts.
+
+
+5. Experience in blockchain project architecture design and implementation.
+
+
+6. Strong problem-solving skills and a team-oriented mindset.
+
+
+7. Good command of written and spoken English, with the ability to read and understand technical documentation.  
+
+
+
+  
+
+\\*\\*Preferred Qualifications:\\*\\*  
+
+
+
+  
+
+1. Experience contributing to open-source projects.
+
+
+2. Familiarity with other smart contract platforms.
+
+
+3. Full-stack development experience with knowledge of front-end and back-end technologies.
+
+
+4. Fluency in Mandarin.  
+
+
+
+  
+
+\\*\\*Salary:\\*\\* 9000+ +","https://sg.indeed.com/cmp/Mobius-One-Pte.-Ltd.","","","","","","","","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=70da6c047c3732ab","https://www.mycareersfuture.gov.sg/job/information-technology/android-developer-massivue-149e59a4961b70fb288aaed07758127e","Android Developer","Massivue","Singapore, S00, SG","contract","2024-09-13","","","","",False,"","* Building PayPal’s Mobile SDKs for Android and Kotlin
+* Working with stakeholders across teams to create simple, robust Mobile SDKs that enable all systems has to offer
+* Providing feedback on code and contributing to architecture discussions
+
+Engaging with internal and external developers to better understand developer pain points and ways to improve the developer experience.  
+
+
+
+  
+
+Experience- 5 to 8 yrs","https://sg.indeed.com/cmp/Massivue","","","","","","","","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=95103fa9fb4541e8","https://www.mycareersfuture.gov.sg/job/information-technology/devops-engineer-technopals-32be4f0a47e3d3944412040fc9c60d34","DevOps Engineer","TECHNOPALS PTE. LTD.","Singapore, S00, SG","contract","2024-09-13","","","","",False,"","Mandatory Skills
+
+
+* Possess a degree in Computer Science/Information Technology or related fields.
+* Strong knowledge and experience in DevOps automation, containerization and orchestration using tools such as Kubernetes, Ansible, Docker and Podman.
+* Experience in deploying high performance applications.
+* Strong knowledge in Linux subsystem - RedHat Linux is preferred.
+* Strong scripting skill: Bash and Python scripts.
+* Familiarity with Cloud computing deployment within AWS Cloud ecosystem.
+* Knowledge in networking.
+
+Skillsets (Good to have)
+
+
+* Red Hat Certified System Administrator (RHCSA) and Red Hat Certified Engineer (RHCE) will be advantageous.","https://sg.indeed.com/cmp/Technopals-Pte.-Ltd.","","","","","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/83b22e2f705bfd75796a18779024214d","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=15faff01f0893e89","https://www.mycareersfuture.gov.sg/job/engineering/software-engineer-amk-aurora-asiapacific-d82b5211aef849ec1dd82fd830083189","Software Engineer (PC Program)- AMK","AURORA ASIAPACIFIC PTE. LTD.","Singapore, S00, SG","fulltime","2024-09-13","","","","",False,"","A Semiconductor and Automation company.
+
+
+* Working days: 5 days work
+* Location: AMK
+
+**Job Scope:**
+
+* Design, develop, and maintain PC-based software for equipment.
+* Implement systems, conduct testing, debugging, and prepare documentation.
+* Analyze existing software to identify opportunities for modifications and improvements.
+
+**Requirements:**
+
+* Bachelor's degree in a relevant field, with 5+ years of experience in software development within the automation industry preferred.
+* Proficient in PC-based programming for equipment.
+* Experience in motion control and process control.
+* Familiarity with Vision System software development is a plus.
+* Knowledge of SECS/GEM standards and implementation is an advantage.
+* Strong skills in troubleshooting and analysis.
+
+Aurora Asia Pacific (21C0671)|Ying Kee (R21103783)","https://sg.indeed.com/cmp/Aurora-Asiapacific-Pte.-Ltd.","","","","","","","","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=7b8fd8a682cb7d5c","https://www.mycareersfuture.gov.sg/job/information-technology/devops-engineer-astek-singapore-innovation-technology-508798bc90eb5703e0f010a341064884","DevOps Engineer","ASTEK SINGAPORE INNOVATION TECHNOLOGY PTE. LTD.","Singapore, S00, SG","","2024-09-13","","","","",False,"","ASTEK has been providing IT and Engineering solutions for some of the world’s largest industrial and services groups for more than 35 years with 7200 passionate experts in 22 countries throughout Europe, APAC, Middle East and the Americas  
+
+
+
+  
+
+Currently, we are looking for **DevOps Engineer** which would be based in Singapore  
+
+
+
+  
+
+**Responsibilities and requirements:**
+
+* Bachelor degree in Computer Science/Information Technology or related fields with 2-5 years experirnce as a DevOps
+* Strong knowledge and experience in **DevOps automation, containerization and orchestration** using tools such as Kubernetes, Ansible, Docker and Podman
+* Experience in deploying high performance applications
+* Strong knowledge in **Linux subsystem** - RedHat Linux is preferred
+* **Strong scripting skill** : Bash and Python scripts
+* **Familiarity with Cloud computing** deployment within AWS Cloud","https://sg.indeed.com/cmp/Astek-Singapore-Innovation-Technology-Pte.-Ltd.","","","","","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/4d89e6f6c65f66ddbefa26a354456fba","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=f8de003e317a1490","https://www.mycareersfuture.gov.sg/job/information-technology/backend-developer-astek-singapore-innovation-technology-063d0136a18b0665fffcc624f82b725c","Backend Developer (CI/CD)","ASTEK SINGAPORE INNOVATION TECHNOLOGY PTE. LTD.","Singapore, S00, SG","","2024-09-13","","","","",False,"","**Backend Developer (Mid to Senior)**
+
+ASTEK has been providing IT and Engineering solutions for some of the world’s largest industrial and services groups for more than 35 years with 7200 passionate experts in 22 countries throughout Europe, APAC, Middle East and the Americas  
+
+
+
+  
+
+Currently, we are looking for **Backend Developer** which would be based in Singapore  
+
+
+
+  
+
+**Responsibilities and requirements:**
+
+* Bachelor degree with minimum 5 years experience in providing application architecture implementation and application operational support
+* Develop quantitative library and documentation of legacy and new features implementation
+* Support future proofing of technology and technical environments to ensure high level optimization of application automation, availability, scalability, and resilience
+* Strong system design skills to implement resilient, secure and reliable infrastructure
+* Development and operation of reliable **CI/CD pipelines**
+* Strong Cloud knowledge within the **AWS** ecosystem
+* Ability to implement prototype in new software products as required
+* Strong programming skill in **Python** or R
+* Strong knowledge and experience in **DevOps automation, containerization and orchestration** using tools such as Kubernetes, Ansible, Docker and Padman
+* **Strong knowledge in Linux** subsystem - RedHat Linux is preferred
+* Familiarity with **Cloud computing** deployment within AWS Cloud ecosystem","https://sg.indeed.com/cmp/Astek-Singapore-Innovation-Technology-Pte.-Ltd.","","","","","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/4d89e6f6c65f66ddbefa26a354456fba","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=05fe16bebc978bc0","https://www.mycareersfuture.gov.sg/job/banking-finance/as400-rpg-developer-technical-lead-maybank-singapore-22de62e22daa6ef53fd57394bf94c90b","AS400 RPG Developer / Technical Lead (Silverlake - Loans Or Deposits)","D L Resources Pte Ltd","Singapore, S00, SG","","2024-09-13","","","","",False,"","**Job Objectives**
+
+  
+
+We are seeking a Technical Lead with strong hands-on experience in the development, design and review of critical AS400 silver lake applications within DEPOSITS or LOANS.
+  
+
+  
+
+You will lead and actively involved in the Governance and Project Lifecycle role especially during the solutioning, requirement gathering, design validations, project build and implementation.
+  
+
+  
+
+Working alongside with the Technology Delivery Manager (TDM) and other stakeholders such as System Analysts, Functional Business Analysts, and vendor partners to ensure the overall smooth delivery of application platform which complies with the architecture and design standards as per the defined solution design.  
+
+
+
+  
+
+**Key Responsibilities**
+
+  
+
+* Support the project solution process, review and validate the initial high-level solution design together with the respective stakeholders (Enterprise Architect, Security Architect, Infra Architect, other Application Domain Architects) for Technology Architecture Governance reviews and approvals.
+* Partner with System Analyst to ensure technical design complies with enterprise design principles, security and control standards
+* Responsible for standardising and maintaining the application architecture across various bank applications within the domain as well as to recommend and facilitate the use of new technology for application improvement opportunities
+* Address and resolve technical issues (eg, technical connectivity, Penetration Test, Performance Test, code scanning) or queries relating to the project activities arising from all phases of project delivery
+* Support both functional and non-functional testing phase of delivery to ensure all aspects of the system requirement is delivered as per FSD
+* Ensure proper knowledge is propagated to the project team to enable quality testing is conducted
+* Engage with system vendors to ensure the technical requirements are clear for delivery of FSD throughout the end-to-end project implementation phases
+* Hands-on technical development using AS400/RPG
+* Work as AS400 senior developer in the field of IT Application development, maintenance, delivery and hands-on experience in IT infrastructure setup.
+* Analyse business user requirements and formulate technical design documents.
+* Co-ordinate with vendor on specifications, delivery testing, and implementation.
+* Understand user/stakeholder requirements and formulate technical design documents.
+* Implementation of systems
+* Manage end to end testing for users with vendor to internal systems
+* Work with internal Change Control Management for deployment of changes.
+* Work with internal infrastructure and security teams on implementations.
+* Prepare and track the outstanding issue list and communicate to key stakeholders.
+* Coordinating internal resources and vendors for the flawless execution of projects.
+
+**Key Requirements**
+
+  
+
+* More than 10 years working experience with AS400 system development and projects/changes implementation experience in the financial industry.
+* Strong technical development background and experience with full project life cycle.
+* Technical skills required are RPG/ILE, AS400 CL, SQL Server, Oracle DB, Linux
+* Excellent communication and inter-personal skills
+* Experience in Environment set up including but not limited to object and library creation, MQ set up
+* Setting up of connections to the other Interface Systems, batch processing
+* Migration of Environment including restoration and masking of data
+* Experience in Aldon, Remedy and Jira
+* Experience in debugging the legacy codes to analyse the issues
+* Experience in Silverlake
+* Experience in delivery of silverlake solutions and hands-on experience on at least 1 end-to-end application delivery
+* Extensive and significant working experience as an technical lead in large cross-functional teams or enterprise projects
+* Excellent application analysis, design, system integration and code review skills in the CORE BANKING DEPOSITS DOMAIN
+* Able to work independently, good interpersonal, influencing and communications skills with a resilient mindset
+* Work as AS400 senior developer in the field of IT Application development, maintenance, delivery and hands-on experience in IT infrastructure setup.","https://sg.indeed.com/cmp/D-L-Resources-Pte-Ltd","","","","","","","","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=d726f7ec17141904","https://www.mycareersfuture.gov.sg/job/information-technology/ayehu-eyeshare-developer-recruit-haus-8d46d4227808f04275beee472ad07e87","Ayehu eyeShare Developer","Recruit Haus Pte Ltd","Singapore, S00, SG","fulltime, contract","2024-09-13","","","","",False,"","Responsibilities:
+
+
+* Implement on the Solana blockchain for UI-based integrations using the API and Enable a capture log for the Webhook integration in Ayehu Eyeshare
+* Design and develop smart contracts tailored for lending and borrowing functionalities.
+* Collaborate with front-end developers to integrate blockchain features with the user interface and ensure a seamless experience to integrate with ITPA.
+* Experience in ITPA – Stackstorm, Ayehu Eyeshare, Arago HIRO
+* Maintain thorough documentation of development processes, protocols, and best practices.
+
+Requirements:
+
+
+* Minimum of 2 to 5 years in blockchain development with Ayehu eyeshare
+* Proven experience with Solana blockchain, including familiarity with its architecture, programming languages (e.g., Rust), and ecosystem.
+* Proficient in smart contract development, understanding of decentralized finance concepts, and experience with blockchain security best practices.
+* Degree in Computer Science, Engineering, or a related field (or equivalent experience).
+* Ability to speak and write in Chinese as the incumbent requires to liaise with the China HQ counterparts/personnel for work or project related matters","https://sg.indeed.com/cmp/Recruit-Haus-Pte-Ltd","https://www.recruithaus.com.sg","Singapore","","2 to 10","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/5aa2da9f5897b4c167232dca563a150f","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=24b315f50dc3a09e","https://www.mycareersfuture.gov.sg/job/information-technology/software-application-development-engineer-exasoft-9382a96f015572dbe329b61ddcc15d89","Software Application Development Engineer","EXASOFT PTE. LTD.","Singapore, S00, SG","fulltime","2024-09-13","","","","",False,"","**Key Skills: Unix, C/C++, Shell , SQL**
+
+  
+
+**Key Responsibilities:**
+
+* Responsible to manage system development, implementation and support of EAI applications, including: -
+* Gather and analyze requirements.
+* Write various documentations in fulfilling banks SDLC process.
+* Involved in design and development stage.
+* Involved in unit testing as well as system integrated testing.
+* Provide production and UAT support.
+* System infra setup, application deployment, automation.
+* Plan, prepare, and execute system rollout and implementations
+
+**Key Requirement**
+
+* Function and experience requirements
+* Min. 5yr hands on experience in ANSI C and Unix Korn Shell programming.
+* Working experience on Solaris platform is highly preferred.
+* Familiar with SDLC process and experience on change management tools Aldon, BitBucket, Jenkins, Artifactory.
+* Experience and knowledge with Oracle Tuxedo, IBM MQ Series will be big advantage.
+* Experience and knowledge with NodeJS, MySQL, Docker, VMWare, JSON, is preferred (but not mandatory).
+* Working experience in banking domain or financial industry is preferred
+* Knowledge and experience with Javascript/AS400/C++/Python is value added
+* Able to work independently and self-motivated. Good communication and documentation skills
+* Customer oriented and possess Can-Do attitude","https://sg.indeed.com/cmp/Exasoft-Pte.-Ltd.","","","","","","","","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=e0dbb93e7f63155b","https://apply.workable.com/j/3D4209B488","Cloud Infrastructure Engineer (Endpoint Migration)","Assurity Trusted Solutions","Singapore, S00, SG","contract","2024-09-13","","","","",False,"","Assurity Trusted Solutions (ATS) is a wholly owned subsidiary of the Government Technology Agency (GovTech). As a Trusted Partner over the last decade, ATS offers a comprehensive suite of products and services ranging from infrastructure and operational services, authentication services, governance and assurance services as well as managed processes. In a dynamic digital and cyber landscape, where trust & collaboration are key, ATS continues to drive mutually beneficial business outcomes through collaboration with GovTech, government agencies and commercial partners to mitigate cyber risks and bolster security postures.
+
+
+We are looking for a Cloud Infrastructure Engineer (Migration Engineer) to join us!
+
+* Work with Agency IT on the IT onboarding and enablement of Agencies’ endpoint to the central architecture in a phased approach, ensuring a smooth transition for each agency.
+* Work closely with Agency IT to whitelist network access for applications, including network configuration changes, connectivity testing, troubleshooting, and integration with SSO, to ensure seamless integration to the central architecture.
+* Work with Agency IT on the device provisioning process using Windows Autopilot and coordinate the central provisioning of laptops, if applicable.
+* Work with Agency IT to troubleshoot app packaging issues and ensure the compatibility and functionality of the applications on the new endpoint solution.
+
+**Requirements**
+
+* Comfortable with a 1.5-year direct contract
+* At least 5 years of experience in the above domain areas
+* Proven track record of large-scale ICT migration projects, particularly in the deployment of endpoint, end user services, or security solutions.
+* Good understanding of endpoint management, endpoint security, and network solutions including Windows Autopilot, Microsoft Endpoint Manager, M365 services, Entra ID, SSE technologies, DNS, and network architecture.
+* Experience in network troubleshooting for endpoints and applications.
+* Candidate who can start work within short notice is preferred.
+
+**Benefits**
+
+
+Join us and discover a meaningful and exciting career with Assurity Trusted Solutions!
+
+
+The remuneration package will commensurate with your qualifications and experience. Interested applicants, please click ""Apply Now"".
+
+
+We thank you for your interest and please note that only shortlisted candidates will be notified.
+
+*By submitting your application, you agree that your personal data may be collected, used and disclosed by Assurity Trusted Solutions Pte. Ltd. (ATS), GovTech and their service providers and agents in accordance with ATS’s privacy statement which can be found at:* https://www.assurity.sg/privacy.html *or such other successor site.*
+
+**Benefits**
+
+* A wholly-owned subsidiary of GovTech.
+* We promote a learning culture and encourage you to grow and learn.
+* A competency framework is in place to help you grow your career with us.","https://sg.indeed.com/cmp/Assurity-Trusted-Solutions","http://whttp:/www.assurity.sg","Singapore","","11 to 50","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/14c4bbb762ed8ff078c8483bb99dde65","","",""
+"indeed","https://sg.indeed.com/viewjob?jk=8b301c0b9c9dccce","https://apply.workable.com/j/76D470811C","Senior Cloud Infrastructure Engineer (Network Connectivity)","Assurity Trusted Solutions","Singapore, S00, SG","contract","2024-09-13","","","","",True,"","Assurity Trusted Solutions (ATS) is a wholly owned subsidiary of the Government Technology Agency (GovTech). As a Trusted Partner over the last decade, ATS offers a comprehensive suite of products and services ranging from infrastructure and operational services, authentication services, governance and assurance services as well as managed processes. In a dynamic digital and cyber landscape, where trust & collaboration are key, ATS continues to drive mutually beneficial business outcomes through collaboration with GovTech, government agencies and commercial partners to mitigate cyber risks and bolster security postures.
+
+**Senior Operations Engineer (Device Connectivity SSE & SIS)**
+
+ **Responsibilities:**
+
+Work with Product Owners, internal engineering team and Product Principals to oversee and co-ordinate the operation of various Zero Trust networking components, including:
+
+
+* Security Service Edge
+* Remote Browser Isolation
+* Co-ordinate with Central ICT Infra teams to operate the on-prem components of the above platforms.
+* Oversee a team of Ops Engineers to manage the change, release, incident, problem management processes.
+* Ensure timely handling of requests and queries.
+* Lead incident response and recovery by analysing the root cause and submission of RCA report.
+* Drive improvement in operation effectiveness by implementing the monitoring and alerting tools.
+* Document the requirement and specification to address the needs for all Public Service agencies.
+
+  
+
+
+
+**Requirements**
+
+* Good understanding of networking concept & System Architecture with experience in Automation and Devops.
+
+**Benefits**
+
+
+Join us and discover a meaningful and exciting career with Assurity Trusted Solutions!
+
+
+The remuneration package will commensurate with your qualifications and experience. Interested applicants, please click ""Apply Now"".
+
+
+We thank you for your interest and please note that only shortlisted candidates will be notified.
+
+*By submitting your application, you agree that your personal data may be collected, used and disclosed by Assurity Trusted Solutions Pte. Ltd. (ATS), GovTech and their service providers and agents in accordance with ATS’s privacy statement which can be found at:* https://www.assurity.sg/privacy.html *or such other successor site.*
+
+**Benefits**
+
+* A wholly-owned subsidiary of GovTech.
+* We promote a learning culture and encourage you to grow and learn.
+* A competency framework is in place to help you grow your career with us.","https://sg.indeed.com/cmp/Assurity-Trusted-Solutions","http://whttp:/www.assurity.sg","Singapore","","11 to 50","","","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/14c4bbb762ed8ff078c8483bb99dde65","","",""
+"linkedin","https://www.linkedin.com/jobs/view/4023139466","","Software Engineer, Google Pay, Core","Google","","","2024-09-13","","","","","","","","https://www.linkedin.com/company/google","","","","","","","","","",""
+"linkedin","https://www.linkedin.com/jobs/view/4023375111","","Software Engineer","Oil and Gas Job Search Ltd","Singapore, Singapore","","2024-09-13","","","","","","","","https://uk.linkedin.com/company/oilandgasjobsearch","","","","","","","","","",""
+"linkedin","https://www.linkedin.com/jobs/view/4023313085","","Software Engineer (Singapore On-site)","Breeze","","","2024-09-13","","","","","","","","https://www.linkedin.com/company/breeze-cash","","","","","","","","","",""
+"linkedin","https://www.linkedin.com/jobs/view/4023350571","","Software Engineer","Nicoll Curtin","Singapore, Singapore","","2024-09-13","","","","","","","","https://uk.linkedin.com/company/nicoll-curtin","","","","","","","","","",""
 "linkedin","https://www.linkedin.com/jobs/view/4024041701","","Software Engineer, Front-End","QCP","Singapore, Singapore","","2024-09-12","","","","","","","","https://sg.linkedin.com/company/qcp-group","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/4022658807","","Software Engineer (Singapore)","BJAK","","","2024-09-12","","","","","","","","https://my.linkedin.com/company/bjak","","","","","","","","","",""
 "linkedin","https://www.linkedin.com/jobs/view/4024050306","","Software Engineer, Full-Stack","QCP","Singapore, Singapore","","2024-09-12","","","","","","","","https://sg.linkedin.com/company/qcp-group","","","","","","","","","",""
+"linkedin","https://www.linkedin.com/jobs/view/4022658807","","Software Engineer (Singapore)","BJAK","","","2024-09-12","","","","","","","","https://my.linkedin.com/company/bjak","","","","","","","","","",""
 "linkedin","https://www.linkedin.com/jobs/view/4024097716","","Full Stack Developer","Astek","Singapore, Singapore","","2024-09-12","","","","","","","","https://fr.linkedin.com/company/astek","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/4022852141","","Junior Backend Engineer - Nas.io","Nas Company","","","2024-09-12","","","","","","","","https://www.linkedin.com/company/nas-company","","","","","","","","","",""
 "linkedin","https://www.linkedin.com/jobs/view/4022531994","","Java Software Engineer","Crédit Agricole CIB","Singapore, Singapore","","2024-09-12","","","","","","","","https://fr.linkedin.com/company/credit-agricole-cib","","","","","","","","","",""
+"linkedin","https://www.linkedin.com/jobs/view/4022852141","","Junior Backend Engineer - Nas.io","Nas Company","","","2024-09-12","","","","","","","","https://www.linkedin.com/company/nas-company","","","","","","","","","",""
 "linkedin","https://www.linkedin.com/jobs/view/3988226761","","Software Engineer, Front End","Meta","","","2024-09-11","","","","","","","","https://www.linkedin.com/company/meta","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/3999643072","","Full Stack Software Engineer","Beep","Singapore, Singapore","","2024-09-11","","","","","","","","https://sg.linkedin.com/company/beep-technologies-pte-ltd","","","","","","","","","",""
 "linkedin","https://www.linkedin.com/jobs/view/4023454666","","Management Associate (Full Stack Developer)","Avaloq","","","2024-09-11","","","","","","","","https://ch.linkedin.com/company/avaloq","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/4023005564","","Full Stack Developer","Astek","Singapore, Singapore","","2024-09-11","","","","","","","","https://fr.linkedin.com/company/astek","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/4022437042","","Full Stack Engineer II","Outliant","","","2024-09-10","","","","","","","","https://www.linkedin.com/company/outliant","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/4008209637","","Software Engineer, New Grad","Stripe","Singapore, Singapore","","","","","","","","","","https://www.linkedin.com/company/stripe","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/4023139466","","Software Engineer, Google Pay, Core","Google","","","","","","","","","","","https://www.linkedin.com/company/google","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/4023137497","","Software Developer Intern","Visier Inc.","","","","","","","","","","","https://ca.linkedin.com/company/visier-analytics","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/4023200407","","Software Engineer II, Backend Services","Jobscentral","","","","","","","","","","","https://sg.linkedin.com/company/jobscentral","","","","","","","","","",""
+"linkedin","https://www.linkedin.com/jobs/view/3748782214","","Software Engineer - TikTok BRIC (Singapore)","TikTok","","","2024-09-11","","","","","","","","https://www.linkedin.com/company/tiktok","","","","","","","","","",""
+"linkedin","https://www.linkedin.com/jobs/view/3410554380","","Software Engineer","DSO National Laboratories","Singapore, Singapore","","2024-09-11","","","","","","","","https://sg.linkedin.com/company/dso-national-laboratories","","","","","","","","","",""
+"linkedin","https://www.linkedin.com/jobs/view/4021947266","","Backend Software Engineer, Global LIVE Money Platform - 2025 Start","Jobscentral","","","2024-09-11","","","","","","","","https://sg.linkedin.com/company/jobscentral","","","","","","","","","",""
+"linkedin","https://www.linkedin.com/jobs/view/3990862700","","Graduate Software Engineer, Singapore (2025 Start)","The Trade Desk","","","","","","","","","","","https://www.linkedin.com/company/the-trade-desk","","","","","","","","","",""
+"linkedin","https://www.linkedin.com/jobs/view/4009096870","","Software Engineer, Intern","Stripe","Singapore, Singapore","","","","","","","","","","https://www.linkedin.com/company/stripe","","","","","","","","","",""
+"linkedin","https://www.linkedin.com/jobs/view/4023520070","","Software Engineer | Java","ScienTec Consulting Pte. Ltd.","Singapore, Singapore","","","","","","","","","","https://sg.linkedin.com/company/scientec","","","","","","","","","",""
+"linkedin","https://www.linkedin.com/jobs/view/4025989501","","Front-end Developer","Gate.io","","","","","","","","","","","https://ky.linkedin.com/company/gateio","","","","","","","","","",""
 "linkedin","https://www.linkedin.com/jobs/view/4016495808","","Frontend Software Engineer | JavaScript | ReactJS","ScienTec Consulting Pte. Ltd.","Singapore, Singapore","","","","","","","","","","https://sg.linkedin.com/company/scientec","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/4023355695","","Software Engineer | ReactJS","ScienTec Consulting Pte. Ltd.","Singapore, Singapore","","","","","","","","","","https://sg.linkedin.com/company/scientec","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/4023164543","","Backend Development intern","Tencent","Singapore, Singapore","","","","","","","","","","https://cn.linkedin.com/company/tencentglobal","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/4024489045","","Software Engineer","Sisco Jobs","Singapore, Singapore","","","","","","","","","","https://in.linkedin.com/company/sisco-jobs","","","","","","","","","",""
-"linkedin","https://www.linkedin.com/jobs/view/4023350571","","Software Engineer","Nicoll Curtin","Singapore, Singapore","","","","","","","","","","https://uk.linkedin.com/company/nicoll-curtin","","","","","","","","","",""
