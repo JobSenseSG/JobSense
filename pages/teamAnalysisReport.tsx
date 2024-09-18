@@ -9,6 +9,7 @@ import {
   Spinner,
   Center,
   Flex,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import Sidebar from '../components/Sidebar'; // Import Sidebar component
@@ -28,6 +29,9 @@ const TeamAnalysisReport: React.FC = () => {
   const [teamAnalysisData, setTeamAnalysisData] = useState<AnalysisData | null>(
     null
   );
+
+  // Determine when to allow the sidebar to shrink based on screen size
+  const sidebarFlexShrink = useBreakpointValue({ base: 1, md: 0 });
 
   useEffect(() => {
     if (analysisData) {
@@ -58,20 +62,23 @@ const TeamAnalysisReport: React.FC = () => {
   }
 
   return (
-    <Flex height="100vh" width="100vw">
+    <Flex height="100vh" overflow="hidden">
       {/* Sidebar */}
-      <Sidebar />
+      <Box
+        width="250px"
+        flexShrink={sidebarFlexShrink} // Sidebar shrinks only on mobile
+      >
+        <Sidebar />
+      </Box>
 
       {/* Main Content */}
       <Box
         p={8}
-        maxW="800px"
-        mx="auto"
+        flexGrow={1} // Allow the main content to take the available space
         bg="gray.50"
         borderRadius="lg"
         boxShadow="lg"
-        flex="1"
-        overflowY="auto"
+        overflowY="auto" // Ensure that the content scrolls if it overflows
       >
         <VStack spacing={4} align="start">
           <Heading

@@ -9,7 +9,12 @@ const Roadmap = () => {
       <Sidebar />
 
       {/* Main Content */}
-      <Box flex="1" p={8} bg="gray.50">
+      <Box
+        flex="1" // Ensures the main content takes the remaining space
+        p={8}
+        bg="gray.50"
+        marginLeft={{ base: '0', md: '250px' }} // Adjust for the sidebar width on larger screens
+      >
         <VStack align="start" spacing={6}>
           <Heading as="h1" size="xl" color="gray.700">
             Roadmap
