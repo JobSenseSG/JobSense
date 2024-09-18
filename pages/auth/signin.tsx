@@ -11,9 +11,8 @@ import {
 import { FaGoogle, FaLinkedin } from 'react-icons/fa'; // Import LinkedIn icon
 
 // Initialize the Supabase client
-const supabaseUrl = 'https://vajvudbmcgzbyivvtlvy.supabase.co';
-const supabaseKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhanZ1ZGJtY2d6YnlpdnZ0bHZ5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMDc1MzE5MCwiZXhwIjoyMDM2MzI5MTkwfQ.sc52sU-m0JUnP9EtnHTPb2tnQ-Gl9us0VTHmRHgnvlw';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -41,7 +40,7 @@ const SignIn: React.FC = () => {
 
   const signInWithLinkedIn = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'linkedin',
+      provider: 'linkedin_oidc',
     });
 
     if (error) {
