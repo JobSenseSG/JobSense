@@ -96,6 +96,7 @@ const DashboardPage = () => {
   const [comparisonResult, setComparisonResult] =
     useState<CertificationComparisonResult | null>(null);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [compareLoading, setCompareLoading] = useState<boolean>(false);
   const {
     isOpen: isResumeModalOpen,
     onOpen: onOpenResumeModal,
@@ -104,7 +105,7 @@ const DashboardPage = () => {
 
   const compatibilityColor = (percentage: number): string => {
     const hue = (percentage / 100) * 120;
-    const lightness = 40; // Reduced lightness to make colors darker
+    const lightness = 40;
     return `hsl(${hue}, 100%, ${lightness}%)`;
   };
 
@@ -113,6 +114,7 @@ const DashboardPage = () => {
   };
 
   const PDFExtractor = async ({ file }: { file: File | null }) => {
+    setLoading(true);
     setLoadingSkills(true);
     if (!file) {
       console.error('No file provided.');
@@ -146,12 +148,15 @@ const DashboardPage = () => {
           fetchSkillsToLearn(extractedText);
         } catch (error) {
           console.error('Error while extracting text from PDF:', error);
+          setLoading(false);
+          setLoadingSkills(false);
         }
       }
     };
 
     reader.readAsArrayBuffer(file);
   };
+
   const handleSelectCertification = (
     value: string,
     setCertification: React.Dispatch<React.SetStateAction<string | null>>
@@ -164,6 +169,8 @@ const DashboardPage = () => {
       console.error('Both certifications must be selected before comparing.');
       return;
     }
+
+    setCompareLoading(true);
 
     try {
       const response = await fetch('/api/compareCertifications', {
@@ -193,25 +200,27 @@ const DashboardPage = () => {
           const [header, separator, ...details] = parsedTable;
 
           setComparisonResult({
-            certification1_demand: details[0][2], // Certification Demand
+            certification1_demand: details[0][2],
             certification2_demand: details[1][2],
-            certification1_pay_range: details[0][3], // Pay Range
+            certification1_pay_range: details[0][3],
             certification2_pay_range: details[1][3],
             certification1_top_jobs: details[0][4]
               .split(',')
-              .map((job: any) => job.trim()), // Top 3 Job Titles
+              .map((job: any) => job.trim()),
             certification2_top_jobs: details[1][4]
               .split(',')
-              .map((job: any) => job.trim()), // Top 3 Job Titles
+              .map((job: any) => job.trim()),
           });
         }
       } else {
         console.error('Missing certification details in the API response.');
       }
 
+      setCompareLoading(false);
       onOpen();
     } catch (error) {
       console.error('Error comparing certifications:', error);
+      setCompareLoading(false);
     }
   };
 
@@ -241,15 +250,15 @@ const DashboardPage = () => {
         setSkillsToLearn3Title(skills[2].title);
         setSkillsToLearn3Points(skills[2].points);
       }
-      setLoadingSkills(false);
+      setLoadingSkills(false); // Stop loading after skills data is fetched
     } catch (error) {
       console.error('Error fetching skills to learn:', error);
-      setLoadingSkills(false);
+      setLoadingSkills(false); // Stop loading in case of an error
     }
   };
 
   const analyzeResume = async (resumeText: string) => {
-    setLoading(true);
+    setLoading(true); // Start loading for Job Qualification
     const latestRoleResponse = await fetch('/api/latestRole', {
       method: 'POST',
       headers: {
@@ -292,7 +301,7 @@ const DashboardPage = () => {
       }
     }
     setJobs(analysis);
-    setLoading(false);
+    setLoading(false); // Stop loading after job data is fetched
   };
 
   const ResumeCard = () => {
@@ -499,8 +508,9 @@ const DashboardPage = () => {
                 color="white"
                 onClick={handleCompare}
                 width="full"
+                isDisabled={compareLoading}
               >
-                Compare
+                {compareLoading ? <Spinner size="sm" /> : 'Compare'}
               </Button>
             </VStack>
           </Box>
@@ -531,12 +541,7 @@ const DashboardPage = () => {
               </Center>
             ) : (
               <TableContainer maxHeight="200px" overflowY="auto">
-                <Table
-                  variant="simple"
-                  size="sm"
-                  width="full"
-                  sx={{ 'th, td': { width: '1/3' } }}
-                >
+                <Table variant="simple" size="sm" width="full">
                   <Thead position="sticky" top="0" bg="white" zIndex="sticky">
                     <Tr>
                       <Th textAlign="left">Company - Job Title</Th>
