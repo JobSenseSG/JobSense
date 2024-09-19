@@ -161,11 +161,10 @@ const DashboardPage = () => {
           setText(extractedText);
           fetchSkillsToLearn(extractedText);
 
-          // Delay the analyzeResume call until the role is updated
           if (selectedRole) {
-            analyzeResume(extractedText, selectedRole); // Call analyzeResume with the selected role
+            analyzeResume(extractedText, selectedRole); 
           } else {
-            analyzeResume(extractedText, null); // If no role is selected, fallback to extracted role
+            analyzeResume(extractedText, null); 
           }
         } catch (error) {
           console.error('Error while extracting text from PDF:', error);
@@ -186,9 +185,9 @@ const DashboardPage = () => {
   };
 
   const handleReturnToUpload = () => {
-    setResumeUploaded(false); // Reset the state
-    setSelectedRole(null); // Reset the selected role
-    setText(''); // Clear extracted resume text
+    setResumeUploaded(false);
+    setSelectedRole(null);
+    setText('');
   };
 
   const handleCompare = async () => {
@@ -251,14 +250,15 @@ const DashboardPage = () => {
     }
   };
 
-  const fetchSkillsToLearn = async (resumeText: string) => {
+  const fetchSkillsToLearn = async (prompt: string) => {
+    setLoadingSkills(true);
     try {
       const response = await fetch('/api/skills-to-learn', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ resumeText }),
+        body: JSON.stringify({ resumeText: prompt }), 
       });
 
       if (!response.ok) {
@@ -277,10 +277,10 @@ const DashboardPage = () => {
         setSkillsToLearn3Title(skills[2].title);
         setSkillsToLearn3Points(skills[2].points);
       }
-      setLoadingSkills(false); // Stop loading after skills data is fetched
     } catch (error) {
       console.error('Error fetching skills to learn:', error);
-      setLoadingSkills(false); // Stop loading in case of an error
+    } finally {
+      setLoadingSkills(false); 
     }
   };
 
@@ -288,12 +288,11 @@ const DashboardPage = () => {
     resumeText: string,
     selectedRole: string | null
   ) => {
-    setLoading(true); // Start loading for Job Qualification
+    setLoading(true); 
     const roleToAnalyze = selectedRole || (await fetchLatestRole(resumeText));
     const relatedRoles = await fetchRelatedRoles(roleToAnalyze);
     const analysis = [];
 
-    // Analyze resume against related roles
     for (let index = 0; index < relatedRoles.length; index++) {
       try {
         const response = await fetch('/api/useGemini', {
@@ -313,17 +312,22 @@ const DashboardPage = () => {
       }
     }
 
-    setJobs(analysis); // Update jobs state with analysis results
-    setLoading(false); // Stop loading after job data is fetched
+    setJobs(analysis); 
+    setLoading(false); 
   };
 
   const handleSubmitRole = () => {
     if (text && selectedRole) {
-      analyzeResume(text, selectedRole); // Trigger analysis when "Submit" button is clicked
+      setLoading(true); 
+      setLoadingSkills(true);
+
+      analyzeResume(text, selectedRole);
+
+      const updatedPrompt = `I want to upskill to get a job as a ${selectedRole}`;
+      fetchSkillsToLearn(updatedPrompt); 
     }
   };
 
-  // Fetch latest role extracted from the resume
   const fetchLatestRole = async (resumeText: string) => {
     const latestRoleResponse = await fetch('/api/latestRole', {
       method: 'POST',
@@ -337,7 +341,6 @@ const DashboardPage = () => {
     return latestRoleResponse.latestRole;
   };
 
-  // Fetch related roles for analysis
   const fetchRelatedRoles = async (role: string) => {
     const relatedRolesResponse = await fetch('/api/roles', {
       method: 'POST',
@@ -371,7 +374,6 @@ const DashboardPage = () => {
   }, [router]);
 
   useEffect(() => {
-    // Mock available roles
     const roles = [
       'Software Engineer',
       'Data Scientist',
@@ -388,7 +390,6 @@ const DashboardPage = () => {
         const response = await fetch('/api/certification');
         const result = await response.json();
 
-        // Extract certification names
         const certNames = result.certifications.map((cert: any) => cert.name);
         setCertifications(certNames);
 
