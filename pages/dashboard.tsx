@@ -33,6 +33,7 @@ import {
 import { FiUpload } from 'react-icons/fi';
 import { MdBuild, MdLock } from 'react-icons/md';
 import SkillCard from '../components/SkillCard';
+import ResumeCard from '../components/ResumeCard';
 import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf';
 import { ArrowForwardIcon, CheckCircleIcon } from '@chakra-ui/icons';
 import 'pdfjs-dist/legacy/build/pdf.worker';
@@ -70,6 +71,8 @@ const DashboardPage = () => {
       fontWeight: 'bold',
     },
   });
+  const [availableRoles, setAvailableRoles] = useState<string[]>([]);
+  const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [latestRole, setLatestRole] = useState('');
   const linkColor = useColorModeValue('black', 'white');
 
@@ -109,6 +112,18 @@ const DashboardPage = () => {
     return `hsl(${hue}, 100%, ${lightness}%)`;
   };
 
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0 && files[0].type === 'application/pdf') {
+      PDFExtractor({ file: files[0] });
+      setResumeUploaded(true);
+    }
+  };
+
+  const handleRoleSelect = (role: string) => {
+    setSelectedRole(role);
+  };
+
   const handleUploadResume = () => {
     setResumeUploaded(true);
   };
@@ -144,8 +159,13 @@ const DashboardPage = () => {
           }
 
           setText(extractedText);
-          analyzeResume(extractedText);
           fetchSkillsToLearn(extractedText);
+
+          if (selectedRole) {
+            analyzeResume(extractedText, selectedRole); 
+          } else {
+            analyzeResume(extractedText, null); 
+          }
         } catch (error) {
           console.error('Error while extracting text from PDF:', error);
           setLoading(false);
@@ -162,6 +182,12 @@ const DashboardPage = () => {
     setCertification: React.Dispatch<React.SetStateAction<string | null>>
   ) => {
     setCertification(value);
+  };
+
+  const handleReturnToUpload = () => {
+    setResumeUploaded(false);
+    setSelectedRole(null);
+    setText('');
   };
 
   const handleCompare = async () => {
@@ -224,14 +250,15 @@ const DashboardPage = () => {
     }
   };
 
-  const fetchSkillsToLearn = async (resumeText: string) => {
+  const fetchSkillsToLearn = async (prompt: string) => {
+    setLoadingSkills(true);
     try {
       const response = await fetch('/api/skills-to-learn', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ resumeText }),
+        body: JSON.stringify({ resumeText: prompt }), 
       });
 
       if (!response.ok) {
@@ -250,35 +277,20 @@ const DashboardPage = () => {
         setSkillsToLearn3Title(skills[2].title);
         setSkillsToLearn3Points(skills[2].points);
       }
-      setLoadingSkills(false); // Stop loading after skills data is fetched
     } catch (error) {
       console.error('Error fetching skills to learn:', error);
-      setLoadingSkills(false); // Stop loading in case of an error
+    } finally {
+      setLoadingSkills(false); 
     }
   };
 
-  const analyzeResume = async (resumeText: string) => {
-    setLoading(true); // Start loading for Job Qualification
-    const latestRoleResponse = await fetch('/api/latestRole', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ resume: resumeText }),
-    }).then((res) => res.json());
-
-    setLatestRole(latestRoleResponse.latestRole);
-
-    const relatedRoles = await fetch('/api/roles', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ title: latestRoleResponse.latestRole }),
-    }).then((res) => {
-      return res.json();
-    });
-
+  const analyzeResume = async (
+    resumeText: string,
+    selectedRole: string | null
+  ) => {
+    setLoading(true); 
+    const roleToAnalyze = selectedRole || (await fetchLatestRole(resumeText));
+    const relatedRoles = await fetchRelatedRoles(roleToAnalyze);
     const analysis = [];
 
     for (let index = 0; index < relatedRoles.length; index++) {
@@ -295,93 +307,50 @@ const DashboardPage = () => {
         });
         const data = await response.json();
         analysis.push(data);
-        console.log('Analysis Result:', data);
       } catch (error) {
         console.error('Error analyzing resume:', error);
       }
     }
-    setJobs(analysis);
-    setLoading(false); // Stop loading after job data is fetched
+
+    setJobs(analysis); 
+    setLoading(false); 
   };
 
-  const ResumeCard = () => {
-    const fileInputRef = useRef<HTMLInputElement>(null);
+  const handleSubmitRole = () => {
+    if (text && selectedRole) {
+      setLoading(true); 
+      setLoadingSkills(true);
 
-    const onFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const files = event.target.files;
-      if (files && files.length > 0 && files[0].type === 'application/pdf') {
-        setUploadedFile(files[0]);
-        PDFExtractor({ file: files[0] });
-        setResumeUploaded(true);
-      }
-    };
+      analyzeResume(text, selectedRole);
 
-    const LabelBox = chakra(Box, {
-      shouldForwardProp: (prop) => !['htmlFor'].includes(prop),
-    });
+      const updatedPrompt = `I want to upskill to get a job as a ${selectedRole}`;
+      fetchSkillsToLearn(updatedPrompt); 
+    }
+  };
 
-    return (
-      <Box
-        p={5}
-        bg={bgColor}
-        boxShadow="md"
-        borderRadius="lg"
-        borderWidth="1px"
-        borderColor={borderColor}
-        textAlign="left"
-        position="relative"
-        onClick={resumeUploaded ? onOpenResumeModal : undefined}
-      >
-        <GradientText mb={2} fontSize="xl">
-          Resume
-        </GradientText>
-        <Text mb={3}>Upload your resume</Text>
-        {!resumeUploaded ? (
-          <>
-            <LabelBox
-              as="label"
-              htmlFor="file-upload"
-              borderWidth={2}
-              borderStyle="dashed"
-              borderColor={borderColor}
-              borderRadius="lg"
-              p={10}
-              transition="all 0.24s ease-in-out"
-              _hover={{
-                bg: useColorModeValue('gray.100', 'gray.600'),
-                borderColor: useColorModeValue('gray.300', 'gray.500'),
-              }}
-              cursor="pointer"
-              textAlign="center"
-              m={0}
-              width="100%"
-              display="block"
-            >
-              <Icon as={FiUpload} w={12} h={12} mb={3} />
-              <Text>Drag & Drop your files here</Text>
-              <input
-                id="file-upload"
-                type="file"
-                multiple
-                style={{ display: 'none' }}
-                ref={fileInputRef}
-                onChange={onFileSelect}
-                accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-              />
-            </LabelBox>
-          </>
-        ) : (
-          <Flex
-            direction={{ base: 'column', md: 'row' }}
-            alignItems="center"
-            justifyContent="flex-start"
-          >
-            <Icon as={CheckCircleIcon} color="green.500" boxSize={6} mr={2} />
-            <Text color="green.500">Resume Uploaded</Text>
-          </Flex>
-        )}
-      </Box>
-    );
+  const fetchLatestRole = async (resumeText: string) => {
+    const latestRoleResponse = await fetch('/api/latestRole', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ resume: resumeText }),
+    }).then((res) => res.json());
+
+    setLatestRole(latestRoleResponse.latestRole);
+    return latestRoleResponse.latestRole;
+  };
+
+  const fetchRelatedRoles = async (role: string) => {
+    const relatedRolesResponse = await fetch('/api/roles', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title: role }),
+    }).then((res) => res.json());
+
+    return relatedRolesResponse;
   };
 
   useEffect(() => {
@@ -405,12 +374,22 @@ const DashboardPage = () => {
   }, [router]);
 
   useEffect(() => {
+    const roles = [
+      'Software Engineer',
+      'Data Scientist',
+      'Product Manager',
+      'DevOps Engineer',
+      'UX Designer',
+    ];
+    setAvailableRoles(roles);
+  }, []);
+
+  useEffect(() => {
     const fetchCertifications = async () => {
       try {
         const response = await fetch('/api/certification');
         const result = await response.json();
 
-        // Extract certification names
         const certNames = result.certifications.map((cert: any) => cert.name);
         setCertifications(certNames);
 
@@ -458,7 +437,15 @@ const DashboardPage = () => {
       </Flex>
       <Grid templateColumns={{ md: '1fr 2fr' }} gap={6}>
         <VStack spacing={4} align="stretch" width="full">
-          <ResumeCard />
+          <ResumeCard
+            resumeUploaded={resumeUploaded}
+            onFileSelect={handleFileSelect}
+            onRoleSelect={setSelectedRole}
+            onSubmitRole={handleSubmitRole} // Submit handler passed to ResumeCard
+            availableRoles={availableRoles}
+            selectedRole={selectedRole} // Pass selected role
+            onReturnToUpload={handleReturnToUpload} // Pass the return-to-upload handler
+          />
           <Box
             p={5}
             bg={bgColor}
@@ -552,22 +539,25 @@ const DashboardPage = () => {
                   <Tbody>
                     {jobs.map((job, index) => (
                       <Tr key={index}>
-                       <Td whiteSpace="normal" wordBreak="break-word">
-  {job?.role?.company ? (
-    <Text textAlign="left" noOfLines={[1, 2, 3]}>
-      {job.role.job_url ? (
-        <Link href={job.role.job_url} isExternal color={linkColor}>
-          {`${job.role.company} - ${job.role.title}`}
-        </Link>
-      ) : (
-        `${job.role.company} - ${job.role.title}`
-      )}
-    </Text>
-  ) : (
-    'N/A'
-  )}
-</Td>
-
+                        <Td whiteSpace="normal" wordBreak="break-word">
+                          {job?.role?.company ? (
+                            <Text textAlign="left" noOfLines={[1, 2, 3]}>
+                              {job.role.job_url ? (
+                                <Link
+                                  href={job.role.job_url}
+                                  isExternal
+                                  color={linkColor}
+                                >
+                                  {`${job.role.company} - ${job.role.title}`}
+                                </Link>
+                              ) : (
+                                `${job.role.company} - ${job.role.title}`
+                              )}
+                            </Text>
+                          ) : (
+                            'N/A'
+                          )}
+                        </Td>
 
                         <Td textAlign="left">
                           <Text
