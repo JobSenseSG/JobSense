@@ -313,7 +313,7 @@ const IndexPage = () => {
         </Text>
         <HStack spacing={4}>
           <Link href="/dashboard" passHref>
-            <Button sx={gradientBorderStyle}>Go to Dashboard</Button>
+            <Button sx={gradientBorderStyle}>Try it NOWWWWWWWWWWWWWWW!!!!!!!!!!!!!!!!!!</Button>
           </Link>
           <Link
             href="https://drive.google.com/file/d/1m8RpzSpwp1y6N-RWU8Nt4-Z4zgzyVlab/view?usp=sharing"
