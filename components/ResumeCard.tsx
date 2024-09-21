@@ -63,7 +63,7 @@ const ResumeCard: React.FC<ResumeCardProps> = ({
       <GradientText mb={2} fontSize="xl">
         Resume
       </GradientText>
-      <Text mb={3}>Upload your resume</Text>
+      <Text mb={3}>Upload your resume and select a role</Text>
       {!resumeUploaded ? (
         <Box
           as="label"
@@ -120,14 +120,13 @@ const ResumeCard: React.FC<ResumeCardProps> = ({
               ))}
             </Select>
 
-            {/* Flex container for button alignment */}
             <Flex gap={4} alignItems="center">
               <Button
                 bg={buttonColor}
                 color={buttonTextColor}
                 _hover={{ bg: useColorModeValue('blue.600', 'blue.400') }}
                 onClick={onSubmitRole}
-                isDisabled={!selectedRole || !resumeUploaded}
+                isDisabled={!selectedRole || !resumeUploaded} // Button only enabled when both role and resume are present
               >
                 Submit
               </Button>
