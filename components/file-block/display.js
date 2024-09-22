@@ -31,11 +31,11 @@ const FileBlockDisplay = ({
 
   const accept = allowedFileExtensions.trim()
     ? allowedFileExtensions
-        .trim()
-        .split(',')
-        .filter((ext) => ext.trim())
-        .map((ext) => `.${ext.trim()}`)
-        .join(',')
+      .trim()
+      .split(',')
+      .filter((ext) => ext.trim())
+      .map((ext) => `.${ext.trim()}`)
+      .join(',')
     : '';
 
   const mounted = useRef(false);
@@ -52,13 +52,8 @@ const FileBlockDisplay = ({
     'quillForms-fileblock'
   );
 
-  const onDropAccepted = (acceptedFiles) => {
-    for (let file of acceptedFiles) {
-      handleFileUpload(file);
-    }
-  };
-
-  const handleFileUpload = (file) => {
+  // Make handleFileUpload an async function
+  const handleFileUpload = async (file) => {
     if (!file) {
       console.error('No file provided.');
       return;
@@ -68,65 +63,78 @@ const FileBlockDisplay = ({
     // Set the path to the PDF worker script
     GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
 
-    const reader = new FileReader();
+    // Use a promise to handle FileReader
+    const arrayBuffer = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
 
-    reader.onload = async (event) => {
-      if (event.target && event.target.result instanceof ArrayBuffer) {
-        const arrayBuffer = event.target.result;
-        const loadingTask = getDocument(new Uint8Array(arrayBuffer));
-
-        try {
-          const pdfDocument = await loadingTask.promise;
-          let extractedText = '';
-
-          for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
-            const page = await pdfDocument.getPage(pageNum);
-            const textContent = await page.getTextContent();
-            const pageText = textContent.items
-              .map((item) => ('str' in item ? item.str : ''))
-              .join(' ');
-            extractedText += pageText + ' ';
-          }
-
-          console.log('Extracted Text from PDF:', extractedText);
-
-          // Get the current stored text and append the new extracted text with separator
-          const currentExtractedText =
-            localStorage.getItem('extractedText') || '';
-          const separator = currentExtractedText
-            ? '\n----------------------------------------------------------------\n'
-            : '';
-          const updatedExtractedText =
-            currentExtractedText + separator + extractedText;
-
-          // Store the updated extracted text into localStorage
-          localStorage.setItem('extractedText', updatedExtractedText);
-          console.log('Updated extracted text saved in localStorage.');
-
-          // After successful file handling
-          addFile(id, file.name, {
-            status: 'success',
-            progress: 100,
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            previewUrlSrc: URL.createObjectURL(file),
-          });
-
-          // Update val to include the uploaded file
-          setVal((prevVal) => {
-            const updatedVal = [...(prevVal || []), file];
-            console.log('Updated val after file upload:', updatedVal);
-            return updatedVal;
-          });
-        } catch (error) {
-          console.error('Error while extracting text from PDF:', error);
+      reader.onload = (event) => {
+        if (event.target && event.target.result instanceof ArrayBuffer) {
+          resolve(event.target.result);
+        } else {
+          reject(new Error('Failed to read file.'));
         }
-      }
-    };
+      };
 
-    reader.readAsArrayBuffer(file);
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(file);
+    });
+
+    try {
+      const loadingTask = getDocument(new Uint8Array(arrayBuffer));
+      const pdfDocument = await loadingTask.promise;
+      let extractedText = '';
+
+      for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
+        const page = await pdfDocument.getPage(pageNum);
+        const textContent = await page.getTextContent();
+        const pageText = textContent.items
+          .map((item) => ('str' in item ? item.str : ''))
+          .join(' ');
+        extractedText += pageText + ' ';
+      }
+
+      console.log('Extracted Text from PDF:', extractedText);
+
+      // Get the current stored text and append the new extracted text with separator
+      const currentExtractedText = localStorage.getItem('extractedText') || '';
+      const separator = currentExtractedText
+        ? '\n----------------------------------------------------------------\n'
+        : '';
+      const updatedExtractedText = currentExtractedText + separator + extractedText;
+
+      // Store the updated extracted text into localStorage
+      localStorage.setItem('extractedText', updatedExtractedText);
+      console.log('Updated extracted text saved in localStorage.');
+
+      // After successful file handling
+      addFile(id, file.name, {
+        status: 'success',
+        progress: 100,
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        previewUrlSrc: URL.createObjectURL(file),
+      });
+
+      // Update val to include the uploaded file
+      setVal((prevVal) => {
+        const updatedVal = [...(prevVal || []), file];
+        console.log('Updated val after file upload:', updatedVal);
+        return updatedVal;
+      });
+    } catch (error) {
+      console.error('Error while extracting text from PDF:', error);
+    }
   };
+
+  // Modify onDropAccepted to process files sequentially
+  const onDropAccepted = async (acceptedFiles) => {
+    for (let file of acceptedFiles) {
+      await handleFileUpload(file);
+    }
+  };
+
+
 
   const onDropRejected = (files) => {
     // Show the first error only
