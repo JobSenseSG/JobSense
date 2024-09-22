@@ -61,84 +61,97 @@ const ResumeCard: React.FC<ResumeCardProps> = ({
       onClick={resumeUploaded ? onResumeClick : undefined}
     >
       <GradientText mb={2} fontSize="xl">
-        Resume
+        Select a Role & Upload Your Resume
       </GradientText>
-      <Text mb={3}>Upload your resume and select a role</Text>
-      {!resumeUploaded ? (
-        <Box
-          as="label"
-          htmlFor="file-upload"
-          display="block"
-          borderWidth="2px"
-          borderStyle="dashed"
-          borderColor={borderColor}
-          borderRadius="lg"
-          p={5}
-          transition="all 0.24s ease-in-out"
-          _hover={{
-            bg: useColorModeValue('gray.100', 'gray.600'),
-            borderColor: useColorModeValue('gray.300', 'gray.500'),
-          }}
-          cursor="pointer"
-          textAlign="center"
-        >
-          <Icon as={FiUpload} w={12} h={12} mb={3} />
-          <Text>Drag & Drop your files here</Text>
-          <input
-            id="file-upload"
-            type="file"
-            style={{ display: 'none' }}
-            ref={fileInputRef}
-            onChange={onFileSelect}
-            accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          />
-        </Box>
-      ) : (
+      <Text mb={3}>Please select the role you're interested in.</Text>
+
+      {/* Role Selection */}
+      <Select
+        placeholder="Select a role"
+        onChange={(e) => onRoleSelect(e.target.value)}
+        mb={4}
+      >
+        {availableRoles.map((role, index) => (
+          <option key={index} value={role}>
+            {role}
+          </option>
+        ))}
+      </Select>
+
+      {selectedRole && (
         <>
-          <Flex direction="column" mb={4}>
-            <Flex
-              direction={{ base: 'column', md: 'row' }}
-              alignItems="center"
-              justifyContent="flex-start"
-            >
-              <Icon as={CheckCircleIcon} color="green.500" boxSize={6} mr={2} />
-              <Text color="green.500">Resume Uploaded</Text>
-            </Flex>
+          <GradientText mb={2} fontSize="xl">
+            Upload Resume
+          </GradientText>
+          <Text mb={3}>Upload your resume to complete the submission.</Text>
 
-            <Text mt={4} mb={2} fontSize="md" fontWeight="semibold">
-              Select a Role You Want to Break Into:
-            </Text>
-            <Select
-              placeholder="Select a role"
-              onChange={(e) => onRoleSelect(e.target.value)}
-              mb={4}
+          {!resumeUploaded ? (
+            <Box
+              as="label"
+              htmlFor="file-upload"
+              display="block"
+              borderWidth="2px"
+              borderStyle="dashed"
+              borderColor={borderColor}
+              borderRadius="lg"
+              p={5}
+              mb={6}
+              transition="all 0.24s ease-in-out"
+              _hover={{
+                bg: useColorModeValue('gray.100', 'gray.600'),
+                borderColor: useColorModeValue('gray.300', 'gray.500'),
+              }}
+              cursor="pointer"
+              textAlign="center"
             >
-              {availableRoles.map((role, index) => (
-                <option key={index} value={role}>
-                  {role}
-                </option>
-              ))}
-            </Select>
-
-            <Flex gap={4} alignItems="center">
-              <Button
-                bg={buttonColor}
-                color={buttonTextColor}
-                _hover={{ bg: useColorModeValue('blue.600', 'blue.400') }}
-                onClick={onSubmitRole}
-                isDisabled={!selectedRole || !resumeUploaded} // Button only enabled when both role and resume are present
+              <Icon as={FiUpload} w={12} h={12} mb={3} />
+              <Text>Drag & Drop your files here</Text>
+              <input
+                id="file-upload"
+                type="file"
+                style={{ display: 'none' }}
+                ref={fileInputRef}
+                onChange={onFileSelect}
+                accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              />
+            </Box>
+          ) : (
+            <Flex direction="column" mb={6}>
+              <Flex
+                direction={{ base: 'column', md: 'row' }}
+                alignItems="center"
+                justifyContent="flex-start"
               >
-                Submit
-              </Button>
-              <Button
-                bg="red.500"
-                color="white"
-                _hover={{ bg: 'red.600' }}
-                onClick={onReturnToUpload}
-              >
-                Return to Upload Resume
-              </Button>
+                <Icon
+                  as={CheckCircleIcon}
+                  color="green.500"
+                  boxSize={6}
+                  mr={2}
+                />
+                <Text color="green.500">Resume Uploaded</Text>
+              </Flex>
             </Flex>
+          )}
+
+          {/* Buttons */}
+          <Flex gap={4} alignItems="center">
+            <Button
+              bg={buttonColor}
+              color={buttonTextColor}
+              _hover={{ bg: useColorModeValue('blue.600', 'blue.400') }}
+              onClick={onSubmitRole}
+              isDisabled={!selectedRole || !resumeUploaded}
+            >
+              Submit
+            </Button>
+            <Button
+              bg="red.500"
+              color="white"
+              _hover={{ bg: 'red.600' }}
+              onClick={onReturnToUpload}
+            >
+              Return to Role Selection
+            </Button>
           </Flex>
         </>
       )}
