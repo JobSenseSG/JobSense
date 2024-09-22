@@ -71,6 +71,7 @@ const DashboardPage = () => {
       fontWeight: 'bold',
     },
   });
+  const [submitted, setSubmitted] = useState<boolean>(false);
   const [availableRoles, setAvailableRoles] = useState<string[]>([]);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [latestRole, setLatestRole] = useState('');
@@ -106,6 +107,9 @@ const DashboardPage = () => {
     onClose: onCloseResumeModal,
   } = useDisclosure();
 
+  const shouldDisplayResults =
+    resumeUploaded && selectedRole && !loading && !loadingSkills;
+
   const compatibilityColor = (percentage: number): string => {
     const hue = (percentage / 100) * 120;
     const lightness = 40;
@@ -115,8 +119,8 @@ const DashboardPage = () => {
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0 && files[0].type === 'application/pdf') {
-      PDFExtractor({ file: files[0] });
-      setResumeUploaded(true);
+      PDFExtractor({ file: files[0] }); 
+      setResumeUploaded(true); 
     }
   };
 
@@ -129,8 +133,6 @@ const DashboardPage = () => {
   };
 
   const PDFExtractor = async ({ file }: { file: File | null }) => {
-    setLoading(true);
-    setLoadingSkills(true);
     if (!file) {
       console.error('No file provided.');
       return;
@@ -158,18 +160,10 @@ const DashboardPage = () => {
             extractedText += pageText + ' ';
           }
 
-          setText(extractedText);
-          fetchSkillsToLearn(extractedText);
+          setText(extractedText); 
 
-          if (selectedRole) {
-            analyzeResume(extractedText, selectedRole); 
-          } else {
-            analyzeResume(extractedText, null); 
-          }
         } catch (error) {
           console.error('Error while extracting text from PDF:', error);
-          setLoading(false);
-          setLoadingSkills(false);
         }
       }
     };
@@ -186,8 +180,18 @@ const DashboardPage = () => {
 
   const handleReturnToUpload = () => {
     setResumeUploaded(false);
-    setSelectedRole(null);
+    setSelectedRole(null); 
     setText('');
+    setLoading(false); 
+    setLoadingSkills(false);
+    setSubmitted(false); 
+    setJobs([]); 
+    setSkillsToLearn1Title('');
+    setSkillsToLearn2Title('');
+    setSkillsToLearn3Title('');
+    setSkillsToLearn1Points('');
+    setSkillsToLearn2Points('');
+    setSkillsToLearn3Points('');
   };
 
   const handleCompare = async () => {
@@ -258,7 +262,7 @@ const DashboardPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ resumeText: prompt }), 
+        body: JSON.stringify({ resumeText: prompt }),
       });
 
       if (!response.ok) {
@@ -280,7 +284,7 @@ const DashboardPage = () => {
     } catch (error) {
       console.error('Error fetching skills to learn:', error);
     } finally {
-      setLoadingSkills(false); 
+      setLoadingSkills(false);
     }
   };
 
@@ -288,7 +292,7 @@ const DashboardPage = () => {
     resumeText: string,
     selectedRole: string | null
   ) => {
-    setLoading(true); 
+    setLoading(true);
     const roleToAnalyze = selectedRole || (await fetchLatestRole(resumeText));
     const relatedRoles = await fetchRelatedRoles(roleToAnalyze);
     const analysis = [];
@@ -312,19 +316,19 @@ const DashboardPage = () => {
       }
     }
 
-    setJobs(analysis); 
-    setLoading(false); 
+    setJobs(analysis);
+    setLoading(false);
   };
 
   const handleSubmitRole = () => {
-    if (text && selectedRole) {
-      setLoading(true); 
+    if (resumeUploaded && selectedRole) {
+      setLoading(true);
       setLoadingSkills(true);
+      setSubmitted(true); 
 
       analyzeResume(text, selectedRole);
-
       const updatedPrompt = `I want to upskill to get a job as a ${selectedRole}`;
-      fetchSkillsToLearn(updatedPrompt); 
+      fetchSkillsToLearn(updatedPrompt);
     }
   };
 
@@ -362,10 +366,8 @@ const DashboardPage = () => {
       }
 
       if (!data.session) {
-        // If no session, redirect to the sign-in page
         router.push('/auth/signin');
       } else {
-        // If session exists, set the user
         setUser(data.session.user);
       }
     };
@@ -429,7 +431,7 @@ const DashboardPage = () => {
             rightIcon={<ArrowForwardIcon />}
             colorScheme="green"
             variant="solid"
-            animation={bounceAnimation} // Add the bounce animation
+            animation={bounceAnimation} 
           >
             Try our B2B feature now!
           </Button>
@@ -440,11 +442,11 @@ const DashboardPage = () => {
           <ResumeCard
             resumeUploaded={resumeUploaded}
             onFileSelect={handleFileSelect}
-            onRoleSelect={setSelectedRole}
-            onSubmitRole={handleSubmitRole} // Submit handler passed to ResumeCard
+            onRoleSelect={handleRoleSelect}
+            onSubmitRole={handleSubmitRole}
             availableRoles={availableRoles}
-            selectedRole={selectedRole} // Pass selected role
-            onReturnToUpload={handleReturnToUpload} // Pass the return-to-upload handler
+            selectedRole={selectedRole}
+            onReturnToUpload={handleReturnToUpload}
           />
           <Box
             p={5}
@@ -518,15 +520,17 @@ const DashboardPage = () => {
               </GradientText>
             </Flex>
             <Text mb={3}>
-              {resumeUploaded
-                ? 'Discover how your qualifications measure up to specific job requirements'
-                : 'Upload your resume to see how your qualifications measure up to specific job requirements'}
+              {resumeUploaded && selectedRole && !submitted
+                ? 'Upload your resume and select a role to analyze job qualifications.'
+                : 'Upload your resume and select a role to analyze job qualifications.'}
             </Text>
+
+            {/* If submitted is false, the spinner/results should not show */}
             {loading ? (
               <Center>
                 <Spinner size="xl" />
               </Center>
-            ) : (
+            ) : submitted && shouldDisplayResults ? (
               <TableContainer maxHeight="200px" overflowY="auto">
                 <Table variant="simple" size="sm" width="full">
                   <Thead position="sticky" top="0" bg="white" zIndex="sticky">
@@ -579,7 +583,7 @@ const DashboardPage = () => {
                   </Tbody>
                 </Table>
               </TableContainer>
-            )}
+            ) : null}
           </Box>
           <VStack spacing={4} align="stretch" width="full">
             <Box
@@ -595,15 +599,18 @@ const DashboardPage = () => {
                 Skills Development
               </GradientText>
               <Text mb={3}>
-                Discover personalized recommendations on how to advance your
-                skillset for career growth
+                {resumeUploaded && selectedRole && !submitted
+                  ? 'Upload your resume and select a role to get skill recommendations.'
+                  : 'Upload your resume and select a role to get skill recommendations.'}
               </Text>
-              {resumeUploaded ? (
+
+              {/* Show spinner or results only after the form has been submitted */}
+              {resumeUploaded && selectedRole && submitted ? (
                 loadingSkills ? (
                   <Center height="100px">
                     <Spinner size="lg" />
                   </Center>
-                ) : (
+                ) : shouldDisplayResults ? (
                   <>
                     <Text mb={3} fontWeight="semibold">
                       Suggested Skills to Learn:
@@ -629,7 +636,7 @@ const DashboardPage = () => {
                       </Box>
                     </Flex>
                   </>
-                )
+                ) : null
               ) : (
                 <Flex
                   direction="column"
@@ -645,7 +652,7 @@ const DashboardPage = () => {
                   <Icon as={MdLock} w={8} h={8} color="gray.500" mb={2} />
                   <Text textAlign="center">Locked Content</Text>
                   <Text textAlign="center" fontSize="sm">
-                    Upload Your Resume to Begin
+                    Upload your resume and select a role to begin.
                   </Text>
                 </Flex>
               )}
