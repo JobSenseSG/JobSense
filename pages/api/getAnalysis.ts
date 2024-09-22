@@ -73,11 +73,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 
         const prompt = `Based on the following company information FOLLOW THE FORMAT:
-        Company Name: ${companyName} endline
-        Team Size: ${teamSize} endline
-        Funding Stage: ${fundingStage} endline
-        Industry Focus: ${industryFocus} endline
+        Company Name: ${companyName},
+        Team Size: ${teamSize},
+        Funding Stage: ${fundingStage},
+        Industry Focus: ${industryFocus},
         Objectives: ${objectives},
+        extractedText: ${extractedText}
 
         ----------
 

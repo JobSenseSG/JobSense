@@ -3,7 +3,7 @@ import '@quillforms/renderer-core/build-style/style.css';
 import { registerCoreBlocks } from '@quillforms/react-renderer-utils';
 import { useRouter } from 'next/router';
 import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../components/file-block';
 
 registerCoreBlocks();
@@ -20,6 +20,11 @@ interface FormSubmitParams {
 }
 
 const EnterpriseSolution = () => {
+  // set up useeffect that sets local storage extracted text to empty string
+  useEffect(() => {
+    localStorage.setItem('extractedText', '');
+  }, []);
+
   const router = useRouter();
   const [extractedText, setExtractedText] = useState<string>('');
 

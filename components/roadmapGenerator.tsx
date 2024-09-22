@@ -13,21 +13,54 @@ interface RoadmapSection {
 }
 
 const RoadmapGenerator: React.FC = () => {
-  const [term, setTerm] = useState('');
-  const [roadmapData, setRoadmapData] = useState('');
+  const [extractedText, setExtractedText] = useState<string>('');
   const [loading, setLoading] = useState(false);
-  const [nodes, setNodes] = useState<Node[]>([]);
-  const [edges, setEdges] = useState<Edge[]>([]);
+  const [flowcharts, setFlowcharts] = useState<
+    { role: string; nodes: Node[]; edges: Edge[] }[]
+  >([]);
 
-  const fetchRoadmap = async (searchTerm: string) => {
-    setLoading(true);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const text = localStorage.getItem('extractedText') || '';
+      setExtractedText(text);
+    }
+  }, []);
+
+  const splitResumes = (text: string): string[] => {
+    return text
+      .split(
+        '\n----------------------------------------------------------------\n'
+      )
+      .filter((resume) => resume.trim() !== '');
+  };
+
+  const fetchRoleForResume = async (resumeText: string): Promise<string> => {
+    try {
+      const response = await fetch('/api/get-higher-role', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resumeText }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || 'Failed to fetch role data');
+      }
+
+      const result = await response.json();
+      return result.roleTitle; // Assuming the API returns { roleTitle: '...' }
+    } catch (error: any) {
+      console.error(error);
+      throw error; // Re-throw the error to be caught in the caller
+    }
+  };
+
+  const fetchRoadmap = async (role: string): Promise<string> => {
     try {
       const response = await fetch('/api/generate-roadmap', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ term: searchTerm }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ term: role }),
       });
 
       if (!response.ok) {
@@ -36,14 +69,10 @@ const RoadmapGenerator: React.FC = () => {
       }
 
       const result = await response.text();
-      setRoadmapData(result);
+      return result;
     } catch (error: any) {
       console.error(error);
-      alert(
-        error.message || 'An error occurred while fetching the roadmap data.'
-      );
-    } finally {
-      setLoading(false);
+      throw error;
     }
   };
 
@@ -89,23 +118,19 @@ const RoadmapGenerator: React.FC = () => {
     return sections;
   };
 
-  useEffect(() => {
-    if (roadmapData) {
-      // Generate flowchart data from parsed roadmap
-      const roadmapSections = parseRoadmapData(roadmapData);
-      generateFlowchart(roadmapSections);
-    }
-  }, [roadmapData]);
-
-  const generateFlowchart = (sections: RoadmapSection[]) => {
+  const generateFlowchart = (
+    sections: RoadmapSection[],
+    role: string,
+    index: number
+  ): { nodes: Node[]; edges: Edge[] } => {
     const newNodes: Node[] = [];
     const newEdges: Edge[] = [];
 
     // Center the root node at the top
     newNodes.push({
-      id: 'root',
+      id: `root-${index}`,
       type: 'input',
-      data: { label: term },
+      data: { label: role },
       position: { x: 0, y: 0 }, // Root node at the center
     });
 
@@ -126,7 +151,7 @@ const RoadmapGenerator: React.FC = () => {
       }
 
       // Add section node centered horizontally
-      const sectionId = `section-${sectionIndex}`;
+      const sectionId = `section-${index}-${sectionIndex}`;
       const parentXPos = 0; // Centered on the X-axis
       const parentYPos = currentYPos; // Current vertical position
 
@@ -141,14 +166,17 @@ const RoadmapGenerator: React.FC = () => {
         }, // Highlight section nodes
       });
 
-      // Add edge from root to section with SOLID styling for vertical line
+      // Add edge from root to section
       newEdges.push({
         id: `edge-root-${sectionId}`,
-        source: sectionIndex === 0 ? 'root' : `section-${sectionIndex - 1}`, // Connect to previous section
+        source:
+          sectionIndex === 0
+            ? `root-${index}`
+            : `section-${index}-${sectionIndex - 1}`,
         target: sectionId,
         type: 'straight',
         animated: false,
-        style: { strokeWidth: 2, stroke: '#0000ff' }, // Solid line for vertical parent connection
+        style: { strokeWidth: 2, stroke: '#0000ff' }, // Solid line
       });
 
       // Mirror child nodes symmetrically around the section node
@@ -156,7 +184,7 @@ const RoadmapGenerator: React.FC = () => {
       const halfItems = Math.ceil(numberOfItems / 2);
 
       section.items.forEach((item, itemIndex) => {
-        const itemId = `item-${sectionIndex}-${itemIndex}`;
+        const itemId = `item-${index}-${sectionIndex}-${itemIndex}`;
 
         // Split into two columns (left and right)
         const isLeft = itemIndex < halfItems;
@@ -164,8 +192,8 @@ const RoadmapGenerator: React.FC = () => {
 
         // Calculate X positions symmetrically around the parent node
         const itemXPos = isLeft
-          ? parentXPos - (mirrorIndex + 1) * itemOffsetX // Left side mirrors right
-          : parentXPos + (mirrorIndex + 1) * itemOffsetX; // Right side mirrors left
+          ? parentXPos - (mirrorIndex + 1) * itemOffsetX // Left side
+          : parentXPos + (mirrorIndex + 1) * itemOffsetX; // Right side
 
         // Align Y positions vertically relative to parent node
         const itemYPos = parentYPos + mirrorIndex * itemOffsetY;
@@ -182,60 +210,76 @@ const RoadmapGenerator: React.FC = () => {
           },
         });
 
-        // Connect each child node to the parent section node with dashed edges
+        // Connect each child node to the parent section node
         newEdges.push({
           id: `edge-${sectionId}-${itemId}`,
           source: sectionId,
           target: itemId,
           type: 'straight',
           animated: true,
-          style: { strokeWidth: 2, stroke: '#0000ff', strokeDasharray: '5 5' }, // Dotted edges for children
+          style: { strokeWidth: 2, stroke: '#0000ff', strokeDasharray: '5 5' },
         });
       });
     });
 
-    setNodes(newNodes);
-    setEdges(newEdges);
+    return { nodes: newNodes, edges: newEdges };
+  };
+
+  const processResumes = async () => {
+    setLoading(true);
+    try {
+      const resumes = splitResumes(extractedText);
+      const newFlowcharts = [];
+
+      for (let i = 0; i < resumes.length; i++) {
+        const resume = resumes[i];
+        // Fetch the higher role for this resume
+        const role = await fetchRoleForResume(resume);
+        // Fetch the roadmap for this role
+        const roadmapData = await fetchRoadmap(role);
+        // Parse the roadmap data
+        const roadmapSections = parseRoadmapData(roadmapData);
+        // Generate nodes and edges
+        const { nodes, edges } = generateFlowchart(roadmapSections, role, i);
+        // Store the role and flowchart data
+        newFlowcharts.push({ role, nodes, edges });
+      }
+
+      setFlowcharts(newFlowcharts);
+    } catch (error) {
+      console.error(error);
+      alert('An error occurred while processing the resumes.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div>
-      <h1>Generate Roadmap</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          fetchRoadmap(term);
-        }}
-      >
-        <input
-          type="text"
-          value={term}
-          onChange={(e) => setTerm(e.target.value)}
-          placeholder="Enter a topic (e.g., Game Development)"
-          required
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? 'Generating...' : 'Generate Roadmap'}
-        </button>
-      </form>
+      <h1>Generate Roadmaps</h1>
+      <button onClick={processResumes} disabled={loading || !extractedText}>
+        {loading ? 'Generating...' : 'Generate Roadmaps'}
+      </button>
 
-      {roadmapData && (
-        <div
-          style={{
-            height: '1000px',
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ReactFlow nodes={nodes} edges={edges} fitView>
-            <MiniMap />
-            <Controls />
-            <Background />
-          </ReactFlow>
-        </div>
-      )}
+      {flowcharts.length > 0 &&
+        flowcharts.map((flowchart, index) => (
+          <div
+            key={index}
+            style={{ height: '1000px', width: '100%', margin: '50px 0' }}
+          >
+            <h2>Roadmap for {flowchart.role}</h2>
+            <ReactFlow
+              nodes={flowchart.nodes}
+              edges={flowchart.edges}
+              fitView
+              style={{ border: '1px solid #ccc' }}
+            >
+              <MiniMap />
+              <Controls />
+              <Background />
+            </ReactFlow>
+          </div>
+        ))}
     </div>
   );
 };
