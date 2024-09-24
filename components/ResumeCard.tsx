@@ -63,7 +63,7 @@ const ResumeCard: React.FC<ResumeCardProps> = ({
       <GradientText mb={2} fontSize="xl">
         Select a Role & Upload Your Resume
       </GradientText>
-      <Text mb={3}>Please select the role you're interested in.</Text>
+      <Text mb={3}>Please select the role you&apos;re interested in.</Text>
 
       {/* Role Selection */}
       <Select
