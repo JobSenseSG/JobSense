@@ -26,8 +26,33 @@ const RoadmapGenerator: React.FC = () => {
   const [flowcharts, setFlowcharts] = useState<Flowchart[]>([]);
   const [activeTab, setActiveTab] = useState<number | null>(null);
 
+  // Save flowcharts and active tab to localStorage when updated
+  useEffect(() => {
+    if (flowcharts.length > 0) {
+      localStorage.setItem('flowcharts', JSON.stringify(flowcharts));
+    }
+  }, [flowcharts]);
+
+  // Save activeTab index to localStorage whenever it changes
+  useEffect(() => {
+    if (activeTab !== null) {
+      localStorage.setItem('activeTab', activeTab.toString());
+    }
+  }, [activeTab]);
+
+  // Load flowcharts and activeTab from localStorage when the component mounts
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      const savedFlowcharts = localStorage.getItem('flowcharts');
+      if (savedFlowcharts) {
+        setFlowcharts(JSON.parse(savedFlowcharts));
+      }
+
+      const savedActiveTab = localStorage.getItem('activeTab');
+      if (savedActiveTab) {
+        setActiveTab(Number(savedActiveTab));
+      }
+
       const text = localStorage.getItem('extractedText') || '';
       setExtractedText(text);
     }

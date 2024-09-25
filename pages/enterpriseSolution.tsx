@@ -5,6 +5,9 @@ import { useRouter } from 'next/router';
 import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
 import { useEffect, useState } from 'react';
 import '../components/file-block';
+import { supabase } from '@/utils/supabaseClient';
+import { User } from '@supabase/supabase-js';
+import { Spinner } from '@chakra-ui/react';
 
 registerCoreBlocks();
 
@@ -20,12 +23,31 @@ interface FormSubmitParams {
 }
 
 const EnterpriseSolution = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error) {
+        console.error('Error getting session:', error);
+      }
+
+      if (!data.session) {
+        router.push('/auth/signin');
+      } else {
+        setUser(data.session.user);
+      }
+    };
+
+    checkUser();
+  }, [router]);
+
   useEffect(() => {
     localStorage.setItem('extractedText', '');
     localStorage.setItem('flowcharts', '[]'); // Initialize flowcharts as an empty array
   }, []);
-
-  const router = useRouter();
 
   const handleSubmit = async (
     data: FormData,
@@ -76,6 +98,18 @@ const EnterpriseSolution = () => {
       setIsSubmitting(false); // Stop submitting state
     }
   };
+
+  if (!user) {
+    return (
+      <Spinner
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
+      />
+    );
+  }
 
   return (
     <div style={{ width: '100%', height: '100vh' }}>
