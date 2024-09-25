@@ -20,51 +20,12 @@ interface FormSubmitParams {
 }
 
 const EnterpriseSolution = () => {
-  // set up useeffect that sets local storage extracted text to empty string
   useEffect(() => {
     localStorage.setItem('extractedText', '');
+    localStorage.setItem('flowcharts', '[]'); // Initialize flowcharts as an empty array
   }, []);
 
   const router = useRouter();
-  const [extractedText, setExtractedText] = useState<string>('');
-
-  const handleFileUpload = (file: File) => {
-    console.log('Uploading file:', file);
-
-    // Set the path to the PDF worker script
-    GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
-
-    const reader = new FileReader();
-
-    reader.onload = async (event) => {
-      if (event.target && event.target.result instanceof ArrayBuffer) {
-        const arrayBuffer = event.target.result;
-        const loadingTask = getDocument(new Uint8Array(arrayBuffer));
-
-        try {
-          const pdfDocument = await loadingTask.promise;
-          let extractedText = '';
-
-          for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
-            const page = await pdfDocument.getPage(pageNum);
-            const textContent = await page.getTextContent();
-            const pageText = textContent.items
-              .map((item: any) => ('str' in item ? item.str : ''))
-              .join(' ');
-            extractedText += pageText + ' ';
-          }
-
-          // Set the extracted text to state
-          setExtractedText(extractedText);
-          console.log('Extracted Text from PDF:', extractedText);
-        } catch (error) {
-          console.error('Error while extracting text from PDF:', error);
-        }
-      }
-    };
-
-    reader.readAsArrayBuffer(file);
-  };
 
   const handleSubmit = async (
     data: FormData,
@@ -72,14 +33,14 @@ const EnterpriseSolution = () => {
   ) => {
     console.log('Form data before submission:', data);
 
-    // Retrieve the extracted text from local storage
+    localStorage.removeItem('flowcharts');
+
     const extractedText = localStorage.getItem('extractedText') || '';
 
-    // Ensure that the extracted text is added to the "ud73bsw" block in the "answers" object
     data.answers['ud73bsw'] = {
       ...data.answers['ud73bsw'],
-      value: extractedText, // Add extracted text from localStorage here
-      isAnswered: !!extractedText, // Mark as answered if text is available
+      value: extractedText,
+      isAnswered: !!extractedText,
     };
 
     console.log('Form data after appending extracted text:', data);
