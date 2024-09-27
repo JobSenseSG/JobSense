@@ -71,6 +71,7 @@ const DashboardPage = () => {
       fontWeight: 'bold',
     },
   });
+  const [isTextReady, setIsTextReady] = useState(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [availableRoles, setAvailableRoles] = useState<string[]>([]);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
@@ -118,9 +119,9 @@ const DashboardPage = () => {
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (files && files.length > 0 && files[0].type === 'application/pdf') {
-      PDFExtractor({ file: files[0] }); 
-      setResumeUploaded(true); 
+    if (files && files.length > 0) {
+      OCRExtractor({ file: files[0] }); // Call OCRExtractor instead of PDFExtractor
+      setResumeUploaded(true);
     }
   };
 
@@ -130,6 +131,42 @@ const DashboardPage = () => {
 
   const handleUploadResume = () => {
     setResumeUploaded(true);
+  };
+
+  const OCRExtractor = async ({ file }: { file: File | null }) => {
+    if (!file) {
+      console.error('No file provided.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('document', file);
+
+    try {
+      const response = await fetch(
+        'https://api.upstage.ai/v1/document-ai/ocr',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: 'Bearer up_nwDMy4WRdzgWukb97wN2yAGcwo33H',
+          },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to extract text from the document.');
+      }
+
+      const data = await response.json();
+      const extractedText = data.text;
+
+      console.log('Extracted Text:', extractedText);
+
+      setText(extractedText);
+    } catch (error) {
+      console.error('Error while extracting text using OCR:', error);
+    }
   };
 
   const PDFExtractor = async ({ file }: { file: File | null }) => {
@@ -160,8 +197,7 @@ const DashboardPage = () => {
             extractedText += pageText + ' ';
           }
 
-          setText(extractedText); 
-
+          setText(extractedText);
         } catch (error) {
           console.error('Error while extracting text from PDF:', error);
         }
@@ -180,12 +216,12 @@ const DashboardPage = () => {
 
   const handleReturnToUpload = () => {
     setResumeUploaded(false);
-    setSelectedRole(null); 
+    setSelectedRole(null);
     setText('');
-    setLoading(false); 
+    setLoading(false);
     setLoadingSkills(false);
-    setSubmitted(false); 
-    setJobs([]); 
+    setSubmitted(false);
+    setJobs([]);
     setSkillsToLearn1Title('');
     setSkillsToLearn2Title('');
     setSkillsToLearn3Title('');
@@ -254,15 +290,41 @@ const DashboardPage = () => {
     }
   };
 
-  const fetchSkillsToLearn = async (prompt: string) => {
+  const fetchSkillsToLearn = async (
+    selectedRole: string,
+    resumeText: string
+  ) => {
     setLoadingSkills(true);
+
+    const updatedPrompt = `
+      I want to upskill to get a job as a ${selectedRole}. Here is my current skill set:
+    
+      ${resumeText}.
+    
+      Based on this skill set and the selected role, identify 3 distinct skills that I do not already know and would benefit from learning. Return each skill in the following format:
+    
+      1. Skill Title
+      -----------------------
+      (Reason for learning the skill roughly 3 sentences long).
+    
+      2. Skill Title
+      -----------------------
+      (Reason for learning the skill roughly 3 sentences long).
+    
+      3. Skill Title
+      -----------------------
+      (Reason for learning the skill roughly 3 sentences long).
+    
+      Ensure there is a clear separation between the title and the reason with a line of dashes. The skill titles should be single-line and the reasons clear and concise.
+    `;
+
     try {
       const response = await fetch('/api/skills-to-learn', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ resumeText: prompt }),
+        body: JSON.stringify({ resumeText: updatedPrompt }), // Pass the updated prompt
       });
 
       if (!response.ok) {
@@ -270,14 +332,14 @@ const DashboardPage = () => {
       }
 
       const skills = await response.json();
+      console.log('Skills Suggested:', skills);
 
+      // Process the skills response and update the state
       if (skills.length >= 3) {
         setSkillsToLearn1Title(skills[0].title);
         setSkillsToLearn1Points(skills[0].points);
-
         setSkillsToLearn2Title(skills[1].title);
         setSkillsToLearn2Points(skills[1].points);
-
         setSkillsToLearn3Title(skills[2].title);
         setSkillsToLearn3Points(skills[2].points);
       }
@@ -292,8 +354,11 @@ const DashboardPage = () => {
     resumeText: string,
     selectedRole: string | null
   ) => {
+    console.log('Resume Text being passed:', resumeText); // Add this to debug
+    console.log('Selected Role:', selectedRole); // Add this to debug
+
     setLoading(true);
-    const roleToAnalyze = selectedRole || (await fetchLatestRole(resumeText));
+    const roleToAnalyze = selectedRole || '';
     const relatedRoles = await fetchRelatedRoles(roleToAnalyze);
     const analysis = [];
 
@@ -305,11 +370,13 @@ const DashboardPage = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            resume: resumeText,
+            resume: resumeText, // Ensure resumeText contains the extracted resume
             role: relatedRoles[index],
           }),
         });
+
         const data = await response.json();
+        console.log('Response from useGemini:', data); // Debug response
         analysis.push(data);
       } catch (error) {
         console.error('Error analyzing resume:', error);
@@ -321,28 +388,16 @@ const DashboardPage = () => {
   };
 
   const handleSubmitRole = () => {
-    if (resumeUploaded && selectedRole) {
+    if (resumeUploaded && selectedRole && text) {
       setLoading(true);
       setLoadingSkills(true);
-      setSubmitted(true); 
+      setSubmitted(true);
 
       analyzeResume(text, selectedRole);
-      const updatedPrompt = `I want to upskill to get a job as a ${selectedRole}`;
-      fetchSkillsToLearn(updatedPrompt);
+      fetchSkillsToLearn(selectedRole, text);
+    } else {
+      console.error('Resume or Role is missing.');
     }
-  };
-
-  const fetchLatestRole = async (resumeText: string) => {
-    const latestRoleResponse = await fetch('/api/latestRole', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ resume: resumeText }),
-    }).then((res) => res.json());
-
-    setLatestRole(latestRoleResponse.latestRole);
-    return latestRoleResponse.latestRole;
   };
 
   const fetchRelatedRoles = async (role: string) => {
@@ -385,6 +440,14 @@ const DashboardPage = () => {
     ];
     setAvailableRoles(roles);
   }, []);
+
+  useEffect(() => {
+    if (isTextReady && text && selectedRole) {
+      analyzeResume(text, selectedRole); // Analyze resume
+      fetchSkillsToLearn(selectedRole, text); // Fetch skills to learn using both `selectedRole` and `text`
+      setIsTextReady(false); // Reset flag
+    }
+  }, [isTextReady, text, selectedRole]);
 
   useEffect(() => {
     const fetchCertifications = async () => {
@@ -431,7 +494,7 @@ const DashboardPage = () => {
             rightIcon={<ArrowForwardIcon />}
             colorScheme="green"
             variant="solid"
-            animation={bounceAnimation} 
+            animation={bounceAnimation}
           >
             Try our B2B feature now!
           </Button>
