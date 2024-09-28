@@ -25,7 +25,7 @@ export default async function handler(
         .from('jobs')
         .select('*')
         .ilike('title', `%${req.body.title}%`)
-        .limit(5);
+        .limit(10);
 
       if (error) {
         throw error;

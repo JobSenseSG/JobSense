@@ -77,6 +77,7 @@ const DashboardPage = () => {
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [latestRole, setLatestRole] = useState('');
   const linkColor = useColorModeValue('black', 'white');
+  const [selectedJobs, setSelectedJobs] = useState<any[]>([]);
 
   const [skillsToLearn1Title, setSkillsToLearn1Title] = useState<string>('');
   const [skillsToLearn1Points, setSkillsToLearn1Points] = useState<string>('');
@@ -391,6 +392,103 @@ const DashboardPage = () => {
     setLoading(false);
   };
 
+  const fetchSkillsToLearnForJob = async (job: any) => {
+    setLoadingSkills(true);
+
+    // Extract the top 3 skills directly from the job's skills_required field
+    const requiredSkills = job.role.skills_required.slice(0, 3);
+
+    try {
+      // Call the API to get additional reasoning for these skills
+      const updatedPrompt = `
+        I want to upskill for the following job:
+        
+        ${job.role.company} - ${job.role.title}.
+      
+        Here are the required skills for this job:
+        
+        ${requiredSkills.join(', ')}.
+        
+        Based on this skill set, provide insights into why these 3 skills are important and valuable for this role. Return in the following format:
+  
+        1. Skill Title
+        -----------------------
+        (Reason for learning the skill roughly 3 sentences long).
+      
+        2. Skill Title
+        -----------------------
+        (Reason for learning the skill roughly 3 sentences long).
+      
+        3. Skill Title
+        -----------------------
+        (Reason for learning the skill roughly 3 sentences long).
+  
+        Ensure that the reasoning is specific to these skills and the role in question.
+      `;
+
+      const response = await fetch('/api/skills-to-learn', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ resumeText: updatedPrompt }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch skills insights.');
+      }
+
+      const skills = await response.json();
+      console.log('Skills Insights Suggested:', skills);
+
+      // Update the titles and points based on the API response
+      if (skills.length >= 3) {
+        setSkillsToLearn1Title(skills[0].title);
+        setSkillsToLearn1Points(skills[0].points);
+
+        setSkillsToLearn2Title(skills[1].title);
+        setSkillsToLearn2Points(skills[1].points);
+
+        setSkillsToLearn3Title(skills[2].title);
+        setSkillsToLearn3Points(skills[2].points);
+      } else {
+        // If not enough skills are returned, clear the fields
+        clearSkills();
+      }
+    } catch (error) {
+      console.error('Error fetching skills insights for the job:', error);
+      clearSkills(); // Clear the fields in case of an error
+    } finally {
+      setLoadingSkills(false);
+    }
+  };
+
+  const clearSkills = () => {
+    setSkillsToLearn1Title('');
+    setSkillsToLearn1Points('');
+    setSkillsToLearn2Title('');
+    setSkillsToLearn2Points('');
+    setSkillsToLearn3Title('');
+    setSkillsToLearn3Points('');
+  };
+
+  const handleJobSelect = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    job: any
+  ) => {
+    if (e.target.checked) {
+      // Clear any previously selected jobs and update with the current one
+      setSelectedJobs([job]);
+
+      // Fetch skills for the selected job
+      fetchSkillsToLearnForJob(job);
+    } else {
+      // If unchecked, clear the selection
+      setSelectedJobs([]);
+      clearSkills();
+    }
+  };
+
   const handleSubmitRole = () => {
     if (resumeUploaded && selectedRole && text) {
       setLoading(true);
@@ -579,29 +677,34 @@ const DashboardPage = () => {
             borderRadius="lg"
             borderWidth="1px"
             borderColor={borderColor}
-            maxHeight="400px"
+            flex={1}
           >
             <Flex justifyContent="space-between" alignItems="center">
               <GradientText mb={2} fontSize="xl">
                 Job Qualification Scale
               </GradientText>
             </Flex>
+
             <Text mb={3}>
               {resumeUploaded && selectedRole && !submitted
                 ? 'Upload your resume and select a role to analyze job qualifications.'
                 : 'Upload your resume and select a role to analyze job qualifications.'}
             </Text>
 
-            {/* If submitted is false, the spinner/results should not show */}
             {loading ? (
               <Center>
                 <Spinner size="xl" />
               </Center>
-            ) : submitted && shouldDisplayResults ? (
-              <TableContainer maxHeight="200px" overflowY="auto">
+            ) : (
+              // Adjusted TableContainer with overflow and maxHeight
+              <TableContainer
+                maxHeight="400px" // This keeps the table height in check
+                overflowY="auto" // Allow vertical scrolling only within the table container
+              >
                 <Table variant="simple" size="sm" width="full">
                   <Thead position="sticky" top="0" bg="white" zIndex="sticky">
                     <Tr>
+                      <Th textAlign="left">Select</Th>
                       <Th textAlign="left">Company - Job Title</Th>
                       <Th textAlign="left">Compatibility</Th>
                       <Th textAlign="left">Skills Required</Th>
@@ -610,48 +713,38 @@ const DashboardPage = () => {
                   <Tbody>
                     {jobs.map((job, index) => (
                       <Tr key={index}>
-                        <Td whiteSpace="normal" wordBreak="break-word">
-                          {job?.role?.company ? (
-                            <Text textAlign="left" noOfLines={[1, 2, 3]}>
-                              {job.role.job_url ? (
-                                <Link
-                                  href={job.role.job_url}
-                                  isExternal
-                                  color={linkColor}
-                                >
-                                  {`${job.role.company} - ${job.role.title}`}
-                                </Link>
-                              ) : (
-                                `${job.role.company} - ${job.role.title}`
-                              )}
-                            </Text>
-                          ) : (
-                            'N/A'
-                          )}
+                        <Td>
+                          <input
+                            type="checkbox"
+                            checked={selectedJobs.includes(job)} // Maintain checkbox state
+                            onChange={(e) => handleJobSelect(e, job)}
+                          />
                         </Td>
-
+                        <Td whiteSpace="normal" wordBreak="break-word">
+                          <Text textAlign="left">
+                            {job.role.company} - {job.role.title}
+                          </Text>
+                        </Td>
                         <Td textAlign="left">
                           <Text
                             color={compatibilityColor(job.compatibility)}
                             fontWeight="bold"
                           >
-                            {job.compatibility
-                              ? `${job.compatibility}%`
-                              : '10%'}
+                            {/* Ensure compatibility is at least 10% */}
+                            {Math.max(job.compatibility || 10, 10)}%
                           </Text>
                         </Td>
                         <Td whiteSpace="normal" wordBreak="break-word">
-                          <Text textAlign="left" noOfLines={[1, 2, 4]}>
-                            {job?.role?.skills_required?.join(', ') || 'N/A'}
-                          </Text>
+                          {job.role.skills_required.join(', ') || 'N/A'}
                         </Td>
                       </Tr>
                     ))}
                   </Tbody>
                 </Table>
               </TableContainer>
-            ) : null}
+            )}
           </Box>
+
           <VStack spacing={4} align="stretch" width="full">
             <Box
               p={5}
@@ -666,62 +759,41 @@ const DashboardPage = () => {
                 Skills Development
               </GradientText>
               <Text mb={3}>
-                {resumeUploaded && selectedRole && !submitted
-                  ? 'Upload your resume and select a role to get skill recommendations.'
-                  : 'Upload your resume and select a role to get skill recommendations.'}
+                {submitted && resumeUploaded && selectedRole
+                  ? ' Suggested Skills to Learn:'
+                  : 'Upload your resume, select a role, and click submit to get skill recommendations.'}
               </Text>
 
-              {/* Show spinner or results only after the form has been submitted */}
-              {resumeUploaded && selectedRole && submitted ? (
-                loadingSkills ? (
-                  <Center height="100px">
-                    <Spinner size="lg" />
-                  </Center>
-                ) : shouldDisplayResults ? (
-                  <>
-                    <Text mb={3} fontWeight="semibold">
-                      Suggested Skills to Learn:
-                    </Text>
-                    <Flex overflowX="auto" py={2}>
-                      <Box minWidth="220px" flex="0 0 auto" mx={2}>
-                        <SkillCard
-                          title={skillsToLearn1Title}
-                          points={skillsToLearn1Points}
-                        />
-                      </Box>
-                      <Box minWidth="220px" flex="0 0 auto" mx={2}>
-                        <SkillCard
-                          title={skillsToLearn2Title}
-                          points={skillsToLearn2Points}
-                        />
-                      </Box>
-                      <Box minWidth="220px" flex="0 0 auto" mx={2}>
-                        <SkillCard
-                          title={skillsToLearn3Title}
-                          points={skillsToLearn3Points}
-                        />
-                      </Box>
-                    </Flex>
-                  </>
-                ) : null
+              {/* Show Spinner when skills are loading */}
+              {loadingSkills ? (
+                <Center height="100px">
+                  <Spinner size="lg" />
+                </Center>
               ) : (
-                <Flex
-                  direction="column"
-                  justify="center"
-                  align="center"
-                  height="100px"
-                  border="1px dashed"
-                  borderColor={borderColor}
-                  borderRadius="md"
-                  p={5}
-                  position="relative"
-                >
-                  <Icon as={MdLock} w={8} h={8} color="gray.500" mb={2} />
-                  <Text textAlign="center">Locked Content</Text>
-                  <Text textAlign="center" fontSize="sm">
-                    Upload your resume and select a role to begin.
-                  </Text>
-                </Flex>
+                submitted &&
+                resumeUploaded &&
+                selectedRole && (
+                  <Flex overflowX="auto" py={2}>
+                    <Box minWidth="220px" flex="0 0 auto" mx={2}>
+                      <SkillCard
+                        title={skillsToLearn1Title}
+                        points={skillsToLearn1Points}
+                      />
+                    </Box>
+                    <Box minWidth="220px" flex="0 0 auto" mx={2}>
+                      <SkillCard
+                        title={skillsToLearn2Title}
+                        points={skillsToLearn2Points}
+                      />
+                    </Box>
+                    <Box minWidth="220px" flex="0 0 auto" mx={2}>
+                      <SkillCard
+                        title={skillsToLearn3Title}
+                        points={skillsToLearn3Points}
+                      />
+                    </Box>
+                  </Flex>
+                )
               )}
             </Box>
           </VStack>
