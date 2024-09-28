@@ -55,12 +55,11 @@ const EnterpriseSolution = () => {
   ) => {
     console.log('Form data before submission:', data);
 
-    localStorage.removeItem('flowcharts');
-
+    // Add extracted text from localStorage to the form data
     const extractedText = localStorage.getItem('extractedText') || '';
 
-    data.answers['ud73bsw'] = {
-      ...data.answers['ud73bsw'],
+    // Appending the extracted text to the form data
+    data.answers['extractedText'] = {
       value: extractedText,
       isAnswered: !!extractedText,
     };
@@ -88,6 +87,7 @@ const EnterpriseSolution = () => {
       completeForm(); // Mark form as completed
       setIsSubmitting(false); // Stop submitting state
 
+      // Navigate to the analysis report page and pass the data as query
       router.push({
         pathname: '/teamAnalysisReport',
         query: { analysisData: JSON.stringify(result) },
