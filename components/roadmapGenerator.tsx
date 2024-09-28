@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ReactFlow, {
-  MiniMap,
-  Controls,
-  Background,
-  Node,
-  Edge,
-} from 'react-flow-renderer';
-import styles from './RoadmapGenerator.module.css';
+import FlowchartDisplay from './FlowchartDisplay';
 
 interface RoadmapSection {
   title: string;
@@ -16,8 +9,7 @@ interface RoadmapSection {
 interface Flowchart {
   employeeName: string;
   role: string;
-  nodes: Node[];
-  edges: Edge[];
+  roadmapSections: RoadmapSection[];
 }
 
 const RoadmapGenerator: React.FC = () => {
@@ -26,21 +18,18 @@ const RoadmapGenerator: React.FC = () => {
   const [flowcharts, setFlowcharts] = useState<Flowchart[]>([]);
   const [activeTab, setActiveTab] = useState<number | null>(null);
 
-  // Save flowcharts and active tab to localStorage when updated
   useEffect(() => {
     if (flowcharts.length > 0) {
       localStorage.setItem('flowcharts', JSON.stringify(flowcharts));
     }
   }, [flowcharts]);
 
-  // Save activeTab index to localStorage whenever it changes
   useEffect(() => {
     if (activeTab !== null) {
       localStorage.setItem('activeTab', activeTab.toString());
     }
   }, [activeTab]);
 
-  // Load flowcharts and activeTab from localStorage when the component mounts
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedFlowcharts = localStorage.getItem('flowcharts');
@@ -172,111 +161,27 @@ const RoadmapGenerator: React.FC = () => {
     return sections;
   };
 
-  const generateFlowchart = (
-    sections: RoadmapSection[],
-    role: string,
-    index: number
-  ): { nodes: Node[]; edges: Edge[] } => {
-    const newNodes: Node[] = [];
-    const newEdges: Edge[] = [];
-
-    newNodes.push({
-      id: `root-${index}`,
-      type: 'input',
-      data: { label: role },
-      position: { x: 500, y: 0 },
-      style: {
-        backgroundColor: '#ffd700',
-        border: '2px solid #000',
-        padding: '10px',
-      },
-    });
-
-    const sectionOffsetY = 40;
-    const itemOffsetX = 200;
-    const itemOffsetY = 100;
-    let currentYPos = 100;
-
-    sections.forEach((section, sectionIndex) => {
-      const sectionStartY = currentYPos;
-      currentYPos += sectionOffsetY + itemOffsetY * section.items.length;
-
-      const sectionId = `section-${index}-${sectionIndex}`;
-      newNodes.push({
-        id: sectionId,
-        data: { label: section.title },
-        position: { x: 500, y: sectionStartY },
-        style: {
-          backgroundColor: '#ffd700',
-          border: '2px solid #000',
-          padding: '10px',
-        },
-      });
-
-      newEdges.push({
-        id: `edge-root-${sectionId}`,
-        source: `root-${index}`,
-        target: sectionId,
-        type: 'smoothstep',
-        animated: true,
-        style: { strokeWidth: 2, stroke: '#007BFF', strokeDasharray: '5 5' },
-      });
-
-      const halfItems = Math.ceil(section.items.length / 2);
-
-      section.items.forEach((item, itemIndex) => {
-        const isLeft = itemIndex < halfItems;
-        const itemXPos = isLeft ? 300 : 700;
-        const itemYPos = sectionStartY + itemOffsetY * (itemIndex % halfItems);
-
-        const itemId = `item-${index}-${sectionIndex}-${itemIndex}`;
-        newNodes.push({
-          id: itemId,
-          data: { label: item },
-          position: { x: itemXPos, y: itemYPos },
-          style: {
-            backgroundColor: '#ffffcc',
-            border: '2px solid #000',
-            borderRadius: '5px',
-            padding: '10px',
-          },
-        });
-
-        newEdges.push({
-          id: `edge-${sectionId}-${itemId}`,
-          source: sectionId,
-          target: itemId,
-          type: 'smoothstep',
-          animated: true,
-          style: { strokeWidth: 2, stroke: '#007BFF', strokeDasharray: '5 5' },
-        });
-      });
-    });
-
-    return { nodes: newNodes, edges: newEdges };
-  };
-
   const processResumes = async () => {
     setLoading(true);
+    setFlowcharts([]);
     try {
       const resumeObjects = splitResumes(extractedText);
-      const newFlowcharts = [];
-
       for (let i = 0; i < resumeObjects.length; i++) {
         const { resume } = resumeObjects[i];
         const employeeName = await fetchEmployeeName(resume);
         const roleTitle = await fetchRoleForResume(resume);
         const roadmapData = await fetchRoadmap(roleTitle);
         const roadmapSections = parseRoadmapData(roadmapData);
-        const { nodes, edges } = generateFlowchart(
-          roadmapSections,
-          roleTitle,
-          i
-        );
-        newFlowcharts.push({ employeeName, role: roleTitle, nodes, edges });
-      }
 
-      setFlowcharts(newFlowcharts);
+        setFlowcharts((prevFlowcharts) => [
+          ...prevFlowcharts,
+          { employeeName, role: roleTitle, roadmapSections },
+        ]);
+
+        if (activeTab === null) {
+          setActiveTab(0);
+        }
+      }
     } catch (error) {
       console.error(error);
       alert('An error occurred while processing the resumes.');
@@ -326,6 +231,7 @@ const RoadmapGenerator: React.FC = () => {
         {loading ? 'Generating...' : 'Generate Roadmaps'}
       </button>
 
+      {/* Render the tab buttons */}
       <div
         style={{
           display: 'flex',
@@ -349,14 +255,17 @@ const RoadmapGenerator: React.FC = () => {
               transition: 'all 0.3s ease',
             }}
           >
-            {flowchart.employeeName} {/* Show employee name */}
+            {flowchart.employeeName}
           </button>
         ))}
       </div>
 
-      {activeTab !== null && flowcharts[activeTab] && (
+      {/* Render all FlowchartDisplay components */}
+      {flowcharts.map((flowchart, index) => (
         <div
+          key={index}
           style={{
+            display: activeTab === index ? 'block' : 'none',
             height: '600px',
             width: '100%',
             marginTop: '20px',
@@ -373,21 +282,14 @@ const RoadmapGenerator: React.FC = () => {
               color: '#333',
             }}
           >
-            Roadmap for {flowcharts[activeTab].role}{' '}
-            {/* Display role in roadmap */}
+            Roadmap for {flowchart.role}
           </h2>
-          <ReactFlow
-            nodes={flowcharts[activeTab].nodes}
-            edges={flowcharts[activeTab].edges}
-            fitView
-            style={{ border: '2px solid #ddd', borderRadius: '8px' }}
-          >
-            <MiniMap />
-            <Controls />
-            <Background />
-          </ReactFlow>
+          <FlowchartDisplay
+            role={flowchart.role}
+            roadmapSections={flowchart.roadmapSections}
+          />
         </div>
-      )}
+      ))}
     </div>
   );
 };
