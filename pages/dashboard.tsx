@@ -120,7 +120,7 @@ const DashboardPage = () => {
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
-      OCRExtractor({ file: files[0] }); // Call OCRExtractor instead of PDFExtractor
+      OCRExtractor({ file: files[0] });
       setResumeUploaded(true);
     }
   };
@@ -141,10 +141,13 @@ const DashboardPage = () => {
 
     const formData = new FormData();
     formData.append('document', file);
+    formData.append('output_formats', JSON.stringify(['html']));
+    formData.append('ocr', 'auto');
+    formData.append('coordinates', 'true');
 
     try {
       const response = await fetch(
-        'https://api.upstage.ai/v1/document-ai/ocr',
+        'https://api.upstage.ai/v1/document-ai/document-parse',
         {
           method: 'POST',
           headers: {
@@ -155,17 +158,19 @@ const DashboardPage = () => {
       );
 
       if (!response.ok) {
-        throw new Error('Failed to extract text from the document.');
+        throw new Error('Failed to parse the document.');
       }
 
       const data = await response.json();
-      const extractedText = data.text;
+      const extractedHtml = data.content.html;
 
-      console.log('Extracted Text:', extractedText);
-
-      setText(extractedText);
+      console.log('Extracted HTML:', extractedHtml);
+      setText(extractedHtml);
     } catch (error) {
-      console.error('Error while extracting text using OCR:', error);
+      console.error(
+        'Error while extracting document using Document Parse:',
+        error
+      );
     }
   };
 
@@ -324,7 +329,7 @@ const DashboardPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ resumeText: updatedPrompt }), // Pass the updated prompt
+        body: JSON.stringify({ resumeText: updatedPrompt }),
       });
 
       if (!response.ok) {
@@ -334,7 +339,6 @@ const DashboardPage = () => {
       const skills = await response.json();
       console.log('Skills Suggested:', skills);
 
-      // Process the skills response and update the state
       if (skills.length >= 3) {
         setSkillsToLearn1Title(skills[0].title);
         setSkillsToLearn1Points(skills[0].points);
@@ -354,8 +358,8 @@ const DashboardPage = () => {
     resumeText: string,
     selectedRole: string | null
   ) => {
-    console.log('Resume Text being passed:', resumeText); // Add this to debug
-    console.log('Selected Role:', selectedRole); // Add this to debug
+    console.log('Resume Text being passed:', resumeText);
+    console.log('Selected Role:', selectedRole);
 
     setLoading(true);
     const roleToAnalyze = selectedRole || '';
@@ -370,13 +374,13 @@ const DashboardPage = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            resume: resumeText, // Ensure resumeText contains the extracted resume
+            resume: resumeText,
             role: relatedRoles[index],
           }),
         });
 
         const data = await response.json();
-        console.log('Response from useGemini:', data); // Debug response
+        console.log('Response from useGemini:', data);
         analysis.push(data);
       } catch (error) {
         console.error('Error analyzing resume:', error);
@@ -443,9 +447,9 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (isTextReady && text && selectedRole) {
-      analyzeResume(text, selectedRole); // Analyze resume
-      fetchSkillsToLearn(selectedRole, text); // Fetch skills to learn using both `selectedRole` and `text`
-      setIsTextReady(false); // Reset flag
+      analyzeResume(text, selectedRole);
+      fetchSkillsToLearn(selectedRole, text);
+      setIsTextReady(false);
     }
   }, [isTextReady, text, selectedRole]);
 

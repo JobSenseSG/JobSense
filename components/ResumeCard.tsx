@@ -68,8 +68,9 @@ const ResumeCard: React.FC<ResumeCardProps> = ({
       {/* Role Selection */}
       <Select
         placeholder="Select a role"
+        width="full"
+        value={selectedRole || ''}
         onChange={(e) => onRoleSelect(e.target.value)}
-        mb={4}
       >
         {availableRoles.map((role, index) => (
           <option key={index} value={role}>
