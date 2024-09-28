@@ -185,7 +185,7 @@ const EnterpriseSolution = () => {
               attributes: {
                 required: true,
                 label:
-                  "What are your enterprise's objectives for the next 2-3 years?",
+                  "What are your project and company's objectives for the next 2-3 years?",
                 placeholder:
                   "Please describe your company's growth targets, expansion plans, or any other major objectives.",
               },
