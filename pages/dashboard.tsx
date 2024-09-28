@@ -721,9 +721,23 @@ const DashboardPage = () => {
                           />
                         </Td>
                         <Td whiteSpace="normal" wordBreak="break-word">
-                          <Text textAlign="left">
-                            {job.role.company} - {job.role.title}
-                          </Text>
+                          {job?.role?.company ? (
+                            <Text textAlign="left" noOfLines={[1, 2, 3]}>
+                              {job.role.job_url ? (
+                                <Link
+                                  href={job.role.job_url}
+                                  isExternal
+                                  color={linkColor}
+                                >
+                                  {`${job.role.company} - ${job.role.title}`}
+                                </Link>
+                              ) : (
+                                `${job.role.company} - ${job.role.title}`
+                              )}
+                            </Text>
+                          ) : (
+                            'N/A'
+                          )}
                         </Td>
                         <Td textAlign="left">
                           <Text
