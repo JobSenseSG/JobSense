@@ -300,58 +300,71 @@ const DashboardPage = () => {
     selectedRole: string,
     resumeText: string
   ) => {
-    setLoadingSkills(true);
+    setLoadingSkills(true); // Show loading spinner during fetch
 
     const updatedPrompt = `
-      I want to upskill to get a job as a ${selectedRole}. Here is my current skill set:
+        I want to upskill to get a job as a ${selectedRole}. Here is my current skill set:
     
-      ${resumeText}.
+        ${resumeText}.
     
-      Based on this skill set and the selected role, identify 3 distinct skills that I do not already know and would benefit from learning. Return each skill in the following format:
+        Based on this skill set and the selected role, identify 3 distinct skills that I do not already know and would benefit from learning. Return each skill in the following format:
     
-      1. Skill Title
-      -----------------------
-      (Reason for learning the skill roughly 3 sentences long).
+        1. Skill Title
+        -----------------------
+        (Reason for learning the skill roughly 3 sentences long).
     
-      2. Skill Title
-      -----------------------
-      (Reason for learning the skill roughly 3 sentences long).
+        2. Skill Title
+        -----------------------
+        (Reason for learning the skill roughly 3 sentences long).
     
-      3. Skill Title
-      -----------------------
-      (Reason for learning the skill roughly 3 sentences long).
+        3. Skill Title
+        -----------------------
+        (Reason for learning the skill roughly 3 sentences long).
     
-      Ensure there is a clear separation between the title and the reason with a line of dashes. The skill titles should be single-line and the reasons clear and concise.
+        Ensure there is a clear separation between the title and the reason with a line of dashes.
     `;
 
-    try {
-      const response = await fetch('/api/skills-to-learn', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ resumeText: updatedPrompt }),
-      });
+    let retryCount = 0;
+    const maxRetries = 3;
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch skills to learn');
+    while (retryCount < maxRetries) {
+      try {
+        const response = await fetch('/api/skills-to-learn', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ resumeText: updatedPrompt }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch skills to learn');
+        }
+
+        const skills = await response.json();
+        console.log('Skills Suggested:', skills);
+
+        if (skills.length >= 3) {
+          setSkillsToLearn1Title(skills[0].title);
+          setSkillsToLearn1Points(skills[0].points);
+          setSkillsToLearn2Title(skills[1].title);
+          setSkillsToLearn2Points(skills[1].points);
+          setSkillsToLearn3Title(skills[2].title);
+          setSkillsToLearn3Points(skills[2].points);
+          break; // Exit retry loop if skills are fetched successfully
+        } else {
+          throw new Error('Insufficient skills returned');
+        }
+      } catch (error) {
+        console.error('Error fetching skills to learn:', error);
+        retryCount += 1;
+        if (retryCount >= maxRetries) {
+          console.error('Max retries reached. Failed to fetch skills.');
+          clearSkills(); // Clear skills in case of failure
+        }
+      } finally {
+        setLoadingSkills(false); // Stop loading once the API call is done
       }
-
-      const skills = await response.json();
-      console.log('Skills Suggested:', skills);
-
-      if (skills.length >= 3) {
-        setSkillsToLearn1Title(skills[0].title);
-        setSkillsToLearn1Points(skills[0].points);
-        setSkillsToLearn2Title(skills[1].title);
-        setSkillsToLearn2Points(skills[1].points);
-        setSkillsToLearn3Title(skills[2].title);
-        setSkillsToLearn3Points(skills[2].points);
-      }
-    } catch (error) {
-      console.error('Error fetching skills to learn:', error);
-    } finally {
-      setLoadingSkills(false);
     }
   };
 
@@ -392,74 +405,88 @@ const DashboardPage = () => {
     setLoading(false);
   };
 
+  // Ensure that there is only one definition of the function
   const fetchSkillsToLearnForJob = async (job: any) => {
     setLoadingSkills(true);
 
     // Extract the top 3 skills directly from the job's skills_required field
     const requiredSkills = job.role.skills_required.slice(0, 3);
 
-    try {
-      // Call the API to get additional reasoning for these skills
-      const updatedPrompt = `
+    const updatedPrompt = `
         I want to upskill for the following job:
-        
+
         ${job.role.company} - ${job.role.title}.
-      
+
         Here are the required skills for this job:
-        
+
         ${requiredSkills.join(', ')}.
-        
+
         Based on this skill set, provide insights into why these 3 skills are important and valuable for this role. Return in the following format:
-  
+
         1. Skill Title
         -----------------------
         (Reason for learning the skill roughly 3 sentences long).
-      
+
         2. Skill Title
         -----------------------
         (Reason for learning the skill roughly 3 sentences long).
-      
+
         3. Skill Title
         -----------------------
         (Reason for learning the skill roughly 3 sentences long).
-  
+
         Ensure that the reasoning is specific to these skills and the role in question.
-      `;
+    `;
 
-      const response = await fetch('/api/skills-to-learn', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ resumeText: updatedPrompt }),
-      });
+    let retryCount = 0;
+    const maxRetries = 3;
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch skills insights.');
+    while (retryCount < maxRetries) {
+      try {
+        const response = await fetch('/api/skills-to-learn', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ resumeText: updatedPrompt }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch skills insights.');
+        }
+
+        const skills = await response.json();
+        console.log('Skills Insights Suggested:', skills);
+
+        // Ensure valid skills data is returned
+        if (skills && skills.length >= 3) {
+          setSkillsToLearn1Title(skills[0].title);
+          setSkillsToLearn1Points(skills[0].points);
+          setSkillsToLearn2Title(skills[1].title);
+          setSkillsToLearn2Points(skills[1].points);
+          setSkillsToLearn3Title(skills[2].title);
+          setSkillsToLearn3Points(skills[2].points);
+          break; // Exit retry loop if skills are fetched successfully
+        } else {
+          throw new Error('Insufficient skills returned');
+        }
+      } catch (error) {
+        retryCount += 1;
+        console.error(
+          `Attempt ${retryCount} - Error fetching skills insights for the job:`,
+          error
+        );
+
+        if (retryCount >= maxRetries) {
+          console.error('Max retries reached. Failed to fetch skills.');
+          clearSkills(); // Clear skills in case of failure
+          break;
+        } else {
+          await new Promise((res) => setTimeout(res, 1000 * retryCount)); // Exponential backoff delay
+        }
+      } finally {
+        setLoadingSkills(false);
       }
-
-      const skills = await response.json();
-      console.log('Skills Insights Suggested:', skills);
-
-      // Update the titles and points based on the API response
-      if (skills.length >= 3) {
-        setSkillsToLearn1Title(skills[0].title);
-        setSkillsToLearn1Points(skills[0].points);
-
-        setSkillsToLearn2Title(skills[1].title);
-        setSkillsToLearn2Points(skills[1].points);
-
-        setSkillsToLearn3Title(skills[2].title);
-        setSkillsToLearn3Points(skills[2].points);
-      } else {
-        // If not enough skills are returned, clear the fields
-        clearSkills();
-      }
-    } catch (error) {
-      console.error('Error fetching skills insights for the job:', error);
-      clearSkills(); // Clear the fields in case of an error
-    } finally {
-      setLoadingSkills(false);
     }
   };
 
@@ -472,31 +499,51 @@ const DashboardPage = () => {
     setSkillsToLearn3Points('');
   };
 
-  const handleJobSelect = (
+  const handleJobSelect = async (
     e: React.ChangeEvent<HTMLInputElement>,
     job: any
   ) => {
     if (e.target.checked) {
-      // Clear any previously selected jobs and update with the current one
+      // Clear previously selected jobs and set the new job
       setSelectedJobs([job]);
 
-      // Fetch skills for the selected job
-      fetchSkillsToLearnForJob(job);
+      try {
+        // Fetch the skills for the selected job and ensure it completes successfully
+        await fetchSkillsToLearnForJob(job);
+      } catch (error) {
+        console.error('Error fetching skills for the job:', error);
+        clearSkills(); // Clear skills if there's an error
+      }
     } else {
-      // If unchecked, clear the selection
+      // If unchecked, clear the selection and clear skills
       setSelectedJobs([]);
       clearSkills();
     }
   };
 
-  const handleSubmitRole = () => {
+  const handleSubmitRole = async () => {
     if (resumeUploaded && selectedRole && text) {
       setLoading(true);
       setLoadingSkills(true);
       setSubmitted(true);
 
-      analyzeResume(text, selectedRole);
-      fetchSkillsToLearn(selectedRole, text);
+      try {
+        // Ensure analyzeResume completes before moving to fetchSkillsToLearn
+        await analyzeResume(text, selectedRole);
+
+        // Ensure fetchSkillsToLearn completes after analyzeResume
+        await fetchSkillsToLearn(selectedRole, text);
+      } catch (error) {
+        console.error(
+          'Error during resume analysis or skills fetching:',
+          error
+        );
+      } finally {
+        // Ensure the loading states are only updated once everything is complete
+
+        setLoading(false); // Disable the overall loading state
+        setLoadingSkills(false); // Disable the skills loading state
+      }
     } else {
       console.error('Resume or Role is missing.');
     }
@@ -678,6 +725,7 @@ const DashboardPage = () => {
             borderWidth="1px"
             borderColor={borderColor}
             flex={1}
+            height="400px" // Fix height for Job Qualification Scale section
           >
             <Flex justifyContent="space-between" alignItems="center">
               <GradientText mb={2} fontSize="xl">
@@ -695,11 +743,31 @@ const DashboardPage = () => {
               <Center>
                 <Spinner size="xl" />
               </Center>
+            ) : !resumeUploaded ? (
+              // Locked Content UI for Job Qualification Scale when no resume is uploaded
+              <Flex
+                direction="column"
+                justify="center"
+                align="center"
+                height="100px"
+                border="1px dashed"
+                borderColor={borderColor}
+                borderRadius="md"
+                p={5}
+                position="relative"
+              >
+                <Icon as={MdLock} w={8} h={8} color="gray.500" mb={2} />
+                <Text textAlign="center">Locked Content</Text>
+                <Text textAlign="center" fontSize="sm">
+                  Upload your resume and select a role to begin.
+                </Text>
+              </Flex>
             ) : (
-              // Adjusted TableContainer with overflow and maxHeight
+              // Show the TableContainer with jobs if resume is uploaded
               <TableContainer
-                maxHeight="400px" // This keeps the table height in check
-                overflowY="auto" // Allow vertical scrolling only within the table container
+                height="100%" // TableContainer takes full height of the Box
+                maxHeight="300px" // Max height to control overflow
+                overflowY="auto" // Allow vertical scrolling for large content
               >
                 <Table variant="simple" size="sm" width="full">
                   <Thead position="sticky" top="0" bg="white" zIndex="sticky">
@@ -774,7 +842,7 @@ const DashboardPage = () => {
               </GradientText>
               <Text mb={3}>
                 {submitted && resumeUploaded && selectedRole
-                  ? ' Suggested Skills to Learn:'
+                  ? 'Suggested Skills to Learn:'
                   : 'Upload your resume, select a role, and click submit to get skill recommendations.'}
               </Text>
 
@@ -783,31 +851,45 @@ const DashboardPage = () => {
                 <Center height="100px">
                   <Spinner size="lg" />
                 </Center>
+              ) : submitted && resumeUploaded && selectedRole ? (
+                <Flex overflowX="auto" py={2}>
+                  <Box minWidth="220px" flex="0 0 auto" mx={2}>
+                    <SkillCard
+                      title={skillsToLearn1Title}
+                      points={skillsToLearn1Points}
+                    />
+                  </Box>
+                  <Box minWidth="220px" flex="0 0 auto" mx={2}>
+                    <SkillCard
+                      title={skillsToLearn2Title}
+                      points={skillsToLearn2Points}
+                    />
+                  </Box>
+                  <Box minWidth="220px" flex="0 0 auto" mx={2}>
+                    <SkillCard
+                      title={skillsToLearn3Title}
+                      points={skillsToLearn3Points}
+                    />
+                  </Box>
+                </Flex>
               ) : (
-                submitted &&
-                resumeUploaded &&
-                selectedRole && (
-                  <Flex overflowX="auto" py={2}>
-                    <Box minWidth="220px" flex="0 0 auto" mx={2}>
-                      <SkillCard
-                        title={skillsToLearn1Title}
-                        points={skillsToLearn1Points}
-                      />
-                    </Box>
-                    <Box minWidth="220px" flex="0 0 auto" mx={2}>
-                      <SkillCard
-                        title={skillsToLearn2Title}
-                        points={skillsToLearn2Points}
-                      />
-                    </Box>
-                    <Box minWidth="220px" flex="0 0 auto" mx={2}>
-                      <SkillCard
-                        title={skillsToLearn3Title}
-                        points={skillsToLearn3Points}
-                      />
-                    </Box>
-                  </Flex>
-                )
+                <Flex
+                  direction="column"
+                  justify="center"
+                  align="center"
+                  height="100px"
+                  border="1px dashed"
+                  borderColor={borderColor}
+                  borderRadius="md"
+                  p={5}
+                  position="relative"
+                >
+                  <Icon as={MdLock} w={8} h={8} color="gray.500" mb={2} />
+                  <Text textAlign="center">Locked Content</Text>
+                  <Text textAlign="center" fontSize="sm">
+                    Upload your resume and select a role to begin.
+                  </Text>
+                </Flex>
               )}
             </Box>
           </VStack>
