@@ -100,6 +100,8 @@ const FlowchartDisplay: React.FC<FlowchartDisplayProps> = ({
         setNodes([...newNodes]);
         setEdges([...newEdges]);
 
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
         const halfItems = Math.ceil(section.items.length / 2);
 
         for (let itemIndex = 0; itemIndex < section.items.length; itemIndex++) {
