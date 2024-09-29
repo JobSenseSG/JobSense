@@ -23,6 +23,7 @@ const FlowchartDisplay: React.FC<FlowchartDisplayProps> = ({
 }) => {
   const [nodes, setNodes] = useState<Node[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
+  const [containerHeight, setContainerHeight] = useState(600); // Default height
 
   const nodesCache = useRef<{ [key: string]: Node[] }>({});
   const edgesCache = useRef<{ [key: string]: Edge[] }>({});
@@ -99,8 +100,6 @@ const FlowchartDisplay: React.FC<FlowchartDisplayProps> = ({
         setNodes([...newNodes]);
         setEdges([...newEdges]);
 
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
         const halfItems = Math.ceil(section.items.length / 2);
 
         for (let itemIndex = 0; itemIndex < section.items.length; itemIndex++) {
@@ -148,6 +147,10 @@ const FlowchartDisplay: React.FC<FlowchartDisplayProps> = ({
 
       nodesCache.current[cacheKey] = newNodes;
       edgesCache.current[cacheKey] = newEdges;
+
+      // Dynamically calculate height based on the number of items and sections
+      const estimatedHeight = currentYPos + 100; // Add some padding
+      setContainerHeight(estimatedHeight);
     };
 
     generateNodesAndEdges();
@@ -158,16 +161,25 @@ const FlowchartDisplay: React.FC<FlowchartDisplayProps> = ({
   }, [role, roadmapSections]);
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      fitView
-      style={{ border: '2px solid #ddd', borderRadius: '8px' }}
-    >
-      <MiniMap />
-      <Controls />
-      <Background />
-    </ReactFlow>
+    <div style={{ width: '100%', height: '600px', overflowY: 'scroll' }}>
+      <div style={{ height: `${containerHeight}px`, width: '100%' }}>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          fitView
+          style={{
+            border: '2px solid #ddd',
+            borderRadius: '8px',
+            height: '100%',
+            width: '100%',
+          }}
+        >
+          <MiniMap />
+          <Controls />
+          <Background />
+        </ReactFlow>
+      </div>
+    </div>
   );
 };
 
