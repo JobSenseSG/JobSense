@@ -17,6 +17,14 @@ import { chakra } from '@chakra-ui/react';
 
 const MotionBox = chakra(motion.div);
 
+const GradientText = chakra(Text, {
+  baseStyle: {
+    bgClip: 'text',
+    bgGradient: 'linear(to-r, #6A00F4, #BF00FF, #FF006E)', 
+    fontWeight: 'bold',
+  },
+});
+
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -59,7 +67,7 @@ const Sidebar: React.FC = () => {
         as="nav"
         width="250px"
         height="100vh"
-        bg="#5A4FCF"
+        bg="#1A1A1A"
         color="white"
         paddingY="4"
         boxShadow="lg"
@@ -82,10 +90,12 @@ const Sidebar: React.FC = () => {
         )}
 
         <Flex justifyContent="center" marginBottom="8">
-          <Text fontSize="2xl" fontWeight="bold">
+          {/* Gradient text for JobSense B2B */}
+          <GradientText fontSize="2xl" textAlign="center">
             JobSense B2B
-          </Text>
+          </GradientText>
         </Flex>
+
         <VStack align="start" spacing="4">
           <Flex
             align="center"

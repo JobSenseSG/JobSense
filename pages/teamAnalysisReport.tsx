@@ -12,9 +12,10 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import Sidebar from '../components/Sidebar'; // Import Sidebar component
+import Sidebar from '../components/Sidebar';
+import { User } from '@supabase/supabase-js';
+import { supabase } from '@/utils/supabaseClient';
 
-// Define TypeScript types for analysis data
 interface AnalysisData {
   companyInformation: string;
   skillsRecommendation: string[];
@@ -24,6 +25,7 @@ interface AnalysisData {
 }
 
 const TeamAnalysisReport: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
   const { analysisData } = router.query;
   const [loading, setLoading] = useState<boolean>(true);
@@ -40,6 +42,24 @@ const TeamAnalysisReport: React.FC = () => {
 
   // Determine when to allow the sidebar to shrink based on screen size
   const sidebarFlexShrink = useBreakpointValue({ base: 1, md: 0 });
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error) {
+        console.error('Error getting session:', error);
+      }
+
+      if (!data.session) {
+        router.push('/auth/signin');
+      } else {
+        setUser(data.session.user);
+      }
+    };
+
+    checkUser();
+  }, [router]);
 
   useEffect(() => {
     // Function to parse and process the overall analysis
@@ -241,6 +261,18 @@ const TeamAnalysisReport: React.FC = () => {
 
     return details;
   };
+
+  if (!user) {
+    return (
+      <Spinner
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
+      />
+    );
+  }
 
   return (
     <Flex height="100vh" overflow="hidden">

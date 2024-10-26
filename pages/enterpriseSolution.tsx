@@ -5,6 +5,9 @@ import { useRouter } from 'next/router';
 import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
 import { useEffect, useState } from 'react';
 import '../components/file-block';
+import { supabase } from '@/utils/supabaseClient';
+import { User } from '@supabase/supabase-js';
+import { Spinner } from '@chakra-ui/react';
 
 registerCoreBlocks();
 
@@ -20,51 +23,31 @@ interface FormSubmitParams {
 }
 
 const EnterpriseSolution = () => {
-  // set up useeffect that sets local storage extracted text to empty string
-  useEffect(() => {
-    localStorage.setItem('extractedText', '');
-  }, []);
-
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
-  const [extractedText, setExtractedText] = useState<string>('');
 
-  const handleFileUpload = (file: File) => {
-    console.log('Uploading file:', file);
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data, error } = await supabase.auth.getSession();
 
-    // Set the path to the PDF worker script
-    GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
+      if (error) {
+        console.error('Error getting session:', error);
+      }
 
-    const reader = new FileReader();
-
-    reader.onload = async (event) => {
-      if (event.target && event.target.result instanceof ArrayBuffer) {
-        const arrayBuffer = event.target.result;
-        const loadingTask = getDocument(new Uint8Array(arrayBuffer));
-
-        try {
-          const pdfDocument = await loadingTask.promise;
-          let extractedText = '';
-
-          for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
-            const page = await pdfDocument.getPage(pageNum);
-            const textContent = await page.getTextContent();
-            const pageText = textContent.items
-              .map((item: any) => ('str' in item ? item.str : ''))
-              .join(' ');
-            extractedText += pageText + ' ';
-          }
-
-          // Set the extracted text to state
-          setExtractedText(extractedText);
-          console.log('Extracted Text from PDF:', extractedText);
-        } catch (error) {
-          console.error('Error while extracting text from PDF:', error);
-        }
+      if (!data.session) {
+        router.push('/auth/signin');
+      } else {
+        setUser(data.session.user);
       }
     };
 
-    reader.readAsArrayBuffer(file);
-  };
+    checkUser();
+  }, [router]);
+
+  useEffect(() => {
+    localStorage.setItem('extractedText', '');
+    localStorage.setItem('flowcharts', '[]'); // Initialize flowcharts as an empty array
+  }, []);
 
   const handleSubmit = async (
     data: FormData,
@@ -72,14 +55,14 @@ const EnterpriseSolution = () => {
   ) => {
     console.log('Form data before submission:', data);
 
-    // Retrieve the extracted text from local storage
+    localStorage.removeItem('flowcharts');
+
     const extractedText = localStorage.getItem('extractedText') || '';
 
-    // Ensure that the extracted text is added to the "ud73bsw" block in the "answers" object
     data.answers['ud73bsw'] = {
       ...data.answers['ud73bsw'],
-      value: extractedText, // Add extracted text from localStorage here
-      isAnswered: !!extractedText, // Mark as answered if text is available
+      value: extractedText,
+      isAnswered: !!extractedText,
     };
 
     console.log('Form data after appending extracted text:', data);
@@ -115,6 +98,18 @@ const EnterpriseSolution = () => {
       setIsSubmitting(false); // Stop submitting state
     }
   };
+
+  if (!user) {
+    return (
+      <Spinner
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
+      />
+    );
+  }
 
   return (
     <div style={{ width: '100%', height: '100vh' }}>
@@ -190,7 +185,7 @@ const EnterpriseSolution = () => {
               attributes: {
                 required: true,
                 label:
-                  "What are your enterprise's objectives for the next 2-3 years?",
+                  "What are your project and company's objectives for the next 2-3 years?",
                 placeholder:
                   "Please describe your company's growth targets, expansion plans, or any other major objectives.",
               },
