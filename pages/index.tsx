@@ -336,7 +336,7 @@ const IndexPage = () => {
           mb={10}
           color="white"
         >
-          Explore JobSense Features
+          Explore JobSense Fanum Features
         </Text>
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
           <Card
