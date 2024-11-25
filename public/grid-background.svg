@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" preserveAspectRatio="none">
+  <rect width="100%" height="100%" fill="#121212" />
+  <path d="M0 0 H500 V500 H0 Z" fill="none" stroke="#333" stroke-width="1" />
+  <g stroke="#444" stroke-width="0.5">
+    <!-- Horizontal grid lines -->
+    <path d="M0 50 H500" />
+    <path d="M0 100 H500" />
+    <path d="M0 150 H500" />
+    <path d="M0 200 H500" />
+    <path d="M0 250 H500" />
+    <path d="M0 300 H500" />
+    <path d="M0 350 H500" />
+    <path d="M0 400 H500" />
+    <path d="M0 450 H500" />
+    <!-- Vertical grid lines -->
+    <path d="M50 0 V500" />
+    <path d="M100 0 V500" />
+    <path d="M150 0 V500" />
+    <path d="M200 0 V500" />
+    <path d="M250 0 V500" />
+    <path d="M300 0 V500" />
+    <path d="M350 0 V500" />
+    <path d="M400 0 V500" />
+    <path d="M450 0 V500" />
+  </g>
+</svg>

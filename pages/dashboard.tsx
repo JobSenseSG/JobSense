@@ -817,7 +817,7 @@ const DashboardPage = () => {
                           </Text>
                         </Td>
                         <Td whiteSpace="normal" wordBreak="break-word">
-                          {job.role.skills_required.join(', ') || 'N/A'}
+                          {job?.role?.skills_required?.join(', ') || 'N/A'}
                         </Td>
                       </Tr>
                     ))}

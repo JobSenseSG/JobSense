@@ -24,6 +24,9 @@ import { HamburgerIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { User, createClient } from '@supabase/supabase-js';
+import Footer from '../components/Footer';
+import InfoBox from '../components/InfoBox';
+import DemoSection from '@/components/DemoSection';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -287,41 +290,73 @@ const IndexPage = () => {
   }
 
   return (
-    <Box bg="#121212" color="white" overflow="hidden">
+    <Box
+      bg="#121212"
+      color="white"
+      overflow="hidden"
+      position="relative"
+      minHeight="100vh"
+      // backgroundImage="url('/grid-background.png')"
+      backgroundSize="80%" // Ensures the image covers the container without repeating
+      backgroundRepeat="no-repeat" // Prevents the image from repeating
+      backgroundPosition="center" // Centers the image within the container
+    >
       <Navbar />
       {/* Top Section */}
       <Box
         p={5}
         display="flex"
-        justifyContent="center"
+        justifyContent="space-between"
         alignItems="center"
-        flexDirection="column"
+        flexDirection={{ base: 'column', md: 'row' }}
         minHeight="100vh"
-        position="relative"
-        textAlign="center"
-        bgGradient="radial(circle, rgba(144, 0, 255, 0.6), transparent 25%)"
-        mt="80px" // Adjusted margin-top to accommodate the fixed navbar
+        textAlign="left"
+        mt="80px"
       >
-        <Text fontSize={{ base: '4xl', md: '6xl' }} fontWeight="bold" mb={4}>
-          <GradientText>Empower Your Career </GradientText>
-          with AI-Driven Insights
-        </Text>
-        <Text fontSize={{ base: 'lg', md: 'xl' }} color="gray.300" mb={8}>
-          JobSense provides personalized job recommendations, real-time market
-          insights, and certification guidance to help you stay competitive in
-          the tech industry.
-        </Text>
-        <HStack spacing={4}>
-          <Link href="/dashboard" passHref>
-            <Button sx={gradientBorderStyle}>Try it now</Button>
-          </Link>
-          <Link
-            href="https://drive.google.com/file/d/1m8RpzSpwp1y6N-RWU8Nt4-Z4zgzyVlab/view?usp=sharing"
-            passHref
-          >
-            <Button sx={gradientBorderStyle}>Watch Video</Button>
-          </Link>
-        </HStack>
+        {/* Left Section */}
+        <Box
+          flex="1"
+          pl={{ base: '5%', md: '10%' }}
+          pr={{ base: '5%', md: '5%' }}
+        >
+          <Text fontSize={{ base: '3xl', md: '5xl' }} fontWeight="bold" mb={4}>
+            <GradientText>Empower Your Career </GradientText>
+            with AI-Driven Insights
+          </Text>
+          <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.300" mb={8}>
+            JobSense provides personalized job recommendations, real-time market
+            insights, and certification guidance to help you stay competitive in
+            the tech industry.
+          </Text>
+          <HStack spacing={4}>
+            <Link href="/dashboard" passHref>
+              <Button sx={gradientBorderStyle}>Try it now</Button>
+            </Link>
+            <Link
+              href="https://drive.google.com/file/d/1m8RpzSpwp1y6N-RWU8Nt4-Z4zgzyVlab/view?usp=sharing"
+              passHref
+            >
+              <Button sx={gradientBorderStyle}>Watch Video</Button>
+            </Link>
+          </HStack>
+        </Box>
+
+        {/* Right Section */}
+        <Box
+          display="grid"
+          gridTemplateColumns={{ base: '1fr', md: '1fr 1fr' }}
+          gap={6}
+          justifyContent="center"
+          alignItems="center"
+          px={4}
+        >
+          <InfoBox icon="📊" text="Personalized Job Recommendations" />
+          <InfoBox icon="📈" text="Real-Time Market Insights" />
+          <InfoBox icon="🎓" text="Certification Guidance" />
+          <InfoBox icon="🤖" text="AI-Trained Recommendations" />
+          <InfoBox icon="✅" text="Match Score for Job Listings" />
+          <InfoBox icon="📚" text="Comprehensive Data Collection" />
+        </Box>
       </Box>
 
       {/* Divider Line */}
@@ -375,64 +410,9 @@ const IndexPage = () => {
       {/* Divider Line */}
       <Box bg="gray.600" height="1px" width="80%" mx="auto" my={20} />
 
-      {/* Dashboard Preview Section */}
-      <Box mt={20} p={10} width="100%" zIndex="2">
-        <Text
-          fontSize={{ base: '2xl', md: '3xl' }}
-          fontWeight="bold"
-          textAlign="center"
-          mb={10}
-          color="white"
-        >
-          See JobSense in Action
-        </Text>
-
-        <Flex
-          flexDirection={{ base: 'column', md: 'row' }}
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          {/* Text Section */}
-          <VStack
-            align="flex-start"
-            spacing={4}
-            flex="1"
-            pr={{ md: 16 }}
-            textAlign={{ base: 'center', md: 'left' }}
-          >
-            <GradientText fontSize="2xl" fontWeight="bold">
-              Experience AI-Powered Career Insights in Real-Time
-            </GradientText>
-            <Text color="gray.300" fontSize="xl">
-              <span style={{ color: '#A020F0', fontWeight: 'bold' }}>• </span>
-              Upload your resume and instantly receive personalized job
-              recommendations based on your unique skills and experience.
-            </Text>
-            <Text color="gray.300" fontSize="xl">
-              <span style={{ color: '#A020F0', fontWeight: 'bold' }}>• </span>
-              Compare your certifications with current market demands and
-              identify areas for improvement.
-            </Text>
-            <Text color="gray.300" fontSize="xl">
-              <span style={{ color: '#A020F0', fontWeight: 'bold' }}>• </span>
-              Track your job qualification scale to discover how well you meet
-              the requirements of your target jobs.
-            </Text>
-          </VStack>
-
-          {/* Image Section */}
-          <Box flex="1" mt={{ base: 16, md: 0 }}>
-            <Image
-              src="/preview.png" // replace with your actual image path
-              alt="Dashboard Preview"
-              borderRadius="lg"
-              shadow="0px 4px 20px rgba(144, 0, 255, 0.6)"
-              maxWidth="100%"
-              mx="auto"
-            />
-          </Box>
-        </Flex>
-      </Box>
+      <DemoSection />
+      {/* Footer Section */}
+      <Footer />
     </Box>
   );
 };
