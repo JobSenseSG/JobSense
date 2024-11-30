@@ -27,6 +27,8 @@ import { User, createClient } from '@supabase/supabase-js';
 import Footer from '../components/Footer';
 import InfoBox from '../components/InfoBox';
 import DemoSection from '@/components/DemoSection';
+import TopGrid from '@/components/TopThreeDGridBackground';
+import BottomGrid from '@/components/BottomThreeDGridBackground';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -42,20 +44,24 @@ const GradientText = chakra(Text, {
 });
 
 const gradientBorderStyle = {
-  border: '2px solid',
-  borderImageSlice: 1,
-  borderImageSource: 'linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)',
-  borderRadius: '12px',
-  backgroundColor: 'transparent',
-  color: 'white',
+  position: 'relative',
+  display: 'inline-block',
   padding: '0.5rem 1rem',
+  color: 'white',
   fontWeight: 'bold',
+  textAlign: 'center',
+  textDecoration: 'none',
+  borderRadius: '25px', // Set the border radius here
+  backgroundImage: 'linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)', // Gradient background
+  backgroundClip: 'padding-box',
+  border: '2px solid transparent',
+  boxShadow: '0px 0px 15px rgba(106, 0, 244, 0.7)', // Optional for a glowing effect
   transition: 'all 0.3s ease-in-out',
   _hover: {
-    backgroundColor: 'linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)',
     color: 'white',
-    borderRadius: '12px',
-    boxShadow: '0px 0px 15px rgba(106, 0, 244, 0.7)',
+    background: 'linear-gradient(to right, #6A00F4, #BF00FF, #FF006E)',
+    borderRadius: '25px', // Maintain the curve on hover
+    boxShadow: '0px 0px 20px rgba(106, 0, 244, 0.9)',
   },
 };
 
@@ -296,69 +302,81 @@ const IndexPage = () => {
       overflow="hidden"
       position="relative"
       minHeight="100vh"
-      // backgroundImage="url('/grid-background.png')"
       backgroundSize="80%" // Ensures the image covers the container without repeating
       backgroundRepeat="no-repeat" // Prevents the image from repeating
       backgroundPosition="center" // Centers the image within the container
     >
+      <TopGrid />
+      <BottomGrid />
       <Navbar />
       {/* Top Section */}
       <Box
-        p={5}
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        flexDirection={{ base: 'column', md: 'row' }}
-        minHeight="100vh"
-        textAlign="left"
-        mt="80px"
+        position="relative"
+        _before={{
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 40,
+          right: 40,
+          bottom: 0,
+          backgroundImage: `radial-gradient(circle, #2a2a2a 1px, transparent 1px)`,
+          backgroundSize: '20px 20px',
+          maskImage: `linear-gradient(to bottom, black, transparent)`, // Creates the fading effect
+          WebkitMaskImage: `linear-gradient(to bottom, black, transparent)`, // For WebKit browsers
+          zIndex: -1,
+          pointerEvents: 'none',
+        }}
+        zIndex={1}
       >
-        {/* Left Section */}
         <Box
-          flex="1"
-          pl={{ base: '5%', md: '10%' }}
-          pr={{ base: '5%', md: '5%' }}
-        >
-          <Text fontSize={{ base: '3xl', md: '5xl' }} fontWeight="bold" mb={4}>
-            <GradientText>Empower Your Career </GradientText>
-            with AI-Driven Insights
-          </Text>
-          <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.300" mb={8}>
-            JobSense provides personalized job recommendations, real-time market
-            insights, and certification guidance to help you stay competitive in
-            the tech industry.
-          </Text>
-          <HStack spacing={4}>
-            <Link href="/dashboard" passHref>
-              <Button sx={gradientBorderStyle}>Try it now</Button>
-            </Link>
-            <Link
-              href="https://drive.google.com/file/d/1m8RpzSpwp1y6N-RWU8Nt4-Z4zgzyVlab/view?usp=sharing"
-              passHref
-            >
-              <Button sx={gradientBorderStyle}>Watch Video</Button>
-            </Link>
-          </HStack>
-        </Box>
-
-        {/* Right Section */}
-        <Box
-          display="grid"
-          gridTemplateColumns={{ base: '1fr', md: '1fr 1fr' }}
-          gap={6}
-          justifyContent="center"
+          p={5}
+          display="flex"
+          justifyContent="space-between"
           alignItems="center"
-          px={4}
+          flexDirection={{ base: 'column', md: 'row' }}
+          minHeight="100vh"
+          textAlign="left"
         >
-          <InfoBox icon="📊" text="Personalized Job Recommendations" />
-          <InfoBox icon="📈" text="Real-Time Market Insights" />
-          <InfoBox icon="🎓" text="Certification Guidance" />
-          <InfoBox icon="🤖" text="AI-Trained Recommendations" />
-          <InfoBox icon="✅" text="Match Score for Job Listings" />
-          <InfoBox icon="📚" text="Comprehensive Data Collection" />
+          {/* Left Section */}
+          <Box flex="1" ml={{ base: 0, md: 100 }} mr={{ base: 0, md: -20 }}>
+            <Text
+              fontSize={{ base: '3xl', md: '5xl' }}
+              fontWeight="bold"
+              mb={4}
+            >
+              <GradientText>Empower Your Career </GradientText>
+              with AI-Driven Insights
+            </Text>
+            <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.300" mb={8}>
+              JobSense provides personalized job recommendations, real-time
+              market insights, and certification guidance to help you stay
+              competitive in the tech industry.
+            </Text>
+            <HStack spacing={4}>
+              <Link href="/dashboard" passHref>
+                <Button sx={gradientBorderStyle}>Try it now</Button>
+              </Link>
+            </HStack>
+          </Box>
+
+          {/* Right Section */}
+          <Box
+            display="grid"
+            gridTemplateColumns={{ base: '1fr', md: '1fr 1fr' }}
+            gap={6}
+            justifyContent="center"
+            alignItems="center"
+            px={40}
+          >
+            <InfoBox icon="📊" text="Personalized Job Recommendations" />
+            <InfoBox icon="📈" text="Real-Time Market Insights" />
+            <InfoBox icon="🎓" text="Certification Guidance" />
+            <InfoBox icon="🤖" text="AI-Trained Recommendations" />
+            <InfoBox icon="✅" text="Match Score for Job Listings" />
+            <InfoBox icon="📚" text="Comprehensive Data Collection" />
+          </Box>
         </Box>
       </Box>
-
       {/* Divider Line */}
       <Box bg="gray.600" height="1px" width="80%" mx="auto" my={20} />
 
