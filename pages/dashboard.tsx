@@ -152,7 +152,7 @@ const DashboardPage = () => {
         {
           method: 'POST',
           headers: {
-            Authorization: 'Bearer up_nwDMy4WRdzgWukb97wN2yAGcwo33H',
+            Authorization: 'Bearer up_q4SzgaQKW3DyDNb8U7p75W33XsWLd',
           },
           body: formData,
         }

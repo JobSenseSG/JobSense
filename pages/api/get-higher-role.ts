@@ -1,22 +1,24 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from 'openai';
 
-const apiKey = 'up_nwDMy4WRdzgWukb97wN2yAGcwo33H'; // Replace with your actual API key
+const apiKey = 'up_q4SzgaQKW3DyDNb8U7p75W33XsWLd'; // Replace with your actual API key
 const openai = new OpenAI({
   apiKey: apiKey,
   baseURL: 'https://api.upstage.ai/v1/solar',
 });
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method === 'POST') {
     const { resumeText } = req.body;
 
-  const prompt = `Based on the person's current role and experience as described in their resume below, return ONLY the next logical higher role with a maximum of 4 words.  Do not include any additional text, explanations, or formatting. Only return the role title.
+    const prompt = `Based on the person's current role and experience as described in their resume below, return ONLY the next logical higher role with a maximum of 4 words.  Do not include any additional text, explanations, or formatting. Only return the role title.
 
 Here is their current resume:
 
 ${resumeText}`;
-
 
     try {
       const chatCompletion = await openai.chat.completions.create({
