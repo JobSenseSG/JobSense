@@ -13,29 +13,29 @@ import {
 
 const demoContent = [
   {
-    title: 'Talk to your codebase directly',
+    title: 'Upload Your Resume for AI-Generated Insights',
     description:
-      'Interact with your codebase seamlessly using advanced AI features.',
+      'Discover how AI analyzes your resume to match you with the best job qualifications and skills development recommendations.',
     media: {
-      src: '/videos/demo-preview-1.mp4', // Replace with the correct video path
+      src: '/videos/resume_upload.mp4', // Replace with the correct video path
     },
   },
   {
-    title: 'No more tedious changes',
+    title: 'Compare Certifications for Career Growth',
     description:
-      'Automate repetitive code changes and save hours of manual effort.',
+      'Use AI to evaluate certifications and compare them against market demands for optimal career progression.',
     media: {
-      src: '/videos/demo-preview-2.mp4', // Replace with the correct video path
+      src: '/videos/compare_certifications.mp4', // Replace with the correct video path
     },
   },
-  {
-    title: 'Always have up-to-date information',
-    description:
-      'Keep your workflows current with real-time insights and updates.',
-    media: {
-      src: '/videos/demo-preview-1.mp4', // Replace with the correct video path
-    },
-  },
+  // {
+  //   title: 'Tailored Roadmap for Skills Development',
+  //   description:
+  //     'Visualize your personalized roadmap with AI-driven recommendations for targeted skills enhancement.',
+  //   media: {
+  //     src: '/videos/demo-preview-1.mp4', // Replace with the correct video path
+  //   },
+  // },
 ];
 
 const DemoSection = () => {

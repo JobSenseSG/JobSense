@@ -302,12 +302,17 @@ const IndexPage = () => {
       overflow="hidden"
       position="relative"
       minHeight="100vh"
+      pt={{ base: '300px', md: '0px' }}
       backgroundSize="80%" // Ensures the image covers the container without repeating
       backgroundRepeat="no-repeat" // Prevents the image from repeating
       backgroundPosition="center" // Centers the image within the container
     >
-      <TopGrid />
-      <BottomGrid />
+      <Box display={{ base: 'none', lg: 'block' }}>
+        <TopGrid />
+      </Box>
+      <Box display={{ base: 'none', lg: 'block' }}>
+        <BottomGrid />
+      </Box>
       <Navbar />
       {/* Top Section */}
       <Box
@@ -329,44 +334,68 @@ const IndexPage = () => {
         zIndex={1}
       >
         <Box
-          p={5}
+          p={{ base: 4, md: 8 }}
           display="flex"
-          justifyContent="space-between"
-          alignItems="center"
           flexDirection={{ base: 'column', md: 'row' }}
+          justifyContent="center"
+          alignItems="center"
           minHeight="100vh"
-          textAlign="left"
+          textAlign={{ base: 'center', md: 'left' }}
+          gap={{ base: 6, md: 0 }} // Add consistent gap
         >
           {/* Left Section */}
-          <Box flex="1" ml={{ base: 0, md: 100 }} mr={{ base: 0, md: -20 }}>
+          <Box
+            flex="1"
+            pl={{ base: 4, md: 8, lg: 16 }}
+            pr={{ base: 4, md: 8, lg: 16 }}
+            maxWidth={{ base: '100%', md: '90%', lg: '600px', xl: '700px' }}
+            textAlign={{ base: 'center', lg: 'left' }}
+          >
             <Text
-              fontSize={{ base: '3xl', md: '5xl' }}
+              fontSize={{ base: '2xl', md: '3xl', lg: '4xl', xl: '5xl' }}
               fontWeight="bold"
-              mb={4}
+              lineHeight={{ base: '1.3', md: '1.5', lg: '1.6' }}
+              mb={4} // Reduced margin
             >
               <GradientText>Empower Your Career </GradientText>
               with AI-Driven Insights
             </Text>
-            <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.300" mb={8}>
+            <Text
+              fontSize={{ base: 'sm', md: 'md', lg: 'lg' }}
+              lineHeight={{ base: '1.5', md: '1.7', lg: '2' }}
+              color="gray.300"
+              mb={4} // Reduced margin
+            >
               JobSense provides personalized job recommendations, real-time
               market insights, and certification guidance to help you stay
               competitive in the tech industry.
             </Text>
-            <HStack spacing={4}>
+            <HStack
+              spacing={4}
+              justifyContent={{ base: 'center', lg: 'flex-start' }}
+            >
               <Link href="/dashboard" passHref>
-                <Button sx={gradientBorderStyle}>Try it now</Button>
+                <Button
+                  sx={gradientBorderStyle}
+                  size={{ base: 'sm', md: 'md' }}
+                >
+                  Try it now
+                </Button>
               </Link>
             </HStack>
           </Box>
-
           {/* Right Section */}
           <Box
-            display="grid"
-            gridTemplateColumns={{ base: '1fr', md: '1fr 1fr' }}
+            display={{ base: 'none', lg: 'grid' }}
+            gridTemplateColumns={{
+              base: '1fr',
+              md: '1fr 1fr',
+              lg: '1fr 1fr',
+            }}
             gap={6}
             justifyContent="center"
             alignItems="center"
-            px={40}
+            px={{ base: 4, md: 4 }}
           >
             <InfoBox icon="📊" text="Personalized Job Recommendations" />
             <InfoBox icon="📈" text="Real-Time Market Insights" />
