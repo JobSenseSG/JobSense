@@ -8,13 +8,16 @@ import {
   Flex,
   Divider,
 } from '@chakra-ui/react';
-import { FaGoogle, FaLinkedin } from 'react-icons/fa'; // Import LinkedIn icon
+import { FaGoogle, FaLinkedin } from 'react-icons/fa';
 
 // Initialize the Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Get the redirect URL from the environment variable
+const redirectUrl = process.env.NEXT_PUBLIC_REDIRECT_URL!;
 
 const GradientText = chakra(Text, {
   baseStyle: {
@@ -29,6 +32,9 @@ const SignIn: React.FC = () => {
   const signInWithGoogle = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
+      options: {
+        redirectTo: redirectUrl,
+      },
     });
 
     if (error) {
@@ -41,6 +47,9 @@ const SignIn: React.FC = () => {
   const signInWithLinkedIn = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'linkedin_oidc',
+      options: {
+        redirectTo: redirectUrl,
+      },
     });
 
     if (error) {
@@ -54,7 +63,7 @@ const SignIn: React.FC = () => {
     <Flex
       height="100vh"
       width="100vw"
-      bgGradient="linear(to-r, #121212, #6A00F4)" // Gradient for background
+      bgGradient="linear(to-r, #121212, #6A00F4)"
       color="white"
       alignItems="center"
       justifyContent="center"
@@ -72,14 +81,14 @@ const SignIn: React.FC = () => {
         backgroundSize="cover"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
-        opacity="0.3" // Adds transparency to the background image
+        opacity="0.3"
       />
 
       {/* Form Box */}
       <Box
         zIndex="2"
         p={8}
-        bg="rgba(26, 26, 26, 0.85)" // Semi-transparent background
+        bg="rgba(26, 26, 26, 0.85)"
         borderRadius="lg"
         boxShadow="xl"
         width="100%"
