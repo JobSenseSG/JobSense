@@ -132,7 +132,16 @@ const DemoSection = () => {
         </Text>
         <Flex flexDirection={{ base: 'column', md: 'row' }} gap={6}>
           {/* Accordion for Tabs */}
-          <Box flex="1" bg="#1A1A1A" p={4} borderRadius="md" shadow="md">
+          <Box
+            flex="1"
+            bg="#1A1A1A"
+            p={4}
+            borderRadius="md"
+            shadow="md"
+            position="relative"
+            zIndex="10" 
+          >
+            {' '}
             <Accordion allowToggle index={activeIndex}>
               {demoContent.map((demo, index) => (
                 <AccordionItem
