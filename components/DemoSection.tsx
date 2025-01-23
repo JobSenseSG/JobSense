@@ -17,7 +17,7 @@ const demoContent = [
     description:
       'Discover how AI analyzes your resume to match you with the best job qualifications and skills development recommendations.',
     media: {
-      src: '/videos/resume_upload.mp4', // Replace with the correct video path
+      src: '/videos/resume_upload.mp4',
     },
   },
   {
@@ -25,17 +25,17 @@ const demoContent = [
     description:
       'Use AI to evaluate certifications and compare them against market demands for optimal career progression.',
     media: {
-      src: '/videos/compare_certifications.mp4', // Replace with the correct video path
+      src: '/videos/compare_certifications.mp4',
     },
   },
-  // {
-  //   title: 'Tailored Roadmap for Skills Development',
-  //   description:
-  //     'Visualize your personalized roadmap with AI-driven recommendations for targeted skills enhancement.',
-  //   media: {
-  //     src: '/videos/demo-preview-1.mp4', // Replace with the correct video path
-  //   },
-  // },
+  {
+    title: 'Empowering Enterprises with AI-Driven Workforce Solutions',
+    description:
+      'Explore how our AI-powered platform helps businesses analyze team skills, identify gaps, and create tailored upskilling roadmaps to drive organizational growth and employee success.',
+    media: {
+      src: '/videos/b2b_form.mp4',
+    },
+  },
 ];
 
 const DemoSection = () => {
@@ -139,7 +139,7 @@ const DemoSection = () => {
             borderRadius="md"
             shadow="md"
             position="relative"
-            zIndex="10" 
+            zIndex="10"
           >
             {' '}
             <Accordion allowToggle index={activeIndex}>
