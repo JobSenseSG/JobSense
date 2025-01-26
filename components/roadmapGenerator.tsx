@@ -19,6 +19,11 @@ const RoadmapGenerator: React.FC = () => {
   const [activeTab, setActiveTab] = useState<number | null>(null);
 
   useEffect(() => {
+    const text = localStorage.getItem('extractedText') || '';
+    console.log('Extracted Text:', text);
+    setExtractedText(text);
+  }, []);
+  useEffect(() => {
     if (flowcharts.length > 0) {
       localStorage.setItem('flowcharts', JSON.stringify(flowcharts));
     }
@@ -137,25 +142,26 @@ const RoadmapGenerator: React.FC = () => {
         line.startsWith('@ROADMAPSLUG') ||
         line.startsWith('# ')
       ) {
-        return;
+        return; // Skip empty lines and metadata
       }
 
-      if (line.startsWith('## ')) {
+      if (line.startsWith('### ')) {
         if (currentSection) {
-          sections.push(currentSection);
+          sections.push(currentSection); // Push the previous section
         }
         currentSection = {
-          title: line.replace('## ', '').trim(),
-          items: [],
+          title: line.replace('### ', '').trim(),
+          items: [], // Initialize items for the new section
         };
       } else if (line.startsWith('- ')) {
+        // Detect items in the section
         const item = line.replace('- ', '').trim();
         currentSection?.items.push(item);
       }
     });
 
     if (currentSection) {
-      sections.push(currentSection);
+      sections.push(currentSection); // Push the last section
     }
 
     return sections;
@@ -209,7 +215,6 @@ const RoadmapGenerator: React.FC = () => {
       >
         Generate Roadmaps
       </h1>
-
       <button
         onClick={processResumes}
         disabled={loading || !extractedText}
@@ -261,35 +266,37 @@ const RoadmapGenerator: React.FC = () => {
       </div>
 
       {/* Render all FlowchartDisplay components */}
-      {flowcharts.map((flowchart, index) => (
-        <div
-          key={index}
-          style={{
-            display: activeTab === index ? 'block' : 'none',
-            height: '600px',
-            width: '100%',
-            marginTop: '20px',
-            backgroundColor: '#f9f9f9',
-            borderRadius: '8px',
-            padding: '20px',
-          }}
-        >
-          <h2
+      {flowcharts.map((flowchart, index) => {
+        return (
+          <div
+            key={index}
             style={{
-              textAlign: 'center',
-              marginBottom: '10px',
-              fontSize: '1.5rem',
-              color: '#333',
+              display: activeTab === index ? 'block' : 'none',
+              height: '600px',
+              width: '100%',
+              marginTop: '20px',
+              backgroundColor: '#f9f9f9',
+              borderRadius: '8px',
+              padding: '20px',
             }}
           >
-            Roadmap for {flowchart.role}
-          </h2>
-          <FlowchartDisplay
-            role={flowchart.role}
-            roadmapSections={flowchart.roadmapSections}
-          />
-        </div>
-      ))}
+            <h2
+              style={{
+                textAlign: 'center',
+                marginBottom: '10px',
+                fontSize: '1.5rem',
+                color: '#333',
+              }}
+            >
+              Roadmap for {flowchart.role}
+            </h2>
+            <FlowchartDisplay
+              role={flowchart.role}
+              roadmapSections={flowchart.roadmapSections}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };
