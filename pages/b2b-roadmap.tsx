@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Flex, Spinner } from '@chakra-ui/react';
 import Sidebar from '../components/Sidebar';
-import RoadmapGenerator from '../components/roadmapGenerator';
+import RoadmapGenerator from '../components/B2BRoadmapGenerator';
 import { supabase } from '@/utils/supabaseClient';
 import { User } from '@supabase/supabase-js';
 import router from 'next/router';

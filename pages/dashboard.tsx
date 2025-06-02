@@ -630,22 +630,20 @@ const DashboardPage = () => {
     <Box p={5}>
       <Flex justifyContent="space-between" alignItems="center" mb={4}>
         <Flex justifyContent="flex-start" alignItems="center">
-          <Image src="/logo.png" alt="Logo" boxSize="50px" mr={2} />
           <Link href="/">
-            <GradientText fontSize="2xl">JobSense</GradientText>
+            <GradientText fontSize="2xl" mr={6}>JobSense</GradientText>
+          </Link>
+          <Link href="/b2c-roadmap">
+            <Button variant="ghost" fontWeight="bold" fontSize="lg">
+              Roadmap
+            </Button>
+          </Link>
+          <Link href="/enterpriseSolution">
+            <Button variant="ghost" fontWeight="bold" fontSize="lg">
+              Try Our Enterprise
+            </Button>
           </Link>
         </Flex>
-        {/* Settings Button with Bounce Animation */}
-        <Link href="/enterpriseSolution">
-          <Button
-            rightIcon={<ArrowForwardIcon />}
-            colorScheme="green"
-            variant="solid"
-            animation={bounceAnimation}
-          >
-            Try our B2B feature now!
-          </Button>
-        </Link>
       </Flex>
       <Grid templateColumns={{ md: '1fr 2fr' }} gap={6}>
         <VStack spacing={4} align="stretch" width="full">
