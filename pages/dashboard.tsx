@@ -142,36 +142,24 @@ const DashboardPage = () => {
 
     const formData = new FormData();
     formData.append('document', file);
-    formData.append('output_formats', JSON.stringify(['html']));
-    formData.append('ocr', 'auto');
-    formData.append('coordinates', 'true');
 
     try {
-      const response = await fetch(
-        'https://api.upstage.ai/v1/document-ai/document-parse',
-        {
-          method: 'POST',
-          headers: {
-            Authorization: 'Bearer up_q4SzgaQKW3DyDNb8U7p75W33XsWLd',
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch('/api/aws-ocr-extract', {
+        method: 'POST',
+        body: formData,
+      });
 
       if (!response.ok) {
-        throw new Error('Failed to parse the document.');
+        throw new Error('Failed to extract text from document.');
       }
 
       const data = await response.json();
-      const extractedHtml = data.content.html;
-
-      console.log('Extracted HTML:', extractedHtml);
-      setText(extractedHtml);
+      console.log('Extracted Text:', data.extractedText);
+      setText(data.extractedText);
+      setIsTextReady(true);
+      console.log('🧾 setText assigned:', data.extractedText.slice(0, 100));
     } catch (error) {
-      console.error(
-        'Error while extracting document using Document Parse:',
-        error
-      );
+      console.error('AWS OCR extraction error:', error);
     }
   };
 
@@ -560,6 +548,16 @@ const DashboardPage = () => {
 
     return relatedRolesResponse;
   };
+
+  useEffect(() => {
+    if (isTextReady && resumeUploaded && selectedRole && text) {
+      console.log(
+        '🚀 Auto-triggering submit because resume and role are ready'
+      );
+      handleSubmitRole();
+      setIsTextReady(false);
+    }
+  }, [isTextReady, resumeUploaded, selectedRole, text]);
 
   useEffect(() => {
     const checkUser = async () => {
