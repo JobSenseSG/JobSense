@@ -119,7 +119,7 @@ const Sidebar: React.FC = () => {
             width="100%"
             _hover={{ bg: '#7E00FB', cursor: 'pointer' }}
             onClick={() => {
-              router.push('/roadmap');
+              router.push('/b2b-roadmap');
               setIsOpen(false);
             }}
           >

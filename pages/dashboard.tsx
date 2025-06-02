@@ -142,36 +142,24 @@ const DashboardPage = () => {
 
     const formData = new FormData();
     formData.append('document', file);
-    formData.append('output_formats', JSON.stringify(['html']));
-    formData.append('ocr', 'auto');
-    formData.append('coordinates', 'true');
 
     try {
-      const response = await fetch(
-        'https://api.upstage.ai/v1/document-ai/document-parse',
-        {
-          method: 'POST',
-          headers: {
-            Authorization: 'Bearer up_q4SzgaQKW3DyDNb8U7p75W33XsWLd',
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch('/api/aws-ocr-extract', {
+        method: 'POST',
+        body: formData,
+      });
 
       if (!response.ok) {
-        throw new Error('Failed to parse the document.');
+        throw new Error('Failed to extract text from document.');
       }
 
       const data = await response.json();
-      const extractedHtml = data.content.html;
-
-      console.log('Extracted HTML:', extractedHtml);
-      setText(extractedHtml);
+      console.log('Extracted Text:', data.extractedText);
+      setText(data.extractedText);
+      setIsTextReady(true);
+      console.log('🧾 setText assigned:', data.extractedText.slice(0, 100));
     } catch (error) {
-      console.error(
-        'Error while extracting document using Document Parse:',
-        error
-      );
+      console.error('AWS OCR extraction error:', error);
     }
   };
 
@@ -562,6 +550,16 @@ const DashboardPage = () => {
   };
 
   useEffect(() => {
+    if (isTextReady && resumeUploaded && selectedRole && text) {
+      console.log(
+        '🚀 Auto-triggering submit because resume and role are ready'
+      );
+      handleSubmitRole();
+      setIsTextReady(false);
+    }
+  }, [isTextReady, resumeUploaded, selectedRole, text]);
+
+  useEffect(() => {
     const checkUser = async () => {
       const { data, error } = await supabase.auth.getSession();
 
@@ -632,22 +630,20 @@ const DashboardPage = () => {
     <Box p={5}>
       <Flex justifyContent="space-between" alignItems="center" mb={4}>
         <Flex justifyContent="flex-start" alignItems="center">
-          <Image src="/logo.png" alt="Logo" boxSize="50px" mr={2} />
           <Link href="/">
-            <GradientText fontSize="2xl">JobSense</GradientText>
+            <GradientText fontSize="2xl" mr={6}>JobSense</GradientText>
+          </Link>
+          <Link href="/b2c-roadmap">
+            <Button variant="ghost" fontWeight="bold" fontSize="lg">
+              Roadmap
+            </Button>
+          </Link>
+          <Link href="/enterpriseSolution">
+            <Button variant="ghost" fontWeight="bold" fontSize="lg">
+              Try Our Enterprise
+            </Button>
           </Link>
         </Flex>
-        {/* Settings Button with Bounce Animation */}
-        <Link href="/enterpriseSolution">
-          <Button
-            rightIcon={<ArrowForwardIcon />}
-            colorScheme="green"
-            variant="solid"
-            animation={bounceAnimation}
-          >
-            Try our B2B feature now!
-          </Button>
-        </Link>
       </Flex>
       <Grid templateColumns={{ md: '1fr 2fr' }} gap={6}>
         <VStack spacing={4} align="stretch" width="full">
