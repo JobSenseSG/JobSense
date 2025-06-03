@@ -19,6 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { supabase } from '../utils/supabaseClient';
 import ResumeCard from '../components/ResumeCard';
+import PDFReader from '../components/PDFReader';
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState({
@@ -37,6 +38,7 @@ const ProfilePage = () => {
     'UX Designer',
   ]);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [resumeText, setResumeText] = useState<string>('');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -51,6 +53,33 @@ const ProfilePage = () => {
           email: session.user.email || '',
           bio: '', // You can fetch this from your DB if you store it
         });
+        // Fetch profile data from the profiles table
+        const { data: profileData, error } = await supabase
+          .from('profiles')
+          .select('full_name, email, goals, desired_roles, resume_text')
+          .eq('id', session.user.id)
+          .single();
+        if (error) {
+          console.error('Error fetching profile:', error);
+        } else if (profileData) {
+          setProfile({
+            name: profileData.full_name || '',
+            email: profileData.email || '',
+            bio: Array.isArray(profileData.goals)
+              ? profileData.goals[0] || ''
+              : '',
+          });
+          if (
+            profileData.desired_roles &&
+            profileData.desired_roles.length > 0
+          ) {
+            setSelectedRole(profileData.desired_roles[0]);
+          }
+          if (profileData.resume_text) {
+            setResumeText(profileData.resume_text);
+            setResumeUploaded(true);
+          }
+        }
       }
       setLoading(false);
     };
@@ -64,15 +93,48 @@ const ProfilePage = () => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
-    // Save profile to Supabase (implement this later)
-  };
-
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
       setUploadedFile(files[0]);
       setResumeUploaded(true);
+    }
+  };
+
+  const handleResumeTextChange = (text: string) => {
+    setResumeText(text);
+  };
+
+  const handleReupload = () => {
+    setResumeText('');
+    setResumeUploaded(false);
+    setUploadedFile(null);
+  };
+
+  const handleSaveAll = async () => {
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session?.user) {
+        alert('You must be logged in to save your profile.');
+        return;
+      }
+      const userId = session.user.id;
+      const { error } = await supabase.from('profiles').upsert({
+        id: userId,
+        full_name: profile.name,
+        email: profile.email,
+        goals: [profile.bio],
+        desired_roles: selectedRole ? [selectedRole] : [],
+        resume_url: null,
+        resume_text: resumeText,
+      });
+      if (error) throw error;
+      alert('Profile saved successfully!');
+    } catch (error) {
+      console.error('Error saving profile:', error);
+      alert('Failed to save profile. Please try again.');
     }
   };
 
@@ -129,6 +191,8 @@ const ProfilePage = () => {
             selectedRole={selectedRole}
             onReturnToUpload={handleReturnToUpload}
             lockUpload={!selectedRole}
+            resumeText={resumeText}
+            onReupload={handleReupload}
           />
         </VStack>
 
@@ -217,19 +281,24 @@ const ProfilePage = () => {
                 }}
               />
             </FormControl>
-            <Button
-              colorScheme="purple"
-              onClick={handleSave}
-              isDisabled={loading}
-              borderRadius="lg"
-              size="lg"
-              boxShadow="md"
-              _hover={{ bg: 'purple.600' }}
-            >
-              Save Changes
-            </Button>
           </VStack>
         </Box>
+      </Flex>
+      <Flex justify="center" mt={8}>
+        <Button
+          colorScheme="purple"
+          onClick={handleSaveAll}
+          isDisabled={
+            // loading || !selectedRole || !resumeUploaded || !profile.name.trim()
+            false
+          }
+          borderRadius="lg"
+          size="lg"
+          boxShadow="md"
+          _hover={{ bg: 'purple.600' }}
+        >
+          Save Changes
+        </Button>
       </Flex>
     </Container>
   );

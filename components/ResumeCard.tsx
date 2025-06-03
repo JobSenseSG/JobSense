@@ -22,6 +22,8 @@ interface ResumeCardProps {
   selectedRole: string | null;
   onReturnToUpload: () => void;
   lockUpload?: boolean;
+  resumeText?: string;
+  onReupload?: () => void;
 }
 
 const ResumeCard: React.FC<ResumeCardProps> = ({
@@ -34,6 +36,8 @@ const ResumeCard: React.FC<ResumeCardProps> = ({
   selectedRole,
   onReturnToUpload,
   lockUpload = false,
+  resumeText,
+  onReupload,
 }) => {
   const bgColor = useColorModeValue('gray.50', 'gray.700');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
@@ -49,6 +53,13 @@ const ResumeCard: React.FC<ResumeCardProps> = ({
   });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleReupload = () => {
+    onReupload?.();
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   return (
     <Box
@@ -85,9 +96,13 @@ const ResumeCard: React.FC<ResumeCardProps> = ({
         <GradientText mb={2} fontSize="xl">
           Upload Resume
         </GradientText>
-        <Text mb={3}>Upload your resume to complete the submission.</Text>
+        <Text mb={3}>
+          {resumeText
+            ? 'You have already uploaded a resume. You can upload a new one if needed.'
+            : 'Upload your resume to complete the submission.'}
+        </Text>
 
-        {!resumeUploaded ? (
+        {!resumeText ? (
           <Box
             as="label"
             htmlFor="file-upload"
@@ -124,34 +139,34 @@ const ResumeCard: React.FC<ResumeCardProps> = ({
             <Flex
               direction={{ base: 'column', md: 'row' }}
               alignItems="center"
-              justifyContent="flex-start"
+              justifyContent="space-between"
+              bg={useColorModeValue('green.50', 'green.900')}
+              p={4}
+              borderRadius="lg"
             >
-              <Icon as={CheckCircleIcon} color="green.500" boxSize={6} mr={2} />
-              <Text color="green.500">Resume Uploaded</Text>
+              <Flex alignItems="center">
+                <Icon
+                  as={CheckCircleIcon}
+                  color="green.500"
+                  boxSize={6}
+                  mr={2}
+                />
+                <Text color="green.500" fontWeight="medium">
+                  Resume Uploaded Successfully
+                </Text>
+              </Flex>
+              <Button
+                size="sm"
+                colorScheme="blue"
+                variant="outline"
+                onClick={handleReupload}
+                leftIcon={<Icon as={FiUpload} />}
+              >
+                Upload New Resume
+              </Button>
             </Flex>
           </Flex>
         )}
-
-        {/* Buttons */}
-        <Flex gap={4} alignItems="center">
-          <Button
-            bg={buttonColor}
-            color={buttonTextColor}
-            _hover={{ bg: useColorModeValue('blue.600', 'blue.400') }}
-            onClick={onSubmitRole}
-            isDisabled={lockUpload || !resumeUploaded}
-          >
-            Submit
-          </Button>
-          <Button
-            bg="red.500"
-            color="white"
-            _hover={{ bg: 'red.600' }}
-            onClick={onReturnToUpload}
-          >
-            Return to Role Selection
-          </Button>
-        </Flex>
       </>
     </Box>
   );

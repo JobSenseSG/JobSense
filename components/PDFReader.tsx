@@ -6,7 +6,13 @@ import 'pdfjs-dist/legacy/build/pdf.worker';
 // Set the worker URL
 GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
 
-const PDFReader = ({ file }: { file: File | null }) => {
+const PDFReader = ({
+  file,
+  onTextExtracted,
+}: {
+  file: File | null;
+  onTextExtracted?: (text: string) => void;
+}) => {
   const [text, setText] = useState('');
 
   const extractTextFromPdf = async (file: File) => {
@@ -31,6 +37,7 @@ const PDFReader = ({ file }: { file: File | null }) => {
           }
           console.log('Extracted Text:' + extractedText);
           setText(extractedText);
+          onTextExtracted?.(extractedText);
         } catch (error) {
           console.error('Error while extracting text from PDF:', error);
         }
