@@ -128,7 +128,7 @@ const ProfilePage = () => {
         goals: [profile.bio],
         desired_roles: selectedRole ? [selectedRole] : [],
         resume_url: null,
-        resume_text: resumeText,
+        resume_text: resumeText && resumeText.trim() ? resumeText : null,
       });
       if (error) throw error;
       alert('Profile saved successfully!');
@@ -164,6 +164,8 @@ const ProfilePage = () => {
     },
   });
 
+  const hasResume = !!(resumeText && resumeText.trim());
+
   if (!mounted) return null;
 
   return (
@@ -194,6 +196,14 @@ const ProfilePage = () => {
             resumeText={resumeText}
             onReupload={handleReupload}
           />
+          {uploadedFile && (
+            <Box display="none">
+              <PDFReader
+                file={uploadedFile}
+                onTextExtracted={handleResumeTextChange}
+              />
+            </Box>
+          )}
         </VStack>
 
         {/* Divider for desktop */}
