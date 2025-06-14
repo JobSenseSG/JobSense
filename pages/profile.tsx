@@ -37,6 +37,11 @@ const ProfilePage = () => {
     'DevOps Engineer',
     'UX Designer',
   ]);
+  const [initialProfile, setInitialProfile] = useState({
+    name: '',
+    email: '',
+  });
+
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [resumeText, setResumeText] = useState<string>('');
   const [mounted, setMounted] = useState(false);
@@ -68,6 +73,10 @@ const ProfilePage = () => {
             bio: Array.isArray(profileData.goals)
               ? profileData.goals[0] || ''
               : '',
+          });
+          setInitialProfile({
+            name: profileData.full_name || '',
+            email: profileData.email || '',
           });
           if (
             profileData.desired_roles &&
@@ -223,7 +232,7 @@ const ProfilePage = () => {
           <Flex alignItems="center" mb={8} gap={4}>
             <Avatar
               size="xl"
-              name={profile.name}
+              name={initialProfile.name}
               src=""
               boxShadow="md"
               border="4px solid"
@@ -231,7 +240,7 @@ const ProfilePage = () => {
             />
             <Box>
               <GradientHeading size="lg" mb={1}>
-                {profile.name || <Skeleton w="120px" h="24px" />}
+                {initialProfile.name || <Skeleton w="120px" h="24px" />}
               </GradientHeading>
               <Text color="gray.500" fontSize="md">
                 {profile.email || <Skeleton w="180px" h="18px" />}

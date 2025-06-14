@@ -40,6 +40,7 @@ import 'pdfjs-dist/legacy/build/pdf.worker';
 import { supabase } from '../utils/supabaseClient';
 import { useRouter } from 'next/router';
 import { User } from '@supabase/supabase-js';
+import ProfileCard from '@/components/ProfileCard';
 
 interface CertificationComparisonResult {
   certification1_demand: string;
@@ -108,7 +109,15 @@ const DashboardPage = () => {
     onOpen: onOpenResumeModal,
     onClose: onCloseResumeModal,
   } = useDisclosure();
-
+  const [profileData, setProfileData] = useState<{
+    full_name?: string;
+    goals: string[];
+    current_role?: string;
+  }>({
+    full_name: '',
+    goals: [],
+    current_role: '',
+  });
   const shouldDisplayResults =
     resumeUploaded && selectedRole && !loading && !loadingSkills;
 
@@ -560,21 +569,41 @@ const DashboardPage = () => {
   }, [isTextReady, resumeUploaded, selectedRole, text]);
 
   useEffect(() => {
-    const checkUser = async () => {
-      const { data, error } = await supabase.auth.getSession();
+    const checkUserAndProfile = async () => {
+      const { data: sessionData, error } = await supabase.auth.getSession();
 
       if (error) {
         console.error('Error getting session:', error);
+        return;
       }
 
-      if (!data.session) {
+      const user = sessionData.session?.user;
+      if (!user) {
         router.push('/auth/signin');
+        return;
+      }
+
+      setUser(user);
+
+      // Fetch goals and current_role from profiles
+      const { data: profileRow, error: profileError } = await supabase
+        .from('profiles')
+        .select('full_name, goals, current_role')
+        .eq('id', user.id)
+        .single();
+
+      if (profileError) {
+        console.error('Error fetching profile row:', profileError);
       } else {
-        setUser(data.session.user);
+        setProfileData({
+          full_name: profileRow?.full_name || '',
+          goals: profileRow?.goals || [],
+          current_role: profileRow?.current_role || '',
+        });
       }
     };
 
-    checkUser();
+    checkUserAndProfile();
   }, [router]);
 
   useEffect(() => {
@@ -631,7 +660,9 @@ const DashboardPage = () => {
       <Flex justifyContent="space-between" alignItems="center" mb={4}>
         <Flex justifyContent="flex-start" alignItems="center">
           <Link href="/">
-            <GradientText fontSize="2xl" mr={6}>JobSense</GradientText>
+            <GradientText fontSize="2xl" mr={6}>
+              JobSense
+            </GradientText>
           </Link>
           <Link href="/b2c-roadmap">
             <Button variant="ghost" fontWeight="bold" fontSize="lg">
@@ -647,15 +678,7 @@ const DashboardPage = () => {
       </Flex>
       <Grid templateColumns={{ md: '1fr 2fr' }} gap={6}>
         <VStack spacing={4} align="stretch" width="full">
-          <ResumeCard
-            resumeUploaded={resumeUploaded}
-            onFileSelect={handleFileSelect}
-            onRoleSelect={handleRoleSelect}
-            onSubmitRole={handleSubmitRole}
-            availableRoles={availableRoles}
-            selectedRole={selectedRole}
-            onReturnToUpload={handleReturnToUpload}
-          />
+          <ProfileCard user={user} profileData={{ ...profileData, full_name: profileData.full_name ?? '' }} />
           <Box
             p={5}
             bg={bgColor}
