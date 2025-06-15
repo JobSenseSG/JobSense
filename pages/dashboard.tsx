@@ -72,6 +72,8 @@ const DashboardPage = () => {
       fontWeight: 'bold',
     },
   });
+  const sleep = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
   const [isTextReady, setIsTextReady] = useState(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [availableRoles, setAvailableRoles] = useState<string[]>([]);
@@ -365,37 +367,52 @@ const DashboardPage = () => {
     }
   };
 
-  const analyzeResume = async (
-    resumeText: string,
-    selectedRole: string | null
-  ) => {
+  const retryFetchGemini = async (resumeText: string, role: { title: any; company: any; skills_required: any; job_url: any; }, retries = 3) => {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const response = await fetch('/api/useGemini', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ resume: resumeText, role }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        return await response.json();
+      } catch (error) {
+        console.warn(`⚠️ Retry ${attempt} for ${role.title} failed`, error);
+        await sleep(1000 * attempt); // exponential backoff
+      }
+    }
+
+    // Final fallback
+    return {
+      compatibility: 0,
+      role: {
+        company: role.company || 'Unknown Company',
+        title: role.title || 'Untitled Role',
+        skills_required: role.skills_required || [],
+        job_url: role.job_url || null,
+      },
+      error: 'Final failure after retries',
+    };
+  };
+
+  const analyzeResume = async (resumeText: string, selectedRole: string) => {
     console.log('Resume Text being passed:', resumeText);
     console.log('Selected Role:', selectedRole);
 
     setLoading(true);
+
     const roleToAnalyze = selectedRole || '';
-    const relatedRoles = await fetchRelatedRoles(roleToAnalyze);
+    const relatedRoles = (await fetchRelatedRoles(roleToAnalyze)).slice(0, 8); // Limit to 8 for safety
     const analysis = [];
 
-    for (let index = 0; index < relatedRoles.length; index++) {
-      try {
-        const response = await fetch('/api/useGemini', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            resume: resumeText,
-            role: relatedRoles[index],
-          }),
-        });
-
-        const data = await response.json();
-        console.log('Response from useGemini:', data);
-        analysis.push(data);
-      } catch (error) {
-        console.error('Error analyzing resume:', error);
-      }
+    for (const role of relatedRoles) {
+      const result = await retryFetchGemini(resumeText, role);
+      analysis.push(result);
     }
 
     setJobs(analysis);
@@ -588,7 +605,7 @@ const DashboardPage = () => {
       // Fetch goals and current_role from profiles
       const { data: profileRow, error: profileError } = await supabase
         .from('profiles')
-        .select('full_name, goals, current_role')
+        .select('full_name, goals, current_role, resume_text')
         .eq('id', user.id)
         .single();
 
@@ -600,6 +617,16 @@ const DashboardPage = () => {
           goals: profileRow?.goals || [],
           current_role: profileRow?.current_role || '',
         });
+      }
+      if (profileRow?.resume_text) {
+        setResumeUploaded(true);
+        setText(profileRow.resume_text);
+        setIsTextReady(true);
+
+        if (!selectedRole) {
+          const defaultRole = 'Software Engineer';
+          setSelectedRole(defaultRole);
+        }
       }
     };
 
@@ -678,7 +705,13 @@ const DashboardPage = () => {
       </Flex>
       <Grid templateColumns={{ md: '1fr 2fr' }} gap={6}>
         <VStack spacing={4} align="stretch" width="full">
-          <ProfileCard user={user} profileData={{ ...profileData, full_name: profileData.full_name ?? '' }} />
+          <ProfileCard
+            user={user}
+            profileData={{
+              ...profileData,
+              full_name: profileData.full_name ?? '',
+            }}
+          />
           <Box
             p={5}
             bg={bgColor}

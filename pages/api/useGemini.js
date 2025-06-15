@@ -15,10 +15,15 @@ export default async function generateContent(req, res) {
 
   const { role, resume } = req.body;
 
-  if (!role?.skills_required) {
+  if (!role?.skills_required || !Array.isArray(role.skills_required)) {
     return res.status(200).json({
       compatibility: 0,
-      role,
+      role: {
+        company: role?.company || 'Unknown Company',
+        title: role?.title || 'Untitled Role',
+        skills_required: [],
+        job_url: role?.job_url || null,
+      },
     });
   }
 

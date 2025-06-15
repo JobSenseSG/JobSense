@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import FlowchartDisplay from './FlowchartDisplay';
+import { supabase } from '@/utils/supabaseClient';
 
 interface RoadmapSection {
   title: string;
@@ -20,7 +21,7 @@ const B2CRoadmapGenerator: React.FC = () => {
   const [roadmapSections, setRoadmapSections] = useState<RoadmapSection[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [viewMode, setViewMode] = useState<'map' | 'outline'>('map');
-  const [roleTitle, setRoleTitle] = useState('Senior Software Engineer');
+  const [roleTitle, setRoleTitle] = useState<string>('');
   const [isEditing, setIsEditing] = useState(false);
   const [tempTitle, setTempTitle] = useState(roleTitle);
 
@@ -95,6 +96,33 @@ const B2CRoadmapGenerator: React.FC = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchDesiredRole = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('desired_roles')
+        .eq('id', user.id)
+        .single();
+
+      if (error) {
+        console.error('Error fetching desired role:', error.message);
+        return;
+      }
+
+      const desiredRoles = data?.desired_roles;
+      if (desiredRoles && desiredRoles.length > 0) {
+        setRoleTitle(desiredRoles[0]); // use the first desired role
+      }
+    };
+
+    fetchDesiredRole();
+  }, []);
 
   useEffect(() => {
     generateRoadmap(roleTitle);

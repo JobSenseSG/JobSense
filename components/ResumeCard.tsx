@@ -137,21 +137,20 @@ const ResumeCard: React.FC<ResumeCardProps> = ({
         ) : (
           <Flex direction="column" mb={6}>
             <Flex
-              direction={{ base: 'column', md: 'row' }}
-              alignItems="center"
-              justifyContent="space-between"
+              direction={{ base: 'column', sm: 'row' }}
+              align="center"
+              justify="space-between"
+              gap={3}
               bg={useColorModeValue('green.50', 'green.900')}
               p={4}
               borderRadius="lg"
+              border="1px solid"
+              borderColor={useColorModeValue('green.200', 'green.700')}
+              wrap="wrap"
             >
-              <Flex alignItems="center">
-                <Icon
-                  as={CheckCircleIcon}
-                  color="green.500"
-                  boxSize={6}
-                  mr={2}
-                />
-                <Text color="green.500" fontWeight="medium">
+              <Flex align="center" gap={2}>
+                <CheckCircleIcon color="green.500" boxSize={5} />
+                <Text color="green.600" fontWeight="medium">
                   Resume Uploaded Successfully
                 </Text>
               </Flex>
@@ -160,7 +159,7 @@ const ResumeCard: React.FC<ResumeCardProps> = ({
                 colorScheme="blue"
                 variant="outline"
                 onClick={handleReupload}
-                leftIcon={<Icon as={FiUpload} />}
+                leftIcon={<FiUpload />}
               >
                 Upload New Resume
               </Button>

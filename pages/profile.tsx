@@ -22,11 +22,7 @@ import ResumeCard from '../components/ResumeCard';
 import PDFReader from '../components/PDFReader';
 
 const ProfilePage = () => {
-  const [profile, setProfile] = useState({
-    name: '',
-    email: '',
-    bio: '',
-  });
+  const [profile, setProfile] = useState({ name: '', email: '', bio: '' });
   const [loading, setLoading] = useState(true);
   const [resumeUploaded, setResumeUploaded] = useState(false);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
@@ -37,33 +33,30 @@ const ProfilePage = () => {
     'DevOps Engineer',
     'UX Designer',
   ]);
-  const [initialProfile, setInitialProfile] = useState({
-    name: '',
-    email: '',
-  });
-
+  const [initialProfile, setInitialProfile] = useState({ name: '', email: '' });
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [resumeText, setResumeText] = useState<string>('');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Fetch user info from Supabase session
     const getUser = async () => {
       const {
         data: { session },
       } = await supabase.auth.getSession();
+
       if (session?.user) {
         setProfile({
           name: session.user.user_metadata?.name || '',
           email: session.user.email || '',
-          bio: '', // You can fetch this from your DB if you store it
+          bio: '',
         });
-        // Fetch profile data from the profiles table
+
         const { data: profileData, error } = await supabase
           .from('profiles')
           .select('full_name, email, goals, desired_roles, resume_text')
           .eq('id', session.user.id)
           .single();
+
         if (error) {
           console.error('Error fetching profile:', error);
         } else if (profileData) {
@@ -90,8 +83,10 @@ const ProfilePage = () => {
           }
         }
       }
+
       setLoading(false);
     };
+
     getUser();
     setMounted(true);
   }, []);
@@ -112,6 +107,54 @@ const ProfilePage = () => {
 
   const handleResumeTextChange = (text: string) => {
     setResumeText(text);
+    if (text.trim().length > 50) {
+      setTimeout(() => {
+        getCurrentRoleFromResume(text);
+      }, 300);
+    }
+  };
+
+  const getCurrentRoleFromResume = async (text: string) => {
+    if (!text || !text.trim()) return;
+
+    try {
+      const response = await fetch('/api/get-current-role', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resumeText: text }),
+      });
+
+      const data = await response.json();
+      if (!response.ok || !data.roleTitle) {
+        console.error('[ERROR] AI role detection failed:', data.error);
+        return;
+      }
+
+      const currentRole = data.roleTitle.trim();
+      setSelectedRole(currentRole);
+
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
+      if (sessionError) return console.error('Session error:', sessionError);
+
+      const userId = session?.user?.id;
+      if (!userId) return console.error('User ID missing');
+
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ current_role: currentRole })
+        .eq('id', userId);
+
+      if (updateError) {
+        console.error('Failed to update current_role:', updateError);
+      } else {
+        console.log('[✅] current_role updated:', currentRole);
+      }
+    } catch (err) {
+      console.error('Exception during role detection:', err);
+    }
   };
 
   const handleReupload = () => {
@@ -125,10 +168,8 @@ const ProfilePage = () => {
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      if (!session?.user) {
-        alert('You must be logged in to save your profile.');
-        return;
-      }
+      if (!session?.user) return alert('You must be logged in.');
+
       const userId = session.user.id;
       const { error } = await supabase.from('profiles').upsert({
         id: userId,
@@ -137,13 +178,14 @@ const ProfilePage = () => {
         goals: [profile.bio],
         desired_roles: selectedRole ? [selectedRole] : [],
         resume_url: null,
-        resume_text: resumeText && resumeText.trim() ? resumeText : null,
+        resume_text: resumeText?.trim() || null,
       });
+
       if (error) throw error;
       alert('Profile saved successfully!');
     } catch (error) {
-      console.error('Error saving profile:', error);
-      alert('Failed to save profile. Please try again.');
+      console.error('Save error:', error);
+      alert('Failed to save profile.');
     }
   };
 
@@ -152,7 +194,6 @@ const ProfilePage = () => {
   };
 
   const handleSubmitRole = () => {
-    // Implement submit logic here
     alert(`Submitted role: ${selectedRole} with resume: ${uploadedFile?.name}`);
   };
 
@@ -173,153 +214,157 @@ const ProfilePage = () => {
     },
   });
 
-  const hasResume = !!(resumeText && resumeText.trim());
-
   if (!mounted) return null;
 
   return (
-    <Container maxW="4xl" py={10}>
-      <Flex
-        bg={bg}
-        borderRadius="2xl"
-        boxShadow="2xl"
-        borderWidth="1px"
-        borderColor={border}
-        p={{ base: 4, md: 10 }}
-        gap={10}
-        direction={{ base: 'column', md: 'row' }}
-        alignItems="flex-start"
-      >
-        {/* Left: Role & Resume Upload Section */}
-        <VStack flex="1" spacing={8} align="stretch">
-          <ResumeCard
-            resumeUploaded={resumeUploaded}
-            onFileSelect={handleFileSelect}
-            onResumeClick={undefined}
-            onRoleSelect={handleRoleSelect}
-            onSubmitRole={handleSubmitRole}
-            availableRoles={availableRoles}
-            selectedRole={selectedRole}
-            onReturnToUpload={handleReturnToUpload}
-            lockUpload={!selectedRole}
-            resumeText={resumeText}
-            onReupload={handleReupload}
-          />
-          {uploadedFile && (
-            <Box display="none">
-              <PDFReader
-                file={uploadedFile}
-                onTextExtracted={handleResumeTextChange}
-              />
-            </Box>
-          )}
-        </VStack>
-
-        {/* Divider for desktop */}
-        <Box display={{ base: 'none', md: 'block' }} h="auto" px={2}>
-          <Divider orientation="vertical" borderColor={border} />
-        </Box>
-
-        {/* Right: Profile Form */}
-        <Box
-          flex="2"
-          bg={useColorModeValue('gray.50', 'gray.900')}
-          borderRadius="2xl"
-          boxShadow="lg"
-          p={{ base: 4, md: 8 }}
-        >
-          {/* Profile Card */}
-          <Flex alignItems="center" mb={8} gap={4}>
-            <Avatar
-              size="xl"
-              name={initialProfile.name}
-              src=""
-              boxShadow="md"
-              border="4px solid"
-              borderColor="purple.400"
-            />
-            <Box>
-              <GradientHeading size="lg" mb={1}>
-                {initialProfile.name || <Skeleton w="120px" h="24px" />}
-              </GradientHeading>
-              <Text color="gray.500" fontSize="md">
-                {profile.email || <Skeleton w="180px" h="18px" />}
-              </Text>
-            </Box>
-          </Flex>
-          <GradientHeading size="md" mb={6}>
-            Profile Information
-          </GradientHeading>
-          <VStack spacing={5} align="stretch">
-            <FormControl>
-              <FormLabel>Name</FormLabel>
-              <Input
-                name="name"
-                value={profile.name}
-                onChange={handleChange}
-                placeholder="Your name"
-                isDisabled={loading}
-                borderRadius="lg"
-                boxShadow="sm"
-                _focus={{
-                  borderColor: 'purple.400',
-                  boxShadow: '0 0 0 1px #7E00FB',
-                }}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Email</FormLabel>
-              <Input
-                name="email"
-                value={profile.email}
-                isReadOnly
-                bg="gray.100"
-                _dark={{ bg: 'gray.700' }}
-                placeholder="Your email"
-                isDisabled={loading}
-                borderRadius="lg"
-                boxShadow="sm"
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>
-                Tell us about your goals and aspirations for your career
-              </FormLabel>
-              <Textarea
-                name="bio"
-                value={profile.bio}
-                onChange={handleChange}
-                placeholder="I want to level up my skills as a..."
-                rows={4}
-                isDisabled={loading}
-                borderRadius="lg"
-                boxShadow="sm"
-                _focus={{
-                  borderColor: 'purple.400',
-                  boxShadow: '0 0 0 1px #7E00FB',
-                }}
-              />
-            </FormControl>
-          </VStack>
-        </Box>
-      </Flex>
-      <Flex justify="center" mt={8}>
+    <>
+      {/* Top Navigation */}
+      <Box p={4}>
         <Button
+          variant="link"
           colorScheme="purple"
-          onClick={handleSaveAll}
-          isDisabled={
-            // loading || !selectedRole || !resumeUploaded || !profile.name.trim()
-            false
-          }
-          borderRadius="lg"
-          size="lg"
-          boxShadow="md"
-          _hover={{ bg: 'purple.600' }}
+          fontWeight="medium"
+          onClick={() => (window.location.href = '/dashboard')}
         >
-          Save Changes
+          ← Back to Dashboard
         </Button>
-      </Flex>
-    </Container>
+      </Box>
+
+      {/* Main Profile Container */}
+      <Container maxW="6xl" py={6}>
+        <Flex direction={{ base: 'column', md: 'row' }} gap={8} align="stretch">
+          {/* Resume Section */}
+          <Box
+            flex={{ base: 'unset', md: '1' }}
+            p={6}
+            bg={bg}
+            borderRadius="2xl"
+            border="1px solid"
+            borderColor={border}
+            boxShadow="xl"
+          >
+            <ResumeCard
+              resumeUploaded={resumeUploaded}
+              onFileSelect={handleFileSelect}
+              onResumeClick={undefined}
+              onRoleSelect={handleRoleSelect}
+              onSubmitRole={handleSubmitRole}
+              availableRoles={availableRoles}
+              selectedRole={selectedRole}
+              onReturnToUpload={handleReturnToUpload}
+              lockUpload={!selectedRole}
+              resumeText={resumeText}
+              onReupload={handleReupload}
+            />
+            {uploadedFile && (
+              <Box display="none">
+                <PDFReader
+                  file={uploadedFile}
+                  onTextExtracted={handleResumeTextChange}
+                />
+              </Box>
+            )}
+          </Box>
+
+          {/* Profile Form */}
+          <Box
+            flex={{ base: 'unset', md: '2' }}
+            p={8}
+            bg={useColorModeValue('gray.50', 'gray.900')}
+            borderRadius="2xl"
+            border="1px solid"
+            borderColor={border}
+            boxShadow="xl"
+          >
+            <Flex alignItems="center" mb={6} gap={4}>
+              <Avatar
+                size="xl"
+                name={initialProfile.name}
+                src=""
+                boxShadow="md"
+                border="4px solid"
+                borderColor="purple.400"
+              />
+              <Box>
+                <GradientHeading size="lg" mb={1}>
+                  {initialProfile.name || <Skeleton w="120px" h="24px" />}
+                </GradientHeading>
+                <Text color="gray.500" fontSize="md">
+                  {profile.email || <Skeleton w="180px" h="18px" />}
+                </Text>
+              </Box>
+            </Flex>
+
+            <GradientHeading size="md" mb={5}>
+              Profile Information
+            </GradientHeading>
+
+            <VStack spacing={5} align="stretch">
+              <FormControl>
+                <FormLabel>Name</FormLabel>
+                <Input
+                  name="name"
+                  value={profile.name}
+                  onChange={handleChange}
+                  isDisabled={loading}
+                  placeholder="Your name"
+                  borderRadius="lg"
+                  boxShadow="sm"
+                  _focus={{
+                    borderColor: 'purple.400',
+                    boxShadow: '0 0 0 1px #7E00FB',
+                  }}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  name="email"
+                  value={profile.email}
+                  isReadOnly
+                  isDisabled={loading}
+                  bg="gray.100"
+                  _dark={{ bg: 'gray.700' }}
+                  borderRadius="lg"
+                  boxShadow="sm"
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Tell us about your goals</FormLabel>
+                <Textarea
+                  name="bio"
+                  value={profile.bio}
+                  onChange={handleChange}
+                  placeholder="I want to level up my skills as a..."
+                  rows={4}
+                  isDisabled={loading}
+                  borderRadius="lg"
+                  boxShadow="sm"
+                  _focus={{
+                    borderColor: 'purple.400',
+                    boxShadow: '0 0 0 1px #7E00FB',
+                  }}
+                />
+              </FormControl>
+            </VStack>
+          </Box>
+        </Flex>
+
+        {/* Save Button */}
+        <Flex justify="center" mt={10}>
+          <Button
+            colorScheme="purple"
+            onClick={handleSaveAll}
+            borderRadius="lg"
+            size="lg"
+            boxShadow="md"
+            _hover={{ bg: 'purple.600' }}
+          >
+            Save Changes
+          </Button>
+        </Flex>
+      </Container>
+    </>
   );
 };
 
