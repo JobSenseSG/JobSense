@@ -3,6 +3,8 @@ import {
   InvokeModelWithResponseStreamCommand,
 } from '@aws-sdk/client-bedrock-runtime';
 
+const cache = new Map();
+
 const bedrockClient = new BedrockRuntimeClient({
   region: process.env.AWS_REGION || 'us-east-1',
 });
@@ -27,6 +29,15 @@ export default async function generateContent(req, res) {
     });
   }
 
+  const cacheKey = `${resume.slice(0, 500)}|${role?.title}|${role?.company}|${(role?.skills_required || []).sort().join(',')}`;
+
+  if (cache.has(cacheKey)) {
+    return res.status(200).json({
+      compatibility: cache.get(cacheKey),
+      role,
+    });
+  }
+
   const prompt = `
 You are an expert evaluator with the task of analyzing a candidate's resume to determine how well it matches a specific job role based on required skills. Please follow these steps:
 
@@ -41,7 +52,7 @@ You are an expert evaluator with the task of analyzing a candidate's resume to d
    - 1-29: Very few (less than 25%) or none of the required skills are present.
 5. Output only the compatibility score as a single number without any additional text.
 
-Role Required Skills: ${role.skills_required.toString()}.
+Role Required Skills: ${role.skills_required.sort().join(', ')}.
 
 Resume: ${resume}
 `;
@@ -54,7 +65,7 @@ Resume: ${resume}
       anthropic_version: 'bedrock-2023-05-31',
       messages: [{ role: 'user', content: prompt }],
       max_tokens: 100,
-      temperature: 0.3,
+      temperature: 0,
     }),
   });
 

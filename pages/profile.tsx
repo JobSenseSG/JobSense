@@ -37,6 +37,7 @@ const ProfilePage = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [resumeText, setResumeText] = useState<string>('');
   const [mounted, setMounted] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string>('');
 
   useEffect(() => {
     const getUser = async () => {
@@ -45,6 +46,9 @@ const ProfilePage = () => {
       } = await supabase.auth.getSession();
 
       if (session?.user) {
+        const metadata = session.user.user_metadata || {};
+        setAvatarUrl(metadata.avatar_url || '');
+
         setProfile({
           name: session.user.user_metadata?.name || '',
           email: session.user.email || '',
@@ -280,7 +284,7 @@ const ProfilePage = () => {
               <Avatar
                 size="xl"
                 name={initialProfile.name}
-                src=""
+                src={avatarUrl}
                 boxShadow="md"
                 border="4px solid"
                 borderColor="purple.400"

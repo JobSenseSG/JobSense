@@ -81,12 +81,16 @@ const DashboardPage = () => {
   const [latestRole, setLatestRole] = useState('');
   const linkColor = useColorModeValue('black', 'white');
   const [selectedJobs, setSelectedJobs] = useState<any[]>([]);
+  const [jobAnalysisCompleted, setJobAnalysisCompleted] = useState(false);
+  const [hasAnalyzed, setHasAnalyzed] = useState(false);
 
   const [skillsToLearn1Title, setSkillsToLearn1Title] = useState<string>('');
   const [skillsToLearn1Points, setSkillsToLearn1Points] = useState<string>('');
 
   const [skillsToLearn2Title, setSkillsToLearn2Title] = useState<string>('');
   const [skillsToLearn2Points, setSkillsToLearn2Points] = useState<string>('');
+  const [skillsDevResults, setSkillsDevResults] = useState([]);
+  const [hasFetchedSkills, setHasFetchedSkills] = useState(false);
 
   const [skillsToLearn3Title, setSkillsToLearn3Title] = useState<string>('');
   const [skillsToLearn3Points, setSkillsToLearn3Points] = useState<string>('');
@@ -350,6 +354,7 @@ const DashboardPage = () => {
           setSkillsToLearn2Points(skills[1].points);
           setSkillsToLearn3Title(skills[2].title);
           setSkillsToLearn3Points(skills[2].points);
+          setLoadingSkills(false);
           break; // Exit retry loop if skills are fetched successfully
         } else {
           throw new Error('Insufficient skills returned');
@@ -361,13 +366,15 @@ const DashboardPage = () => {
           console.error('Max retries reached. Failed to fetch skills.');
           clearSkills(); // Clear skills in case of failure
         }
-      } finally {
-        setLoadingSkills(false); // Stop loading once the API call is done
       }
     }
   };
 
-  const retryFetchGemini = async (resumeText: string, role: { title: any; company: any; skills_required: any; job_url: any; }, retries = 3) => {
+  const retryFetchGemini = async (
+    resumeText: string,
+    role: { title: any; company: any; skills_required: any; job_url: any },
+    retries = 3
+  ) => {
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
         const response = await fetch('/api/useGemini', {
@@ -536,30 +543,28 @@ const DashboardPage = () => {
   };
 
   const handleSubmitRole = async () => {
-    if (resumeUploaded && selectedRole && text) {
+    if (resumeUploaded && selectedRole && text && !hasAnalyzed) {
       setLoading(true);
       setLoadingSkills(true);
       setSubmitted(true);
 
       try {
-        // Ensure analyzeResume completes before moving to fetchSkillsToLearn
         await analyzeResume(text, selectedRole);
-
-        // Ensure fetchSkillsToLearn completes after analyzeResume
         await fetchSkillsToLearn(selectedRole, text);
+        setHasAnalyzed(true); // ✅ prevent future triggers
       } catch (error) {
         console.error(
           'Error during resume analysis or skills fetching:',
           error
         );
       } finally {
-        // Ensure the loading states are only updated once everything is complete
-
-        setLoading(false); // Disable the overall loading state
-        setLoadingSkills(false); // Disable the skills loading state
+        setLoading(false);
+        setLoadingSkills(false);
       }
     } else {
-      console.error('Resume or Role is missing.');
+      console.warn(
+        'Skipping handleSubmitRole - Already analyzed or missing fields'
+      );
     }
   };
 
@@ -577,9 +582,6 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (isTextReady && resumeUploaded && selectedRole && text) {
-      console.log(
-        '🚀 Auto-triggering submit because resume and role are ready'
-      );
       handleSubmitRole();
       setIsTextReady(false);
     }
@@ -618,15 +620,16 @@ const DashboardPage = () => {
           current_role: profileRow?.current_role || '',
         });
       }
-      if (profileRow?.resume_text) {
+      if (profileRow?.resume_text && profileRow.resume_text.trim().length > 0) {
         setResumeUploaded(true);
         setText(profileRow.resume_text);
         setIsTextReady(true);
 
         if (!selectedRole) {
-          const defaultRole = 'Software Engineer';
-          setSelectedRole(defaultRole);
+          setSelectedRole('Software Engineer');
         }
+      } else {
+        console.warn('❌ No resume_text found for user, skipping auto-submit.');
       }
     };
 
@@ -646,8 +649,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (isTextReady && text && selectedRole) {
-      analyzeResume(text, selectedRole);
-      fetchSkillsToLearn(selectedRole, text);
+      handleSubmitRole();
       setIsTextReady(false);
     }
   }, [isTextReady, text, selectedRole]);
@@ -669,6 +671,22 @@ const DashboardPage = () => {
 
     fetchCertifications();
   }, []);
+
+  useEffect(() => {
+    // Avoid duplicate runs or missing data
+    if (!resumeUploaded || !selectedRole || !text || hasFetchedSkills) return;
+
+    const fetchInitialSkillsDev = async () => {
+      try {
+        await fetchSkillsToLearn(selectedRole, text);
+        setHasFetchedSkills(true); // ✅ Prevent future runs
+      } catch (err) {
+        console.error('❌ Skills Dev fetch error:', err);
+      }
+    };
+
+    fetchInitialSkillsDev();
+  }, [resumeUploaded, selectedRole, text, hasFetchedSkills]);
 
   if (!user) {
     return (
