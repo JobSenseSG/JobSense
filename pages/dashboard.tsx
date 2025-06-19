@@ -124,6 +124,11 @@ const DashboardPage = () => {
     goals: [],
     current_role: '',
   });
+
+  // 🔥 PREVENT AUTO-REFRESH: Add flags to track if analysis has been completed
+  const [hasAnalyzedResume, setHasAnalyzedResume] = useState(false);
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
+
   const shouldDisplayResults =
     resumeUploaded && selectedRole && !loading && !loadingSkills;
 
@@ -143,6 +148,8 @@ const DashboardPage = () => {
 
   const handleRoleSelect = (role: string) => {
     setSelectedRole(role);
+    // Reset analysis flag when role changes
+    setHasAnalyzedResume(false);
   };
 
   const handleUploadResume = () => {
@@ -172,6 +179,8 @@ const DashboardPage = () => {
       console.log('Extracted Text:', data.extractedText);
       setText(data.extractedText);
       setIsTextReady(true);
+      // Reset analysis flag when new resume is uploaded
+      setHasAnalyzedResume(false);
       console.log('🧾 setText assigned:', data.extractedText.slice(0, 100));
     } catch (error) {
       console.error('AWS OCR extraction error:', error);
@@ -207,6 +216,8 @@ const DashboardPage = () => {
           }
 
           setText(extractedText);
+          // Reset analysis flag when new resume is uploaded
+          setHasAnalyzedResume(false);
         } catch (error) {
           console.error('Error while extracting text from PDF:', error);
         }
@@ -237,6 +248,9 @@ const DashboardPage = () => {
     setSkillsToLearn1Points('');
     setSkillsToLearn2Points('');
     setSkillsToLearn3Points('');
+    // Reset analysis flags
+    setHasAnalyzedResume(false);
+    setInitialLoadComplete(false);
   };
 
   const handleCompare = async () => {
@@ -303,7 +317,7 @@ const DashboardPage = () => {
     selectedRole: string,
     resumeText: string
   ) => {
-    setLoadingSkills(true); // Show loading spinner during fetch
+    setLoadingSkills(true);
 
     const updatedPrompt = `
         I want to upskill to get a job as a ${selectedRole}. Here is my current skill set:
@@ -354,8 +368,7 @@ const DashboardPage = () => {
           setSkillsToLearn2Points(skills[1].points);
           setSkillsToLearn3Title(skills[2].title);
           setSkillsToLearn3Points(skills[2].points);
-          setLoadingSkills(false);
-          break; // Exit retry loop if skills are fetched successfully
+          break;
         } else {
           throw new Error('Insufficient skills returned');
         }
@@ -364,8 +377,10 @@ const DashboardPage = () => {
         retryCount += 1;
         if (retryCount >= maxRetries) {
           console.error('Max retries reached. Failed to fetch skills.');
-          clearSkills(); // Clear skills in case of failure
+          clearSkills();
         }
+      } finally {
+        setLoadingSkills(false);
       }
     }
   };
@@ -390,11 +405,10 @@ const DashboardPage = () => {
         return await response.json();
       } catch (error) {
         console.warn(`⚠️ Retry ${attempt} for ${role.title} failed`, error);
-        await sleep(1000 * attempt); // exponential backoff
+        await sleep(1000 * attempt);
       }
     }
 
-    // Final fallback
     return {
       compatibility: 0,
       role: {
@@ -408,13 +422,20 @@ const DashboardPage = () => {
   };
 
   const analyzeResume = async (resumeText: string, selectedRole: string) => {
+    // 🔥 PREVENT DUPLICATE ANALYSIS
+    if (hasAnalyzedResume) {
+      console.log('⚠️ Analysis already completed, skipping duplicate call');
+      return;
+    }
+
     console.log('Resume Text being passed:', resumeText);
     console.log('Selected Role:', selectedRole);
 
     setLoading(true);
+    setHasAnalyzedResume(true); // Mark as analyzed immediately
 
     const roleToAnalyze = selectedRole || '';
-    const relatedRoles = (await fetchRelatedRoles(roleToAnalyze)).slice(0, 8); // Limit to 8 for safety
+    const relatedRoles = (await fetchRelatedRoles(roleToAnalyze)).slice(0, 8);
     const analysis = [];
 
     for (const role of relatedRoles) {
@@ -426,11 +447,9 @@ const DashboardPage = () => {
     setLoading(false);
   };
 
-  // Ensure that there is only one definition of the function
   const fetchSkillsToLearnForJob = async (job: any) => {
     setLoadingSkills(true);
 
-    // Extract the top 3 skills directly from the job's skills_required field
     const requiredSkills = job.role.skills_required.slice(0, 3);
 
     const updatedPrompt = `
@@ -479,7 +498,6 @@ const DashboardPage = () => {
         const skills = await response.json();
         console.log('Skills Insights Suggested:', skills);
 
-        // Ensure valid skills data is returned
         if (skills && skills.length >= 3) {
           setSkillsToLearn1Title(skills[0].title);
           setSkillsToLearn1Points(skills[0].points);
@@ -487,7 +505,7 @@ const DashboardPage = () => {
           setSkillsToLearn2Points(skills[1].points);
           setSkillsToLearn3Title(skills[2].title);
           setSkillsToLearn3Points(skills[2].points);
-          break; // Exit retry loop if skills are fetched successfully
+          break;
         } else {
           throw new Error('Insufficient skills returned');
         }
@@ -500,10 +518,10 @@ const DashboardPage = () => {
 
         if (retryCount >= maxRetries) {
           console.error('Max retries reached. Failed to fetch skills.');
-          clearSkills(); // Clear skills in case of failure
+          clearSkills();
           break;
         } else {
-          await new Promise((res) => setTimeout(res, 1000 * retryCount)); // Exponential backoff delay
+          await new Promise((res) => setTimeout(res, 1000 * retryCount));
         }
       } finally {
         setLoadingSkills(false);
@@ -525,25 +543,22 @@ const DashboardPage = () => {
     job: any
   ) => {
     if (e.target.checked) {
-      // Clear previously selected jobs and set the new job
       setSelectedJobs([job]);
 
       try {
-        // Fetch the skills for the selected job and ensure it completes successfully
         await fetchSkillsToLearnForJob(job);
       } catch (error) {
         console.error('Error fetching skills for the job:', error);
-        clearSkills(); // Clear skills if there's an error
+        clearSkills();
       }
     } else {
-      // If unchecked, clear the selection and clear skills
       setSelectedJobs([]);
       clearSkills();
     }
   };
 
   const handleSubmitRole = async () => {
-    if (resumeUploaded && selectedRole && text && !hasAnalyzed) {
+    if (resumeUploaded && selectedRole && text && !hasAnalyzedResume) {
       setLoading(true);
       setLoadingSkills(true);
       setSubmitted(true);
@@ -562,9 +577,7 @@ const DashboardPage = () => {
         setLoadingSkills(false);
       }
     } else {
-      console.warn(
-        'Skipping handleSubmitRole - Already analyzed or missing fields'
-      );
+      console.error('Resume or Role is missing, or analysis already completed.');
     }
   };
 
@@ -580,12 +593,23 @@ const DashboardPage = () => {
     return relatedRolesResponse;
   };
 
+  // 🔥 FIXED: Only trigger auto-analysis once, and only for initial load from database
   useEffect(() => {
-    if (isTextReady && resumeUploaded && selectedRole && text) {
+    if (
+      initialLoadComplete && 
+      isTextReady && 
+      resumeUploaded && 
+      selectedRole && 
+      text && 
+      !hasAnalyzedResume &&
+      !loading &&
+      !loadingSkills
+    ) {
+      console.log('🚀 Auto-triggering submit because resume and role are ready (initial load)');
       handleSubmitRole();
       setIsTextReady(false);
     }
-  }, [isTextReady, resumeUploaded, selectedRole, text]);
+  }, [initialLoadComplete, isTextReady, resumeUploaded, selectedRole, text, hasAnalyzedResume, loading, loadingSkills]);
 
   useEffect(() => {
     const checkUserAndProfile = async () => {
@@ -604,7 +628,6 @@ const DashboardPage = () => {
 
       setUser(user);
 
-      // Fetch goals and current_role from profiles
       const { data: profileRow, error: profileError } = await supabase
         .from('profiles')
         .select('full_name, goals, current_role, resume_text')
@@ -620,7 +643,8 @@ const DashboardPage = () => {
           current_role: profileRow?.current_role || '',
         });
       }
-      if (profileRow?.resume_text && profileRow.resume_text.trim().length > 0) {
+
+      if (profileRow?.resume_text) {
         setResumeUploaded(true);
         setText(profileRow.resume_text);
         setIsTextReady(true);
@@ -631,6 +655,9 @@ const DashboardPage = () => {
       } else {
         console.warn('❌ No resume_text found for user, skipping auto-submit.');
       }
+
+      // Mark initial load as complete
+      setInitialLoadComplete(true);
     };
 
     checkUserAndProfile();
@@ -647,12 +674,14 @@ const DashboardPage = () => {
     setAvailableRoles(roles);
   }, []);
 
-  useEffect(() => {
-    if (isTextReady && text && selectedRole) {
-      handleSubmitRole();
-      setIsTextReady(false);
-    }
-  }, [isTextReady, text, selectedRole]);
+  // 🔥 REMOVED: This useEffect was causing duplicate analysis
+  // useEffect(() => {
+  //   if (isTextReady && text && selectedRole) {
+  //     analyzeResume(text, selectedRole);
+  //     fetchSkillsToLearn(selectedRole, text);
+  //     setIsTextReady(false);
+  //   }
+  // }, [isTextReady, text, selectedRole]);
 
   useEffect(() => {
     const fetchCertifications = async () => {
@@ -795,7 +824,7 @@ const DashboardPage = () => {
             borderWidth="1px"
             borderColor={borderColor}
             flex={1}
-            height="400px" // Fix height for Job Qualification Scale section
+            height="400px"
           >
             <Flex justifyContent="space-between" alignItems="center">
               <GradientText mb={2} fontSize="xl">
@@ -814,7 +843,6 @@ const DashboardPage = () => {
                 <Spinner size="xl" />
               </Center>
             ) : !resumeUploaded ? (
-              // Locked Content UI for Job Qualification Scale when no resume is uploaded
               <Flex
                 direction="column"
                 justify="center"
@@ -833,11 +861,10 @@ const DashboardPage = () => {
                 </Text>
               </Flex>
             ) : (
-              // Show the TableContainer with jobs if resume is uploaded
               <TableContainer
-                height="100%" // TableContainer takes full height of the Box
-                maxHeight="300px" // Max height to control overflow
-                overflowY="auto" // Allow vertical scrolling for large content
+                height="100%"
+                maxHeight="300px"
+                overflowY="auto"
               >
                 <Table variant="simple" size="sm" width="full">
                   <Thead position="sticky" top="0" bg="white" zIndex="sticky">
@@ -854,7 +881,7 @@ const DashboardPage = () => {
                         <Td>
                           <input
                             type="checkbox"
-                            checked={selectedJobs.includes(job)} // Maintain checkbox state
+                            checked={selectedJobs.includes(job)}
                             onChange={(e) => handleJobSelect(e, job)}
                           />
                         </Td>
@@ -916,7 +943,6 @@ const DashboardPage = () => {
                   : 'Upload your resume, select a role, and click submit to get skill recommendations.'}
               </Text>
 
-              {/* Show Spinner when skills are loading */}
               {loadingSkills ? (
                 <Center height="100px">
                   <Spinner size="lg" />
