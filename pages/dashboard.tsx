@@ -387,7 +387,7 @@ const DashboardPage = () => {
 
   const retryFetchGemini = async (
     resumeText: string,
-    role: { title: any; company: any; skills_required: any; job_url: any },
+    role: { title: any; company: any; skills_required: any[]; job_url: any },
     retries = 3
   ) => {
     for (let attempt = 1; attempt <= retries; attempt++) {
@@ -395,20 +395,36 @@ const DashboardPage = () => {
         const response = await fetch('/api/useGemini', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ resume: resumeText, role }),
+          body: JSON.stringify({
+            resume: resumeText,
+            skills: role.skills_required,
+          }),
         });
 
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}`);
         }
 
-        return await response.json();
+        const result = await response.json();
+
+        return {
+          compatibility: result.compatibility_score || 0,
+          role: {
+            company: role.company || 'Unknown Company',
+            title: role.title || 'Untitled Role',
+            skills_required: role.skills_required || [],
+            job_url: role.job_url || null,
+          },
+          matched_skills: result.matched_skills || [],
+          total_required: result.total_required || 0,
+        };
       } catch (error) {
         console.warn(`⚠️ Retry ${attempt} for ${role.title} failed`, error);
         await sleep(1000 * attempt);
       }
     }
 
+    // If all retries fail
     return {
       compatibility: 0,
       role: {
@@ -577,7 +593,9 @@ const DashboardPage = () => {
         setLoadingSkills(false);
       }
     } else {
-      console.error('Resume or Role is missing, or analysis already completed.');
+      console.error(
+        'Resume or Role is missing, or analysis already completed.'
+      );
     }
   };
 
@@ -596,20 +614,31 @@ const DashboardPage = () => {
   // 🔥 FIXED: Only trigger auto-analysis once, and only for initial load from database
   useEffect(() => {
     if (
-      initialLoadComplete && 
-      isTextReady && 
-      resumeUploaded && 
-      selectedRole && 
-      text && 
+      initialLoadComplete &&
+      isTextReady &&
+      resumeUploaded &&
+      selectedRole &&
+      text &&
       !hasAnalyzedResume &&
       !loading &&
       !loadingSkills
     ) {
-      console.log('🚀 Auto-triggering submit because resume and role are ready (initial load)');
+      console.log(
+        '🚀 Auto-triggering submit because resume and role are ready (initial load)'
+      );
       handleSubmitRole();
       setIsTextReady(false);
     }
-  }, [initialLoadComplete, isTextReady, resumeUploaded, selectedRole, text, hasAnalyzedResume, loading, loadingSkills]);
+  }, [
+    initialLoadComplete,
+    isTextReady,
+    resumeUploaded,
+    selectedRole,
+    text,
+    hasAnalyzedResume,
+    loading,
+    loadingSkills,
+  ]);
 
   useEffect(() => {
     const checkUserAndProfile = async () => {
@@ -861,11 +890,7 @@ const DashboardPage = () => {
                 </Text>
               </Flex>
             ) : (
-              <TableContainer
-                height="100%"
-                maxHeight="300px"
-                overflowY="auto"
-              >
+              <TableContainer height="100%" maxHeight="300px" overflowY="auto">
                 <Table variant="simple" size="sm" width="full">
                   <Thead position="sticky" top="0" bg="white" zIndex="sticky">
                     <Tr>
