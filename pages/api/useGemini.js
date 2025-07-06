@@ -116,11 +116,10 @@ const buildKey = (resume, role) => {
 /* ------------------------------------------------------------------ */
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
+    return res.status(405).json({ error: 'Only POST allowed' });
   }
 
-  const { role, resume } = req.body;
+  const { resume, skills } = req.body;
 
   /* ------------ validation (unchanged) ------------ */
   if (!resume || typeof resume !== 'string') {

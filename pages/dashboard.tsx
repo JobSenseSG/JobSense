@@ -373,34 +373,52 @@ const DashboardPage = () => {
         retryCount += 1;
         if (retryCount >= maxRetries) {
           console.error('Max retries reached. Failed to fetch skills.');
-          clearSkills();
+          clearSkills(); // Clear skills in case of failure
         }
-      } finally {
-        setLoadingSkills(false);
       }
     }
   };
 
-  const retryFetchGemini = async (resumeText: string, role: { title: any; company: any; skills_required: any; job_url: any; }, retries = 3) => {
+  const retryFetchGemini = async (
+    resumeText: string,
+    role: { title: any; company: any; skills_required: any; job_url: any },
+    retries = 3
+  ) => {
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
         const response = await fetch('/api/useGemini', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ resume: resumeText, role }),
+          body: JSON.stringify({
+            resume: resumeText,
+            skills: role.skills_required,
+          }),
         });
 
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}`);
         }
 
-        return await response.json();
+        const result = await response.json();
+
+        return {
+          compatibility: result.compatibility_score || 0,
+          role: {
+            company: role.company || 'Unknown Company',
+            title: role.title || 'Untitled Role',
+            skills_required: role.skills_required || [],
+            job_url: role.job_url || null,
+          },
+          matched_skills: result.matched_skills || [],
+          total_required: result.total_required || 0,
+        };
       } catch (error) {
         console.warn(`⚠️ Retry ${attempt} for ${role.title} failed`, error);
         await sleep(1000 * attempt);
       }
     }
 
+    // Final fallback
     return {
       compatibility: 0,
       role: {
@@ -568,7 +586,9 @@ const DashboardPage = () => {
         setLoadingSkills(false);
       }
     } else {
-      console.error('Resume or Role is missing, or analysis already completed.');
+      console.warn(
+        'Skipping handleSubmitRole - Already analyzed or missing fields'
+      );
     }
   };
 
@@ -586,21 +606,11 @@ const DashboardPage = () => {
 
   // 🔥 FIXED: Only trigger auto-analysis once, and only for initial load from database
   useEffect(() => {
-    if (
-      initialLoadComplete && 
-      isTextReady && 
-      resumeUploaded && 
-      selectedRole && 
-      text && 
-      !hasAnalyzedResume &&
-      !loading &&
-      !loadingSkills
-    ) {
-      console.log('🚀 Auto-triggering submit because resume and role are ready (initial load)');
+    if (isTextReady && resumeUploaded && selectedRole && text) {
       handleSubmitRole();
       setIsTextReady(false);
     }
-  }, [initialLoadComplete, isTextReady, resumeUploaded, selectedRole, text, hasAnalyzedResume, loading, loadingSkills]);
+  }, [isTextReady, resumeUploaded, selectedRole, text]);
 
   useEffect(() => {
     const checkUserAndProfile = async () => {
@@ -835,10 +845,11 @@ const DashboardPage = () => {
                 </Text>
               </Flex>
             ) : (
+              // Show the TableContainer with jobs if resume is uploaded
               <TableContainer
-                height="100%"
-                maxHeight="300px"
-                overflowY="auto"
+                height="100%" // TableContainer takes full height of the Box
+                maxHeight="300px" // Max height to control overflow
+                overflowY="auto" // Allow vertical scrolling for large content
               >
                 <Table variant="simple" size="sm" width="full">
                   <Thead position="sticky" top="0" bg="white" zIndex="sticky">
