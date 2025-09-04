@@ -1,11 +1,4 @@
-import {
-  BedrockRuntimeClient,
-  InvokeModelWithResponseStreamCommand,
-} from '@aws-sdk/client-bedrock-runtime';
-
-const bedrockClient = new BedrockRuntimeClient({
-  region: process.env.AWS_REGION || 'us-east-1',
-});
+// Using external mlvoca free LLM API (DeepSeek)
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -33,32 +26,29 @@ Ensure that there is a clear separation between the title and the reason with a 
 
 ${resumeText}`;
 
-  const command = new InvokeModelWithResponseStreamCommand({
-    modelId: 'anthropic.claude-3-sonnet-20240229-v1:0',
-    contentType: 'application/json',
-    accept: 'application/json',
-    body: JSON.stringify({
-      anthropic_version: 'bedrock-2023-05-31',
-      messages: [{ role: 'user', content: prompt }],
-      max_tokens: 1000,
-      temperature: 0.5,
-    }),
-  });
-
+  // Call mlvoca free LLM API (non-streaming)
   try {
-    const response = await bedrockClient.send(command);
+    const apiResp = await fetch('https://mlvoca.com/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'deepseek-r1:1.5b',
+        prompt,
+        stream: false,
+        options: { temperature: 0.5, max_tokens: 1000 },
+      }),
+    });
 
-    let fullResponse = '';
-
-    for await (const chunk of response.body) {
-      const text = new TextDecoder().decode(chunk.chunk?.bytes);
-      if (text) {
-        const parsed = JSON.parse(text);
-        fullResponse += parsed.delta?.text || '';
-      }
+    if (!apiResp.ok) {
+      const txt = await apiResp.text();
+      console.error('mlvoca error', apiResp.status, txt);
+      // Fallback: generate simple skill recommendations
+      const fallback = computeSkillsFallback(resumeText);
+      return res.status(200).json(fallback);
     }
 
-    console.log('Claude Response:', fullResponse);
+    const payload = await apiResp.json();
+    const fullResponse = (payload && payload.response) || '';
 
     const skills = fullResponse
       .trim()
@@ -66,7 +56,7 @@ ${resumeText}`;
       .map((skill) => {
         const parts = skill.split(/\n-{2,}\n/);
         if (parts.length === 2) {
-          const title = parts[0].trim().replace(/^\d+\.\s*/, ''); // Remove "1. ", "2. ", etc.
+          const title = parts[0].trim().replace(/^\d+\.\s*/, '');
           const points = parts[1].trim();
           return { title, points };
         }
@@ -76,7 +66,63 @@ ${resumeText}`;
 
     return res.status(200).json(skills);
   } catch (error) {
-    console.error(`ERROR: Can't invoke AWS Bedrock Claude 3. Reason:`, error);
-    return res.status(500).json({ error: 'Failed to invoke model' });
+    console.error('Error invoking mlvoca DeepSeek:', error);
+    const fallback = computeSkillsFallback(resumeText);
+    return res.status(200).json(fallback);
   }
+}
+
+// Fallback generator: propose up to 3 skills not already present in resume
+function computeSkillsFallback(resume) {
+  const knownSkills = [
+    'Python',
+    'SQL',
+    'Data Analysis',
+    'Machine Learning',
+    'Tableau',
+    'Power BI',
+    'AWS',
+    'Docker',
+    'Kubernetes',
+    'React',
+    'Node.js',
+    'DevOps',
+    'Product Management',
+    'Statistics',
+    'Communication',
+  ];
+
+  const text = (resume || '').toLowerCase();
+  const present = new Set();
+  for (const s of knownSkills) {
+    try {
+      const token = s.toLowerCase();
+      if (token && text.includes(token)) present.add(s);
+    } catch (e) {}
+  }
+
+  const recommendations = [];
+  for (const s of knownSkills) {
+    if (!present.has(s) && recommendations.length < 3) {
+      recommendations.push({
+        title: s,
+        points: `${s} is highly valuable for tech roles. Learning ${s} will increase your ability to deliver on projects and improve your hiring competitiveness. Focus on practical projects and hands-on exercises to build proficiency.`,
+      });
+    }
+  }
+
+  // If not enough recommendations, add generic soft skills
+  const fillers = [
+    { title: 'Communication', points: 'Effective communication helps clearly present technical ideas to non-technical stakeholders.' },
+    { title: 'Problem Solving', points: 'Structured problem solving improves debugging and solution design.' },
+    { title: 'Time Management', points: 'Prioritizing tasks helps deliver projects on schedule and reduces burnout.' },
+  ];
+
+  let i = 0;
+  while (recommendations.length < 3 && i < fillers.length) {
+    recommendations.push(fillers[i]);
+    i += 1;
+  }
+
+  return recommendations;
 }

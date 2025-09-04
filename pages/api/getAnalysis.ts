@@ -1,12 +1,6 @@
 // pages/api/getAnalysis.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
-import OpenAI from 'openai';
-
-const apiKey = "up_q4SzgaQKW3DyDNb8U7p75W33XsWLd";
-const openai = new OpenAI({
-    apiKey: apiKey,
-    baseURL: "https://api.upstage.ai/v1/solar",
-});
+// Use mlvoca free LLM API (DeepSeek)
 
 
 const parseAIResponse = (responseText: string) => {
@@ -155,19 +149,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         
 
 
-        const chatCompletion = await openai.chat.completions.create({
-            model: "solar-1-mini-chat",
-            messages: [
-                {
-                    role: "user",
-                    content: prompt,
-                },
-            ],
-            stream: false,
+        const apiResp = await fetch('https://mlvoca.com/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: 'deepseek-r1:1.5b',
+                prompt,
+                stream: false,
+                options: { temperature: 0.5, max_tokens: 1200 },
+            }),
         });
 
-        const responseText = chatCompletion.choices?.[0]?.message?.content?.trim() || '';
-        console.log("response from open ai: ", responseText);
+        if (!apiResp.ok) {
+            const txt = await apiResp.text();
+            console.error('mlvoca error', apiResp.status, txt);
+            return res.status(502).json({ error: 'LLM provider error' });
+        }
+
+        const payload = await apiResp.json();
+        const responseText = (payload && payload.response) ? payload.response.trim() : '';
+        console.log('response from mlvoca:', responseText);
         const analysisData = parseAIResponse(responseText);
 
         res.status(200).json(analysisData);

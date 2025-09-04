@@ -3,8 +3,7 @@ from dotenv import load_dotenv
 import os
 import click
 import pandas as pd
-import boto3
-from botocore.exceptions import NoCredentialsError, PartialCredentialsError, ClientError
+import requests
 import json
 
 # Load environment variables from .env file
@@ -12,20 +11,8 @@ load_dotenv()
 
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_REGION = 'us-west-2'
-MODEL_ID = 'anthropic.claude-3-haiku-20240307-v1:0'
-
-# Check for AWS credentials
-if not AWS_ACCESS_KEY_ID or not AWS_SECRET_ACCESS_KEY:
-    raise Exception("AWS credentials (AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY) not found in environment variables.")
-
-# Initialize AWS Bedrock client
-client = boto3.client(
-    'bedrock-runtime',
-    region_name=AWS_REGION,
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
-)
+# Use mlvoca free-llm-api with deepseek-r1:1.5b
+MLVOCA_URL = 'https://mlvoca.com/api/generate'
 
 def query(payload):
     prompt = f"""
@@ -33,29 +20,22 @@ def query(payload):
     Job description: {payload}
     """
 
-    conversation = [
-        {
-            "role": "user",
-            "content": [{"text": prompt}],
-        }
-    ]
-
     try:
-        response = client.converse(
-            modelId=MODEL_ID,
-            messages=conversation,
-            inferenceConfig={"maxTokens": 512, "temperature": 0.5, "topP": 0.9},
-        )
-        response_text = response["output"]["message"]["content"][0]["text"]
-        return response_text
-    except (NoCredentialsError, PartialCredentialsError) as e:
-        print(f"Credentials error: {e}")
-        return None
-    except ClientError as e:
-        print(f"ERROR: Can't invoke '{MODEL_ID}'. Reason: {e}")
-        return None
+        resp = requests.post(MLVOCA_URL, json={
+            'model': 'deepseek-r1:1.5b',
+            'prompt': prompt,
+            'stream': False,
+            'options': {'max_tokens': 512, 'temperature': 0.5}
+        }, timeout=30)
+
+        if resp.status_code != 200:
+            print(f"mlvoca error {resp.status_code}: {resp.text}")
+            return None
+
+        data = resp.json()
+        return data.get('response')
     except Exception as e:
-        print(f"ERROR: Can't invoke '{MODEL_ID}'. Reason: {e}")
+        print(f"ERROR querying mlvoca DeepSeek: {e}")
         return None
 
 def parse(file):
@@ -72,7 +52,7 @@ def parse(file):
     for _, row in df.iterrows():
         job_description = row["description"]
 
-        # Extracting required information using AWS Bedrock Gen AI
+        # Extracting required information using mlvoca DeepSeek
         extracted_info = query(job_description)
         if extracted_info is None:
             extracted_info = "None"

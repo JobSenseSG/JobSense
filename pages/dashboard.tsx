@@ -28,8 +28,8 @@ import {
   Spinner,
   Center,
   Link,
-  keyframes,
 } from '@chakra-ui/react';
+import { keyframes } from '@emotion/react';
 import { FiUpload } from 'react-icons/fi';
 import { MdBuild, MdLock } from 'react-icons/md';
 import SkillCard from '../components/SkillCard';
@@ -81,12 +81,16 @@ const DashboardPage = () => {
   const [latestRole, setLatestRole] = useState('');
   const linkColor = useColorModeValue('black', 'white');
   const [selectedJobs, setSelectedJobs] = useState<any[]>([]);
+  const [jobAnalysisCompleted, setJobAnalysisCompleted] = useState(false);
+  const [hasAnalyzed, setHasAnalyzed] = useState(false);
 
   const [skillsToLearn1Title, setSkillsToLearn1Title] = useState<string>('');
   const [skillsToLearn1Points, setSkillsToLearn1Points] = useState<string>('');
 
   const [skillsToLearn2Title, setSkillsToLearn2Title] = useState<string>('');
   const [skillsToLearn2Points, setSkillsToLearn2Points] = useState<string>('');
+  const [skillsDevResults, setSkillsDevResults] = useState([]);
+  const [hasFetchedSkills, setHasFetchedSkills] = useState(false);
 
   const [skillsToLearn3Title, setSkillsToLearn3Title] = useState<string>('');
   const [skillsToLearn3Points, setSkillsToLearn3Points] = useState<string>('');
@@ -373,15 +377,17 @@ const DashboardPage = () => {
         retryCount += 1;
         if (retryCount >= maxRetries) {
           console.error('Max retries reached. Failed to fetch skills.');
-          clearSkills(); // Clear skills in case of failure
+          clearSkills();
         }
+      } finally {
+        setLoadingSkills(false);
       }
     }
   };
 
   const retryFetchGemini = async (
     resumeText: string,
-    role: { title: any; company: any; skills_required: any; job_url: any },
+    role: { title: any; company: any; skills_required: any[]; job_url: any },
     retries = 3
   ) => {
     for (let attempt = 1; attempt <= retries; attempt++) {
@@ -418,7 +424,7 @@ const DashboardPage = () => {
       }
     }
 
-    // Final fallback
+    // If all retries fail
     return {
       compatibility: 0,
       role: {
@@ -444,17 +450,23 @@ const DashboardPage = () => {
     setLoading(true);
     setHasAnalyzedResume(true); // Mark as analyzed immediately
 
-    const roleToAnalyze = selectedRole || '';
-    const relatedRoles = (await fetchRelatedRoles(roleToAnalyze)).slice(0, 8);
-    const analysis = [];
-
-    for (const role of relatedRoles) {
-      const result = await retryFetchGemini(resumeText, role);
-      analysis.push(result);
+    try {
+      const roleToAnalyze = selectedRole || '';
+      const relatedRoles = (await fetchRelatedRoles(roleToAnalyze)).slice(0, 8);
+      
+      // 🚀 PERFORMANCE: Make API calls concurrent instead of sequential
+      const analysisPromises = relatedRoles.map((role: any) => 
+        retryFetchGemini(resumeText, role)
+      );
+      
+      const analysis = await Promise.all(analysisPromises);
+      setJobs(analysis);
+    } catch (error) {
+      console.error('Error during resume analysis:', error);
+      setJobs([]); // Set empty array on error
+    } finally {
+      setLoading(false);
     }
-
-    setJobs(analysis);
-    setLoading(false);
   };
 
   const fetchSkillsToLearnForJob = async (job: any) => {
@@ -576,6 +588,7 @@ const DashboardPage = () => {
       try {
         await analyzeResume(text, selectedRole);
         await fetchSkillsToLearn(selectedRole, text);
+        setHasAnalyzed(true); // ✅ prevent future triggers
       } catch (error) {
         console.error(
           'Error during resume analysis or skills fetching:',
@@ -586,8 +599,8 @@ const DashboardPage = () => {
         setLoadingSkills(false);
       }
     } else {
-      console.warn(
-        'Skipping handleSubmitRole - Already analyzed or missing fields'
+      console.error(
+        'Resume or Role is missing, or analysis already completed.'
       );
     }
   };
@@ -606,11 +619,32 @@ const DashboardPage = () => {
 
   // 🔥 FIXED: Only trigger auto-analysis once, and only for initial load from database
   useEffect(() => {
-    if (isTextReady && resumeUploaded && selectedRole && text) {
+    if (
+      initialLoadComplete &&
+      isTextReady &&
+      resumeUploaded &&
+      selectedRole &&
+      text &&
+      !hasAnalyzedResume &&
+      !loading &&
+      !loadingSkills
+    ) {
+      console.log(
+        '🚀 Auto-triggering submit because resume and role are ready (initial load)'
+      );
       handleSubmitRole();
       setIsTextReady(false);
     }
-  }, [isTextReady, resumeUploaded, selectedRole, text]);
+  }, [
+    initialLoadComplete,
+    isTextReady,
+    resumeUploaded,
+    selectedRole,
+    text,
+    hasAnalyzedResume,
+    loading,
+    loadingSkills,
+  ]);
 
   useEffect(() => {
     const checkUserAndProfile = async () => {
@@ -651,9 +685,10 @@ const DashboardPage = () => {
         setIsTextReady(true);
 
         if (!selectedRole) {
-          const defaultRole = 'Software Engineer';
-          setSelectedRole(defaultRole);
+          setSelectedRole('Software Engineer');
         }
+      } else {
+        console.warn('❌ No resume_text found for user, skipping auto-submit.');
       }
 
       // Mark initial load as complete
@@ -700,6 +735,22 @@ const DashboardPage = () => {
 
     fetchCertifications();
   }, []);
+
+  useEffect(() => {
+    // Avoid duplicate runs or missing data
+    if (!resumeUploaded || !selectedRole || !text || hasFetchedSkills) return;
+
+    const fetchInitialSkillsDev = async () => {
+      try {
+        await fetchSkillsToLearn(selectedRole, text);
+        setHasFetchedSkills(true); // ✅ Prevent future runs
+      } catch (err) {
+        console.error('❌ Skills Dev fetch error:', err);
+      }
+    };
+
+    fetchInitialSkillsDev();
+  }, [resumeUploaded, selectedRole, text, hasFetchedSkills]);
 
   if (!user) {
     return (
@@ -845,12 +896,7 @@ const DashboardPage = () => {
                 </Text>
               </Flex>
             ) : (
-              // Show the TableContainer with jobs if resume is uploaded
-              <TableContainer
-                height="100%" // TableContainer takes full height of the Box
-                maxHeight="300px" // Max height to control overflow
-                overflowY="auto" // Allow vertical scrolling for large content
-              >
+              <TableContainer height="100%" maxHeight="300px" overflowY="auto">
                 <Table variant="simple" size="sm" width="full">
                   <Thead position="sticky" top="0" bg="white" zIndex="sticky">
                     <Tr>
