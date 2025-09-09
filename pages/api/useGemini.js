@@ -26,8 +26,11 @@ const getRedisClient = async () => {
         lazyConnect: false,
         connectTimeout: 10000,
         commandTimeout: 5000,
+        connectTimeout: 10000,
+        commandTimeout: 5000,
         maxRetriesPerRequest: 3,
       });
+      await redisClient.ping();
       await redisClient.ping();
       console.info('[Redis] connected');
     } catch (err) {
@@ -40,7 +43,10 @@ const getRedisClient = async () => {
 
 const MEMORY_LIMIT = 1000;
 const memoryCache = new Map();
+const MEMORY_LIMIT = 1000;
+const memoryCache = new Map();
 
+const getFromMemory = (key) => {
 const getFromMemory = (key) => {
   if (!memoryCache.has(key)) return null;
   const value = memoryCache.get(key);
@@ -58,7 +64,9 @@ const setInMemory = (key, value) => {
 };
 
 const CACHE_TTL = 3600;
+const CACHE_TTL = 3600;
 
+const getCached = async (key) => {
 const getCached = async (key) => {
   const redis = await getRedisClient();
   if (redis) {
@@ -78,10 +86,12 @@ const setCached = async (key, value) => {
 
 /* ------------------------------------------------------------------ */
 /* SageMaker client setup                                             */
+/* SageMaker client setup                                             */
 /* ------------------------------------------------------------------ */
 // We'll use mlvoca.com for lightweight LLM generation instead of SageMaker here
 
 /* ------------------------------------------------------------------ */
+/* Deterministic cache key builder                                    */
 /* Deterministic cache key builder                                    */
 /* ------------------------------------------------------------------ */
 const buildKey = (resume, skills) => {
@@ -129,18 +139,30 @@ const computeFallbackResult = (resume, skills) => {
 
 /* ------------------------------------------------------------------ */
 /* API handler                                                        */
+/* API handler                                                        */
 /* ------------------------------------------------------------------ */
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Only POST allowed' });
+    return res.status(405).json({ error: 'Only POST allowed' });
   }
 
+  const { resume, skills } = req.body;
   const { resume, skills } = req.body;
 
   if (!resume || !Array.isArray(skills)) {
     return res.status(400).json({ error: 'Invalid request body' });
+  if (!resume || !Array.isArray(skills)) {
+    return res.status(400).json({ error: 'Invalid request body' });
   }
 
+  const payload = { resume, skills };
+  const cacheKey = buildKey(resume, skills);
+
+  const cachedResult = await getCached(cacheKey);
+  if (cachedResult) {
+    console.log('[Cache Hit]');
+    return res.status(200).json({ ...cachedResult, cached: true });
   const payload = { resume, skills };
   const cacheKey = buildKey(resume, skills);
 
